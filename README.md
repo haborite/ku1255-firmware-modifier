@@ -5,8 +5,8 @@ This repository provides a keymap for the Lenovo KU-1255 (ThinkPad Compact USB K
 The data in this table is generated from automated firmware analysis using `keymap_offset_finder.py`. **The result accuracy is not assured. Use at your own risk.**
 
 # GUI Tool Usage
-1. Download the latest firmware `tp_compact_usb_kb_with_trackpoint_fw.exe` from the Lenovo official website (https://support.lenovo.com/ca/en/solutions/pd026745).
-2. Download the released application (https://github.com/haborite/ku1255-firmware-keymap/releases/download/v0.2/ku1255-fw-remapper-win.zip) and unzip it.
+1. Download the latest firmware `tp_compact_usb_kb_with_trackpoint_fw.exe` from the [Lenovo official website](https://support.lenovo.com/ca/en/solutions/pd026745).
+2. Download the [released application](https://github.com/haborite/ku1255-firmware-keymap/releases/download/v0.2/ku1255-fw-remapper-win.zip) and unzip it.
 3. Run `ku1255-fw-remapper.exe` in the unzipped directory.
 
 <img width="640" alt="gui-overview" src="https://github.com/user-attachments/assets/0134801f-3a95-40c1-a9b2-61cda8a60ef1">
