@@ -5,12 +5,15 @@ This repository provides a keymap for the Lenovo KU-1255 (ThinkPad Compact USB K
 The data in this table is generated from automated firmware analysis using `keymap_offset_finder.py`. **The result accuracy is not assured. Use at your own risk.**
 
 # GUI Tool Usage
-1. Download the latest firmware `tp_compact_usb_kb_with_trackpoint_fw.exe` from the Lenovo official website (https://support.lenovo.com/ca/en/solutions/pd026745).
-2. Download the released application (https://github.com/haborite/ku1255-firmware-keymap/releases/download/v0.2/win) and unzip it.
+1. Download the latest firmware `tp_compact_usb_kb_with_trackpoint_fw.exe` from the [Lenovo official website](https://support.lenovo.com/ca/en/solutions/pd026745).
+2. Download the [released application](https://github.com/haborite/ku1255-firmware-keymap/releases/download/v0.2/ku1255-fw-remapper-win.zip) and unzip it.
 3. Run `ku1255-fw-remapper.exe` in the unzipped directory.
-4. Click "1. Select Original Firmware" and select the downloaded firmware `tp_compact_usb_kb_with_trackpoint_fw.exe`.
-5. Confirm that the original SHA256 hash is `7116a3819ee094857d21e4671cb6cf953d582372126f0f6728f6b2421eda7bd4`.
-6. Click "2. Select Key Remap JSON" and select a key-remap json file (e.g. Use `example\Swap-Fn-Ctrl.json` to just swap `Fn` and `LeftControl`). If you want to create or modify key-remapping json files, please see the "Offset & scan code table" described below.  
+
+<img width="640" alt="gui-overview" src="https://github.com/user-attachments/assets/0134801f-3a95-40c1-a9b2-61cda8a60ef1">
+
+5. Click "1. Select Original Firmware" and select the downloaded firmware `tp_compact_usb_kb_with_trackpoint_fw.exe`.
+6. Confirm that the original SHA256 hash is `7116a3819ee094857d21e4671cb6cf953d582372126f0f6728f6b2421eda7bd4`.
+7. Click "2. Select Key Remap JSON" and select a key-remap json file (e.g. Use `example\Swap-Fn-Ctrl.json` to just swap `Fn` and `LeftControl`). If you want to create or modify key-remapping json files, please see the "Offset & scan code table" described below.  
 5. Click "3. Modify and Save New Firmware", and specify the filename and path of the new firmware.
 6. Check SH256 hash (e.g. If you use `Swap-Fn-Ctrl.json`, it should be `123143092dab578550c87a62526b07a6c5f06c047f2455be87971aa51577e300`).
 7. Close the app.
