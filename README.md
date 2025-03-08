@@ -175,7 +175,7 @@ The data in this table is generated from automated firmware analysis using `keym
 |Volume Decrement|0xEA|0xb0|
 
 # For JIS keyboard (0B47208) users
-HID Usage names in the JP keymap (日本語配列独自キーのHID Usage Name).
+Key names in the JP keymap (日本語配列独自キーのKey Name).
 |Key|HID Usage name|
 |---|---|
 |_|International1|
