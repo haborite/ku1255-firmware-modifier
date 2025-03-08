@@ -6,7 +6,7 @@ The data in this table is generated from automated firmware analysis using `keym
 
 # Create a custom firmware
 ## With executable (works without Python)
-1. Download the released package (https://github.com/haborite/haborite-ku1255-firmware-keymap/releases/download/v0.1/modify_fw.zip) and unzip it.
+1. Download the released package (https://github.com/haborite/ku1255-firmware-keymap/releases/download/v0.1/modify_fw.zip) and unzip it.
 2. Download the latest firmware `tp_compact_usb_kb_with_trackpoint_fw.exe` from the Lenovo official website (https://support.lenovo.com/ca/en/solutions/pd026745).
 3. Move the downloaded `tp_compact_usb_kb_with_trackpoint_fw.exe` in the unzipped directory (the same directory as `modify_fw.py`).
 4. Modify `remaps.json` if you need. The default setting is just swapping `Fn` and `LeftControl`.
