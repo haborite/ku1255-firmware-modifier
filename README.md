@@ -178,13 +178,14 @@ The data in this table is generated from automated firmware analysis using `keym
 HID Usage names in the JP keymap (日本語配列独自キーのHID Usage Name).
 |Key|HID Usage name|
 |---|---|
-|¥ |International3|
 |_|International1|
+|ひらがな カタカナ|International2|
+|¥|International3|
 |変換|International4|
 |無変換|International5|
 |半角/全角|grave_accent_and_tilde|
-|IME ON|LANG1|
-|IME OFF|LANG2|
+|かな カナ|LANG1|
+|英数|LANG2|
 
 # Acknowledgements
 The firmware binary analysis methodology employed in this project is based on the discussion in the following thread, with particular acknowledgement to @federvieh's insightful comment:
