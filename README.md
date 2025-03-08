@@ -4,24 +4,6 @@ This repository provides a keymap for the Lenovo KU-1255 (ThinkPad Compact USB K
 # Disclaimer
 The data in this table is generated from automated firmware analysis using `keymap_offset_finder.py`. **The result accuracy is not assured. Use at your own risk.**
 
-# Create a custom firmware
-## With executable (works without Python)
-1. Download the released package (https://github.com/haborite/ku1255-firmware-keymap/releases/download/v0.1/modify_fw.zip) and unzip it.
-2. Download the latest firmware `tp_compact_usb_kb_with_trackpoint_fw.exe` from the Lenovo official website (https://support.lenovo.com/ca/en/solutions/pd026745).
-3. Move the downloaded `tp_compact_usb_kb_with_trackpoint_fw.exe` in the unzipped directory (the same directory as `modify_fw.py`).
-4. Modify `remaps.json` if you need. The default setting is just swapping `Fn` and `LeftControl`.
-5. Run `python modify_fw.exe`. Confirm that original firmware SHA256 is `7116a3819ee094857d21e4671cb6cf953d582372126f0f6728f6b2421eda7bd4`.
-6. Run the modified firmware exe.
- 
-## With Python
-1. Install a Python interpreter if you do not have.
-2. Clone the repository and unzip it.
-3. Download the latest firmware `tp_compact_usb_kb_with_trackpoint_fw.exe` from the Lenovo official website (https://support.lenovo.com/ca/en/solutions/pd026745).
-4. Move the downloaded `tp_compact_usb_kb_with_trackpoint_fw.exe` in the unzipped directory (the same directory as `modify_fw.py`).
-5. Modify `remaps.json` if you need. The default setting is just swapping `Fn` and `LeftControl`.
-6. Run `python modify_fw.py`. Confirm that original firmware SHA256 is `7116a3819ee094857d21e4671cb6cf953d582372126f0f6728f6b2421eda7bd4`.
-7. Run the modified firmware exe.
-
 # Offset & scan code table
 |Key Name|HID Usage ID|Offset|Scan code|
 |---|---|---|---|
@@ -186,6 +168,24 @@ Key names in the JP keymap (日本語配列独自キーのKey Name).
 |半角/全角|grave_accent_and_tilde|
 |かな カナ|LANG1|
 |英数|LANG2|
+
+# Create a custom firmware
+## With executable (works without Python)
+1. Download the released package (https://github.com/haborite/ku1255-firmware-keymap/releases/download/v0.1/modify_fw.zip) and unzip it.
+2. Download the latest firmware `tp_compact_usb_kb_with_trackpoint_fw.exe` from the Lenovo official website (https://support.lenovo.com/ca/en/solutions/pd026745).
+3. Move the downloaded `tp_compact_usb_kb_with_trackpoint_fw.exe` in the unzipped directory (the same directory as `modify_fw.py`).
+4. Modify `remaps.json` if you need. The default setting is just swapping `Fn` and `LeftControl`.
+5. Run `python modify_fw.exe`. Confirm that original firmware SHA256 is `7116a3819ee094857d21e4671cb6cf953d582372126f0f6728f6b2421eda7bd4`.
+6. Run the modified firmware exe.
+ 
+## With Python
+1. Install a Python interpreter if you do not have.
+2. Clone the repository and unzip it.
+3. Download the latest firmware `tp_compact_usb_kb_with_trackpoint_fw.exe` from the Lenovo official website (https://support.lenovo.com/ca/en/solutions/pd026745).
+4. Move the downloaded `tp_compact_usb_kb_with_trackpoint_fw.exe` in the unzipped directory (the same directory as `modify_fw.py`).
+5. Modify `remaps.json` if you need. The default setting is just swapping `Fn` and `LeftControl`.
+6. Run `python modify_fw.py`. Confirm that original firmware SHA256 is `7116a3819ee094857d21e4671cb6cf953d582372126f0f6728f6b2421eda7bd4`.
+7. Run the modified firmware exe.
 
 # Acknowledgements
 The firmware binary analysis methodology employed in this project is based on the discussion in the following thread, with particular acknowledgement to @federvieh's insightful comment:
