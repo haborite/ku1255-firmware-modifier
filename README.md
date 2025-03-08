@@ -169,7 +169,7 @@ Key names in the JP keymap (日本語配列独自キーのKey Name).
 |かな カナ|LANG1|
 |英数|LANG2|
 
-# Create a custom firmware
+# CLI to create a custom firmware
 ## With executable (works without Python)
 1. Download the released package (https://github.com/haborite/ku1255-firmware-keymap/releases/download/v0.1/modify_fw.zip) and unzip it.
 2. Download the latest firmware `tp_compact_usb_kb_with_trackpoint_fw.exe` from the Lenovo official website (https://support.lenovo.com/ca/en/solutions/pd026745).
