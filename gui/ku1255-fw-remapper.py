@@ -1,7 +1,7 @@
 import sys
 import json
 import hashlib
-from PyQt6.QtWidgets import (
+from PySide6.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QPushButton, QFileDialog, QLabel,
     QLineEdit, QTextEdit, QMessageBox, QFrame
 )
