@@ -4,4 +4,6 @@ build
 win-unpacked
 node_modules
 package-lock.json
-for-local
+upload
+win
+linux

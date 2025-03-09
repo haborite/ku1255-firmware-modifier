@@ -5,6 +5,7 @@ set -eux
 VERSION=${1:-0.4.0}  # デフォルトで0.4.0を使用。引数が渡された場合はそれを使用。
 
 # nuitka compile
+. ~/ku1255-env/bin/activate
 python -m nuitka --standalone --enable-plugin=pyside6 --windows-console-mode=disable --output-dir=linux ku1255-fw-remapper.py
 
 cd linux
