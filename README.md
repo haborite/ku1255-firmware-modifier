@@ -117,9 +117,6 @@ The data in this table is generated from automated firmware analysis using `keym
 # Non-exsistent Keys in KU-1255
 |Key Name|HID Usage ID|Scan code|
 |---|---|---|
-|System Power Down|0x81|0xdb|
-|System Sleep|0x82|0xd8|
-|System Wake Up|0x83|0xd9|
 |ErrorRollOver|0x01|0x5b|
 |Scroll Lock|0x47|0x1d|
 |Keypad Num Lock and Clear|0x53|0x09|
