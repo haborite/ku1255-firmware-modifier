@@ -1,4 +1,4 @@
-HID_Key_Name,HID_Key_ID,Byte_Offset,Scan_Code
+HID_Key_Name,HID_Key_ID,Byte_Offset,XORed_ID
 ErrorRollOver,0x01,0x00,0x5B
 A,0x04,0x73FDA,0x5E
 B,0x05,0x7401E,0x5F

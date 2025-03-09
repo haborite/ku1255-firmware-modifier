@@ -1,4 +1,4 @@
-HID_Key_Name,HID_Key_ID,Byte_Offset,Scan_Code
+HID_Key_Name,HID_Key_ID,Byte_Offset,XORed_ID
 System Power Down,0x81,,0xDB
 System Sleep,0x82,,0xD8
 System Wake Up,0x83,,0xD9
