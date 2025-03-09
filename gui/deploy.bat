@@ -17,6 +17,6 @@ copy ..\keymaps.csv ku1255-fw-remapper-win-%VERSION%\keymaps.csv
 xcopy ..\examples ku1255-fw-remapper-win-%VERSION%\examples /E /I /H /Y
 
 REM Create zip archive
-powershell Compress-Archive -Path ku1255-fw-remapper-win-%VERSION% -DestinationPath ..\upload\ku1255-fw-remapper-win-%VERSION%.zip
+powershell Compress-Archive -Path ku1255-fw-remapper-win-%VERSION% -DestinationPath ..\upload\ku1255-fw-remapper-win-%VERSION%.zip -Force
 
 endlocal
