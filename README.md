@@ -115,6 +115,7 @@ The data in this table is generated from automated firmware analysis using `keym
 |Fn|0xAF|0x740ba|0xf5|
 
 # Non-exsistent Keys in KU-1255
+Only keys in `Keyboard/Keypad Page (0x07)` are listed.
 |Key Name|HID Usage ID|Scan code|
 |---|---|---|
 |ErrorRollOver|0x01|0x5b|
