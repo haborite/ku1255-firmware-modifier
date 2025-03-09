@@ -1,0 +1,18 @@
+directories:
+  output: dist
+  buildResources: build
+appId: com.haborite.ku1255-fw-remapper
+productName: ku1255-fw-remapper
+files:
+  - filter:
+      - main.js
+      - preload.js
+      - index.html
+      - renderer.js
+asar: true
+win:
+  target: portable
+  artifactName: ${productName}-${version}.${ext}
+linux:
+  target: AppImage
+electronVersion: 27.3.11

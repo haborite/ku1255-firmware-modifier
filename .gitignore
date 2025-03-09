@@ -1,3 +1,6 @@
-tp*.exe
+*.exe
 *.spec
 build
+win-unpacked
+node_modules
+package-lock.json

@@ -13,7 +13,7 @@ The data in this table is generated from automated firmware analysis using `keym
 
 5. Click "1. Select Original Firmware" and select the downloaded firmware `tp_compact_usb_kb_with_trackpoint_fw.exe`.
 6. Confirm that the original SHA256 hash is `7116a3819ee094857d21e4671cb6cf953d582372126f0f6728f6b2421eda7bd4`.
-7. Click "2. Select Key Remap JSON" and select a key-remap json file (e.g. Use `example\Swap-Fn-Ctrl.json` to just swap `Fn` and `LeftControl`). If you want to create or modify key-remapping json files, please see the "Offset & scan code table" described below.  
+7. Click "2. Select Key Remap JSON" and select a key-remap json file (e.g. Use `examples\Swap-Fn-Ctrl.json` to just swap `Fn` and `LeftControl`). If you want to create or modify key-remapping json files, please see the "Offset & scan code table" described below.  
 5. Click "3. Modify and Save New Firmware", and specify the filename and path of the new firmware.
 6. Check SH256 hash (e.g. If you use `Swap-Fn-Ctrl.json`, it should be `123143092dab578550c87a62526b07a6c5f06c047f2455be87971aa51577e300`).
 7. Close the app.
