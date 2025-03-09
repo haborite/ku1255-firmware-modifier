@@ -41,9 +41,9 @@ def extract_keymap_offsets(
     unmapped_keys = []
 
     for key_name, key_id in hid_keys:
-        scan_code = key_id ^ 0x5A
+        xored_id = key_id ^ 0x5A
         # Get all matching offsets, filter for keymap range
-        valid_offsets = [offset for offset in byte_positions.get(scan_code, [])
+        valid_offsets = [offset for offset in byte_positions.get(xored_id, [])
                          if KEYMAP_START <= offset <= KEYMAP_END]
 
         if valid_offsets:
@@ -55,26 +55,26 @@ def extract_keymap_offsets(
                 "HID_Key_Name": key_name,
                 "HID_Key_ID": f"0x{key_id:02X}",
                 "Byte_Offset": primary_offset,
-                "Scan_Code": f"0x{scan_code:02X}",
+                "XORed_ID": f"0x{xored_id:02X}",
             })
         else:
             unmapped_keys.append({
                 "HID_Key_Name": key_name,
                 "HID_Key_ID": f"0x{key_id:02X}",
                 "Byte_Offset": None,
-                "Scan_Code": f"0x{scan_code:02X}",
+                "XORed_ID": f"0x{xored_id:02X}",
             })
 
     # Write mapped key offsets to CSV
     with open(output_csv, mode='w', newline='', encoding='utf-8') as file:
-        writer = csv.DictWriter(file, fieldnames=["HID_Key_Name", "HID_Key_ID", "Byte_Offset", "Scan_Code"])
+        writer = csv.DictWriter(file, fieldnames=["HID_Key_Name", "HID_Key_ID", "Byte_Offset", "XORed_ID"])
         writer.writeheader()
         writer.writerows(mapped_keys)
     print(f"Keymap offsets saved to {output_csv}")
 
     # Save unmapped keys to CSV
     with open(unmapped_keys_csv, mode='w', newline='', encoding='utf-8') as file:
-        writer = csv.DictWriter(file, fieldnames=["HID_Key_Name", "HID_Key_ID", "Byte_Offset", "Scan_Code"])
+        writer = csv.DictWriter(file, fieldnames=["HID_Key_Name", "HID_Key_ID", "Byte_Offset", "XORed_ID"])
         writer.writeheader()
         writer.writerows(unmapped_keys)
     print(f"Unmapped keys saved to {unmapped_keys_csv}")

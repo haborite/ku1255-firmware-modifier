@@ -87,9 +87,9 @@ class FirmwareModifierGUI(QWidget):
             reader = csv.DictReader(f)
             for row in reader:
                 if row['Byte_Offset']:
-                    keymap[row['HID_Key_Name']] = (int(row['Byte_Offset'], 16), int(row['Scan_Code'], 16))
+                    keymap[row['HID_Key_Name']] = (int(row['Byte_Offset'], 16), int(row['XORed_ID'], 16))
                 else:
-                    keymap[row['HID_Key_Name']] = (None, int(row['Scan_Code'], 16))
+                    keymap[row['HID_Key_Name']] = (None, int(row['XORed_ID'], 16))
         return keymap
     
     def compute_sha256(self, file_path):
@@ -139,14 +139,14 @@ class FirmwareModifierGUI(QWidget):
             if source_key not in KEYMAPS or target_key not in KEYMAPS:
                 QMessageBox.warning(self, 'Error', f'Key {source_key} or {target_key} not found in CSV!')
                 return
-            byte_offset, expected_scan_code = KEYMAPS[source_key]
-            _, new_scan_code = KEYMAPS[target_key]
+            byte_offset, expected_xored_id = KEYMAPS[source_key]
+            _, new_xored_id = KEYMAPS[target_key]
             
-            if data[byte_offset] != expected_scan_code:
-                QMessageBox.critical(self, 'Error', f'Unexpected value at {hex(byte_offset)}. Expected {hex(expected_scan_code)}, found {hex(data[byte_offset])}.')
+            if data[byte_offset] != expected_xored_id:
+                QMessageBox.critical(self, 'Error', f'Unexpected value at {hex(byte_offset)}. Expected {hex(expected_xored_id)}, found {hex(data[byte_offset])}.')
                 return
             
-            data[byte_offset] = new_scan_code
+            data[byte_offset] = new_xored_id
         
         with open(self.modified_firmware, 'wb') as f:
             f.write(data)
