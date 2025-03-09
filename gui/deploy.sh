@@ -1,5 +1,5 @@
 #!/bin/sh
-set -e
+set -eux
 python -m nuitka --standalone --enable-plugin=pyside6 --windows-console-mode=disable --output-dir=linux ku1255-fw-remapper.py
 cd linux
 mv ku1255-fw-remapper.dist ku1255-fw-remapper-linux-0.4.0
