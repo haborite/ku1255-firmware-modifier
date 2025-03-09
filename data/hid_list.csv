@@ -1,7 +1,4 @@
 HID_Key_Name,HID_Key_ID
-System Power Down,0x0081
-System Sleep,0x0082
-System Wake Up,0x0083
 ErrorRollOver,0x0001
 A,0x0004
 B,0x0005
@@ -135,22 +132,4 @@ RightControl,0x00E4
 RightShift,0x00E5
 RightAlt,0x00E6
 Right GUI,0x00E7
-Scan Next Track,0x00B5
-Scan Previous Track,0x00B6
-Stop,0x00B7
-Play/Pause,0x00CD
-Mute,0x00E2
-Volume Increment,0x00E9
-Volume Decrement,0x00EA
-AL Consumer Control Configuration,0x0183
-AL Email Reader,0x018A
-AL Calculator,0x0192
-AL Local Machine Browser,0x0194
-AC Search,0x0221
-AC Home,0x0223
-AC Back,0x0224
-AC Forward,0x0225
-AC Stop,0x0226
-AC Refresh,0x0227
-AC Bookmarks,0x022A
 Fn,0x00af

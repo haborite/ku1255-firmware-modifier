@@ -19,7 +19,7 @@ class FirmwareModifierGUI(QWidget):
         self.label_original = QLabel('Original Firmware: Not selected')
         self.btn_original.clicked.connect(self.select_original_firmware)
         
-        self.sha256_label = QLabel('Original SHA256:')
+        self.sha256_label = QLabel('Original FW SHA256:')
         self.sha256_display = QLineEdit()
         self.sha256_display.setReadOnly(True)
         
@@ -44,7 +44,7 @@ class FirmwareModifierGUI(QWidget):
         self.btn_execute = QPushButton('3. Modify and Save New Firmware')
         self.btn_execute.clicked.connect(self.modify_firmware)
         
-        self.modified_sha256_label = QLabel('Modified SHA256:')
+        self.modified_sha256_label = QLabel('Modified FW SHA256:')
         self.modified_sha256_display = QLineEdit()
         self.modified_sha256_display.setReadOnly(True)
         
