@@ -254,18 +254,13 @@ Only keys in `Keyboard/Keypad Page (0x07)` are listed.
 | E6 | 7409E | BC | RightAlt | RAlt | RAlt | RAlt |
 | E7 |  | BD | Right GUI | RWin | RWin | RWin |
 
-# For JIS keyboard (0B47208) users
-Key names in the JP keymap (日本語配列独自キーのKey Name).
-|Key|HID Usage name|
-|---|---|
-|_|International1|
-|ひらがな カタカナ|International2|
-|¥|International3|
-|変換|International4|
-|無変換|International5|
-|半角/全角|grave_accent_and_tilde|
-|かな カナ|LANG1|
-|英数|LANG2|
+# Format of a remap CSV
+For each row, specify the key ID before and after the change.
+```Swap-Fn-Ctrl.csv
+Before_ID,After_ID
+E0,AF
+AF,E0
+```
 
 # Acknowledgements
 The firmware binary analysis methodology employed in this project is based on the discussion in the following thread, with particular acknowledgement to @federvieh's insightful comment:
