@@ -256,6 +256,8 @@ Only keys in `Keyboard/Keypad Page (0x07)` are listed.
 
 # Format of a remap CSV
 For each row, specify the key ID before and after the change.
+
+e.g.) Swap-Fn-Ctrl.csv
 ```Swap-Fn-Ctrl.csv
 Before_ID,After_ID
 E0,AF
