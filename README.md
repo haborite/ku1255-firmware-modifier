@@ -70,7 +70,7 @@ Only keys in `Keyboard/Keypad Page (0x07)` are listed. Keys with no `Byte_Offset
 | 2E | 74034 | 74 | = and + | = and + | ^ and ~ | = and + |
 | 2F | 74060 | 75 | [ and { | [ and { | @ and ` | [ and { |
 | 30 | 74040 | 6A | ] and } | ] and } | [ and { | ] and } |
-| 31 | 7407A | 6B | \ and | | \ and | |  |  |
+| 31 | 7407A | 6B | \ and &#124; | \ and &#124; |  |  |
 | 32 | 7405C | 68 | NonーUS # and ~ |  | ] and } | # and ~ |
 | 33 | 7405A | 69 | ; and : | ; and : | ; and + | ; and : |
 | 34 | 74052 | 6E | ' and " | ' and " | : and * | ' and @ |
@@ -121,7 +121,7 @@ Only keys in `Keyboard/Keypad Page (0x07)` are listed. Keys with no `Byte_Offset
 | 61 |  | 3B | Keypad 9 and PageUp | KPー9 and PgUp | KPー9 and PgUp | KPー9 and PgUp |
 | 62 |  | 38 | Keypad 0 and Insert | KPー0 and Insert | KPー0 and Insert | KPー0 and Insert |
 | 63 |  | 39 | Keypad . and Delete | KPー. and Delete | KPー. and Delete | KPー. and Delete |
-| 64 | 73FF2 | 3E | NonーUS Slash Bar |  |  | \ and | |
+| 64 | 73FF2 | 3E | NonーUS Slash Bar |  |  | \ and &#124; |
 | 65 |  | 3F | Application | App | App | App |
 | 66 |  | 3C | Power | Power | Power | Power |
 | 67 |  | 3D | Keypad = |  |  |  |
@@ -158,7 +158,7 @@ Only keys in `Keyboard/Keypad Page (0x07)` are listed. Keys with no `Byte_Offset
 | 86 |  | DC | Keypad Equal Sign |  |  |  |
 | 87 | 7403E | DD | International1 |  | \ and _ |  |
 | 88 | 7404E | D2 | International2 |  | カタカナ / ひらがな |  |
-| 89 | 74076 | D3 | International3 |  | ¥ and | |  |
+| 89 | 74076 | D3 | International3 |  | ¥ and &#124; |  |
 | 8A | 74042 | D0 | International4 |  | 変換 |  |
 | 8B | 73FDE | D1 | International5 |  | 無変換 |  |
 | 8C |  | D6 | International6 |  |  |  |
