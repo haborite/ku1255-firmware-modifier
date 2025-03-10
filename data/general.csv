@@ -1,0 +1,232 @@
+ID,Usage Name,0B47190 (US),0B47208 (JIS),ISO
+01,ErrorRollOver,,,
+02,POSTFail,,,
+03,ErrorUndefined,,,
+04,a and A,a and A,a and A,a and A
+05,b and B,b and B,b and B,b and B
+06,c and C,c and C,c and C,c and C
+07,d and D,d and D,d and D,d and D
+08,e and E,e and E,e and E,e and E
+09,f and F,f and F,f and F,f and F
+0A,g and G,g and G,g and G,g and G
+0B,h and H,h and H,h and H,h and H
+0C,i and I,i and I,i and I,i and I
+0D,j and J,j and J,j and J,j and J
+0E,k and K,k and K,k and K,k and K
+0F,l and L,l and L,l and L,l and L
+10,m and M,m and M,m and M,m and M
+11,n and N,n and N,n and N,n and N
+12,o and O,o and O,o and O,o and O
+13,p and P,p and P,p and P,p and P
+14,q and Q,q and Q,q and Q,q and Q
+15,r and R,r and R,r and R,r and R
+16,s and S,s and S,s and S,s and S
+17,t and T,t and T,t and T,t and T
+18,u and U,u and U,u and U,u and U
+19,v and V,v and V,v and V,v and V
+1A,w and W,w and W,w and W,w and W
+1B,x and X,x and X,x and X,x and X
+1C,y and Y,y and Y,y and Y,y and Y
+1D,z and Z,z and Z,z and Z,z and Z
+1E,1 and !,1 and !,1 and !,1 and !
+1F,2 and @,2 and @,2 and @,"2 and """
+20,3 and #,3 and #,3 and #,3 and £
+21,4 and $,4 and $,4 and $,4 and $
+22,5 and %,5 and %,5 and %,5 and %
+23,6 and ^,6 and ^,6 and ^,6 and ^
+24,7 and &,7 and &,7 and &,7 and &
+25,8 and *,8 and *,8 and *,8 and *
+26,9 and (,9 and (,9 and (,9 and (
+27,0 and ),0 and ),0 and ),0 and )
+28,Return (ENTER),Enter,Enter,Enter
+29,ESCAPE,Escape,Escape,Escape
+2A,DELETE (Backspace),Backspace,Backspace,Backspace
+2B,Tab,Tab,Tab,Tab
+2C,Spacebar,Spacebar,Spacebar,Spacebar
+2D,- and Underscore,- and _,- and =,- and _
+2E,= and +,= and +,^ and ~,= and +
+2F,[ and {,[ and {,@ and `,[ and {
+30,] and },] and },[ and {,] and }
+31,\ and |,\ and |,,
+32,Non-US # and ~,,] and },# and ~
+33,; and :,; and :,; and +,; and :
+34,"' and ""","' and """,: and *,' and @
+35,Grave Accent and Tilde,` and ~,半角 / 全角,` and ¬
+36,Comma and <,", and <",", and <",", and <"
+37,. and >,. and >,. and >,. and >
+38,/ and ?,/ and ?,/ and ?,/ and ?
+39,Caps Lock,Caps Lock,英数 / Caps Lock,Caps Lock
+3A,F1,F1,F1,F1
+3B,F2,F2,F2,F2
+3C,F3,F3,F3,F3
+3D,F4,F4,F4,F4
+3E,F5,F5,F5,F5
+3F,F6,F6,F6,F6
+40,F7,F7,F7,F7
+41,F8,F8,F8,F8
+42,F9,F9,F9,F9
+43,F10,F10,F10,F10
+44,F11,F11,F11,F11
+45,F12,F12,F12,F12
+46,PrintScreen,PrintScreen,PrintScreen,PrintScreen
+47,Scroll Lock,Scroll Lock,Scroll Lock,Scroll Lock
+48,Pause,Pause,Pause,Pause
+49,Insert,Insert,Insert,Insert
+4A,Home,Home,Home,Home
+4B,PageUp,PgUp,PgUp,PgUp
+4C,Delete Forward,Delete,Delete,Delete
+4D,End,End,End,End
+4E,PageDown,PgDn,PgDn,PgDn
+4F,RightArrow,Right,Right,Right
+50,LeftArrow,Left,Left,Left
+51,DownArrow,Down,Down,Down
+52,UpArrow,Up,Up,Up
+53,Keypad Num Lock and Clear,Num Lock,Num Lock,Num Lock
+54,Keypad Forward Slash,KP-/,KP-/,KP-/
+55,Keypad *,KP-*,KP-*,KP-*
+56,Keypad -,KP-—,KP-—,KP-—
+57,Keypad +,KP-+,KP-+,KP-+
+58,Keypad ENTER,KP-Enter,KP-Enter,KP-Enter
+59,Keypad 1 and End,KP-1 and End,KP-1 and End,KP-1 and End
+5A,Keypad 2 and Down Arrow,KP-2 and Down,KP-2 and Down,KP-2 and Down
+5B,Keypad 3 and PageDn,KP-3 and PgDn,KP-3 and PgDn,KP-3 and PgDn
+5C,Keypad 4 and Left Arrow,KP-4 and Left,KP-4 and Left,KP-4 and Left
+5D,Keypad 5,KP-5,KP-5,KP-5
+5E,Keypad 6 and Right Arrow,KP-6 and Right,KP-6 and Right,KP-6 and Right
+5F,Keypad 7 and Home,KP-7 and Home,KP-7 and Home,KP-7 and Home
+60,Keypad 8 and Up Arrow,KP-8 and Up,KP-8 and Up,KP-8 and Up
+61,Keypad 9 and PageUp,KP-9 and PgUp,KP-9 and PgUp,KP-9 and PgUp
+62,Keypad 0 and Insert,KP-0 and Insert,KP-0 and Insert,KP-0 and Insert
+63,Keypad . and Delete,KP-. and Delete,KP-. and Delete,KP-. and Delete
+64,Non-US Slash Bar,,,\ and |
+65,Application,App,App,App
+66,Power,Power,Power,Power
+67,Keypad =,,,
+68,F13,,,
+69,F14,,,
+6A,F15,,,
+6B,F16,,,
+6C,F17,,,
+6D,F18,,,
+6E,F19,,,
+6F,F20,,,
+70,F21,,,
+71,F22,,,
+72,F23,,,
+73,F24,,,
+74,Execute,,,
+75,Help,,,
+76,Menu,,,
+77,Select,,,
+78,Stop,,,
+79,Again,,,
+7A,Undo,,,
+7B,Cut,,,
+7C,Copy,,,
+7D,Paste,,,
+7E,Find,,,
+7F,Mute,,,
+80,Volume Up,,,
+81,Volume Down,,,
+82,Locking Caps Lock,,,
+83,Locking Numb Lock,,,
+84,Locking Scroll Lock,,,
+85,Keypad Comma,,,
+86,Keypad Equal Sign,,,
+87,International1,,\ and _,
+88,International2,,カタカナ / ひらがな,
+89,International3,,¥ and |,
+8A,International4,,変換,
+8B,International5,,無変換,
+8C,International6,,,
+8D,International7,,,
+8E,International8,,,
+8F,International9,,,
+90,LANG1,,かな,
+91,LANG2,,英数,
+92,LANG3,,,
+93,LANG4,,,
+94,LANG5,,,
+95,LANG6,,,
+96,LANG7,,,
+97,LANG8,,,
+98,LANG9,,,
+99,Alternate Erase,,,
+9A,SysReq/Attention,,,
+9B,Cancel,,,
+9C,Clear,,,
+9D,Prior,,,
+9E,Return,,,
+9F,Separator,,,
+A0,Out,,,
+A1,Oper,,,
+A2,Clear/Again,,,
+A3,CrSel/Props,,,
+A4,ExSel,,,
+A5,Reserved,,,
+A6,Reserved,,,
+A7,Reserved,,,
+A8,Reserved,,,
+A9,Reserved,,,
+AA,Reserved,,,
+AB,Reserved,,,
+AC,Reserved,,,
+AD,Reserved,,,
+AE,Reserved,,,
+AF,Fn,Fn,Fn,Fn
+B0,Keypad 00,,,
+B1,Keypad 000,,,
+B2,Thousands Separator,,,
+B3,Decimal Separator,,,
+B4,Currency Unit,,,
+B5,Currency Sub-unit,,,
+B6,Keypad (,,,
+B7,Keypad ),,,
+B8,Keypad {,,,
+B9,Keypad },,,
+BA,Keypad Tab,,,
+BB,Keypad Backspace,,,
+BC,Keypad A,,,
+BD,Keypad B,,,
+BE,Keypad C,,,
+BF,Keypad D,,,
+C0,Keypad E,,,
+C1,Keypad F,,,
+C2,Keypad XOR,,,
+C3,Keypad ^,,,
+C4,Keypad %,,,
+C5,Keypad <,,,
+C6,Keypad >,,,
+C7,Keypad &,,,
+C8,Keypad &&,,,
+C9,Keypad |,,,
+CA,Keypad ||,,,
+CB,Keypad :,,,
+CC,Keypad #,,,
+CD,Keypad Space,,,
+CE,Keypad @,,,
+CF,Keypad !,,,
+D0,Keypad Memory Store,,,
+D1,Keypad Memory Recall,,,
+D2,Keypad Memory Clear,,,
+D3,Keypad Memory Add,,,
+D4,Keypad Memory Subtract,,,
+D5,Keypad Memory Multiply,,,
+D6,Keypad Memory Divide,,,
+D7,Keypad +/-,,,
+D8,Keypad Clear,,,
+D9,Keypad Clear Entry,,,
+DA,Keypad Binary,,,
+DB,Keypad Octal,,,
+DC,Keypad Decimal,,,
+DD,Keypad Hexadecimal,,,
+DE,Reserved,,,
+DF,Reserved,,,
+E0,LeftControl,LCtrl,LCtrl,LCtrl
+E1,LeftShift,LShift,LShift,LShift
+E2,LeftAlt,LAlt,LAlt,LAlt
+E3,Left GUI,LWin,LWin,LWin
+E4,RightControl,RCtrl,RCtrl,RCtrl
+E5,RightShift,RShift,RShift,RShift
+E6,RightAlt,RAlt,RAlt,RAlt
+E7,Right GUI,RWin,RWin,RWin
