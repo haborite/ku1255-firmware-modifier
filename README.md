@@ -19,7 +19,7 @@ The data in this table is generated from automated firmware analysis using `keym
 7. Close the app.
 
 # Offset & XORed ID table
-Only keys in `Keyboard/Keypad Page (0x07)` are listed.
+Only keys in `Keyboard/Keypad Page (0x07)` are listed. Keys with no `Byte_Offset` value are not originally assigned in KU-1255.
 | ID | Byte_Offset | XORed_ID | Usage Name | 0B47190 (US) | 0B47208 (JIS) | ISO |
 | --- | --- | --- | --- | --- | --- | --- |
 | 01 |  | 5B | ErrorRollOver |  |  |  |
