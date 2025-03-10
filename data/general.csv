@@ -29,15 +29,15 @@ ID,Usage Name,0B47190 (US),0B47208 (JIS),ISO
 1C,y and Y,y and Y,y and Y,y and Y
 1D,z and Z,z and Z,z and Z,z and Z
 1E,1 and !,1 and !,1 and !,1 and !
-1F,2 and @,2 and @,2 and @,"2 and """
+1F,2 and @,2 and @,2 and ",2 and @
 20,3 and #,3 and #,3 and #,3 and £
 21,4 and $,4 and $,4 and $,4 and $
 22,5 and %,5 and %,5 and %,5 and %
-23,6 and ^,6 and ^,6 and ^,6 and ^
-24,7 and &,7 and &,7 and &,7 and &
-25,8 and *,8 and *,8 and *,8 and *
-26,9 and (,9 and (,9 and (,9 and (
-27,0 and ),0 and ),0 and ),0 and )
+23,6 and ^,6 and ^,6 and &,6 and ^
+24,7 and &,7 and &,7 and ',7 and &
+25,8 and *,8 and *,8 and (,8 and *
+26,9 and (,9 and (,9 and ),9 and (
+27,0 and ),0 and ),0,0 and )
 28,Return (ENTER),Enter,Enter,Enter
 29,ESCAPE,Escape,Escape,Escape
 2A,DELETE (Backspace),Backspace,Backspace,Backspace
