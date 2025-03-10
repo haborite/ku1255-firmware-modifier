@@ -9,7 +9,7 @@ The data in this table is generated from automated firmware analysis using `keym
 2. Download the [released application](https://github.com/haborite/ku1255-firmware-keymap/releases/download/v0.4.1/ku1255-fw-remapper-win-0.4.1.zip) and unzip it.
 3. Run `ku1255-fw-remapper.exe` in the unzipped directory (It will take a bit time to launch).
 
-<img width="640" alt="gui-overview" src="https://github.com/user-attachments/assets/0134801f-3a95-40c1-a9b2-61cda8a60ef1">
+<img width="640" alt="gui-overview" src="https://github.com/haborite/ku1255-firmware-keymap/blob/main/img/gui-overview.png">
 
 5. Click "1. Select Original Firmware" and select the downloaded firmware `tp_compact_usb_kb_with_trackpoint_fw.exe`.
 6. Confirm that the original SHA256 hash is `7116a3819ee094857d21e4671cb6cf953d582372126f0f6728f6b2421eda7bd4`.
