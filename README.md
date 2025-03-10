@@ -73,7 +73,7 @@ Only keys in `Keyboard/Keypad Page (0x07)` are listed. Keys with no `Byte_Offset
 | 31 | 7407A | 6B | \ and &#124; | \ and &#124; |  |  |
 | 32 | 7405C | 68 | NonーUS # and ~ |  | ] and } | # and ~ |
 | 33 | 7405A | 69 | ; and : | ; and : | ; and + | ; and : |
-| 34 | 74052 | 6E | ' and " | ' and " | : and * | ' and @ |
+| 34 | 74052 | 6E | ' and " | ' and " | : and * | ' and " |
 | 35 | 73FD4 | 6F | Grave Accent and Tilde | ` and ~ | 半角 / 全角 | ` and ¬ |
 | 36 | 7403C | 6C | Comma and < | , and < | , and < | , and < |
 | 37 | 7404C | 6D | . and > | . and > | . and > | . and > |
