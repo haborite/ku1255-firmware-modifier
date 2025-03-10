@@ -52,15 +52,15 @@ Only keys in `Keyboard/Keypad Page (0x07)` are listed. Keys with no `Byte_Offset
 | 1C | 74030 | 46 | y and Y | y and Y | y and Y | y and Y |
 | 1D | 73FDC | 47 | z and Z | z and Z | z and Z | z and Z |
 | 1E | 73FD8 | 44 | 1 and ! | 1 and ! | 1 and ! | 1 and ! |
-| 1F | 73FF8 | 45 | 2 and @ | 2 and @ | 2 and " | 2 and " |
+| 1F | 73FF8 | 45 | 2 and @ | 2 and @ | 2 and " | 2 and @ |
 | 20 | 73FE8 | 7A | 3 and # | 3 and # | 3 and # | 3 and £ |
 | 21 | 74018 | 7B | 4 and $ | 4 and $ | 4 and $ | 4 and $ |
 | 22 | 74014 | 78 | 5 and % | 5 and % | 5 and % | 5 and % |
-| 23 | 74024 | 79 | 6 and ^ | 6 and ^ | 6 and ^ | 6 and ^ |
-| 24 | 74028 | 7E | 7 and & | 7 and & | 7 and & | 7 and & |
-| 25 | 74038 | 7F | 8 and * | 8 and * | 8 and * | 8 and * |
-| 26 | 74048 | 7C | 9 and ( | 9 and ( | 9 and ( | 9 and ( |
-| 27 | 74058 | 7D | 0 and ) | 0 and ) | 0 and ) | 0 and ) |
+| 23 | 74024 | 79 | 6 and ^ | 6 and ^ | 6 and & | 6 and ^ |
+| 24 | 74028 | 7E | 7 and & | 7 and & | 7 and ' | 7 and & |
+| 25 | 74038 | 7F | 8 and * | 8 and * | 8 and ( | 8 and * |
+| 26 | 74048 | 7C | 9 and ( | 9 and ( | 9 and ) | 9 and ( |
+| 27 | 74058 | 7D | 0 and ) | 0 and ) | 0 | 0 and ) |
 | 28 | 7407C | 72 | Return (ENTER) | Enter | Enter | Enter |
 | 29 | 73FD2 | 73 | ESCAPE | Escape | Escape | Escape |
 | 2A | 74080 | 70 | DELETE (Backspace) | Backspace | Backspace | Backspace |
