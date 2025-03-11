@@ -112,22 +112,22 @@ Only keys in `Keyboard/Keypad Page (0x07)` are listed. Only keys with `Offset` v
 | 4D | 740B8 | 17 | End | End | End | End |
 | 4E | 740CE | 14 | PageDown | PgDn | PgDn | PgDn |
 | 4F | 740AE | 15 | RightArrow | Right | Right | Right |
-| 50 | 740BE | A | LeftArrow | Left | Left | Left |
-| 51 | 7408E | B | DownArrow | Down | Down | Down |
-| 52 | 740B2 | 8 | UpArrow | Up | Up | Up |
-| 53 |  | 9 | Keypad Num Lock and Clear | Num Lock | Num Lock | Num Lock |
-| 54 |  | E | Keypad Forward Slash | KPー/ | KPー/ | KPー/ |
-| 55 |  | F | Keypad * | KPー* | KPー* | KPー* |
-| 56 |  | C | Keypad ー | KPー— | KPー— | KPー— |
-| 57 |  | D | Keypad + | KPー+ | KPー+ | KPー+ |
-| 58 |  | 2 | Keypad ENTER | KPーEnter | KPーEnter | KPーEnter |
-| 59 |  | 3 | Keypad 1 and End | KPー1 and End | KPー1 and End | KPー1 and End |
-| 5A |  | 0 | Keypad 2 and Down Arrow | KPー2 and Down | KPー2 and Down | KPー2 and Down |
-| 5B |  | 1 | Keypad 3 and PageDn | KPー3 and PgDn | KPー3 and PgDn | KPー3 and PgDn |
-| 5C |  | 6 | Keypad 4 and Left Arrow | KPー4 and Left | KPー4 and Left | KPー4 and Left |
-| 5D |  | 7 | Keypad 5 | KPー5 | KPー5 | KPー5 |
-| 5E |  | 4 | Keypad 6 and Right Arrow | KPー6 and Right | KPー6 and Right | KPー6 and Right |
-| 5F |  | 5 | Keypad 7 and Home | KPー7 and Home | KPー7 and Home | KPー7 and Home |
+| 50 | 740BE | 0A | LeftArrow | Left | Left | Left |
+| 51 | 7408E | 0B | DownArrow | Down | Down | Down |
+| 52 | 740B2 | 08 | UpArrow | Up | Up | Up |
+| 53 |  | 09 | Keypad Num Lock and Clear | Num Lock | Num Lock | Num Lock |
+| 54 |  | 0E | Keypad Forward Slash | KPー/ | KPー/ | KPー/ |
+| 55 |  | 0F | Keypad * | KPー* | KPー* | KPー* |
+| 56 |  | 0C | Keypad ー | KPー— | KPー— | KPー— |
+| 57 |  | 0D | Keypad + | KPー+ | KPー+ | KPー+ |
+| 58 |  | 02 | Keypad ENTER | KPーEnter | KPーEnter | KPーEnter |
+| 59 |  | 03 | Keypad 1 and End | KPー1 and End | KPー1 and End | KPー1 and End |
+| 5A |  | 00 | Keypad 2 and Down Arrow | KPー2 and Down | KPー2 and Down | KPー2 and Down |
+| 5B |  | 01 | Keypad 3 and PageDn | KPー3 and PgDn | KPー3 and PgDn | KPー3 and PgDn |
+| 5C |  | 06 | Keypad 4 and Left Arrow | KPー4 and Left | KPー4 and Left | KPー4 and Left |
+| 5D |  | 07 | Keypad 5 | KPー5 | KPー5 | KPー5 |
+| 5E |  | 04 | Keypad 6 and Right Arrow | KPー6 and Right | KPー6 and Right | KPー6 and Right |
+| 5F |  | 05 | Keypad 7 and Home | KPー7 and Home | KPー7 and Home | KPー7 and Home |
 | 60 |  | 3A | Keypad 8 and Up Arrow | KPー8 and Up | KPー8 and Up | KPー8 and Up |
 | 61 |  | 3B | Keypad 9 and PageUp | KPー9 and PgUp | KPー9 and PgUp | KPー9 and PgUp |
 | 62 |  | 38 | Keypad 0 and Insert | KPー0 and Insert | KPー0 and Insert | KPー0 and Insert |
