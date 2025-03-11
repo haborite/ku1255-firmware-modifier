@@ -6,7 +6,7 @@ The data in this table is generated from automated firmware analysis using `keym
 
 # GUI Tool Usage
 1. Download the latest firmware `tp_compact_usb_kb_with_trackpoint_fw.exe` from the [Lenovo official website](https://support.lenovo.com/ca/en/solutions/pd026745).
-2. Download the [released application](https://github.com/haborite/ku1255-firmware-keymap/releases/download/v0.4.1/ku1255-fw-remapper-win-0.4.1.zip) and unzip it.
+2. Download the [released application](https://github.com/haborite/ku1255-firmware-keymap/releases/download/v0.5.0/ku1255-fw-remapper-win-0.5.0.zip) and unzip it.
 3. Run `ku1255-fw-remapper.exe` in the unzipped directory (It will take a bit time to launch).
 
 <img width="640" alt="gui-overview" src="https://github.com/haborite/ku1255-firmware-keymap/blob/main/img/gui-overview.png">
