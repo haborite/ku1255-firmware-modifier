@@ -18,9 +18,20 @@ The data in this table is generated from automated firmware analysis using `keym
 6. Check SH256 hash (e.g. If you use `Swap-Fn-Ctrl.csv`, it should be `123143092dab578550c87a62526b07a6c5f06c047f2455be87971aa51577e300`).
 7. Close the app.
 
+# Format of a remap CSV
+For each row, specify the key ID before and after the modification.
+
+e.g.) Swap-Fn-Ctrl.csv (The ID of Fn is `AF`. The ID of LeftControl is `E0`.)
+```Swap-Fn-Ctrl.csv
+Before_ID,After_ID
+E0,AF
+AF,E0
+```
+The ID of each key can be found in the table below.
+
 # Offset & XORed ID table
-Only keys in `Keyboard/Keypad Page (0x07)` are listed. Keys with no `Byte_Offset` value are not originally assigned in KU-1255.
-| ID | Byte_Offset | XORed_ID | Usage Name | 0B47190 (US) | 0B47208 (JIS) | ISO |
+Only keys in `Keyboard/Keypad Page (0x07)` are listed. Only keys with `Offset` values are originally assigned in KU-1255.
+| ID | Offset | XORed_ID | Usage Name | 0B47190 (US) | 0B47208 (JIS) | ISO |
 | --- | --- | --- | --- | --- | --- | --- |
 | 01 |  | 5B | ErrorRollOver |  |  |  |
 | 02 |  | 58 | POSTFail |  |  |  |
@@ -253,16 +264,6 @@ Only keys in `Keyboard/Keypad Page (0x07)` are listed. Keys with no `Byte_Offset
 | E5 | 7406C | BF | RightShift | RShift | RShift | RShift |
 | E6 | 7409E | BC | RightAlt | RAlt | RAlt | RAlt |
 | E7 |  | BD | Right GUI | RWin | RWin | RWin |
-
-# Format of a remap CSV
-For each row, specify the key ID before and after the change.
-
-e.g.) Swap-Fn-Ctrl.csv
-```Swap-Fn-Ctrl.csv
-Before_ID,After_ID
-E0,AF
-AF,E0
-```
 
 # Acknowledgements
 The firmware binary analysis methodology employed in this project is based on the discussion in the following thread, with particular acknowledgement to @federvieh's insightful comment:
