@@ -152,6 +152,9 @@ class FirmwareModifierGUI(QWidget):
                 return                
             
             _, new_xored_id = self.keymaps[target_key][1], self.keymaps[target_key][2]
+            if not new_xored_id:
+                QMessageBox.critical(self, 'Error', f'No XORed ID value of Key ID: "{hex(target_key)}" is recorded in the keymaps CSV.')
+                return
             
             if data[byte_offset] != expected_xored_id:
                 QMessageBox.critical(self, 'Error', f'Unexpected value at {hex(byte_offset)}. Expected {hex(expected_xored_id)}, found {hex(data[byte_offset])}.')
