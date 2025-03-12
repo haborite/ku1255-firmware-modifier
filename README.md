@@ -240,11 +240,11 @@ Only keys in `Keyboard/Keypad Page (0x07)` are listed. Only keys with `Offset` v
 | CD |  | 97 | Keypad Space |  |  |  |
 | CE |  | 94 | Keypad @ |  |  |  |
 | CF |  | 95 | Keypad ! |  |  |  |
-| D0 | 740c0 | 8A | Keypad Memory Store | Right Click? | Right Click? |  |
+| D0 | 740c0 | 8A | Keypad Memory Store | ? | ? | ? |
 | D1 |  | 8B | Keypad Memory Recall |  |  |  |
-| D2 | 740a6 | 88 | Keypad Memory Clear | Scroll Button? | Scroll Button? |  |
+| D2 | 740a6 | 88 | Keypad Memory Clear | ? | ? | ? |
 | D3 |  | 89 | Keypad Memory Add |  |  |  |
-| D4 | 74094 | 8E | Keypad Memory Subtract | Left Click? | Left Click? |  |
+| D4 | 74094 | 8E | Keypad Memory Subtract | ? | ? | ? |
 | D5 |  | 8F | Keypad Memory Multiply |  |  |  |
 | D6 |  | 8C | Keypad Memory Divide |  |  |  |
 | D7 |  | 8D | Keypad +/ー |  |  |  |
