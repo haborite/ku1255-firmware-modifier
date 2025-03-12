@@ -29,7 +29,7 @@ ID,Byte_Offset,XORed_ID,Usage Name,0B47190 (US),0B47208 (JIS),ISO
 1C,74030,46,y and Y,y and Y,y and Y,y and Y
 1D,73FDC,47,z and Z,z and Z,z and Z,z and Z
 1E,73FD8,44,1 and !,1 and !,1 and !,1 and !
-1F,73FF8,45,2 and @,2 and @,"2 and "",2 and @
+1F,73FF8,45,2 and @,2 and @,"2 and """,2 and @
 20,73FE8,7A,3 and #,3 and #,3 and #,3 and £
 21,74018,7B,4 and $,4 and $,4 and $,4 and $
 22,74014,78,5 and %,5 and %,5 and %,5 and %
