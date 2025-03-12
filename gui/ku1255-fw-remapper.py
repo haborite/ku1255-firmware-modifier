@@ -144,6 +144,13 @@ class FirmwareModifierGUI(QWidget):
                 QMessageBox.warning(self, 'Error', f'Key IDs {source_key} or {target_key} not found in keymap CSV!')
                 return
             byte_offset, expected_xored_id = self.keymaps[source_key][1], self.keymaps[source_key][2]
+            if not byte_offset:
+                QMessageBox.critical(self, 'Error', f'No offset position of Key ID: "{hex(source_key)}" is recorded in the keymaps CSV.')
+                return
+            if not expected_xored_id:
+                QMessageBox.critical(self, 'Error', f'No XORed ID value of Key ID: "{hex(source_key)}" is recorded in the keymaps CSV.')
+                return                
+            
             _, new_xored_id = self.keymaps[target_key][1], self.keymaps[target_key][2]
             
             if data[byte_offset] != expected_xored_id:
