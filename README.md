@@ -33,7 +33,7 @@ The ID of each key can be found in the table below.
 Only keys in `Keyboard/Keypad Page (0x07)` are listed. Only keys with `Offset` values are originally assigned in KU-1255.
 | ID | Offset | XORed_ID | Usage Name | 0B47190 (US) | 0B47208 (JIS) | ISO |
 | --- | --- | --- | --- | --- | --- | --- |
-| 00 |  | 5A | No event |  |  |  |
+| 00 |  | 5A | No Event |  |  |  |
 | 01 |  | 5B | ErrorRollOver |  |  |  |
 | 02 |  | 58 | POSTFail |  |  |  |
 | 03 |  | 59 | ErrorUndefined |  |  |  |
