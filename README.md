@@ -272,8 +272,7 @@ The firmware is XOR-encrypted with the key `0x5A` and stored in the position of 
 <img width="480" alt="gui-overview" src="https://github.com/user-attachments/assets/59756ba2-f39a-451c-82ee-63bc1c77eee6">
 
 # Acknowledgements
-The firmware binary analysis methodology employed in this project is based on the discussion in the following thread, with particular acknowledgement to @federvieh's insightful comment:
-- https://github.com/lentinj/tp-compact-keyboard/issues/32#issuecomment-687659110
+The firmware binary analysis methodology employed in this project is based on the discussion in the following thread
 - https://github.com/lentinj/tp-compact-keyboard/issues/32
 
 The reffered table of Usage IDs and names
