@@ -3,7 +3,7 @@ import csv
 import hashlib
 from PySide6.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QPushButton, QFileDialog, QLabel,
-    QLineEdit, QTextEdit, QMessageBox, QFrame
+    QLineEdit, QTextEdit, QMessageBox, QFrame, QCheckBox
 )
 from PySide6.QtGui import QFont
 
@@ -46,23 +46,33 @@ class FirmwareModifierGUI(QWidget):
         layout.addWidget(self.label_remap_csv)
         layout.addWidget(self.remap_display)
         layout.addWidget(self.create_separator())
-
-        self.btn_layer2_csv = QPushButton('3. Select Layer 2 Keymap CSV')
+        
+        self.chk_layer2 = QCheckBox('Enable the 2nd Layer')
+        self.chk_layer2.stateChanged.connect(self.toggle_layer2_options)
+        layout.addWidget(self.chk_layer2)
+        
+        self.layer2_options = QWidget()
+        layer2_layout = QVBoxLayout()
+        self.label_layer2 = QLabel('The layer key is "Right GUI" (originally not mapped)')
+        self.btn_layer2_csv = QPushButton('2B. Select Layer 2 Keymap CSV')
         self.label_layer2_keymap_csv = QLabel('Layer 2 CSV: Not selected')
         self.btn_layer2_csv.clicked.connect(self.select_layer2_keymap_csv)
 
-        font = QFont("Courier New")
-        font.setStyleHint(QFont.StyleHint.Monospace)
         self.layer2_keymap_display = QTextEdit()
         self.layer2_keymap_display.setReadOnly(True)
         self.layer2_keymap_display.setFont(font)
 
-        layout.addWidget(self.btn_layer2_csv)
-        layout.addWidget(self.label_layer2_keymap_csv)
-        layout.addWidget(self.layer2_keymap_display)
+        layer2_layout.addWidget(self.label_layer2)
+        layer2_layout.addWidget(self.btn_layer2_csv)
+        layer2_layout.addWidget(self.label_layer2_keymap_csv)
+        layer2_layout.addWidget(self.layer2_keymap_display)
+        
+        self.layer2_options.setLayout(layer2_layout)
+        layout.addWidget(self.layer2_options)
+        self.layer2_options.setVisible(False)
         layout.addWidget(self.create_separator())
                 
-        self.btn_execute = QPushButton('4. Modify and Save New Firmware')
+        self.btn_execute = QPushButton('3. Modify and Save New Firmware')
         self.btn_execute.clicked.connect(self.modify_firmware)
         
         self.modified_sha256_label = QLabel('Modified FW SHA256:')
@@ -80,6 +90,9 @@ class FirmwareModifierGUI(QWidget):
         self.modified_firmware = None
         self.key_remap_csv = None
         self.layer2_keymap_csv = None
+    
+    def toggle_layer2_options(self, state):
+        self.layer2_options.setVisible(state == 2)
     
     def create_separator(self):
         separator = QFrame()
