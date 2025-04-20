@@ -1,0 +1,233 @@
+ID,usage_name,Address,XORed
+00,No Event,,5A
+01,ErrorRollOver,,5B
+02,POSTFail,,58
+03,ErrorUndefined,,59
+04,a and A,73FDA,5E
+05,b and B,7401E,5F
+06,c and C,73FEC,5C
+07,d and D,73FEA,5D
+08,e and E,73FE6,52
+09,f and F,7401A,53
+0A,g and G,74012,50
+0B,h and H,74022,51
+0C,i and I,74036,56
+0D,j and J,7402A,57
+0E,k and K,7403A,54
+0F,l and L,7404A,55
+10,m and M,7402C,4A
+11,n and N,7402E,4B
+12,o and O,74046,48
+13,p and P,74056,49
+14,q and Q,73FD6,4E
+15,r and R,74016,4F
+16,s and S,73FFA,4C
+17,t and T,74020,4D
+18,u and U,74026,42
+19,v and V,7401C,43
+1A,w and W,73FF6,40
+1B,x and X,73FFC,41
+1C,y and Y,74030,46
+1D,z and Z,73FDC,47
+1E,1 and !,73FD8,44
+1F,2 and @,73FF8,45
+20,3 and #,73FE8,7A
+21,4 and $,74018,7B
+22,5 and %,74014,78
+23,6 and ^,74024,79
+24,7 and &,74028,7E
+25,8 and *,74038,7F
+26,9 and (,74048,7C
+27,0 and ),74058,7D
+28,Return (ENTER),7407C,72
+29,ESCAPE,73FD2,73
+2A,DELETE (Backspace),74080,70
+2B,Tab,73FE0,71
+2C,Spacebar,7407E,76
+2D,- and Underscore,74054,77
+2E,= and +,74034,74
+2F,[ and {,74060,75
+30,] and },74040,6A
+31,\ and |,7407A,6B
+32,Non-US # and ~,7405C,68
+33,; and :,7405A,69
+34,"' and """,74052,6E
+35,Grave Accent and Tilde,73FD4,6F
+36,Comma and <,7403C,6C
+37,. and >,7404C,6D
+38,/ and ?,7405E,62
+39,Caps Lock,74000,63
+3A,F1,73FF4,60
+3B,F2,73FE4,61
+3C,F3,73FF0,66
+3D,F4,73FE2,67
+3E,F5,74072,64
+3F,F6,74032,65
+40,F7,74050,1A
+41,F8,74044,1B
+42,F9,74074,18
+43,F10,74078,19
+44,F11,74088,1E
+45,F12,740A8,1F
+46,PrintScreen,740CA,1C
+47,Scroll Lock,,1D
+48,Pause,740BC,12
+49,Insert,740C8,13
+4A,Home,74084,10
+4B,PageUp,740CC,11
+4C,Delete Forward,740C4,16
+4D,End,740B8,17
+4E,PageDown,740CE,14
+4F,RightArrow,740AE,15
+50,LeftArrow,740BE,A
+51,DownArrow,7408E,B
+52,UpArrow,740B2,8
+53,Keypad Num Lock and Clear,,9
+54,Keypad Forward Slash,,E
+55,Keypad *,,F
+56,Keypad -,,C
+57,Keypad +,,D
+58,Keypad ENTER,,2
+59,Keypad 1 and End,,3
+5A,Keypad 2 and Down Arrow,,0
+5B,Keypad 3 and PageDn,,1
+5C,Keypad 4 and Left Arrow,,6
+5D,Keypad 5,,7
+5E,Keypad 6 and Right Arrow,,4
+5F,Keypad 7 and Home,,5
+60,Keypad 8 and Up Arrow,,3A
+61,Keypad 9 and PageUp,,3B
+62,Keypad 0 and Insert,,38
+63,Keypad . and Delete,,39
+64,Non-US Slash Bar,73FF2,3E
+65,Application,,3F
+66,Power,,3C
+67,Keypad =,,3D
+68,F13,,32
+69,F14,,33
+6A,F15,,30
+6B,F16,,31
+6C,F17,,36
+6D,F18,,37
+6E,F19,,34
+6F,F20,,35
+70,F21,,2A
+71,F22,,2B
+72,F23,,28
+73,F24,,29
+74,Execute,,2E
+75,Help,,2F
+76,Menu,,2C
+77,Select,,2D
+78,Stop,,22
+79,Again,,23
+7A,Undo,,20
+7B,Cut,,21
+7C,Copy,,26
+7D,Paste,,27
+7E,Find,,24
+7F,Mute,,25
+80,Volume Up,,DA
+81,Volume Down,,DB
+82,Locking Caps Lock,,D8
+83,Locking Numb Lock,,D9
+84,Locking Scroll Lock,,DE
+85,Keypad Comma,,DF
+86,Keypad Equal Sign,,DC
+87,International1,7403E,DD
+88,International2,7404E,D2
+89,International3,74076,D3
+8A,International4,74042,D0
+8B,International5,73FDE,D1
+8C,International6,,D6
+8D,International7,,D7
+8E,International8,,D4
+8F,International9,,D5
+90,LANG1,,CA
+91,LANG2,,CB
+92,LANG3,,C8
+93,LANG4,,C9
+94,LANG5,,CE
+95,LANG6,,CF
+96,LANG7,,CC
+97,LANG8,,CD
+98,LANG9,,C2
+99,Alternate Erase,,C3
+9A,SysReq/Attention,,C0
+9B,Cancel,,C1
+9C,Clear,,C6
+9D,Prior,,C7
+9E,Return,,C4
+9F,Separator,,C5
+A0,Out,,FA
+A1,Oper,,FB
+A2,Clear/Again,,F8
+A3,CrSel/Props,,F9
+A4,ExSel,,FE
+A5,Reserved,,FF
+A6,Reserved,,FC
+A7,Reserved,,FD
+A8,Reserved,,F2
+A9,Reserved,,F3
+AA,Reserved,,F0
+AB,Reserved,,F1
+AC,Reserved,,F6
+AD,Reserved,,F7
+AE,Reserved,,F4
+AF,Fn,740BA,F5
+B0,Keypad 00,,EA
+B1,Keypad 000,,EB
+B2,Thousands Separator,,E8
+B3,Decimal Separator,,E9
+B4,Currency Unit,,EE
+B5,Currency Sub-unit,,EF
+B6,Keypad (,,EC
+B7,Keypad ),,ED
+B8,Keypad {,,E2
+B9,Keypad },,E3
+BA,Keypad Tab,,E0
+BB,Keypad Backspace,,E1
+BC,Keypad A,,E6
+BD,Keypad B,,E7
+BE,Keypad C,,E4
+BF,Keypad D,,E5
+C0,Keypad E,,9A
+C1,Keypad F,,9B
+C2,Keypad XOR,,98
+C3,Keypad ^,,99
+C4,Keypad %,,9E
+C5,Keypad <,,9F
+C6,Keypad >,,9C
+C7,Keypad &,,9D
+C8,Keypad &&,,92
+C9,Keypad |,,93
+CA,Keypad ||,,90
+CB,Keypad :,,91
+CC,Keypad #,,96
+CD,Keypad Space,,97
+CE,Keypad @,,94
+CF,Keypad !,,95
+D0,Keypad Memory Store,740c0,8A
+D1,Keypad Memory Recall,,8B
+D2,Keypad Memory Clear,740a6,88
+D3,Keypad Memory Add,,89
+D4,Keypad Memory Subtract,74094,8E
+D5,Keypad Memory Multiply,,8F
+D6,Keypad Memory Divide,,8C
+D7,Keypad +/-,,8D
+D8,Keypad Clear,,82
+D9,Keypad Clear Entry,,83
+DA,Keypad Binary,,80
+DB,Keypad Octal,,81
+DC,Keypad Decimal,,86
+DD,Keypad Hexadecimal,,87
+DE,Reserved,,84
+DF,Reserved,,85
+E0,LeftControl,74004,BA
+E1,LeftShift,74070,BB
+E2,LeftAlt,74092,B8
+E3,Left GUI,740B0,B9
+E4,RightControl,7400C,BE
+E5,RightShift,7406C,BF
+E6,RightAlt,7409E,BC
+E7,Right GUI,,BD
