@@ -1,37 +1,85 @@
-# 概要
-Lenovo製ThinkPadトラックポイントキーボード KU-1255 (日本語版の型番: 0B47208)のファームウェアを簡単に編集するためのGUIアプリです。
-キーボード上の任意のキー配置を変更することが出来ます。たとえば、左下のFnキーの位置にCtrlキーを割り当てたい、といった需要に応えることができます。
-ファームウェアはキーボード本体にインストールされるため、PC側の設定は一切必要ありません。
+# KU-1255 Firmware Modifier
 
-<img width="960" alt="gui-overview" src="https://github.com/haborite/ku1255-firmware-modifier/blob/main/python_ver/img/gui-overview-new.png">
+**Lenovo ThinkPad Compact USB キーボード with トラックポイント**（日本語モデル: **0B47208**）のファームウェアをカスタマイズするためのシンプルなGUIツールです。  
+任意のキーを別のキーに割り当て直すことができ、たとえば左下の `Fn` キー位置に `Ctrl` キーを割り当てるといったカスタマイズが可能です。
 
-# 実行可能環境
-公式ファームウェアを利用するため、[公式ファームウェアダウンロードページ](https://support.lenovo.com/jp/ja/solutions/pd026745-thinkpad-compact-usb-keyboard-with-trackpoint-overview-and-service-parts)における「ソフトウェア要件」に準拠します。
-ファームウェアを書き込み後のキーボード自体はほとんどのOSで動作します。
+![GUI Overview](https://github.com/haborite/ku1255-firmware-modifier/blob/main/python_ver/img/gui-overview-new.png)
 
-# ダウンロード・実行方法
-1. Relaseから最新版のku1255-firmware-modifierをダウンロード
-2. ダウンロードしたzipファイルを解凍
-3. ku1255-firmware-modifier.exeを実行
+変更内容はキーボードのファームウェアに直接書き込まれるため、**PC側の設定変更は不要**です。接続するすべてのデバイスやOSで同じレイアウトが反映されます。
 
-# 画面説明
-1. Keyboard 選択欄: お使いのキーボードを選びます。日本語版の場合は「0B47208 (89 keys - JIS)」。
-2. Language 選択欄: 設定言語を選びます。日本語キーボードとして使う場合は「JP / Japanese」。
-3. Main Layer: 通常時におけるキー配置を設定します。設定したいキーを押して現れる選択欄から、変更後のキーを選択します。
-4. 2nd Layer : 「Mod」キーと同時押しした際のキー配置を設定します。デフォルトの状態では「Mod」キーMain Layerに存在しないため、機能がオフになっています。「Mod」キーの位置はMain Layerと2nd Layerで同一である必要があります。
-5. Load config: 保存済みのキー配置設定を読み込みます。
-6. Save config: 現在のキー配置設定を保存します。
-7. Install firmware: 現在の設定をキーボードに書き込みます。キーボードが接続された状態で実行してください。インストールが完了したのちに、USBを一度抜き、再度差し込むことで設定が反映されます。
+---
 
-# 使用例
+## ✅ 動作環境
 
-## 1. FnキーとCtrlキーを入れ替えたい
-1. "Load config"から"example\Swap-Fn-Ctrl.json"をひらく
-2. "Main Layer"でFnとLCtrlの位置が入れ替わっている（キーが青色にマークされる）ことを確認
-3. "Install firmware"を押す
+本アプリは公式ファームウェアインストーラーを使用するため、本アプリの実行には[こちらのソフトウェア要件](https://support.lenovo.com/jp/ja/solutions/pd026745-thinkpad-compact-usb-keyboard-with-trackpoint-overview-and-service-parts)を満たしている必要があります。
 
-<img width="360" alt="firmware installer window" src="https://github.com/user-attachments/assets/785abfd8-7b13-44aa-b505-b227ed7be4a9">
+一度ファームウェアを書き込めば、そのキーボード自体は**いずれの主要なOSでも問題なく動作**します。
 
-4. ファームウェアインストーラーが起動するので、「Start」を選択
-5. インストールが完了したら、ファームウェアインストーラーウィンドウを閉じる
-6. キーボードをUSBコネクタから一度取り外し、再度接続する。
+---
+
+## 🚀 ダウンロードと実行方法
+
+1. [Releasesページ](https://github.com/haborite/ku1255-firmware-modifier/releases)から最新バージョンの `ku1255-firmware-modifier` をダウンロード
+2. ダウンロードした `.zip` ファイルを解凍
+3. `ku1255-firmware-modifier.exe` を実行
+
+---
+
+## 🖥️ 画面の説明
+
+1. **Keyboard 選択**  
+   お使いのキーボードモデルを選択します。日本語版のJIS配列の場合は以下を選択：  
+   `0B47208 (89 keys - JIS)`
+
+2. **Language 言語選択**  
+   使用する言語を選びます。日本語設定で使う場合は `JP / Japanese` を選択。
+
+3. **Main Layer**  
+   通常時のキーマップを設定します。変更したいキーをクリックし、割り当てたいキーをドロップダウンから選択します。
+
+4. **2nd Layer**  
+   **Mod** キーと同時押ししたときのキー挙動を定義します。  
+   - 初期状態ではModキーがMain Layerに存在しないため、このレイヤーは無効です。  
+   - Modキーの位置はMain Layerと2nd Layerで同じである必要があります。
+
+5. **Load config**  
+   `.json` 形式の保存済みキーマップを読み込みます。
+
+6. **Save config**  
+   現在のキーマップを `.json` ファイルとして保存します。
+
+7. **Install firmware**  
+   現在の設定をキーボードに書き込みます。  
+   書き込み前にキーボードが接続されていることを確認してください。  
+   書き込み後にキーボードを一度USBから外し、再接続することで設定が反映されます。
+
+---
+
+## 🔧 使用例：FnキーとCtrlキーを入れ替える
+
+1. `Load config` をクリックし、次のファイルを開く：  
+   `example/Swap-Fn-Ctrl.json`
+2. **Main Layer** 上で `Fn` と `Left Ctrl` の位置が入れ替わっていることを確認します。  
+   （入れ替わったキーは青くハイライトされます。）
+3. `Install firmware` をクリック
+
+   ![Firmware Installer Window](https://github.com/user-attachments/assets/785abfd8-7b13-44aa-b505-b227ed7be4a9)
+
+4. ファームウェアインストーラーが起動したら **Start** をクリック
+5. インストールが完了したらインストーラーを閉じます
+6. キーボードをUSBから一度取り外し、再接続すると新しい設定が有効になります
+
+---
+
+# 謝辞
+
+本プロジェクトで採用しているファームウェア解析結果は、以下のスレッドでの議論をもとにしています：  
+- https://github.com/lentinj/tp-compact-keyboard/issues/32
+
+USB HID Usage IDの対応表はこちらを参考にしています：  
+- https://bsakatu.net/doc/usb-hid-to-scancode/
+
+---
+
+このアプリは多言語キーボードへの対応を視野に入れて設計されています。  
+他言語版の設定ファイル対応追加を歓迎します。
