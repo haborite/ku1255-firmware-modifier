@@ -3,7 +3,7 @@
 [web.app]
 
 # HTML title tag content
-title = "ku1255-firmware-remapper"
+title = "ku1255-firmware-modifier"
 
 # include `assets` in web platform
 [web.resource]

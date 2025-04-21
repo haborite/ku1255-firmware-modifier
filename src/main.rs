@@ -185,6 +185,7 @@ pub fn BoardSelector() -> Element {
                         onclick: move |_| {
                             let file = FileDialog::new()
                             .add_filter("Config files", &["json"])
+                            .set_directory(std::env::current_exe().unwrap().parent().unwrap().join("examples"))
                             .set_title("Select key-remapping file")
                             .pick_file();
                             match file {
@@ -211,6 +212,7 @@ pub fn BoardSelector() -> Element {
                         onclick: move |_| {
                             let save_path = FileDialog::new()
                                 .add_filter("JSON files", &["json"])
+                                .set_directory(std::env::current_exe().unwrap().parent().unwrap().join("examples"))
                                 .set_file_name("config.json")
                                 .set_title("Set config filepath")
                                 .save_file();
