@@ -1,11 +1,11 @@
 # KU-1255 Firmware Modifier
 
-**Lenovo ThinkPad Compact USB キーボード with トラックポイント**（日本語モデル: **0B47208**）のファームウェアをカスタマイズするためのシンプルなGUIツールです。  
-任意のキーを別のキーに割り当て直すことができ、たとえば左下の `Fn` キー位置に `Ctrl` キーを割り当てるといったカスタマイズが可能です。
+**[Lenovo ThinkPad Compact USB キーボード with トラックポイント](https://support.lenovo.com/jp/ja/solutions/pd026745-thinkpad-compact-usb-keyboard-with-trackpoint-overview-and-service-parts)**（日本語モデル: **0B47208**）のファームウェアをカスタマイズするためのシンプルなGUIツールです。  
+
+任意のキーを別のキーに割り当て直すことができます。たとえば左下の `Fn` キー位置に `Ctrl` キーを割り当てるといったカスタマイズが可能です。
+変更内容はキーボードのファームウェアに直接書き込まれるため、**PC側の設定変更は不要**です。接続するすべてのデバイスやOSで同じレイアウトが反映されます。
 
 ![GUI Overview](https://github.com/haborite/ku1255-firmware-modifier/blob/main/python_ver/img/gui-overview-new.png)
-
-変更内容はキーボードのファームウェアに直接書き込まれるため、**PC側の設定変更は不要**です。接続するすべてのデバイスやOSで同じレイアウトが反映されます。
 
 ---
 
