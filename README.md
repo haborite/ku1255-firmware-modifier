@@ -13,7 +13,7 @@ Because changes are written directly to the keyboard's firmware, **no system-sid
 
 ## ✅ System Requirements
 
-- Since the app use the official firmware installer, your system must meet the [software requirements listed here](https://support.lenovo.com/jp/ja/solutions/pd026745-thinkpad-compact-usb-keyboard-with-trackpoint-overview-and-service-parts).
+- Since the app use the official firmware installer, the app must run on [MS Windows](https://support.lenovo.com/jp/ja/solutions/pd026745-thinkpad-compact-usb-keyboard-with-trackpoint-overview-and-service-parts).
   - Once the firmware is installed, the keyboard works on **most operating systems**, regardless of the one used during installation.
 - Internet connection is required at the first run of the app to download the official firmware installer from Lenovo web page.
 
