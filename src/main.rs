@@ -27,12 +27,12 @@ const MAIN_CSS: Asset = asset!("/assets/styling/main.css");
 const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
 
 // CONST
-const GENERAL_SETTING_PATH: &str = "src/settings/general_setting.csv";
-const BOARDS_DIR:  &str = "src/boards";
-const LOGICAL_LAYOUT_DIR:  &str = "src/logical_layouts";
-const EXE_PATH: &str = "src/firmware/tp_compact_usb_kb_with_trackpoint_fw.exe";
-const EXE_URL_SETTING_PATH: &str = "src/settings/url.txt";
-const MOD_EXE_PATH: &str = "src/firmware/mod_fw.exe";
+const GENERAL_SETTING_PATH: &str = "settings/general_setting.csv";
+const BOARDS_DIR:  &str = "boards";
+const LOGICAL_LAYOUT_DIR:  &str = "logical_layouts";
+const EXE_PATH: &str = "firmware/tp_compact_usb_kb_with_trackpoint_fw.exe";
+const EXE_URL_SETTING_PATH: &str = "settings/url.txt";
+const MOD_EXE_PATH: &str = "firmware/mod_fw.exe";
 
 fn main() {
     // init_logger(Level::DEBUG).expect("failed to init logger");
