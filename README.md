@@ -13,9 +13,9 @@ Because changes are written directly to the keyboard's firmware, **no system-sid
 
 ## ✅ System Requirements
 
-Since the app use the official firmware installer, your system must meet the [software requirements listed here](https://support.lenovo.com/jp/ja/solutions/pd026745-thinkpad-compact-usb-keyboard-with-trackpoint-overview-and-service-parts).
-
-Once the firmware is installed, the keyboard works on **most operating systems**, regardless of the one used during installation.
+- Since the app use the official firmware installer, your system must meet the [software requirements listed here](https://support.lenovo.com/jp/ja/solutions/pd026745-thinkpad-compact-usb-keyboard-with-trackpoint-overview-and-service-parts).
+  - Once the firmware is installed, the keyboard works on **most operating systems**, regardless of the one used during installation.
+- Internet connection is required at the first run of the app to download the official firmware installer from Lenovo web page.
 
 ---
 
@@ -64,9 +64,6 @@ Once the firmware is installed, the keyboard works on **most operating systems**
 2. In the **Main Layer**, verify that the `Fn` and `Left Ctrl` keys are swapped.  
    (Swapped keys will be highlighted in blue.)
 3. Click `Install firmware`.
-
-   ![Firmware Installer Window](https://github.com/user-attachments/assets/785abfd8-7b13-44aa-b505-b227ed7be4a9)
-
 4. When the firmware installer launches, click **Start**.
 5. After installation finishes, close the installer.
 6. Unplug and reconnect the keyboard. The new keymap will take effect.
