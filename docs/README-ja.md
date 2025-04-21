@@ -11,9 +11,9 @@
 
 ## ✅ 動作環境
 
-本アプリは公式ファームウェアインストーラーを使用するため、本アプリの実行には[こちらのソフトウェア要件](https://support.lenovo.com/jp/ja/solutions/pd026745-thinkpad-compact-usb-keyboard-with-trackpoint-overview-and-service-parts)を満たしている必要があります（Windowsのみ）。
-
-一度ファームウェアを書き込めば、そのキーボード自体は**いずれの主要なOSでも問題なく動作**します。
+- 本アプリは公式ファームウェアインストーラーを使用するため、本アプリの実行には[こちらのソフトウェア要件](https://support.lenovo.com/jp/ja/solutions/pd026745-thinkpad-compact-usb-keyboard-with-trackpoint-overview-and-service-parts)を満たしている必要があります（Windowsのみ）。
+  - 一度ファームウェアを書き込めば、そのキーボード自体は**いずれの主要なOSでも問題なく動作**します。
+- 公式ファームウェアインストーラーをダウンロードするために、初回起動時にインターネット接続が必要です。
 
 ---
 
