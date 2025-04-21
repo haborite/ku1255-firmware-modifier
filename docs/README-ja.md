@@ -63,9 +63,6 @@
 2. **Main Layer** 上で `Fn` と `Left Ctrl` の位置が入れ替わっていることを確認します。  
    （入れ替わったキーは青くハイライトされます。）
 3. `Install firmware` をクリック
-
-   ![Firmware Installer Window](https://github.com/user-attachments/assets/785abfd8-7b13-44aa-b505-b227ed7be4a9)
-
 4. ファームウェアインストーラーが起動したら **Start** をクリック
 5. インストールが完了したらインストーラーを閉じます
 6. キーボードをUSBから一度取り外し、再接続すると新しい設定が有効になります
