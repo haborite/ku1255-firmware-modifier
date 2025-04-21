@@ -19,7 +19,7 @@
 
 ## 🚀 ダウンロードと実行方法
 
-1. [Releasesページ](https://github.com/haborite/ku1255-firmware-modifier/releases)から最新バージョンの `ku1255-firmware-modifier` をダウンロード
+1. [最新バージョン](https://github.com/haborite/ku1255-firmware-modifier/releases/latest)の `ku1255-firmware-modifier.zip` をダウンロード
 2. ダウンロードした `.zip` ファイルを解凍
 3. `ku1255-firmware-modifier.exe` を実行
 
