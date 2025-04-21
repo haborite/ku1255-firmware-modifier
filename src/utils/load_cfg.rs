@@ -247,7 +247,7 @@ pub fn load_logical_layout(logical_layout_path: &Path, general_config_path: &Pat
 
     Ok(LogicalLayout{
         layout_name: basename.to_string(),
-        layout_label: basename.to_string(),
+        layout_label: basename.to_string().replace("_", " / "),
         map_key_label
     })
 }

@@ -131,6 +131,7 @@ pub fn BoardSelector() -> Element {
 
     // Logical layout variables
     let mut selected_logical_layout_name = use_signal(|| {
+        println!("{:?}", selected_board().default_logical_layout_name);
         selected_board().default_logical_layout_name
     });
     let selected_logical_layout: Memo<LogicalLayout>  = use_memo(move || {
@@ -162,14 +163,19 @@ pub fn BoardSelector() -> Element {
                         rsx!(option { value: b.board_name.clone(), label: b.board_label.clone() })
                     })}
                 }
-                label {"used as: "}
+                label {"Language: "}
                 select {
-                    style: format!("width: 100px;"),
+                    style: format!("width: 250px;"),
                     class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500",
                     id: "board-select",
                     value: selected_logical_layout_name,
-                    onchange: move |evt| { selected_logical_layout_name.set(evt.value()); },
-                    {logical_layouts.iter().map(|l|{
+                    onmounted: move |_| {
+                        selected_logical_layout_name.set(selected_logical_layout().layout_name)
+                    },
+                    onchange: move |evt| {
+                        selected_logical_layout_name.set(evt.value());
+                    },
+                    { logical_layouts.iter().map(|l|{
                         rsx!(option { value: l.layout_name.clone(), label: l.layout_label.clone() })
                     })}
                 }
@@ -284,10 +290,19 @@ pub fn BoardSelector() -> Element {
                         id_layout: id_layout_l1,
                         id_layout_original: id_layout_l0().clone(),
                     }
-                    button {
-                        class: "w-80 px-1 py-1 bg-gray-500 text-white rounded shadow hover:bg-gray-600",
-                        onclick: move |_| {id_layout_l1.set(id_layout_l0().clone())},
-                        "Copy from Main layer to 2nd layer"
+                    div { class: "flex flex-1 space-x-4",
+                        button {
+                            class: "w-80 px-1 py-1 bg-gray-500 text-white rounded shadow hover:bg-gray-600",
+                            onclick: move |_| {id_layout_l1.set(id_layout_l0().clone())},
+                            "Copy from Main layer to 2nd layer"
+                        }
+                        /*
+                        button {
+                            class: "w-60 px-1 py-1 bg-gray-500 text-white rounded shadow hover:bg-gray-600",
+                            onclick: move |_| {},
+                            "Key rollover test"
+                        }
+                        */
                     }
                 }
                 div { class: "flex flex-col flex-1 space-y-4",

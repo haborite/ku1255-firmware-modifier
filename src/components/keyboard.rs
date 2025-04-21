@@ -49,15 +49,15 @@ pub fn Keyboard(
                             let key_shifted = key_label.shifted.clone();
 
                             if let Some(kid) = id_opt {
-                                let border_color = if kid == 231 {"border-rose-300"} else {
-                                    if kid == id_opt_org.unwrap() {""} else {
-                                        if layer_number == 0 {"border-sky-300"} else {"border-green-300"}
-                                    }
+                                let border_color = match kid {
+                                    0   => "border-gray-500",
+                                    231 => "border-rose-300",
+                                    _   => { if kid == id_opt_org.unwrap() {""} else { if layer_number == 0 {"border-sky-300"} else {"border-green-300"}}}
                                 };
-                                let text_color = if kid == 231 {"text-rose-300"} else {
-                                    if kid == id_opt_org.unwrap() {""} else {
-                                        if layer_number == 0 {"text-sky-300"} else {"text-green-300"}
-                                    }
+                                let text_color = match kid {
+                                    0   => "text-gray-500",
+                                    231 => "text-rose-300",
+                                    _   => { if kid == id_opt_org.unwrap() {""} else { if layer_number == 0 {"text-sky-300"} else {"text-green-300"}}}
                                 };
                                 rsx! {
                                     button {
