@@ -4,7 +4,7 @@ This repository provides a keymap for the Lenovo KU-1255 (ThinkPad Compact USB K
 # Disclaimer
 **The result accuracy is not assured. Use at your own risk.**
 
-# GUI Tool Usage
+# GUI Tool Usage (Old ver)
 1. Download the latest firmware installer `tp_compact_usb_kb_with_trackpoint_fw.exe` from the [Lenovo official website](https://support.lenovo.com/ca/en/solutions/pd026745).
 2. Download the [released application](https://github.com/haborite/ku1255-firmware-keymap/releases/download/v0.5.0/ku1255-fw-remapper-win-0.5.0.zip) and unzip it.
 3. Run `ku1255-fw-remapper.exe` in the unzipped directory.
@@ -278,8 +278,13 @@ The firmware binary analysis methodology employed in this project is based on th
 The reffered table of Usage IDs and names
 - https://bsakatu.net/doc/usb-hid-to-scancode/
 
+# New version
 
-# Development
+Now, the new GUI version is available. You can remap keys graphically.
+
+<img width="640" alt="gui-overview" src="https://github.com/haborite/ku1255-firmware-modifier/blob/main/python_ver/img/gui-overview-new.png">
+
+## Development
 
 Your new jumpstart project includes basic organization with an organized `assets` folder and a `components` folder. 
 If you chose to develop with the router feature, you will also have a `views` folder.
