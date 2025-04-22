@@ -10,6 +10,7 @@ pub struct Board {
     pub map_address: Vec<Vec<Option<u32>>>,
 }
 
+/*
 impl Board {
     pub fn new() -> Board {
         Board {
@@ -21,6 +22,7 @@ impl Board {
         }
     }
 }
+*/
 
 #[derive(Clone, PartialEq)]
 pub struct LogicalLayout {
@@ -29,6 +31,7 @@ pub struct LogicalLayout {
     pub map_key_label: HashMap<u8, KeyLabel>,
 }
 
+/*
 impl LogicalLayout {
     pub fn new() -> LogicalLayout {
         LogicalLayout {
@@ -38,6 +41,7 @@ impl LogicalLayout {
         }
     }
 }
+*/
 
 #[derive(Clone, PartialEq)]
 pub struct KeyLabel {

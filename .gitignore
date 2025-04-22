@@ -13,3 +13,5 @@ linux
 temp.jsx
 temp.rsx
 Cargo.lock
+flash.py
+flash_copy.py

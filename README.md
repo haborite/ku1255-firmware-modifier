@@ -7,7 +7,7 @@ You can remap any key on the keyboard—for example, reassign the `Ctrl` key to 
 
 Since all modifications are written directly to the keyboard's firmware, **no system-side configuration is required**. The layout remains consistent across all connected devices and operating systems.
 
-![GUI Overview](https://github.com/haborite/ku1255-firmware-modifier/blob/main/old_ver/img/gui-overview-new.png)
+![GUI Overview](https://github.com/haborite/ku1255-firmware-modifier/blob/main/docs/gui-overview.png)
 
 ---
 

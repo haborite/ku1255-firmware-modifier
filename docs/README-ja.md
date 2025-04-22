@@ -5,7 +5,7 @@
 任意のキーを別のキーに割り当て直すことができます。たとえば左下の `Fn` キー位置に `Ctrl` キーを割り当てるといったカスタマイズが可能です。
 変更内容はキーボードのファームウェアに直接書き込まれるため、**PC側の設定変更は不要**です。接続するすべてのデバイスやOSで同じレイアウトが反映されます。
 
-![GUI Overview](https://github.com/haborite/ku1255-firmware-modifier/blob/main/old_ver/img/gui-overview-new.png)
+![GUI Overview](https://github.com/haborite/ku1255-firmware-modifier/blob/main/docs/gui-overview.png)
 
 ---
 

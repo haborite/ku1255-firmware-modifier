@@ -1,4 +1,4 @@
-ID,Byte_Offset,XORed_ID,Usage Name,0B47190 (US),0B47208 (JIS),ISO
+ID,Byte_Offset,XORed_ID,Usage Name,0B47190 (ANSI/US),0B47208 (JIS/JP),0B47192 (ISO/UK)
 01,,5B,ErrorRollOver,,,
 02,,58,POSTFail,,,
 03,,59,ErrorUndefined,,,
