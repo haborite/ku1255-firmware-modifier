@@ -5,7 +5,7 @@
 A simple GUI tool for customizing the firmware of the **[Lenovo ThinkPad Compact USB Keyboard with TrackPoint](https://support.lenovo.com/jp/ja/solutions/pd026745-thinkpad-compact-usb-keyboard-with-trackpoint-overview-and-service-parts)** (US model: **0B47190**).  
 You can remap any key on the keyboard—for example, reassign the `Ctrl` key to the `Fn` key position in the bottom-left corner.
 
-Because changes are written directly to the keyboard's firmware, **no system-side configuration is required**. The layout remains consistent across all connected devices and operating systems.
+Since all modifications are written directly to the keyboard's firmware, **no system-side configuration is required**. The layout remains consistent across all connected devices and operating systems.
 
 ![GUI Overview](https://github.com/haborite/ku1255-firmware-modifier/blob/main/old_ver/img/gui-overview-new.png)
 
