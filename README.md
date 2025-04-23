@@ -40,7 +40,7 @@ Since all modifications are written directly to the keyboard's firmware, **no sy
 
 4. **2nd Layer**  
    Defines key behavior when used with the **Mod** key.  
-   - This layer is disabled by default because the Mod key isn’t initially defined in the Main Layer.
+   - This layer is disabled by default because the Mod key isn’t initially mapped in the Main Layer.
    - The Mod key must be assigned in both Main and 2nd layers at the same position.
 
 5. **Load config**  
