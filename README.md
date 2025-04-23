@@ -21,7 +21,7 @@ Since all modifications are written directly to the keyboard's firmware, **no sy
 
 ## 🚀 How to Download and Run
 
-1. Download the [latest version](https://github.com/haborite/ku1255-firmware-modifier/releases/latest) of `ku1255-firmware-modifier.zip` from the [Releases](https://github.com/haborite/ku1255-firmware-modifier/releases) page.
+1. Download the [latest version](https://github.com/haborite/ku1255-firmware-modifier/releases/latest) of `ku1255-firmware-modifier.zip` from the [Releases](https://github.com/haborite/ku1255-firmware-modifier/releases/latest) page.
 2. Extract the downloaded `.zip` file.
 3. Launch `ku1255-firmware-modifier.exe`.
 
