@@ -22,15 +22,11 @@ Since all modifications are written directly to the keyboard's firmware, **no sy
 - Once the firmware is installed, the keyboard works on **most operating systems**, regardless of the one used during installation.
 - Internet connection is required at the first run of the app to download the official firmware installer from Lenovo web page.
 
----
-
 ## 🚀 How to Download and Run
 
 1. Download the [latest version](https://github.com/haborite/ku1255-firmware-modifier/releases/latest) of `ku1255-firmware-modifier.zip` from the [Releases](https://github.com/haborite/ku1255-firmware-modifier/releases/latest) page.
 2. Extract the downloaded `.zip` file.
 3. Launch `ku1255-firmware-modifier.exe`.
-
----
 
 ## 🖥️ Interface Overview
 
@@ -58,8 +54,6 @@ Since all modifications are written directly to the keyboard's firmware, **no sy
    Flash the current configuration to the keyboard.  
    Make sure the keyboard is plugged in before proceeding.  
    After installation, unplug and reconnect the keyboard to apply the changes.
-
----
 
 ## 🔧 Example: Swapping Fn and Ctrl Keys
 
