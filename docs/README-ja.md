@@ -29,8 +29,7 @@
 ## 🖥️ 画面の説明
 
 1. **Keyboard 選択**  
-   お使いのキーボードモデルを選択します。日本語版のJIS配列の場合は以下を選択：  
-   `0B47208 (89 keys - JIS)`
+   お使いのキーボードモデルを選択します。日本語版のJIS配列の場合は以下を選択： `0B47208 (89 keys - JIS)`
 
 2. **Language 言語選択**  
    使用する言語を選びます。日本語設定で使う場合は `JP / Japanese` を選択。
@@ -58,8 +57,7 @@
 
 ## 🔧 使用例：FnキーとCtrlキーを入れ替える
 
-1. `Load config` をクリックし、次のファイルを開く：  
-   `example/Swap-Fn-Ctrl.json`
+1. `Load config` をクリックし、次のファイルを開く： `example/Swap-Fn-Ctrl.json`
 2. **Main Layer** 上で `Fn` と `Left Ctrl` の位置が入れ替わっていることを確認します。  
    （入れ替わったキーは青くハイライトされます。）
 3. `Install firmware` をクリック
