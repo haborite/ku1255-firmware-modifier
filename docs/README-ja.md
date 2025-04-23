@@ -57,7 +57,7 @@
 
 ## 🔧 使用例：FnキーとCtrlキーを入れ替える
 
-1. `Load config` をクリックし、次のファイルを開く： `example/Swap-Fn-Ctrl.json`
+1. `Load config` をクリックし、次のファイルを開く： `examples/Swap-Fn-Ctrl.json`
 2. **Main Layer** 上で `Fn` と `Left Ctrl` の位置が入れ替わっていることを確認します。  
    （入れ替わったキーは青くハイライトされます。）
 3. `Install firmware` をクリック
