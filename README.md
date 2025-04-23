@@ -30,8 +30,7 @@ Since all modifications are written directly to the keyboard's firmware, **no sy
 ## 🖥️ Interface Overview
 
 1. **Keyboard Selection**  
-   Choose your keyboard model. For US layout, select:  
-   `0B47190 (84 keys - ANSI)`
+   Choose your keyboard model. For US layout, select: `0B47190 (84 keys - ANSI)`
 
 2. **Language Selection**  
    Choose your preferred language. Select `US / English` for a typical US keyboard layout.
@@ -59,8 +58,7 @@ Since all modifications are written directly to the keyboard's firmware, **no sy
 
 ## 🔧 Example: Swapping Fn and Ctrl Keys
 
-1. Click `Load config` and open the file:  
-   `example/Swap-Fn-Ctrl.json`
+1. Click `Load config` and open the file: `example/Swap-Fn-Ctrl.json`
 2. In the **Main Layer**, verify that the `Fn` and `Left Ctrl` keys are swapped.  
    (Swapped keys will be highlighted in blue.)
 3. Click `Install firmware`.
