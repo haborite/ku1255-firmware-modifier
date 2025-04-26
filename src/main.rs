@@ -118,7 +118,6 @@ pub fn BoardSelector() -> Element {
 
     // Logical layout variables
     let mut selected_logical_layout_name = use_signal(|| {
-        println!("{:?}", selected_board().default_logical_layout_name);
         selected_board().default_logical_layout_name
     });
     let selected_logical_layout: Memo<LogicalLayout>  = use_memo(move || {
