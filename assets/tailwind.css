@@ -635,8 +635,30 @@ video {
   width: 6rem;
 }
 
+.min-w-max {
+  min-width: -moz-max-content;
+  min-width: max-content;
+}
+
 .max-w-md {
   max-width: 28rem;
+}
+
+.max-w-64 {
+  max-width: 16rem;
+}
+
+.max-w-80 {
+  max-width: 20rem;
+}
+
+.max-w-96 {
+  max-width: 24rem;
+}
+
+.max-w-min {
+  max-width: -moz-min-content;
+  max-width: min-content;
 }
 
 .flex-1 {

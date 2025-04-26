@@ -136,7 +136,7 @@ pub fn BoardSelector() -> Element {
         if let Some(msg) = error_msg() {
             ErrorMessage {msg, error_msg}
         }
-        div { class: "flex flex-col p-4 space-y-4",
+        div { class: "max-w-min min-w-max flex flex-col p-4 space-y-4",
             div { class: "w-full bg-gray-700 p-4 rounded shadow flex space-x-4",
                 label {"Keyboard: "}
                 select {
