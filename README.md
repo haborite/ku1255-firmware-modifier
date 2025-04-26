@@ -44,13 +44,17 @@ Since all modifications are written directly to the keyboard's firmware, **no sy
    - This layer is disabled by default because the Mod key isn’t initially mapped in the Main Layer.
    - The Mod key must be assigned in both Main and 2nd layers at the same position.
 
-5. **Load config**  
+5. **TrackPoint Speed**  
+   You can enhance the TrackPoint speed independently from operating system settings.
+   - I recommend you to first adjusting the Lenovo driver settings, then adjust the mouse speed setting in your OS. If your desired speed is still not achieved, consider increasing this hardware sensitivity enhancement.
+
+6. **Load config**  
    Load a previously saved keymap from a `.json` file.
 
-6. **Save config**  
+7. **Save config**  
    Save the current keymap to a `.json` file.
 
-7. **Install firmware**  
+8. **Install firmware**  
    Flash the current configuration to the keyboard.  
    Make sure the keyboard is plugged in before proceeding.  
    After installation, unplug and reconnect the keyboard to apply the changes.
