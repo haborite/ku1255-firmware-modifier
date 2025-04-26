@@ -53,19 +53,6 @@ fn App() -> Element {
 #[component]
 pub fn BoardSelector() -> Element {
 
-    // Consle
-    /*
-    let mut logs: Signal<String> = use_signal(|| String::new());
-
-    fn log_info(logs: &mut Signal<String>, msg: &str) {
-        logs.set(logs().clone() + msg);
-    }
-    
-    fn log_error(logs: &mut Signal<String>, msg: &str) {
-        logs.set(logs().clone() + "[ERROR]" + msg);
-    }
-    */
-
     // Error message
     let exe_url = load_url(Path::new(EXE_URL_SETTING_PATH)).unwrap();
     let mut error_msg: Signal<Option<String>> = use_signal(|| None);
@@ -143,6 +130,9 @@ pub fn BoardSelector() -> Element {
     let mut id_layout_l0 = use_signal(|| id_layout_original.clone());
     let mut id_layout_l1 = use_signal(|| id_layout_l0().clone());
 
+    // TrackPoint sensitivity variables
+    let mut tp_sensitivity = use_signal(|| 1 );
+
     rsx! {
         if let Some(msg) = error_msg() {
             ErrorMessage {msg, error_msg}
@@ -194,12 +184,14 @@ pub fn BoardSelector() -> Element {
                                         loaded_board_name,
                                         loaded_logical_layout_name,
                                         loaded_id_layout_l0,
-                                        loaded_id_layout_l1
+                                        loaded_id_layout_l1,
+                                        loaded_tp_sensitivity,
                                     )) = load_config(&path) {
                                         selected_board_name.set(loaded_board_name);
                                         selected_logical_layout_name.set(loaded_logical_layout_name);
                                         id_layout_l0.set(loaded_id_layout_l0);
                                         id_layout_l1.set(loaded_id_layout_l1);
+                                        tp_sensitivity.set(loaded_tp_sensitivity);
                                     };
                                 },
                                 None => println!("file not selected"),
@@ -225,6 +217,7 @@ pub fn BoardSelector() -> Element {
                                         &selected_logical_layout().layout_name,
                                         &id_layout_l0(),
                                         &id_layout_l1(),
+                                        tp_sensitivity(),
                                     );
                                 },
                                 None => println!("Cancel"),
@@ -249,7 +242,7 @@ pub fn BoardSelector() -> Element {
                                 eprintln!("Original firmware binary is missing. Cannot apply patch.");
                                 return;
                             };
-                            let modified_binary = match patch_firmware(original_binary, &id_layout_l0(), &id_layout_l1()) {
+                            let modified_binary = match patch_firmware(original_binary, &id_layout_l0(), &id_layout_l1(), tp_sensitivity()) {
                                 Ok(bin) => bin,
                                 Err(err) => {
                                     eprintln!("Failed to modify firmware binary: {}", err);
@@ -307,13 +300,43 @@ pub fn BoardSelector() -> Element {
                         */
                     }
                 }
-                div { class: "flex flex-col flex-1 space-y-4",
-                    textarea {
-                        class: "flex-1 p-2 rounded resize-none bg-gray-700",
-                        readonly: true,
-                        value: "console"
-                    }
-                }
+                div { class: "flex flex-col flex-1 space-y-6",
+                    div {
+                        class: "w-full max-w-md mx-auto p-6 space-y-6",
+                        h2 { class: "text-xl font-bold text-center", "TrackPoint Speed" },
+                        div {
+                            class: "flex items-center justify-center space-x-8",
+                            div {
+                                class: "flex flex-col items-start",
+                                input {
+                                    r#type: "range",
+                                    min: 1,
+                                    max: 5,
+                                    step: 1,
+                                    value: tp_sensitivity,
+                                    onchange: move |evt| {
+                                        tp_sensitivity.set(u32::from_str_radix(&evt.value(), 10).unwrap());
+                                    },
+                                },
+                            },
+                            span {
+                                class: "text-xl w-24 text-center",
+                                {
+                                    let n = tp_sensitivity();
+                                    match n {
+                                        1 => "1 (default)".to_string(),
+                                        _ => n.to_string()
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    // textarea {
+                    //     class: "flex-1 p-2 rounded resize-none bg-gray-700",
+                    //     readonly: true,
+                    //     value: "console",
+                    // }
+                }            
             }
         }
 

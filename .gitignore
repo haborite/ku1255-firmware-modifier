@@ -13,5 +13,7 @@ linux
 temp.jsx
 temp.rsx
 Cargo.lock
-flash.py
-flash_copy.py
+flash.rs
+linux_x86-64
+win_x86-64
+flashsn8

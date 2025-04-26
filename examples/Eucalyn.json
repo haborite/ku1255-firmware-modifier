@@ -1,6 +1,8 @@
 {
+  "config_version": 2,
   "physical_layout_name": "0B47208",
   "logical_layout_name": "JP_Japanese",
+  "tp_sensitivity": 1,
   "layer0": [
     [
       475230,
