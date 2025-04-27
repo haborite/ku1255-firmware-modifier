@@ -209,3 +209,14 @@ fn patch_tp_settings(data: &mut Vec<u8>, tp_sensitivity: u32) -> Result<(), Stri
     Ok(())
 
 }
+
+
+pub fn extract_fw_bin(input_data: &[u8]) -> Vec<u8> {
+    const SN8_OFFSET: usize = 472208;
+    const XOR_KEY: u8 = 0x5A;
+    input_data
+        .iter()
+        .skip(SN8_OFFSET)
+        .map(|&b| b ^ XOR_KEY)
+        .collect()
+}

@@ -19,6 +19,7 @@ use utils::{
     load_config,
     save_config,
     patch_firmware,
+    extract_fw_bin,
 };
 
 // The macro returns an `Asset` type that will display as the path to the asset in the browser or a local path in desktop bundles.
@@ -33,6 +34,8 @@ const LOGICAL_LAYOUT_DIR:  &str = "logical_layouts";
 const EXE_PATH: &str = "firmware/tp_compact_usb_kb_with_trackpoint_fw.exe";
 const EXE_URL_SETTING_PATH: &str = "settings/url.txt";
 const MOD_EXE_PATH: &str = "firmware/mod_fw.exe";
+const MOD_BIN_PATH: &str = "firmware/mod_fw.bin";
+const FLASHER_PATH: &str = "firmware/flashsn8";
 
 fn main() {
     // init_logger(Level::DEBUG).expect("failed to init logger");
@@ -231,7 +234,7 @@ pub fn BoardSelector() -> Element {
                                 if v == 231 {
                                     if id_layout_l1().get(&k).unwrap() != &231 {
                                         error_msg.set(Some(
-                                            "The position of the 'Mod' key must be the same on layers 0 and 1.".to_string()
+                                            "The 'Mod' key position must be same on the Main and 2nd layers.".to_string()
                                         ));
                                         return;
                                     }
@@ -241,23 +244,43 @@ pub fn BoardSelector() -> Element {
                                 eprintln!("Original firmware binary is missing. Cannot apply patch.");
                                 return;
                             };
-                            let modified_binary = match patch_firmware(original_binary, &id_layout_l0(), &id_layout_l1(), tp_sensitivity()) {
+                            let modified_exe_bin = match patch_firmware(original_binary, &id_layout_l0(), &id_layout_l1(), tp_sensitivity()) {
                                 Ok(bin) => bin,
                                 Err(err) => {
                                     eprintln!("Failed to modify firmware binary: {}", err);
                                     return;
                                 }
                             };
-                            if let Err(err) = fs::File::create(MOD_EXE_PATH)
-                                .and_then(|mut file| file.write_all(&modified_binary))
-                            {
-                                eprintln!("Failed to save modified firmware to {}: {}", MOD_EXE_PATH, err);
-                                return;
-                            }
-                            println!("Modified firmware successfully saved to {}", MOD_EXE_PATH);
-                            match Command::new(MOD_EXE_PATH).spawn() {
-                                Ok(_) => println!("Launched modified firmware executable."),
-                                Err(err) => eprintln!("Failed to launch modified firmware: {}", err),
+
+                            if cfg!(target_os = "macos") || cfg!(target_os = "linux") {
+                                let modified_fw_bin = extract_fw_bin(&modified_exe_bin);
+                                if let Err(err) = fs::File::create(MOD_BIN_PATH)
+                                    .and_then(|mut file| file.write_all(&modified_fw_bin))
+                                {
+                                    eprintln!("Failed to save modified firmware binary to {}: {}", MOD_BIN_PATH, err);
+                                    return;
+                                }
+                                println!("Modified firmware binary successfully saved to {}", MOD_BIN_PATH);
+                                let status = Command::new(FLASHER_PATH).arg(MOD_BIN_PATH).status();
+                                match status {
+                                    Ok(status) if status.success() => println!("flashsn8 completed successfully."),
+                                    Ok(status) => eprintln!("flashsn8 failed with exit code: {}", status),
+                                    Err(err) => eprintln!("Failed to execute flashsn8: {}", err),
+                                }
+                            } else if cfg!(target_os = "windows") {
+                                if let Err(err) = fs::File::create(MOD_EXE_PATH)
+                                    .and_then(|mut file| file.write_all(&modified_exe_bin))
+                                {
+                                    eprintln!("Failed to save modified firmware installer to {}: {}", MOD_EXE_PATH, err);
+                                    return;
+                                }
+                                println!("Modified firmware installer successfully saved to {}", MOD_EXE_PATH);
+                                match Command::new(MOD_EXE_PATH).spawn() {
+                                    Ok(_) => println!("Launched modified firmware executable."),
+                                    Err(err) => eprintln!("Failed to launch modified firmware: {}", err),
+                                }
+                            } else {
+                                eprintln!("Unsupported OS.");
                             }
                         },
                         "Install firmware"              
