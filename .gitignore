@@ -17,3 +17,4 @@ flash.rs
 linux_x86-64
 win_x86-64
 flashsn8
+dist
