@@ -3,6 +3,7 @@
 **/*.rs.bk
 *.exe
 *.spec
+*.bin
 build
 win-unpacked
 node_modules
@@ -18,3 +19,5 @@ linux_x86-64
 win_x86-64
 flashsn8
 dist
+flashsn8.dist
+deploy

@@ -35,7 +35,8 @@ const EXE_PATH: &str = "firmware/tp_compact_usb_kb_with_trackpoint_fw.exe";
 const EXE_URL_SETTING_PATH: &str = "settings/url.txt";
 const MOD_EXE_PATH: &str = "firmware/mod_fw.exe";
 const MOD_BIN_PATH: &str = "firmware/mod_fw.bin";
-const FLASHER_PATH: &str = "firmware/flashsn8";
+const FLASHER_PATH: &str = "firmware/flashsn8/flashsn8-gui.bin";
+const FLASHER_WIN_PATH: &str = "firmware/flashsn8/flashsn8-gui.exe";
 
 fn main() {
     // init_logger(Level::DEBUG).expect("failed to init logger");
@@ -268,6 +269,22 @@ pub fn BoardSelector() -> Element {
                                     Err(err) => eprintln!("Failed to execute flashsn8: {}", err),
                                 }
                             } else if cfg!(target_os = "windows") {
+                                let modified_fw_bin = extract_fw_bin(&modified_exe_bin);
+                                if let Err(err) = fs::File::create(MOD_BIN_PATH)
+                                    .and_then(|mut file| file.write_all(&modified_fw_bin))
+                                {
+                                    eprintln!("Failed to save modified firmware binary to {}: {}", MOD_BIN_PATH, err);
+                                    return;
+                                }
+                                println!("Modified firmware binary successfully saved to {}", MOD_BIN_PATH);                       
+                                let status = Command::new(FLASHER_WIN_PATH).arg(MOD_BIN_PATH).status();
+                                match status {
+                                    Ok(status) if status.success() => println!("flashsn8 completed successfully."),
+                                    Ok(status) => eprintln!("flashsn8 failed with exit code: {}", status),
+                                    Err(err) => eprintln!("Failed to execute flashsn8: {}", err),
+                                }
+                                                              
+                            } else if cfg!(target_os = "windows") {
                                 if let Err(err) = fs::File::create(MOD_EXE_PATH)
                                     .and_then(|mut file| file.write_all(&modified_exe_bin))
                                 {
@@ -353,11 +370,6 @@ pub fn BoardSelector() -> Element {
                             }
                         }
                     },
-                    // textarea {
-                    //     class: "flex-1 p-2 rounded resize-none bg-gray-700",
-                    //     readonly: true,
-                    //     value: "console",
-                    // }
                 }            
             }
         }
