@@ -9,6 +9,7 @@ use std::path::Path;
 use std::io::Write;
 use std::fs;
 use std::process::Command;
+use std::collections::HashMap;
 use rfd::FileDialog;
 use models::{Board, LogicalLayout};
 use utils::{
@@ -37,6 +38,120 @@ const MOD_EXE_PATH: &str = "firmware/mod_fw.exe";
 const MOD_BIN_PATH: &str = "firmware/mod_fw.bin";
 const FLASHER_PATH: &str = "firmware/flashsn8/flashsn8-gui.bin";
 const FLASHER_WIN_PATH: &str = "firmware/flashsn8/flashsn8-gui.exe";
+
+fn validate_mod_key_position(
+    layout0: &Signal<HashMap<u32, u8>>,
+    layout1: &Signal<HashMap<u32, u8>>,
+) -> Option<String> {
+    for (k, v) in layout0() {
+        if v == 231 {
+            if layout1().get(&k) != Some(&231) {
+                return Some("The 'Mod' key position must be same on the Main and 2nd layers.".into());
+            }
+        }
+    }
+    None
+}
+
+fn build_modified_firmware(
+    firmware_future: &Resource<Vec<u8>>,
+    layout0: &Signal<HashMap<u32, u8>>,
+    layout1: &Signal<HashMap<u32, u8>>,
+    tp_sensitivity: &Signal<u32>,
+) -> Option<Vec<u8>> {
+    let Some(original_binary) = &*firmware_future.read_unchecked() else {
+        eprintln!("Original firmware binary is missing. Cannot apply patch.");
+        return None;
+    };
+    match patch_firmware(original_binary, &layout0(), &layout1(), tp_sensitivity()) {
+        Ok(bin) => Some(bin),
+        Err(err) => {
+            eprintln!("Failed to modify firmware binary: {}", err);
+            None
+        }
+    }
+}
+
+
+fn install_firmware_by_flashsn8(
+    id_layout_l0: &Signal<HashMap<u32, u8>>,
+    id_layout_l1: &Signal<HashMap<u32, u8>>,
+    firmware_future: &Resource<Vec<u8>>,
+    tp_sensitivity: &Signal<u32>,
+    error_msg: &mut Signal<Option<String>>,    
+) {
+    if let Some(msg) = validate_mod_key_position(id_layout_l0, id_layout_l1) {
+        error_msg.set(Some(msg));
+        return;
+    }
+    let Some(modified_exe_bin) = build_modified_firmware(firmware_future, id_layout_l0, id_layout_l1, tp_sensitivity) else {
+        return;
+    };
+    if cfg!(target_os = "macos") || cfg!(target_os = "linux") {
+        let modified_fw_bin = extract_fw_bin(&modified_exe_bin);
+        if let Err(err) = fs::File::create(MOD_BIN_PATH)
+            .and_then(|mut file| file.write_all(&modified_fw_bin))
+        {
+            eprintln!("Failed to save modified firmware binary to {}: {}", MOD_BIN_PATH, err);
+            return;
+        }
+        println!("Modified firmware binary successfully saved to {}", MOD_BIN_PATH);
+        let status = Command::new(FLASHER_PATH).arg(MOD_BIN_PATH).status();
+        match status {
+            Ok(status) if status.success() => println!("flashsn8 completed successfully."),
+            Ok(status) => eprintln!("flashsn8 failed with exit code: {}", status),
+            Err(err) => eprintln!("Failed to execute flashsn8: {}", err),
+        }
+    } else if cfg!(target_os = "windows") {
+        let modified_fw_bin = extract_fw_bin(&modified_exe_bin);
+        if let Err(err) = fs::File::create(MOD_BIN_PATH)
+            .and_then(|mut file| file.write_all(&modified_fw_bin))
+        {
+            eprintln!("Failed to save modified firmware binary to {}: {}", MOD_BIN_PATH, err);
+            return;
+        }
+        println!("Modified firmware binary successfully saved to {}", MOD_BIN_PATH);                       
+        match Command::new(FLASHER_WIN_PATH).arg(MOD_BIN_PATH).spawn() {
+            Ok(_) => println!("Flashsn8 launched"),
+            Err(err) => eprintln!("Failed to launch flashsn8: {}", err),
+        }
+    } else {
+        error_msg.set(Some("Error: Unsupported OS".into()));
+    }
+}
+
+fn install_firmware_by_lenovo_installer(
+    id_layout_l0: &Signal<HashMap<u32, u8>>,
+    id_layout_l1: &Signal<HashMap<u32, u8>>,
+    firmware_future: &Resource<Vec<u8>>,
+    tp_sensitivity: &Signal<u32>,
+    error_msg: &mut Signal<Option<String>>,    
+) {
+    if let Some(msg) = validate_mod_key_position(&id_layout_l0, &id_layout_l1) {
+        error_msg.set(Some(msg));
+        return;
+    }
+    let Some(modified_exe_bin) = build_modified_firmware(
+        firmware_future, id_layout_l0, id_layout_l1, tp_sensitivity
+    ) else {
+        return;
+    };
+    if cfg!(target_os = "windows") {
+        if let Err(err) = fs::File::create(MOD_EXE_PATH)
+            .and_then(|mut file| file.write_all(&modified_exe_bin))
+        {
+            eprintln!("Failed to save modified firmware installer to {}: {}", MOD_EXE_PATH, err);
+            return;
+        }
+        println!("Modified firmware installer successfully saved to {}", MOD_EXE_PATH);
+        match Command::new(MOD_EXE_PATH).spawn() {
+            Ok(_) => println!("Launched modified firmware executable."),
+            Err(err) => eprintln!("Failed to launch modified firmware: {}", err),
+        }
+    } else {
+        error_msg.set(Some("Error: Lenovo official installer only supports MS Windows".into()));
+    }
+}
 
 fn main() {
     // init_logger(Level::DEBUG).expect("failed to init logger");
@@ -98,6 +213,9 @@ pub fn BoardSelector() -> Element {
             }
         }
     });
+
+    // Install button submenu state
+    let mut show_install_menu = use_signal(|| false);
 
     // Paths
     let boards_dir = Path::new(BOARDS_DIR);
@@ -228,79 +346,58 @@ pub fn BoardSelector() -> Element {
                         },
                         "Save config"
                     }
-                    button {
-                        class: "px-4 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600",
-                        onclick: move |_| {
-                            for (k, v) in id_layout_l0() {
-                                if v == 231 {
-                                    if id_layout_l1().get(&k).unwrap() != &231 {
-                                        error_msg.set(Some(
-                                            "The 'Mod' key position must be same on the Main and 2nd layers.".to_string()
-                                        ));
-                                        return;
+                    div { class: "relative inline-flex",
+                        button {
+                            class: "px-4 py-2 bg-blue-500 text-white rounded-l shadow hover:bg-blue-600",
+                            onclick: move |_| {
+                                if cfg!(target_os = "windows") {
+                                    install_firmware_by_lenovo_installer(
+                                        &id_layout_l0, &id_layout_l1, &firmware_future, &tp_sensitivity, &mut error_msg,    
+                                    );
+                                } else {
+                                    install_firmware_by_flashsn8(
+                                        &id_layout_l0, &id_layout_l1, &firmware_future, &tp_sensitivity, &mut error_msg,    
+                                    );
+                                }
+                            },
+                            "Install firmware"              
+                        }
+                        button { 
+                            class: "px-2 py-2 bg-blue-500 text-white rounded-r shadow hover:bg-blue-600 flex items-center",
+                            onclick: move |_| { show_install_menu.set(!show_install_menu()); },
+                            "▼"
+                        }
+                        { show_install_menu().then(|| rsx! {
+                            div {
+                                class: "absolute right-0 mt-12 w-48 bg-white border border-gray-200 rounded shadow-lg z-10",
+                                ul { class: "text-sm text-gray-700",
+                                    li {
+                                        div {
+                                            class: "block px-4 py-2 hover:bg-gray-100",
+                                            onclick: move |_| {
+                                                show_install_menu.set(!show_install_menu());
+                                                install_firmware_by_lenovo_installer(
+                                                    &id_layout_l0, &id_layout_l1, &firmware_future, &tp_sensitivity, &mut error_msg,    
+                                                );
+                                            },
+                                            "by Lenovo installer"
+                                        }
+                                    }
+                                    li {
+                                        div {
+                                            class: "block px-4 py-2 hover:bg-gray-100",
+                                            onclick: move |_| {
+                                                show_install_menu.set(!show_install_menu());
+                                                install_firmware_by_flashsn8(
+                                                    &id_layout_l0, &id_layout_l1, &firmware_future, &tp_sensitivity, &mut error_msg,    
+                                                );
+                                            },
+                                            "by FlashSN8"
+                                        }
                                     }
                                 }
                             }
-                            let Some(original_binary) = &*firmware_future.read_unchecked() else {
-                                eprintln!("Original firmware binary is missing. Cannot apply patch.");
-                                return;
-                            };
-                            let modified_exe_bin = match patch_firmware(original_binary, &id_layout_l0(), &id_layout_l1(), tp_sensitivity()) {
-                                Ok(bin) => bin,
-                                Err(err) => {
-                                    eprintln!("Failed to modify firmware binary: {}", err);
-                                    return;
-                                }
-                            };
-
-                            if cfg!(target_os = "macos") || cfg!(target_os = "linux") {
-                                let modified_fw_bin = extract_fw_bin(&modified_exe_bin);
-                                if let Err(err) = fs::File::create(MOD_BIN_PATH)
-                                    .and_then(|mut file| file.write_all(&modified_fw_bin))
-                                {
-                                    eprintln!("Failed to save modified firmware binary to {}: {}", MOD_BIN_PATH, err);
-                                    return;
-                                }
-                                println!("Modified firmware binary successfully saved to {}", MOD_BIN_PATH);
-                                let status = Command::new(FLASHER_PATH).arg(MOD_BIN_PATH).status();
-                                match status {
-                                    Ok(status) if status.success() => println!("flashsn8 completed successfully."),
-                                    Ok(status) => eprintln!("flashsn8 failed with exit code: {}", status),
-                                    Err(err) => eprintln!("Failed to execute flashsn8: {}", err),
-                                }
-                            } else if cfg!(target_os = "windows") {
-                                let modified_fw_bin = extract_fw_bin(&modified_exe_bin);
-                                if let Err(err) = fs::File::create(MOD_BIN_PATH)
-                                    .and_then(|mut file| file.write_all(&modified_fw_bin))
-                                {
-                                    eprintln!("Failed to save modified firmware binary to {}: {}", MOD_BIN_PATH, err);
-                                    return;
-                                }
-                                println!("Modified firmware binary successfully saved to {}", MOD_BIN_PATH);                       
-                                let status = Command::new(FLASHER_WIN_PATH).arg(MOD_BIN_PATH).status();
-                                match status {
-                                    Ok(status) if status.success() => println!("flashsn8 completed successfully."),
-                                    Ok(status) => eprintln!("flashsn8 failed with exit code: {}", status),
-                                    Err(err) => eprintln!("Failed to execute flashsn8: {}", err),
-                                }
-                                                              
-                            } else if cfg!(target_os = "windows") {
-                                if let Err(err) = fs::File::create(MOD_EXE_PATH)
-                                    .and_then(|mut file| file.write_all(&modified_exe_bin))
-                                {
-                                    eprintln!("Failed to save modified firmware installer to {}: {}", MOD_EXE_PATH, err);
-                                    return;
-                                }
-                                println!("Modified firmware installer successfully saved to {}", MOD_EXE_PATH);
-                                match Command::new(MOD_EXE_PATH).spawn() {
-                                    Ok(_) => println!("Launched modified firmware executable."),
-                                    Err(err) => eprintln!("Failed to launch modified firmware: {}", err),
-                                }
-                            } else {
-                                eprintln!("Unsupported OS.");
-                            }
-                        },
-                        "Install firmware"              
+                        })}
                     }
                 }
             }
@@ -330,13 +427,6 @@ pub fn BoardSelector() -> Element {
                             onclick: move |_| {id_layout_l1.set(id_layout_l0().clone())},
                             "Copy from Main layer to 2nd layer"
                         }
-                        /*
-                        button {
-                            class: "w-60 px-1 py-1 bg-gray-500 text-white rounded shadow hover:bg-gray-600",
-                            onclick: move |_| {},
-                            "Key rollover test"
-                        }
-                        */
                     }
                 }
                 div { class: "flex flex-col flex-1 space-y-6",
