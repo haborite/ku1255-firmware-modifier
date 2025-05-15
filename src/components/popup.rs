@@ -41,7 +41,6 @@ pub fn Popup(
                             class: "w-full p-2 border border-gray-300 rounded mb-4 text-gray-700",
                             id: "options",
                             value: selecte_id,
-                            // onmounted: move |cx| {input_ref.set(Some(cx.data()))},
                             onchange: move |evt| {
                                 let new_id: u8 = evt.value().clone().parse().unwrap();
                                 let mut id_layout_clone = id_layout().clone();

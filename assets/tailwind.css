@@ -627,10 +627,6 @@ video {
   display: inline-flex;
 }
 
-.hidden {
-  display: none;
-}
-
 .h-10 {
   height: 2.5rem;
 }
@@ -641,10 +637,6 @@ video {
 
 .w-48 {
   width: 12rem;
-}
-
-.w-60 {
-  width: 15rem;
 }
 
 .w-80 {
@@ -765,14 +757,14 @@ video {
   border-radius: 0.75rem;
 }
 
-.rounded-r {
-  border-top-right-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
-}
-
 .rounded-l {
   border-top-left-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
+}
+
+.rounded-r {
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
 }
 
 .border {

@@ -1,6 +1,15 @@
 use std::collections::HashMap;
+use dioxus::prelude::{Signal, Resource, Writable, Readable};
+use std::process::Command;
+use std::fs;
+use std::io::Write;
 
-pub fn patch_firmware(
+const MOD_EXE_PATH: &str = "firmware/mod_fw.exe";
+const MOD_BIN_PATH: &str = "firmware/mod_fw.bin";
+const FLASHER_PATH: &str = "firmware/flashsn8/flashsn8-gui.bin";
+const FLASHER_WIN_PATH: &str = "firmware/flashsn8/flashsn8-gui.exe";
+
+fn patch_firmware(
     original_binary: &[u8],
     id_layout_layer0: &HashMap<u32, u8>,
     id_layout_layer1: &HashMap<u32, u8>,
@@ -211,7 +220,7 @@ fn patch_tp_settings(data: &mut Vec<u8>, tp_sensitivity: u32) -> Result<(), Stri
 }
 
 
-pub fn extract_fw_bin(input_data: &[u8]) -> Vec<u8> {
+fn extract_fw_bin(input_data: &[u8]) -> Vec<u8> {
     const SN8_OFFSET: usize = 472208;
     const SN8_LENGTH: usize = 24576;
     const XOR_KEY: u8 = 0x5A;
@@ -222,4 +231,118 @@ pub fn extract_fw_bin(input_data: &[u8]) -> Vec<u8> {
         .iter()
         .map(|&b| b ^ XOR_KEY)
         .collect()
+}
+
+
+fn validate_mod_key_position(
+    layout0: &Signal<HashMap<u32, u8>>,
+    layout1: &Signal<HashMap<u32, u8>>,
+) -> Option<String> {
+    for (k, v) in layout0() {
+        if v == 231 {
+            if layout1().get(&k) != Some(&231) {
+                return Some("The 'Mod' key position must be same on the Main and 2nd layers.".into());
+            }
+        }
+    }
+    None
+}
+
+fn build_modified_firmware(
+    firmware_future: &Resource<Vec<u8>>,
+    layout0: &Signal<HashMap<u32, u8>>,
+    layout1: &Signal<HashMap<u32, u8>>,
+    tp_sensitivity: &Signal<u32>,
+) -> Option<Vec<u8>> {
+    let Some(original_binary) = &*firmware_future.read_unchecked() else {
+        eprintln!("Original firmware binary is missing. Cannot apply patch.");
+        return None;
+    };
+    match patch_firmware(original_binary, &layout0(), &layout1(), tp_sensitivity()) {
+        Ok(bin) => Some(bin),
+        Err(err) => {
+            eprintln!("Failed to modify firmware binary: {}", err);
+            None
+        }
+    }
+}
+
+pub fn install_firmware_by_flashsn8(
+    id_layout_l0: &Signal<HashMap<u32, u8>>,
+    id_layout_l1: &Signal<HashMap<u32, u8>>,
+    firmware_future: &Resource<Vec<u8>>,
+    tp_sensitivity: &Signal<u32>,
+    error_msg: &mut Signal<Option<String>>,    
+) {
+    if let Some(msg) = validate_mod_key_position(id_layout_l0, id_layout_l1) {
+        error_msg.set(Some(msg));
+        return;
+    }
+    let Some(modified_exe_bin) = build_modified_firmware(firmware_future, id_layout_l0, id_layout_l1, tp_sensitivity) else {
+        return;
+    };
+    if cfg!(target_os = "macos") || cfg!(target_os = "linux") {
+        let modified_fw_bin = extract_fw_bin(&modified_exe_bin);
+        if let Err(err) = fs::File::create(MOD_BIN_PATH)
+            .and_then(|mut file| file.write_all(&modified_fw_bin))
+        {
+            eprintln!("Failed to save modified firmware binary to {}: {}", MOD_BIN_PATH, err);
+            return;
+        }
+        println!("Modified firmware binary successfully saved to {}", MOD_BIN_PATH);
+        let status = Command::new(FLASHER_PATH).arg(MOD_BIN_PATH).status();
+        match status {
+            Ok(status) if status.success() => println!("flashsn8 completed successfully."),
+            Ok(status) => eprintln!("flashsn8 failed with exit code: {}", status),
+            Err(err) => eprintln!("Failed to execute flashsn8: {}", err),
+        }
+    } else if cfg!(target_os = "windows") {
+        let modified_fw_bin = extract_fw_bin(&modified_exe_bin);
+        if let Err(err) = fs::File::create(MOD_BIN_PATH)
+            .and_then(|mut file| file.write_all(&modified_fw_bin))
+        {
+            eprintln!("Failed to save modified firmware binary to {}: {}", MOD_BIN_PATH, err);
+            return;
+        }
+        println!("Modified firmware binary successfully saved to {}", MOD_BIN_PATH);                       
+        match Command::new(FLASHER_WIN_PATH).arg(MOD_BIN_PATH).spawn() {
+            Ok(_) => println!("Flashsn8 launched"),
+            Err(err) => eprintln!("Failed to launch flashsn8: {}", err),
+        }
+    } else {
+        error_msg.set(Some("Error: Unsupported OS".into()));
+    }
+}
+
+pub fn install_firmware_by_lenovo_installer(
+    id_layout_l0: &Signal<HashMap<u32, u8>>,
+    id_layout_l1: &Signal<HashMap<u32, u8>>,
+    firmware_future: &Resource<Vec<u8>>,
+    tp_sensitivity: &Signal<u32>,
+    error_msg: &mut Signal<Option<String>>,    
+) {
+    if let Some(msg) = validate_mod_key_position(&id_layout_l0, &id_layout_l1) {
+        error_msg.set(Some(msg));
+        return;
+    }
+    let Some(modified_exe_bin) = build_modified_firmware(
+        firmware_future, id_layout_l0, id_layout_l1, tp_sensitivity
+    ) else {
+        return;
+    };
+    if cfg!(target_os = "windows") {
+        if let Err(err) = fs::File::create(MOD_EXE_PATH)
+            .and_then(|mut file| file.write_all(&modified_exe_bin))
+        {
+            eprintln!("Failed to save modified firmware installer to {}: {}", MOD_EXE_PATH, err);
+            return;
+        }
+        println!("Modified firmware installer successfully saved to {}", MOD_EXE_PATH);
+        match Command::new(MOD_EXE_PATH).spawn() {
+            Ok(_) => println!("Launched modified firmware executable."),
+            Err(err) => eprintln!("Failed to launch modified firmware: {}", err),
+        }
+    } else {
+        error_msg.set(Some("Error: Lenovo official installer only supports MS Windows".into()));
+    }
 }
