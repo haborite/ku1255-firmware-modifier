@@ -2,12 +2,15 @@ use std::collections::HashMap;
 use dioxus::prelude::{Signal, Resource, Writable, Readable};
 use std::process::Command;
 use std::fs;
+use std::path::Path;
 use std::io::Write;
+use std::future::Future;
 
 const MOD_EXE_PATH: &str = "firmware/mod_fw.exe";
 const MOD_BIN_PATH: &str = "firmware/mod_fw.bin";
 const FLASHER_PATH: &str = "firmware/flashsn8/flashsn8-gui.bin";
 const FLASHER_WIN_PATH: &str = "firmware/flashsn8/flashsn8-gui.exe";
+const EXE_PATH: &str = "firmware/tp_compact_usb_kb_with_trackpoint_fw.exe";
 
 fn patch_firmware(
     original_binary: &[u8],
@@ -344,5 +347,39 @@ pub fn install_firmware_by_lenovo_installer(
         }
     } else {
         error_msg.set(Some("Error: Lenovo official installer only supports MS Windows".into()));
+    }
+}
+
+pub async fn load_or_download_firmware(exe_url_cloned: &str) -> Vec<u8>  {
+    let firmware_path = Path::new(EXE_PATH);
+    if firmware_path.exists() {
+        println!("Firmware found at {}. Loading from disk...", EXE_PATH);
+        return fs::read(firmware_path).unwrap_or_else(|err| {
+            eprintln!("Error reading firmware: {}", err);
+            vec![]
+        });
+    }
+    println!("Firmware not found. Downloading from {}...", exe_url_cloned);
+    match reqwest::get(exe_url_cloned).await {
+        Ok(resp) => match resp.bytes().await {
+            Ok(bytes) => {
+                if let Err(err) = fs::File::create(firmware_path)
+                    .and_then(|mut file| file.write_all(&bytes))
+                {
+                    eprintln!("Failed to save firmware to {}: {}", EXE_PATH, err);
+                } else {
+                    println!("Firmware downloaded and saved to {}", EXE_PATH);
+                }
+                bytes.to_vec()
+            }
+            Err(err) => {
+                eprintln!("Failed to read response body: {}", err);
+                vec![]
+            }
+        },
+        Err(err) => {
+            eprintln!("Failed to download firmware: {}", err);
+            vec![]
+        }
     }
 }

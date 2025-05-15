@@ -1,4 +1,7 @@
-/// Define a components module that contains all shared components for our app.
+use std::path::Path;
+use std::io::Write;
+use std::fs;
+
 mod components;
 mod models;
 mod utils;
@@ -14,9 +17,6 @@ use components::{
     Keyboard,
     SliderTPSensitivity,
 };
-use std::path::Path;
-use std::io::Write;
-use std::fs;
 
 use models::{Board, LogicalLayout};
 use utils::{
@@ -24,9 +24,10 @@ use utils::{
     load_general,
     load_boards,
     load_logical_layouts,
+    load_or_download_firmware,
 };
 
-// The macro returns an `Asset` type that will display as the path to the asset in the browser or a local path in desktop bundles.
+// Assets
 const FAVICON: Asset = asset!("/assets/favicon.ico");
 const MAIN_CSS: Asset = asset!("/assets/styling/main.css");
 const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
@@ -60,39 +61,10 @@ pub fn MainWindow() -> Element {
     let error_msg: Signal<Option<String>> = use_signal(|| None);
 
     // Firmware to be patched
-    let firmware_future = use_resource( move || {
-        let exe_url_cloned = exe_url.clone();
-        async move {
-            let firmware_path = Path::new(EXE_PATH);
-            if firmware_path.exists() {
-                println!("Firmware found at {}. Loading from disk...", EXE_PATH);
-                return fs::read(firmware_path).unwrap_or_else(|err| {
-                    eprintln!("Error reading firmware: {}", err);
-                    vec![]
-                });
-            }
-            println!("Firmware not found. Downloading from {}...", exe_url_cloned);
-            match reqwest::get(exe_url_cloned).await {
-                Ok(resp) => match resp.bytes().await {
-                    Ok(bytes) => {
-                        if let Err(err) = fs::File::create(firmware_path)
-                            .and_then(|mut file| file.write_all(&bytes))
-                        {
-                            eprintln!("Failed to save firmware to {}: {}", EXE_PATH, err);
-                        } else {
-                            println!("Firmware downloaded and saved to {}", EXE_PATH);
-                        }
-                        bytes.to_vec()
-                    }
-                    Err(err) => {
-                        eprintln!("Failed to read response body: {}", err);
-                        vec![]
-                    }
-                },
-                Err(err) => {
-                    eprintln!("Failed to download firmware: {}", err);
-                    vec![]
-                }
+    let firmware_future = use_resource({move || {
+            let exe_url_cloned = exe_url.clone();
+            async move {
+                load_or_download_firmware(&exe_url_cloned).await
             }
         }
     });

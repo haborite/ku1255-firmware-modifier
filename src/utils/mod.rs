@@ -1,5 +1,5 @@
-mod load_cfg;
-pub use load_cfg::*;
+mod config;
+pub use config::*;
 
-mod modify_firmware;
-pub use modify_firmware::*;
+mod firmware;
+pub use firmware::*;
