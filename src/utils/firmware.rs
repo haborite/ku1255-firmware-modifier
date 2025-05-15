@@ -4,7 +4,6 @@ use std::process::Command;
 use std::fs;
 use std::path::Path;
 use std::io::Write;
-use std::future::Future;
 
 const MOD_EXE_PATH: &str = "firmware/mod_fw.exe";
 const MOD_BIN_PATH: &str = "firmware/mod_fw.bin";

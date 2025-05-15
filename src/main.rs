@@ -1,6 +1,4 @@
 use std::path::Path;
-use std::io::Write;
-use std::fs;
 
 mod components;
 mod models;
@@ -36,7 +34,6 @@ const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
 const GENERAL_SETTING_PATH: &str = "settings/general_setting.csv";
 const BOARDS_DIR:  &str = "boards";
 const LOGICAL_LAYOUT_DIR:  &str = "logical_layouts";
-const EXE_PATH: &str = "firmware/tp_compact_usb_kb_with_trackpoint_fw.exe";
 const EXE_URL_SETTING_PATH: &str = "settings/url.txt";
 
 fn main() {
@@ -62,12 +59,11 @@ pub fn MainWindow() -> Element {
 
     // Firmware to be patched
     let firmware_future = use_resource({move || {
-            let exe_url_cloned = exe_url.clone();
-            async move {
-                load_or_download_firmware(&exe_url_cloned).await
-            }
+        let exe_url_cloned = exe_url.clone();
+        async move {
+            load_or_download_firmware(&exe_url_cloned).await
         }
-    });
+    }});
 
     // Paths
     let boards_dir = Path::new(BOARDS_DIR);
