@@ -27,6 +27,7 @@ Since all modifications are written directly to the keyboard's firmware, **no sy
 1. Download the [latest version](https://github.com/haborite/ku1255-firmware-modifier/releases/latest) of `ku1255-firmware-modifier.zip` from the [Releases](https://github.com/haborite/ku1255-firmware-modifier/releases/latest) page.
 2. Extract the downloaded `.zip` file.
 3. Launch `ku1255-firmware-modifier.exe`.
+    - If you see a warning saying "Windows protected your PC" and "Microsoft Defender SmartScreen prevented an unrecognized app from starting", click "More info" and then select "Run anyway" to proceed.
 
 ## 🖥️ Interface Overview
 
