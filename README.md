@@ -1,4 +1,4 @@
-[English](README.md) | [日本語](docs/README-ja.md) | [简体中文](docs/README-zh.md)|
+[English](README.md) | [日本語](docs/README-ja.md) | [简体中文](docs/README-zh.md) |
 
 # KU-1255 Firmware Modifier
 
@@ -80,5 +80,6 @@ The reffered table of Usage IDs and names
 
 The app is designed to be extendable to support keyboards for various languages.  
 Contributions to add keyboards for your own language are very welcome!
+
 
 
