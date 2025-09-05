@@ -19,6 +19,7 @@ Since all modifications are written directly to the keyboard's firmware, **no sy
 ## ✅ System Requirements
 
 - Currently the app only works on MS Windows, but macOS and Linux versions can be developed upon request.
+- Microsoft Visual C++ Redistributable is required in MS Windows.
 - Once the firmware is installed, the keyboard works on **most operating systems**, regardless of the one used during installation.
 - Internet connection is required at the first run of the app to download the official firmware installer from Lenovo web page.
 
@@ -80,6 +81,7 @@ The reffered table of Usage IDs and names
 
 The app is designed to be extendable to support keyboards for various languages.  
 Contributions to add keyboards for your own language are very welcome!
+
 
 
 
