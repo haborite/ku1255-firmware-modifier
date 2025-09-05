@@ -21,6 +21,7 @@
 ## ✅ 系统要求
 
 * 目前应用仅支持 **Windows**。若有需求，可开发 **macOS** 与 **Linux** 版本。
+* 要在 Microsoft Windows 上运行，需要安装 Microsoft Visual C++ 可再发行软件包。
 * 一旦完成固件写入，键盘在**多数操作系统**上都可直接使用，与安装时所用系统无关。
 * 首次运行本应用需要联网，以从联想官网页面下载官方固件安装程序。
 
@@ -85,4 +86,5 @@
 * [https://bsakatu.net/doc/usb-hid-to-scancode/](https://bsakatu.net/doc/usb-hid-to-scancode/)
 
 本应用以可扩展为设计目标，可支持多语言键盘布局。
+
 非常欢迎提交 PR，为你所用语言的键盘添加支持！
