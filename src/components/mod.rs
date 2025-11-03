@@ -6,7 +6,7 @@ mod popup;
 mod messages;
 
 pub use keyboard::Keyboard;
-pub use selects::{SelectBoard, SelectLogicalLayout};
+pub use selects::{SelectBoard, SelectLogicalLayout, SelectFnID};
 pub use sliders::SliderTPSensitivity;
 pub use buttons::{ButtonInstall, ButtonLoad, ButtonSave};
 pub use popup::Popup;

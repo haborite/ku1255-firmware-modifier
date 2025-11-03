@@ -277,18 +277,20 @@ pub fn load_logical_layouts(dir: &Path, general_config_path: &Path) -> Vec<Logic
 
 
 pub fn load_config(filepath: &Path)
-    -> io::Result<(String, String, HashMap<u32, u8>, HashMap<u32, u8>, u32)> 
+    -> io::Result<(String, String, HashMap<u32, u8>, HashMap<u32, u8>, u8, u32)> 
 {
     let file = File::open(filepath)?;
     let config: Config = from_reader(file)?;
     let layer0: HashMap<u32, u8> = config.layer0.into_iter().map(|[key, value]| (key, value as u8)).collect();
     let layer1: HashMap<u32, u8> = config.layer1.into_iter().map(|[key, value]| (key, value as u8)).collect();
+    let fn_id = config.fn_id;
     let tp_sensitivity = config.tp_sensitivity;
     Ok((
         config.physical_layout_name,
         config.logical_layout_name,
         layer0,
         layer1,
+        fn_id,
         tp_sensitivity,
     ))
 }
@@ -299,6 +301,7 @@ pub fn save_config(
     logical_layout_name: &str,
     id_layout_l0: &HashMap<u32, u8>,
     id_layout_l1: &HashMap<u32, u8>,
+    fn_id: u8,
     tp_sensitivity: u32
 ) -> io::Result<()> {
     let layer0: Vec<[u32; 2]> = id_layout_l0.iter()
@@ -313,6 +316,7 @@ pub fn save_config(
         logical_layout_name: logical_layout_name.to_string(),
         layer0,
         layer1,
+        fn_id,
         tp_sensitivity,
     };
     let file = File::create(filepath)?;

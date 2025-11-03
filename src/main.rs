@@ -1,3 +1,5 @@
+#![cfg_attr(all(target_os = "windows", not(debug_assertions)), windows_subsystem = "windows")]
+
 use std::path::Path;
 
 mod components;
@@ -14,6 +16,7 @@ use components::{
     ErrorMessage,
     Keyboard,
     SliderTPSensitivity,
+    SelectFnID,
 };
 
 use models::{Board, LogicalLayout};
@@ -26,9 +29,9 @@ use utils::{
 };
 
 // Assets
-const FAVICON: Asset = asset!("/assets/favicon.ico");
-const MAIN_CSS: Asset = asset!("/assets/styling/main.css");
-const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
+const FAVICON: Asset = asset!("/public/favicon.ico");
+const MAIN_CSS: Asset = asset!("/public/styling/main.css");
+const TAILWIND_CSS: Asset = asset!("/public/tailwind.css");
 
 // Constants
 const GENERAL_SETTING_PATH: &str = "settings/general_setting.csv";
@@ -99,6 +102,9 @@ pub fn MainWindow() -> Element {
     let id_layout_l0 = use_signal(|| id_layout_original.clone());
     let mut id_layout_l1 = use_signal(|| id_layout_l0().clone());
 
+    // New Fn ID
+    let fn_id = use_signal(|| 0xaf );
+
     // TrackPoint sensitivity variables
     let tp_sensitivity = use_signal(|| 1 );
 
@@ -113,9 +119,9 @@ pub fn MainWindow() -> Element {
                 label {"Language: "}
                 SelectLogicalLayout { selected_logical_layout_name, selected_logical_layout, logical_layouts }
                 div { class: "flex space-x-2 justify-end",
-                    ButtonLoad { selected_board_name, selected_logical_layout_name, id_layout_l0, id_layout_l1, tp_sensitivity }
-                    ButtonSave { selected_board, selected_logical_layout, id_layout_l0, id_layout_l1, tp_sensitivity }
-                    ButtonInstall { id_layout_l0, id_layout_l1, firmware_future, tp_sensitivity, error_msg }
+                    ButtonLoad { selected_board_name, selected_logical_layout_name, id_layout_l0, id_layout_l1, fn_id, tp_sensitivity }
+                    ButtonSave { selected_board, selected_logical_layout, id_layout_l0, id_layout_l1, fn_id, tp_sensitivity }
+                    ButtonInstall { id_layout_l0, id_layout_l1, firmware_future, fn_id, tp_sensitivity, error_msg }
                 }
             }
             div { class: "flex flex-1 space-x-4",
@@ -148,7 +154,13 @@ pub fn MainWindow() -> Element {
                 }
                 div { class: "flex flex-col flex-1 space-y-6",
                     SliderTPSensitivity { tp_sensitivity }
-                }            
+                    SelectFnID {
+                        id_list,
+                        usage_names,
+                        fn_id,
+                        map_key_label: selected_logical_layout().clone().map_key_label,
+                    }
+                }      
             }
         }
         div {

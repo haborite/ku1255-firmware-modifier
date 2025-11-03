@@ -23,8 +23,8 @@ pub fn Popup(
 
     rsx! {
         { if let Some(key_address) = selected_address() {
-            // let selecte_id = use_signal(|| id_layout().get(&selected_address().unwrap_or(0)).copied().unwrap_or(0));
-            let selecte_id = id_layout().get(&selected_address().unwrap_or(0)).copied().unwrap_or(0);
+            // let selected_id = use_signal(|| id_layout().get(&selected_address().unwrap_or(0)).copied().unwrap_or(0));
+            let selected_id = id_layout().get(&selected_address().unwrap_or(0)).copied().unwrap_or(0);
             rsx! {
                 div {
                     class: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50",
@@ -40,7 +40,7 @@ pub fn Popup(
                         select {
                             class: "w-full p-2 border border-gray-300 rounded mb-4 text-gray-700",
                             id: "options",
-                            value: selecte_id,
+                            value: selected_id,
                             onchange: move |evt| {
                                 let new_id: u8 = evt.value().clone().parse().unwrap();
                                 let mut id_layout_clone = id_layout().clone();
@@ -73,7 +73,7 @@ pub fn Popup(
                                             }
                                         },
                                     };
-                                    let selected_flag = if kid == selecte_id {true} else {false};
+                                    let selected_flag = if kid == selected_id {true} else {false};
                                     rsx!(
                                         option {
                                             class: style,

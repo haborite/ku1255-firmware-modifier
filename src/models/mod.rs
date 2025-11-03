@@ -60,6 +60,8 @@ impl KeyLabel {
     }
 }
 
+fn default_fn_id() -> u8 { 0xaf }
+
 #[derive(Serialize, Deserialize)]
 pub struct Config {
     pub config_version: u32,
@@ -67,5 +69,7 @@ pub struct Config {
     pub logical_layout_name: String,
     pub layer0: Vec<[u32; 2]>,
     pub layer1: Vec<[u32; 2]>,
+    #[serde(default = "default_fn_id")]
+    pub fn_id: u8,
     pub tp_sensitivity: u32,
 }

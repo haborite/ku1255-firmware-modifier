@@ -1,5 +1,6 @@
 use dioxus::prelude::*;
-use crate::models::{Board, LogicalLayout};
+use crate::models::{Board, LogicalLayout, KeyLabel};
+use std::collections::HashMap;
 
 #[component]
 pub fn SelectBoard(
@@ -46,6 +47,68 @@ pub fn SelectLogicalLayout(
             { logical_layouts.iter().map(|l|{
                 rsx!(option { value: l.layout_name.clone(), label: l.layout_label.clone() })
             })}
+        }
+    }
+}
+
+
+
+#[component]
+pub fn SelectFnID(
+    id_list: Vec<u8>,
+    usage_names: Vec<String>,
+    fn_id: Signal<u8>,
+    map_key_label: HashMap::<u8, KeyLabel>,
+) -> Element {
+    rsx!{
+        div {
+            class: "w-full max-w-md mx-auto p-6 space-y-6",
+            h2 { class: "text-xl font-bold text-center", "Function key" },
+            select {
+                class: "w-full p-2 border border-gray-300 rounded mb-4 text-gray-700",
+                id: "options",
+                value: fn_id(),
+                onchange: move |evt| {
+                    let new_id: u8 = evt.value().clone().parse().unwrap();
+                    fn_id.set(new_id);
+                },
+                {
+                    id_list.into_iter().enumerate().map(|(idx, kid)|{
+                        let (label, style) = match map_key_label.get(&kid) {
+                            None => ("".to_string(), "text-gray-700".to_string()),
+                            Some(ks) => {
+                                if ks.default == "" {
+                                    (
+                                        format!("{{ {:02X}: {} }}", kid, usage_names[idx]),
+                                        "text-gray-400".to_string()
+                                    )                                                
+                                } else { 
+                                    if ks.shifted == "" {
+                                        (
+                                            format!("{}", ks.default),
+                                            "text-gray-700".to_string()
+                                        )
+                                    } else {
+                                        (
+                                            format!("{} and {}", ks.default, ks.shifted),
+                                            "text-gray-700".to_string()
+                                        )
+                                    }
+                                }
+                            },
+                        };
+                        let selected_flag = if kid == fn_id() {true} else {false};
+                        rsx!(
+                            option {
+                                class: style,
+                                value: kid,
+                                label: label,
+                                selected: selected_flag,
+                            }
+                        )                                   
+                    })
+                }
+            }
         }
     }
 }

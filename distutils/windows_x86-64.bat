@@ -11,7 +11,7 @@ set "FLASH_GUI_DEST=%WORKDIR%\firmware\flashsn8"
 
 :: === 1. Compile TailwindCSS ===
 echo === 1. Compiling TailwindCSS ===
-call npx tailwindcss -i ./input.css -o ./assets/tailwind.css --minify
+call npx tailwindcss -i ./input.css -o ./public/tailwind.css --minify
 if errorlevel 1 (
     echo TailwindCSS compilation failed.
     exit /b 1
@@ -19,7 +19,7 @@ if errorlevel 1 (
 
 :: === 2. Build Dioxus App ===
 echo === 2. Building Dioxus App ===
-dx build --release --platform desktop
+dx build --release --desktop
 if errorlevel 1 (
     echo Dioxus build failed.
     exit /b 1

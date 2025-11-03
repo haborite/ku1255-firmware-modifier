@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-use dioxus::prelude::{Signal, Resource, Writable, Readable};
+use dioxus::prelude::{Signal, Resource, ReadableExt, WritableExt};
 use std::process::Command;
 use std::fs;
 use std::path::Path;
@@ -15,6 +15,7 @@ fn patch_firmware(
     original_binary: &[u8],
     id_layout_layer0: &HashMap<u32, u8>,
     id_layout_layer1: &HashMap<u32, u8>,
+    fn_id: u8,
     tp_sensitivity: u32, 
 ) -> Result<Vec<u8>, String> {
     let mut data = original_binary.to_vec();
@@ -48,7 +49,39 @@ fn patch_firmware(
         data[offset + 1] = new_xored_id;
     }
 
-    // 4. TrackPoint Sensitivity
+    // 4. Modify Fn key position
+    let fn_key_offset = 0x73A68;
+    let fn_pressed_flag_0 = 0x73A82;
+    let fn_pressed_flag_1 = 0x73A82;
+    let fn_pressed_flag_2 = 0x73A82;
+    let fn_pressed_flag_3 = 0x73A82;
+    let fn_pressed_flag_4 = 0x73A82;
+    let fn_pressed_flag_5 = 0x73A82;
+    let fn_pressed_flag_6 = 0x73A82;
+    let fn_pressed_flag_7 = 0x73A82;
+    let fn_pressed_flag_8 = 0x73A82;
+    let fn_pressed_flag_9 = 0x73C9D;
+    if data[fn_key_offset] == 0xF5 {
+        data[fn_key_offset] = fn_id ^ 0x5A;
+        if fn_id != 0xAF {
+            /*
+            data[fn_pressed_flag_0] = 0x5C;
+            data[fn_pressed_flag_1] = 0x5C;
+            data[fn_pressed_flag_2] = 0x5C;
+            data[fn_pressed_flag_3] = 0x5C;
+            data[fn_pressed_flag_4] = 0x5C;
+            data[fn_pressed_flag_5] = 0x5C;
+            data[fn_pressed_flag_6] = 0x5C;
+            data[fn_pressed_flag_7] = 0x5C;
+            data[fn_pressed_flag_8] = 0x5C;
+            data[fn_pressed_flag_9] = 0x5A;
+            */
+        }
+    } else {
+        return Err(format!("Invalid byte at {fn_key_offset}."));
+    }
+
+    // 5. TrackPoint Sensitivity
     patch_tp_settings(&mut data, tp_sensitivity)?;
 
     Ok(data)
@@ -73,9 +106,9 @@ fn patch_layer_constants(data: &mut Vec<u8>) -> Result<(), String> {
         0x0D, 0xBE, 0xD8, 0x5A, 0x01, 0xB2, 0xD8, 0x15, 0x9F, 0xDC, 0x28, 0x13, 0xDE, 0xB1, 0xD8,
         0xD8, 0x44, 0x55, 0x45, 0x84, 0xD8, 0x5A, 0x5A, 0xA7, 0x9E, 0xDC, 0x28, 0x13, 0xDE, 0x55,
         0x44, 0xF5, 0x5C, 0xA0, 0xD8, 0x2E, 0x74, 0xDC, 0x2A, 0x5A, 0x54, 0x5A, 0x1A, 0x5A, 0x01,
-        0x5A, 0x12, 0x49, 0x13, 0x49, 0x12, 0x49, 0x16, 0x49, 0x14, 0x49, 0x15, 0x13, 0xDE, 0x5A,
-        0x02, 0x44, 0xD9, 0x0A, 0x5C, 0x5B, 0xD9, 0x10, 0x77, 0x55, 0x45, 0x1E, 0xDE, 0x15, 0x5C,
-        0x5C, 0xD9, 0x17, 0x77, 0x55, 0x45, 0x1E,
+        0x5A, 0x12, 0x5A, 0x5A, 0x49, 0x12, 0x49, 0x16, 0x49, 0x14, 0x49, 0x15, 0x4A, 0xDE, 0x5A,
+        0x02, 0x44, 0xD9, 0x5A, 0x5A, 0x5A, 0x5A, 0x5A, 0x5A, 0x5A, 0x5A, 0x5F, 0x5C, 0x5C, 0xD9,
+        0x48, 0x17, 0x49, 0x12, 0x65, 0x71, 0x13,
     ];
 
     if data.len() <= address_end {
@@ -100,6 +133,28 @@ fn patch_layer_constants(data: &mut Vec<u8>) -> Result<(), String> {
 
     data[address_3rd] = 0x5A;
     data[address_4th] = 0x5A;
+
+    // Fn key related patches
+
+    let address_5th = 0x73AD0;
+    let address_6th = 0x73AD8;
+    let address_7th = 0x73ADE;
+    let address_8th = 0x73C6C;
+
+    let address_start_2 = 0x73C9D;
+    let address_end_2 = 0x73CAF;
+
+    const NEW_VALUES_2: [u8; 19] = [
+        0x5A, 0x5A, 0x5A, 0x5A, 0x5A, 0x5A, 0x5A, 0x5A, 0x5A, 0x5A, 0x5A, 0x5A, 0x5A, 0x5A, 0x5A, 
+        0x5A, 0x5A, 0x5A, 0x5A,
+    ];
+
+    data[address_5th] = 0x4A;
+    data[address_6th] = 0x4A;
+    data[address_7th] = 0x4A;
+    data[address_8th] = 0x4A;
+
+    data[address_start_2..=address_end_2].copy_from_slice(&NEW_VALUES_2);
 
     Ok(())
 }
@@ -254,13 +309,14 @@ fn build_modified_firmware(
     firmware_future: &Resource<Vec<u8>>,
     layout0: &Signal<HashMap<u32, u8>>,
     layout1: &Signal<HashMap<u32, u8>>,
+    fn_id: &Signal<u8>,
     tp_sensitivity: &Signal<u32>,
 ) -> Option<Vec<u8>> {
     let Some(original_binary) = &*firmware_future.read_unchecked() else {
         eprintln!("Original firmware binary is missing. Cannot apply patch.");
         return None;
     };
-    match patch_firmware(original_binary, &layout0(), &layout1(), tp_sensitivity()) {
+    match patch_firmware(original_binary, &layout0(), &layout1(), fn_id(), tp_sensitivity()) {
         Ok(bin) => Some(bin),
         Err(err) => {
             eprintln!("Failed to modify firmware binary: {}", err);
@@ -273,6 +329,7 @@ pub fn install_firmware_by_flashsn8(
     id_layout_l0: &Signal<HashMap<u32, u8>>,
     id_layout_l1: &Signal<HashMap<u32, u8>>,
     firmware_future: &Resource<Vec<u8>>,
+    fn_id: &Signal<u8>,
     tp_sensitivity: &Signal<u32>,
     error_msg: &mut Signal<Option<String>>,    
 ) {
@@ -280,7 +337,7 @@ pub fn install_firmware_by_flashsn8(
         error_msg.set(Some(msg));
         return;
     }
-    let Some(modified_exe_bin) = build_modified_firmware(firmware_future, id_layout_l0, id_layout_l1, tp_sensitivity) else {
+    let Some(modified_exe_bin) = build_modified_firmware(firmware_future, id_layout_l0, id_layout_l1, fn_id, tp_sensitivity) else {
         return;
     };
     if cfg!(target_os = "macos") || cfg!(target_os = "linux") {
@@ -320,6 +377,7 @@ pub fn install_firmware_by_lenovo_installer(
     id_layout_l0: &Signal<HashMap<u32, u8>>,
     id_layout_l1: &Signal<HashMap<u32, u8>>,
     firmware_future: &Resource<Vec<u8>>,
+    fn_id: &Signal<u8>,
     tp_sensitivity: &Signal<u32>,
     error_msg: &mut Signal<Option<String>>,    
 ) {
@@ -328,7 +386,7 @@ pub fn install_firmware_by_lenovo_installer(
         return;
     }
     let Some(modified_exe_bin) = build_modified_firmware(
-        firmware_future, id_layout_l0, id_layout_l1, tp_sensitivity
+        firmware_future, id_layout_l0, id_layout_l1, fn_id, tp_sensitivity
     ) else {
         return;
     };

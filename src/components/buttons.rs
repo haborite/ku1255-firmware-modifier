@@ -14,6 +14,7 @@ pub fn ButtonInstall(
     id_layout_l0: Signal<HashMap<u32, u8>>,
     id_layout_l1: Signal<HashMap<u32, u8>>,
     firmware_future: Resource<Vec<u8>>,
+    fn_id: Signal<u8>,
     tp_sensitivity: Signal<u32>,
     error_msg: Signal<Option<String>>,
 ) -> Element {
@@ -28,11 +29,11 @@ pub fn ButtonInstall(
                 onclick: move |_| {
                     if cfg!(target_os = "windows") {
                         install_firmware_by_lenovo_installer(
-                            &id_layout_l0, &id_layout_l1, &firmware_future, &tp_sensitivity, &mut error_msg,    
+                            &id_layout_l0, &id_layout_l1, &firmware_future, &fn_id, &tp_sensitivity, &mut error_msg,    
                         );
                     } else {
                         install_firmware_by_flashsn8(
-                            &id_layout_l0, &id_layout_l1, &firmware_future, &tp_sensitivity, &mut error_msg,    
+                            &id_layout_l0, &id_layout_l1, &firmware_future, &fn_id, &tp_sensitivity, &mut error_msg,    
                         );
                     }
                 },
@@ -50,6 +51,7 @@ pub fn ButtonInstall(
                         id_layout_l0,
                         id_layout_l1,
                         firmware_future,
+                        fn_id,
                         tp_sensitivity,
                         error_msg,
                     }
@@ -65,6 +67,7 @@ fn InstallSubMenu(
     id_layout_l0: Signal<HashMap<u32, u8>>,
     id_layout_l1: Signal<HashMap<u32, u8>>,
     firmware_future: Resource<Vec<u8>>,
+    fn_id: Signal<u8>,
     tp_sensitivity: Signal<u32>,
     error_msg: Signal<Option<String>>,
 ) -> Element {
@@ -79,7 +82,7 @@ fn InstallSubMenu(
                         onclick: move |_| {
                             show_install_menu.set(!show_install_menu());
                             install_firmware_by_lenovo_installer(
-                                &id_layout_l0, &id_layout_l1, &firmware_future, &tp_sensitivity, &mut error_msg,    
+                                &id_layout_l0, &id_layout_l1, &firmware_future, &fn_id, &tp_sensitivity, &mut error_msg,    
                             );
                         },
                         "by Lenovo installer"
@@ -91,7 +94,7 @@ fn InstallSubMenu(
                         onclick: move |_| {
                             show_install_menu.set(!show_install_menu());
                             install_firmware_by_flashsn8(
-                                &id_layout_l0, &id_layout_l1, &firmware_future, &tp_sensitivity, &mut error_msg,    
+                                &id_layout_l0, &id_layout_l1, &firmware_future, &fn_id, &tp_sensitivity, &mut error_msg,    
                             );
                         },
                         "by FlashSN8"
@@ -109,6 +112,7 @@ pub fn ButtonLoad(
     selected_logical_layout_name: Signal<String>,
     id_layout_l0: Signal<HashMap<u32, u8>>,
     id_layout_l1: Signal<HashMap<u32, u8>>,
+    fn_id: Signal<u8>,
     tp_sensitivity: Signal<u32>,
 ) -> Element {
     rsx! {
@@ -127,12 +131,14 @@ pub fn ButtonLoad(
                             loaded_logical_layout_name,
                             loaded_id_layout_l0,
                             loaded_id_layout_l1,
+                            loaded_fn_id,
                             loaded_tp_sensitivity,
                         )) = load_config(&path) {
                             selected_board_name.set(loaded_board_name);
                             selected_logical_layout_name.set(loaded_logical_layout_name);
                             id_layout_l0.set(loaded_id_layout_l0);
                             id_layout_l1.set(loaded_id_layout_l1);
+                            fn_id.set(loaded_fn_id);
                             tp_sensitivity.set(loaded_tp_sensitivity);
                         };
                     },
@@ -146,11 +152,12 @@ pub fn ButtonLoad(
 
 #[component]
 pub fn ButtonSave(
-    selected_board: ReadOnlySignal<Board>,
+    selected_board: ReadSignal<Board>,
     selected_logical_layout: Memo<LogicalLayout>,
-    id_layout_l0: ReadOnlySignal<HashMap<u32, u8>>,
-    id_layout_l1: ReadOnlySignal<HashMap<u32, u8>>,
-    tp_sensitivity: ReadOnlySignal<u32>,
+    id_layout_l0: ReadSignal<HashMap<u32, u8>>,
+    id_layout_l1: ReadSignal<HashMap<u32, u8>>,
+    fn_id: ReadSignal<u8>,
+    tp_sensitivity: ReadSignal<u32>,
 ) -> Element {
     rsx! {
         button {
@@ -171,6 +178,7 @@ pub fn ButtonSave(
                             &selected_logical_layout().layout_name,
                             &id_layout_l0(),
                             &id_layout_l1(),
+                            fn_id(),
                             tp_sensitivity(),
                         );
                     },
