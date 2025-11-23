@@ -1,0 +1,53 @@
+# Declaration of keyboard device
+05 01    Global: Usage Page      = Generic Desktop (0x01)
+09 06    Local:  Usage           = Generic Desktop: Keyboard
+A1 01    Main:   Collection      = Application (0x01)
+
+# Modifier keys (LCtrl, LShift, LAlt, LGUI, RCtrl, RShift, RAlt, RGUI)
+05 07    Global: Usage Page      = Keyboard / Keypad (0x07)
+19 E0    Local:  Usage Minimum   = Keyboard / Keypad: Keyboard 0xE0
+29 E7    Local:  Usage Maximum   = Keyboard / Keypad: Keyboard 0xE7
+15 00    Global: Logical Minimum = 0 (0x00)
+25 01    Global: Logical Maximum = 1 (0x01)
+75 01    Global: Report Size     = 1 (0x01)
+95 08    Global: Report Count    = 8 (0x08)
+81 02    Main:   Input           = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+
+# Reserved bytes (always 0)
+95 01    Global: Report Count    = 1 (0x01)
+75 08    Global: Report Size     = 8 (0x08)
+81 01    Main:   Input           = 0x01 (Constant, Array, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+
+# LED state output (host -> keyboard) (NumLock, CapsLoc, ScrollLock, Compose, Kana)
+95 05    Global: Report Count    = 5 (0x05)
+75 01    Global: Report Size     = 1 (0x01)
+05 08    Global: Usage Page      = LEDs (0x08)
+19 01    Local:  Usage Minimum   = LEDs: 0x01
+29 05    Local:  Usage Maximum   = LEDs: 0x05
+91 02    Main:   Output          = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+
+# 3-bit padding
+95 01    Global: Report Count    = 1 (0x01)
+75 03    Global: Report Size     = 3 (0x03)
+91 01    Main:   Output          = 0x01 (Constant, Array, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+
+# 6-key rollover array
+95 06    Global: Report Count    = 6 (0x06)
+75 08    Global: Report Size     = 8 (0x08)
+16 00 00 Global: Logical Minimum = 0 (0x0000)
+26 AF 00 Global: Logical Maximum = 175 (0x00AF)
+05 07    Global: Usage Page      = Keyboard / Keypad (0x07)
+1A 00 00 Local:  Usage Minimum   = Keyboard / Keypad: Keyboard 0x00
+2A AF 00 Local:  Usage Maximum   = Keyboard / Keypad: Keyboard 0xAF
+81 00    Main:   Input           = 0x00 (Data, Array, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+
+# Feature of Consumer Page
+05 0C    Global: Usage Page      = Consumer (0x0C)
+09 00    Local:  Usage           = Consumer: 0x00
+15 80    Global: Logical Minimum = -128 (0x80)
+25 7F    Global: Logical Maximum = 127  (0x7F)
+75 08    Global: Report Size     = 8 (0x08)
+95 08    Global: Report Count    = 8 (0x08)
+B1 02    Main:   Feature         = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+
+C0       Main:   End Collection

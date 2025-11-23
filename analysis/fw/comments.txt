@@ -1,0 +1,7566 @@
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; Clear FnLock signal
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+
+;
+;
+; <-----------------+
+; may be timing     |
+; may be timing     |
+; 0x03 counter      |
+; ------------------+
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; Check 0x0b.0
+; If 0x0b.0 == 0, ===> JMP func_0186_02c3
+; If 0x0b.0 == 1, set 0x00.3 = 0
+; Check 0x09.0
+; If 0x09.0 == 0, set 0x00.3 = 1
+;
+; A = 0x0e + 0x0d
+; 0x08 = 0x0e + 0x0d
+; Y = #0x05
+; Z = #0xa0 (+0) (Real #0x04B0, Offset = 0x05A0)
+;
+; Z = 0x08 + Z
+;
+; If Carry flag == 1, Y = Y + 1. If Y == 0, skip next. 
+; IF Carry flag == 0, Copy from ROM [Y, Z] to A. memoOVC Y const 05, Z c-v a0 + var
+; 0x0f = A (LOWER byte)
+;; Check Mod key flag
+;; Jump to 2nd layer function
+
+;;
+;; Check 0x00.3 (What flag ?)
+;; If 0x00.3 == 0, JMP 015c
+;; If 0x00.3 == 1, CALL func_054f (Clear 0x42, and do many things before return.)
+;; Check the carry flag
+;; If FC == 1, JMP 02c3 (Common fucntion) ===> JMP func_0186_02c3
+;; If FC == 0, JMP 015f (Fx and Fn + X key process) ---> Route B
+
+;;
+;; 
+;; 0x0f = R (HIGHER byte)
+;; 
+
+;
+; Clear 0x41, and do many things before return.
+; Carry flag of 'ADD Z, A' in the func_0186_0146.
+; If FC == 1, JMP 02c3 (Common fucntion) ===> JMP func_0186_02c3
+; If FC == 0, JMP 015f (Fx and Fn + X key process) ---> Route B
+;
+;; Compare with Fn key. default: #0xaf
+; If 0x0f is not "Fn", Go to func_0186_016e
+; If 0x0f is "Fn", get value of 0x74
+; Check FZ flag (if 0x74 == 0)
+; if 0x74 == 0, RETURN
+; 0x00.0 = 0
+; Check 0x00.3 (What flag ?)
+; If 0x00.3 == 0, 0x00.0 = 1 ( Fn key pressed flag ? ).
+; 0x13.0 = 1  13.0 Modifier key pressed flag
+; 0x13.4 = 1	13.4 ? will be activated when ESC, Fx, ...
+; 0x13.6 = 1	13.6 ? will be activated when ESC, Fx, ....
+; 0x13.7 = 1	13.7 ? 
+;;
+
+; [ Fn + B --> Break (Ctrl + P) ]
+; Check 0x00.0
+; If 0x00.0 == 0, JMP to 0198
+;; Compare with #0x05 (B key)
+;; if not, Go to [ Fn + S --> Alt + PrtScn or SysReq ]
+;; Something to emit Break
+;; Something to emit Break
+;; Clear 0x3f flag
+;; JMP to func_0186_02c3
+
+; [ Fn + S --> Alt + PrtScn or SysReq ]
+; Compare with #0x16 (S key)
+; If not, Go to [ Fn + Esc --> Toggle FnLk ]
+; Something to emit SysReq
+; Something to emit SysReq
+; Clear 0x3f flag
+; JMP to func_0186_02c3
+
+; [ Fn + Esc --> Toggle FnLk ]
+; Compare with #0x29 (ESC key)
+; If not, JMP to 0198
+; Check 0x00.3
+; If 0x00.3 == 0, JMP
+; If 0x00.3 == 1, set 0x13.6 = 1
+; , and 0x28 = 00
+; , and 0x29 = 00
+; JMP to func_0186_02c3
+
+; [ If 0x00.3 == 0]
+; Set 0x13.6 = 1
+; 
+; Set 0x29 = 02
+; Set 0x28 = 00
+; Set 0x13.5 = 1
+; Set 0x13.0 = 1
+; Set 0x13.4 = 1
+; Set 0x21 = 00
+; Set 0x22 = 00
+; JMP to func_0186_02c3
+
+;
+; Get value of 0x74
+; Check Flag Zero
+;;
+; If FZ == 1, Get lower two-digit of 0x00 value 
+; (0x00.0: Fn pressed signal, 0x00.1: Fnlock signal from PC).
+;
+;; if A == 0 (00), Key-type categorization
+;  if A == 1 (01), Media key process
+;  if A == 2 (10), Media key process
+;; if A == 3 (11), Key-type categorization
+
+; [F1 Mute]
+;
+; Check 0x0f value is F1
+; if not, Go to [F2 vol --]
+; Else, set 0x13.4 = 1
+; Check 0x00.3
+; If 0x00.3 == 1, 0x21 = 00, and 0x22 = 00
+; If 0x00.3 == 0, 0x21 = E2, and 0x22 = 00
+;
+;
+;
+
+; [F1 Mute]
+;
+;
+;
+
+; [F2 vol --]
+; Check 0x0f value is F2
+; if not, Go to [F3 vol ++]
+; Else, set 0x13.4 = 1
+; Check 0x00.3
+; If 0x00.3 == 1, 0x21 = 00, and 0x22 = 00
+; If 0x00.3 == 0, 0x21 = EA, and 0x22 = 00
+;
+;
+;
+
+; [F2 vol --]
+;
+;
+;
+
+; [F3 vol ++]
+; Check 0x0f value is F3
+; if not, Go to [F4 Mic Mute]
+; Else, set 0x13.4 = 1
+; Check 0x00.3
+; If 0x00.3 == 1, 0x21 = 00, and 0x22 = 00
+; If 0x00.3 == 0, 0x21 = E9, and 0x22 = 00
+;
+;
+;
+
+; [F3 vol ++]
+;
+;
+;
+
+; [F4 Mic Mute]
+; Check 0x0f value is F4
+; if not, Go to F5
+; Else, set 0x13.6 = 1
+; Check 0x00.3
+; If 0x00.3 == 1, 0x28 = 00, and 0x29 = 00
+; If 0x00.3 == 0, 0x28 = 01, and 0x29 = 00
+;
+;
+;
+
+; [F4 Mic Mute]
+;
+;
+;
+
+; [F5 brightness down]
+; Check 0x0f value is F5
+; if not, Go to F6
+; Check 0x12.2
+; If 0x12.2 == 0, JMP to branch
+; If 0x12.2 == 1, 0x13.6 = 1
+; Check 0x00.3
+; If 0x00.3 == 1, 0x28 = 00, and 0x29 = 00
+; If 0x00.3 == 0, 0x28 = 02, and 0x29 = 00
+;
+;
+;
+
+; [F5 brightness down]
+;
+;
+;
+
+; [F5 brightness down]
+; Check 0x12.3
+; If 0x12.2 == 0, Go to 02c3
+; Set 0x13.4 = 1
+; Check 0x00.3
+; If 0x00.3 == 1, 0x21 = 00, and 0x22 = 00
+; If 0x00.3 == 0, 0x21 = 70, and 0x22 = 00
+;
+;
+;
+
+;
+;
+;
+;
+
+; [F6 brightness up]
+; Check 0x0f value is F6
+; if not, Go to F7
+; Check 0x12.2
+; If 0x12.2 == 0, JMP to branch
+; If 0x12.2 == 1, 0x13.6 = 1
+; Check 0x00.3
+; If 0x00.3 == 1, 0x28 = 00, and 0x29 = 00
+; If 0x00.3 == 0, 0x28 = 04, and 0x29 = 00
+;
+;
+;
+
+; [F6 brightness up]
+;
+;
+;
+
+; [F6 brightness up]
+; Check 0x12.3
+; If 0x12.2 == 0, Go to 02c3
+; Set 0x13.4 = 1
+; Check 0x00.3
+; If 0x00.3 == 1, 0x21 = 00, and 0x22 = 00
+; If 0x00.3 == 0, 0x21 = 6f, and 0x22 = 00
+;
+;
+;
+
+; [F6 brightness up]
+;
+;
+;
+
+; [F7]
+;
+;
+;
+;
+;
+;
+;
+;
+; Check 0x00.3
+; If 0x00.3 == 1,
+; If 0x00.3 == 0, 0x28 = 08, and 0x29 = 00
+;
+;
+;
+
+; [F7]
+;
+;
+;
+
+; [F7]
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+; [F8]
+;
+;
+;
+;
+;
+; Check 0x00.3
+; If 0x00.3 == 1,
+; If 0x00.3 == 0, 0x21 = f1, and 0x22 = 03
+;
+;
+;
+;
+
+; [F8]
+;
+;
+;
+
+; [F8]
+;
+; Check 0x00.3
+; If 0x00.3 == 1,
+; If 0x00.3 == 0, 0x28 = 10, and 0x29 = 00
+;
+;
+;
+
+; [F8]
+;
+;
+;
+
+; [F9]
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; Check 0x00.3
+; If 0x00.3 == 1,
+; If 0x00.3 == 0, 0x28 = 20, and 0x29 = 00
+;
+;
+;
+
+; [F9]
+;
+;
+;
+
+; [F10]
+;
+;
+;
+; Check 0x00.3
+; If 0x00.3 == 1,
+; If 0x00.3 == 0, 0x21 = 21, and 0x22 = 02
+;
+;
+;
+;
+
+; [F10]
+;
+;
+;
+
+; [F11]
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; Check 0x00.3
+; If 0x00.3 == 1,
+; If 0x00.3 == 0, 0x28 = 80, and 0x29 = 00
+;
+;
+;
+
+; [F11]
+;
+;
+;
+
+; [F12]
+; Check 0x0f value is F12
+;; If not F12, go to key categorization
+; If F12, 0x12.3 flag check
+; If 0x12.3 == 0, JMP to func_0186_0273
+; If 0x12.3 == 1, 
+; 0x00.3 flag check
+; If 0x00.3 == 1, JMP to func_0186_027b
+; 
+; 0x21 = #0xf2
+;
+; 0x22 = #0x03
+; ===> JMP func_0186_02c3
+
+;
+; 0x13.6 = 1
+; Check 0x00.3
+; If 0x00.3 == 1, JMP to func_0186_027b
+; If 0x00.3 == 0,
+; 0x28 = #0x94
+; 
+; 0x29 = #0x01
+; ===> JMP func_0186_02c3
+
+;
+; 0x28 = #0x00
+; 0x29 = #0x00
+; 0x21 = #0x00
+; 0x22 = #0x00
+; ===> JMP func_0186_02c3
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;
+;
+; A = #0xdf - 0x0f (> #0xdf is modifier keys like Ctrl, Shift, Alt, Windows)
+; Check FC
+; If FC == 1, Go to 0186_02be (Non modifier keys)
+; If FC == 0, (Modifier keys)
+; A = #0xe7 - 0x0f (0xe7 is Keyboard/Keypad Page (0x07) upper limit. Therefore, it may be illegal value.)
+; Check FC
+; If FC == 0, Go to 02be  (illegal value to func_0186_02be)
+; If FC == 1,  (Modifier keys)
+; A = 0b111 AND 0x0f
+; Set 0x13.0 = 1  (0x13.0 is modifier key flag?)
+; Add A to PCL (conditional branching)
+; If A == 0 LeftControl, If 0x00.3 == 0, 0x15.0 = 1 else 0x15.0 = 0, and JMP func_0186_02c3
+; If A == 1 LeftShift    If 0x00.3 == 0, 0x15.1 = 1 else 0x15.1 = 0, and JMP func_0186_02c3
+; If A == 2 LeftAlt      If 0x00.3 == 0, 0x15.2 = 1 else 0x15.2 = 0, and JMP func_0186_02c3
+; If A == 3 LeftGUI      If 0x00.3 == 0, 0x15.3 = 1 else 0x15.3 = 0, and JMP func_0186_02c3
+; If A == 4 RightControl If 0x00.3 == 0, 0x15.4 = 1 else 0x15.4 = 0, and JMP func_0186_02c3
+; If A == 5 RightShift   If 0x00.3 == 0, 0x15.5 = 1 else 0x15.5 = 0, and JMP func_0186_02c3
+; If A == 6 RightAlt     If 0x00.3 == 0, 0x15.6 = 1 else 0x15.6 = 0, and JMP func_0186_02c3
+; If A == 7 Mod key       
+
+; [ Left Control ]
+; ---------------+ 
+; ---------------+ 
+; ---------------+ 
+; ---------------+ 
+
+; [ Left Shift ]
+; ---------------+ 
+; ---------------+ 
+; ---------------+ 
+; ---------------+ 
+
+; [ Left Alt ]
+; ---------------+ 
+; ---------------+ 
+; ---------------+ 
+; ---------------+ 
+
+; [ Left GUI ]
+; ---------------+ 
+; ---------------+ 
+; ---------------+ 
+; ---------------+ 
+
+; [ Right Control ]
+; ---------------+ 
+; ---------------+ 
+; ---------------+ 
+; ---------------+ 
+
+; [ Right Shift ]
+; ---------------+ 
+; ---------------+ 
+; ---------------+ 
+; ---------------+ 
+
+; [ Right Alt ]
+; ---------------+ 
+; ---------------+ 
+; ---------------+ 
+; ---------------+ 
+
+; [ Mod key ]
+;; SET 0x00.7 flag (Mod key pressed) = 1
+;; Check 0x00.3 
+;; If 0x00.3 == 1, 0x00.7 = 0 
+;; JMP to func_0186_02c3
+
+; [ Non-modifier key process ]
+; Check 0x00.3
+; If 0x00.3 == 0, Clear 0x10, Y = #0x00, Z = #0x17 (in func_0489), and Go to 02c3.
+; If 0x00.3 == 1, Clear 0x08 only and go to 02c3.
+;
+
+;
+;
+
+; [Some general and important process]
+; Set the carry flag 0
+; Right rotation 0x09
+; Right rotation 0x0b
+; 0x0d += 1 (0x0d may be counter.) ---------------------------------------+ Increment 
+;                                                                         |
+;                                                                         | 8-time repeat
+; A = #0x08 - 0x0d (upper than 8 or not)                                  |
+; Check the carry flag                                                    |
+; If #0x08 >= 0x0d, JMP func_0186_0146 (memoOVC) -------------------------+ Check
+; If #0x08 < 0x0d, CALL func_04f (Y=#0x01, Z=#0x20, and Define something)	|
+;                                                                         |
+;	Z = Z + 0x07 val                                                        |
+;                                                                         |
+; Load 0x0c value to RAM YZ (Y = #0x00, Z = Given Z (e.g. #0x17) + 0x07)  |
+;                                                                         |
+;                                                                         |
+; 0x0e = 0x0e + #0x08                                                     |
+;                                                                         |
+; 0x0d = #0x01 (0x0d counter reset to 1) ---------------------------------+ Reset
+; 0x08 = 0x00 (0x08 reset)
+; 0x07 += 1
+;
+;
+; A = #0x0f - 0x07 (upper than 16 or not)
+;
+; If 0x07 >= #0x0f, 
+; If 0x07 < #0x0f, 0x07 and 0x08 reset
+;
+;
+; DW | 0x0000 | .. |
+; DW | 0x0001 | .. | Load YZ (Y = #0x00, Z = Given Z (e.g. #0x17) + 0x07) if not JMP from somewhere. 
+; DW | 0x0001 | .. |
+; DW | 0x0002 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0002 | .. |
+; DW | 0x0002 | .. |
+; DW | 0x0003 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0002 | .. |
+; DW | 0x0002 | .. |
+; DW | 0x0003 | .. |
+; DW | 0x0002 | .. |
+; DW | 0x0003 | .. |
+; DW | 0x0003 | .. |
+; DW | 0x0004 | .. |
+
+; []
+;
+;
+; #0x65 (+0) (Real +0x05a0 = 0x0a05)
+;
+; 0x09 AND #0x0f (00001111)
+; Z = Z + #0x65 + 0x09 AND 00001111
+;
+;
+; memoOVC at Y = const 04, Z = c-v 65 + g
+; 0x0a = 0x0a + YZ
+;
+; #0x65 (+0)
+;
+;
+;
+;
+;
+; memoOVC at Y = const 04, Z = c-c 65 + 0f
+;
+;
+
+; [ Non-modifier special key process ]
+; Set 0x10 = 0
+;
+; Set Y and Z and return to func_0186+0x2c2
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+; Y = #0x00
+; Z = #0x17
+; Z = #0x17 + 0x08 (If from func_04ab, it is 0x00.)
+;
+; Load YZ RAM
+; Compare YZ value and 0x0f (pressed key)
+; If YZ != 0x0f, func_04ab_0036
+; If YZ == 0x0f, 
+; Control Program counter ()
+; (If from func_04ab, here.)
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+; 0x17 = 0x18
+;
+;
+; 0x18 = 0x19
+;
+;
+; 0x19 = 0x1a
+;
+;
+; 0x1a = 0x1b
+;
+;
+; 0x1b = 0x1c
+;
+;
+; 0x1c = 0x1d
+;
+;
+; 0x1d = 0x1e
+;
+;
+; 0x1e = 0x1f
+;
+;
+; 0x1f = 0x20
+;
+; 0x20 = 0
+; 0x10 = 0x10 - 1
+;
+;
+;
+; if 0x10 != #0xff,
+; if 0x10 == #0xff,
+
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+;
+;
+; DW | 0x0000 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0002 | .. |
+; DW | 0x0004 | .. |
+; DW | 0x0008 | .. |
+; DW | 0x0010 | .. |
+; DW | 0x0020 | .  |
+; DW | 0x0040 | .@ |
+; DW | 0x0080 | .. |
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+; #0xf4 (+0) (Real +05a0 = 0x0a94) 
+;
+;
+;
+;
+;
+; memoOVC at Y = const 04, Z = c-v f4 + g
+;
+;
+; Set Flag FC = 1
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; Clear Flag FC = 0
+;
+;
+
+; [ Some important CALL POINT ]             <-----------+
+; Clear 0x42                                            |
+;                                                       |
+; Y = #0x01                                             |
+; Z = #0x30                                             |
+;                                                       |
+; Z = Z + 0x42 val                                      |
+; Check the carry flag                                  |
+; If carry occurs, Y += 1, if Y == 0, skip next.        |
+; No operation                                          |
+; A <-- 0x0f                                            |
+; Compare A and value of YZ                             |
+; If 0x0f val != YZ val                                 |
+; If 0x0f val == YZ val                                 |
+
+;                                                       |
+; 0x42 += 1                                             |
+; No operation                                          |
+; A <-- #0x09                                           |
+; A <-- A - 0x42 val                                    |
+; Check carry                                           |
+; If carry not occurs, return to the func 0001 (loop?) -+
+; If carry occurs, clear 0x42
+;
+; Y = #0x01
+; Z = #0x30
+;
+; Z = #0x30 + 0x42 val
+; Check the carry flag
+; If carry occurs, Y += 1
+; No operation
+; A <-- YZ val
+; Check the Zero flag
+; If zero flag == 0, JMP
+; If zero flag == 1,
+; YZ <-- 0x0f val
+; Y = #0x01
+; Z = #0x3a
+;
+; Z = #0x3a + 0x42 val
+; Check the carry flag
+; If carry occurs, Y += 1
+; No operation
+; A <-- #0x02
+; YZ <-- A
+; P5.5 = 1
+;
+
+;
+; 0x42 val += 1
+; No operation
+; 
+; A = #0x09 - 0x42
+; Check the carry flag
+; If carry occurs, JMP (loop?)
+; ---> Return to func_0186+0x158
+
+;
+; Y = #0x01
+; Z = #0x3a
+; 
+; Z = #0x3a + 0x42
+; Check the carry flag
+; If carry occurs, Y = Y + 1
+; No operation
+; YZ = YZ - 1
+; if YZ != 0
+; if YZ == 0
+
+;
+; Y = #0x04
+; Z = #0xf4 (+0)
+;
+; Z = #0xf4 + 0x0d
+; Check the carry flag
+; If carry occurs, Y = Y + 1
+; No operation
+; A <-- ROM [Y,Z]. memoOVC Y = 04, Z = f4 + g.
+; 0x0c val = 0x0c val ORed with loaded YZ val
+; Set the carry flag = 1
+; ---> Return to func_0186+0x158
+
+; [ KEYMAP SET ]
+; Y = #0x01
+; Z = #0x30
+;
+; Z = Z + 0x42 val
+; Carry flag check
+; If Carry occur,  Y += 1 if Y == 0, skip next.
+;
+; Clear YZ
+; Set Carry flag = 0
+; Clear P5.5
+; ---> Return to func_0186+0x158
+; DW | 0x0000 | .. |
+; DW | 0x0029 | Escape |
+; DW | 0x0035 | Grave Accent and Tilde |
+; DW | 0x0014 | q and Q |
+; DW | 0x001e | 1 and ! |
+; DW | 0x0004 | a and A |
+; DW | 0x001d | z and Z |
+; DW | 0x008b | International5 |
+; DW | 0x002b | Tab |
+; DW | 0x003d | F4 |
+; DW | 0x003b | F2 |
+; DW | 0x0008 | e and E |
+; DW | 0x0020 | 3 and # |
+; DW | 0x0007 | d and D |
+; DW | 0x0006 | c and C |
+; DW | 0x0000 | .. |
+; DW | 0x003c | F3 |
+; DW | 0x0064 | NonーUS Slash Bar |
+; DW | 0x003a | F1 |
+; DW | 0x001a | w and W |
+; DW | 0x001f | 2 and @ |
+; DW | 0x0016 | s and S |
+; DW | 0x001b | x and X |
+; DW | 0x0000 | .. |
+; DW | 0x0039 | Caps Lock |
+; DW | 0x0000 | .. |
+; DW | 0x00e0 | LeftControl |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x00e4 | RightControl |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x000a | g and G |
+; DW | 0x0022 | 5 and % |
+; DW | 0x0015 | r and R |
+; DW | 0x0021 | 4 and $ |
+; DW | 0x0009 | f and F |
+; DW | 0x0019 | v and V |
+; DW | 0x0005 | b and B |
+; DW | 0x0017 | t and T |
+; DW | 0x000b | h and H |
+; DW | 0x0023 | 6 and ^ |
+; DW | 0x0018 | u and U |
+; DW | 0x0024 | 7 and & |
+; DW | 0x000d | j and J |
+; DW | DW | 0x0010 | m and M |
+; DW | 0x0011 | n and N |
+; DW | 0x001c | y and Y |
+; DW | 0x003f | F6 |
+; DW | 0x002e | = and + |
+; DW | 0x000c | i and I |
+; DW | 0x0025 | 8 and * |
+; DW | 0x000e | k and K |
+; DW | 0x0036 | Comma and < |
+; DW | 0x0087 | International1 |
+; DW | 0x0030 | ] and } |
+; DW | 0x008a | International4 |
+; DW | 0x0041 | F8 |
+; DW | 0x0012 | o and O |
+; DW | 0x0026 | 9 and ( |
+; DW | 0x000f | l and L |
+; DW | 0x0037 | . and > |
+; DW | 0x0088 | International2 |
+; DW | 0x0040 | F7 |
+; DW | 0x0034 | ' and " |
+; DW | 0x002d | ー and Underscore |
+; DW | 0x0013 | p and P |
+; DW | 0x0027 | 0 and ) |
+; DW | 0x0033 | ; and : |
+; DW | 0x0032 | NonーUS # and ~ |
+; DW | 0x0038 | / and ? |
+; DW | 0x002f | [ and { |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x00e5 | RightShift |
+; DW | 0x0000 | .. |
+; DW | 0x00e1 | LeftShift |
+; DW | 0x003e | F5 |
+; DW | 0x0042 | F9 |
+; DW | 0x0089 | International3 |
+; DW | 0x0043 | F10 |
+; DW | 0x0031 | \ and | |
+; DW | 0x0028 | Return (ENTER) |
+; DW | 0x002c | Spacebar |
+; DW | 0x002a | DELETE (Backspace) |
+; DW | 0x0000 | .. |
+; DW | 0x004a | Home |
+; DW | 0x0000 | .. |
+; DW | 0x0044 | F11 |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0051 | DownArrow |
+; DW | 0x0000 | .. |
+; DW | 0x00e2 | LeftAlt |
+; DW | 0x00d4 | Keypad Memory Subtract |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x00e6 | RightAlt |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x00d2 | Keypad Memory Clear |
+; DW | 0x0045 | F12 |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x004f | RightArrow |
+; DW | 0x00e3 | Left GUI |
+; DW | 0x0052 | UpArrow |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x004d | End |
+; DW | 0x00af | Fn |
+; DW | 0x0048 | Pause |
+; DW | 0x0050 | LeftArrow |
+; DW | 0x00d0 | Keypad Memory Store |
+; DW | 0x0000 | .. |
+; DW | 0x004c | Delete Forward |
+; DW | 0x0000 | .. |
+; DW | 0x0049 | Insert |
+; DW | 0x0046 | PrintScreen |
+; DW | 0x004b | PageUp |
+; DW | 0x004e | PageDown |
+; DW | 0x0000 | .. |
+
+; [ Trackpoint I2C ]
+; tpSDA  = 1
+; tpSDAM = 1(I2C SDA mode)
+;
+; tpSCL  = 1
+; tpSCLM = 1 (I2C SCL mode)
+;
+; tpSDA  = 0
+;
+;
+; tpSCL  = 0
+;
+;
+;
+
+; [ Trackpoint I2C ]
+; tpSDAM = 0
+;
+; tpSCLM = 0
+;
+;
+;
+; tpSCL  = 0
+; tpSCLM = 1
+; tpSCL  = 1 
+;
+;
+; tpSCL  = 0
+; tpSDA  = 0
+; tpSDAM = 1
+; tpSCLM = 0
+;
+;
+; tpSDAM = 0
+;
+
+; [ Trackpoint I2C ]
+;
+;
+; tpSDA  = 1
+;
+
+; [ Trackpoint I2C Read? ]
+; tpSDA  = 0
+;
+; tpSDAM = 1
+;
+; tpSCLM = 1
+; tpSCL  = 1
+;
+; Wait for #0x04 * n clocks.
+; tpSCL  = 0
+;
+; Wait for #0x01 * n clocks.
+;
+
+;
+; tpSDAM = 0
+;
+; 0x4d.0 = 1
+; tpSCL  = 0
+; A = #0x04 (100)
+; Call sleep function (wait for #0x04 * const clocks)
+; tpSCL  = 1
+; Check tpSDA 1
+; 0x4d.0 = 0
+; A = #0x02
+; Call sleep function (wait for #0x02 * const clocks)
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; Some SDA and SCL operations.
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; Some SDA and SCL operations.
+;
+;
+;
+;
+
+;
+; Trackpoint I2C SDA mode 0
+; Trackpoint I2C SCL mode 1
+;                        <--+
+; Trackpoint I2C SCL check  | (Clock check. Wait for turning 1.)
+; if 0, --------------------+
+; 0x48 = 0
+; Trackpoint I2C SCL Set 1
+; Trackpoint I2C SCL mode 1
+; 0x4d.0 = 1
+; Trackpoint I2C SDA check
+; if SDA == 0, 0x4d.0 = 1
+; 0x48.0 = 0
+; Check 0x4d.0
+; if 1 (SDA == 0), 0x48.0 = 1
+;
+; 0x4c = #0x07
+; Set Flag FC = 0
+; <-----------------------------------------------------------+
+; 0x48 <-- Roteate 0x48. Maybe, change bit to be written.     |
+;                                                             |
+; 0x48.0 = 0 (Written 0)                                      |
+; Check 0x4d.0                                                |
+; if 0x4d.0 == 1, 0x48.0 = 1	 (Written 1)                    |
+; decrement 0x4c (maybe counter?)                             |
+; if 0x4c != 0, return to top --------------------------------+
+; if 0x4c == 0, Trackpoint I2C SCL Set 0
+;
+; A = 0x48
+; Return to lines in func_06ba
+
+;
+; 0x4d.1 = 0
+; Some SDA and SCL operations
+;
+
+;
+; 0x4d.1 = 1
+; Some SDA and SCL operations
+;
+
+;
+;
+; _i2c_start ?
+; #'T'?
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+; I2C Address 0x2a
+;
+;
+;
+;
+; Read SDA? (_i2c_rxbyte)
+; Check read byte == #0x80
+; if read byte == #0x80, JMP
+;
+; Read SDA? (_i2c_rxbyte)
+; 0x45 = read byte         tpDatan?
+;
+;
+; Read SDA? (_i2c_rxbyte)
+; 0x32 = read byte         tpDatan?
+;
+; Read SDA? (_i2c_rxbyte)
+; Invert all read bits
+; read bits + 1
+; 0x33 = calcd read bits   tpDatan? 33 points mut
+;
+; Read SDA? (_i2c_rxbyte)
+;
+
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+; [RETURN POINT FROM TRACKPOINT PROCESS]
+;; [ tp speed++ ] x2
+;; [ tp speed++ ] x3
+;; [ tp speed++ ] x4
+;; [ tp speed++ ] x5
+
+;
+;
+;
+; 32points
+; 0x34 <= 0x32
+; 33points
+; 0x35 <= 0x33
+;
+;
+;
+; Invert all bits
+; +1
+; 0x34 = 0x34 inverted + 00000001
+;
+;
+;
+;
+;
+;
+; Invert all bits
+; +1
+; 0x35 = 0x35 inverted + 00000001
+;
+;
+; A = 0x34 - 0x35
+;
+;
+; 32points
+; 0x34 = 0x32
+; 33points
+; 0x35 = 0x33
+;
+;
+;
+; Invert all bits
+; +1
+; 0x34 = 0x34 inverted + 00000001
+;
+;
+;
+;
+; Invert all bits
+; +1
+; 0x35 = 0x35 inverted + 00000001
+;
+;
+;
+;
+;
+;
+;
+; 2epoints
+; 2fpoints
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+; 32points
+;
+;
+;
+;
+
+;
+; 32points
+;
+; 32points
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+; DW | 0x0e00 | .. |
+
+;
+; 32points
+;
+;
+;
+;
+
+;
+;
+;
+; 32points
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+; DW | 0x0e00 | .. |
+
+;
+;
+;
+;
+;
+;
+; 33points
+;
+;
+;
+;
+
+;
+; 33points
+;
+; 33points
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+; DW | 0x0e00 | .. |
+
+;
+; 33points
+;
+;
+;
+;
+
+;
+;
+;
+; 33points
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+; DW | 0x0e00 | .. |
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+; [Trackpoint X-axis processing region]
+; A = 0x32
+; Check FZ
+; if FZ == 1 (0x32 == 0), go to Y-axis process
+; if FZ == 0, 0x13.2 = 1.
+; Test 0x2e.7
+; if 0x2e.7 == 1, go to func_07b7_000f --+
+; 0x2e = 0x2e + 0x32 --------------------+ <Omit> MOV A, 0x32
+; Test 0x32.7
+; if 0x32.7 == 1, go to Y-axis process
+; if 0x32.7 == 0, Test 0x2e.7 (updated) 
+; if 0x2e.7 == 0, go to Y-axis process
+; if 0x2e.7 == 1, 
+; 0x2e = 01111111
+; go to Y-axis
+
+; [Trackpoint Y-axis processing region] --+
+; 0x2e = 0x2e + 0x32 ---------------------+ <Omit> MOV A, 0x32
+; Test 0x32.7
+; if 0x32.7 == 0, go to Y-axis process
+; if 0x32.7 == 1, Test 0x2e.7
+; if 0x2e.7 == 1, go to Y-axis process
+; if 0x2e.7 == 0, 
+; 0x2e = 10000001
+; [Trackpoint Y-axis processing region]
+; 33points
+;
+; if FZ == 1 (0x33 == 0), RETURN 
+; 0x13.2 = 1
+; 2fpoints
+; if 0x2f.7 == 1 ---------------------------+ <Omit> MOV A, 0x33
+; 2fpoints (mut)	| 0x2f = 0x2f + 0x33 -----+
+; 33points                                  |
+; if 0x33.7 == 1, RETURN                    |
+; 2fpoints                                  |
+;                                           |
+; if 0x2f.7 == 0, RETURN                    |
+; 2fpoints (mut)	| 0x2f = #0x7f (01111111) |
+; RETURN                                    |
+
+; <-----------------------------------------+ <Omit> MOV A, 0x33
+; 2fpoints (mut)	| 0x2f = 0x2f + 0x33 -----+
+; 33points
+; if 0x33.7 == 0, RETURN
+; 2fpoints
+; if 0x2f.7 == 1, RETURN
+;
+; 2fpoints (mut)	| 0x2f = #0x81 (10000001), and RETURN
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+
+;
+;
+;
+;
+; 32points
+; 32points
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; 32points
+;
+;
+; 32points
+;
+
+;
+; 32points
+;
+;
+;
+;
+;
+; 32points
+;
+;
+
+;
+;
+;
+;
+; 33points
+; 33points
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+; memoOVC Y = ?, Z = v-c z + 29
+;
+; 33points
+;
+;
+; 33points (mut) | 0x33 = 0x33 + 0x35
+;
+
+;
+; B033points
+; invert
+;
+;
+;
+;
+; B033points | B00x33 = invert(invert(B00x33) + 1 + 0x35) + 1
+;
+;
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0xffff | .. |
+; DW | 0xfffe | .. |
+; DW | 0xfffe | .. |
+; DW | 0xfffd | .. |
+; DW | 0xfffd | .. |
+; DW | 0xfffc | .. |
+; DW | 0xfffc | .. |
+; DW | 0xfffb | .. |
+; DW | 0xfffa | .. |
+; DW | 0xfffa | .. |
+; DW | 0xfff9 | .. |
+; DW | 0xfff9 | .. |
+; DW | 0xfff8 | .. |
+; DW | 0xfff8 | .. |
+; DW | 0xfff7 | .. |
+; DW | 0xfff7 | .. |
+; DW | 0xfff6 | .. |
+; DW | 0xfff6 | .. |
+; DW | 0xfff5 | .. |
+; DW | 0xfff4 | .. |
+; DW | 0xfff4 | .. |
+; DW | 0xfff3 | .. |
+; DW | 0xfff3 | .. |
+; DW | 0xfff2 | .. |
+; DW | 0xfff2 | .. |
+; DW | 0xfff1 | .. |
+; DW | 0xfff1 | .. |
+; DW | 0xfff0 | .. |
+; DW | 0xffef | .. |
+; DW | 0xffef | .. |
+; DW | 0xffee | .. |
+; DW | 0xffee | .. |
+; DW | 0xffed | .. |
+; DW | 0xffed | .. |
+; DW | 0xffec | .. |
+; DW | 0xffec | .. |
+; DW | 0xffeb | .. |
+; DW | 0xffeb | .. |
+; DW | 0xffea | .. |
+; DW | 0xffe9 | .. |
+; DW | 0xffe9 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xfffe | .. |
+; DW | 0xfffe | .. |
+; DW | 0xfffd | .. |
+; DW | 0xfffd | .. |
+; DW | 0xfffc | .. |
+; DW | 0xfffc | .. |
+; DW | 0xfffb | .. |
+; DW | 0xfffb | .. |
+; DW | 0xfffb | .. |
+; DW | 0xfffa | .. |
+; DW | 0xfffa | .. |
+; DW | 0xfff9 | .. |
+; DW | 0xfff9 | .. |
+; DW | 0xfff8 | .. |
+; DW | 0xfff8 | .. |
+; DW | 0xfff7 | .. |
+; DW | 0xfff7 | .. |
+; DW | 0xfff7 | .. |
+; DW | 0xfff6 | .. |
+; DW | 0xfff6 | .. |
+; DW | 0xfff5 | .. |
+; DW | 0xfff5 | .. |
+; DW | 0xfff4 | .. |
+; DW | 0xfff4 | .. |
+; DW | 0xfff3 | .. |
+; DW | 0xfff3 | .. |
+; DW | 0xfff2 | .. |
+; DW | 0xfff2 | .. |
+; DW | 0xfff2 | .. |
+; DW | 0xfff1 | .. |
+; DW | 0xfff1 | .. |
+; DW | 0xfff0 | .. |
+; DW | 0xfff0 | .. |
+; DW | 0xffef | .. |
+; DW | 0xffef | .. |
+; DW | 0xffee | .. |
+; DW | 0xffee | .. |
+; DW | 0xffee | .. |
+; DW | 0xffed | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xfffe | .. |
+; DW | 0xfffe | .. |
+; DW | 0xfffe | .. |
+; DW | 0xfffe | .. |
+; DW | 0xfffd | .. |
+; DW | 0xfffd | .. |
+; DW | 0xfffd | .. |
+; DW | 0xfffd | .. |
+; DW | 0xfffc | .. |
+; DW | 0xfffc | .. |
+; DW | 0xfffc | .. |
+; DW | 0xfffc | .. |
+; DW | 0xfffb | .. |
+; DW | 0xfffb | .. |
+; DW | 0xfffb | .. |
+; DW | 0xfffb | .. |
+; DW | 0xfffa | .. |
+; DW | 0xfffa | .. |
+; DW | 0xfffa | .. |
+; DW | 0xfffa | .. |
+; DW | 0xfff9 | .. |
+; DW | 0xfff9 | .. |
+; DW | 0xfff9 | .. |
+; DW | 0xfff9 | .. |
+; DW | 0xfff8 | .. |
+; DW | 0xfff8 | .. |
+; DW | 0xfff8 | .. |
+; DW | 0xfff8 | .. |
+; DW | 0xfff7 | .. |
+; DW | 0xfff7 | .. |
+; DW | 0xfff7 | .. |
+; DW | 0xfff7 | .. |
+; DW | 0xfff6 | .. |
+; DW | 0xfff6 | .. |
+; DW | 0xfff6 | .. |
+; DW | 0xfff6 | .. |
+; DW | 0xfff6 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xfffe | .. |
+; DW | 0xfffe | .. |
+; DW | 0xfffe | .. |
+; DW | 0xfffe | .. |
+; DW | 0xfffe | .. |
+; DW | 0xfffe | .. |
+; DW | 0xfffd | .. |
+; DW | 0xfffd | .. |
+; DW | 0xfffd | .. |
+; DW | 0xfffd | .. |
+; DW | 0xfffd | .. |
+; DW | 0xfffd | .. |
+; DW | 0xfffd | .. |
+; DW | 0xfffc | .. |
+; DW | 0xfffc | .. |
+; DW | 0xfffc | .. |
+; DW | 0xfffc | .. |
+; DW | 0xfffc | .. |
+; DW | 0xfffc | .. |
+; DW | 0xfffc | .. |
+; DW | 0xfffb | .. |
+; DW | 0xfffb | .. |
+; DW | 0xfffb | .. |
+; DW | 0xfffb | .. |
+; DW | 0xfffb | .. |
+; DW | 0xfffb | .. |
+; DW | 0xfffa | .. |
+; DW | 0xfffa | .. |
+; DW | 0xfffa | .. |
+; DW | 0xfffa | .. |
+; DW | 0xfffa | .. |
+; DW | 0xfffa | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0002 | .. |
+; DW | 0x0002 | .. |
+; DW | 0x0002 | .. |
+; DW | 0x0002 | .. |
+; DW | 0x0003 | .. |
+; DW | 0x0003 | .. |
+; DW | 0x0003 | .. |
+; DW | 0x0003 | .. |
+; DW | 0x0004 | .. |
+; DW | 0x0004 | .. |
+; DW | 0x0004 | .. |
+; DW | 0x0004 | .. |
+; DW | 0x0005 | .. |
+; DW | 0x0005 | .. |
+; DW | 0x0005 | .. |
+; DW | 0x0005 | .. |
+; DW | 0x0006 | .. |
+; DW | 0x0006 | .. |
+; DW | 0x0006 | .. |
+; DW | 0x0006 | .. |
+; DW | 0x0007 | .. |
+; DW | 0x0007 | .. |
+; DW | 0x0007 | .. |
+; DW | 0x0007 | .. |
+; DW | 0x0008 | .. |
+; DW | 0x0008 | .. |
+; DW | 0x0008 | .. |
+; DW | 0x0008 | .. |
+; DW | 0x0009 | .. |
+; DW | 0x0009 | .. |
+; DW | 0x0009 | .. |
+; DW | 0x0009 | .. |
+; DW | 0x000a | .. |
+; DW | 0x000a | .. |
+; DW | 0x000a | .. |
+; DW | 0x000a | .. |
+; DW | 0x000b | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0002 | .. |
+; DW | 0x0002 | .. |
+; DW | 0x0003 | .. |
+; DW | 0x0003 | .. |
+; DW | 0x0004 | .. |
+; DW | 0x0004 | .. |
+; DW | 0x0005 | .. |
+; DW | 0x0006 | .. |
+; DW | 0x0006 | .. |
+; DW | 0x0007 | .. |
+; DW | 0x0007 | .. |
+; DW | 0x0008 | .. |
+; DW | 0x0008 | .. |
+; DW | 0x0009 | .. |
+; DW | 0x0009 | .. |
+; DW | 0x000a | .. |
+; DW | 0x000a | .. |
+; DW | 0x000b | .. |
+; DW | 0x000c | .. |
+; DW | 0x000c | .. |
+; DW | 0x000d | .. |
+; DW | 0x000d | .. |
+; DW | 0x000e | .. |
+; DW | 0x000e | .. |
+; DW | 0x000f | .. |
+; DW | 0x000f | .. |
+; DW | 0x0010 | .. |
+; DW | 0x0011 | .. |
+; DW | 0x0011 | .. |
+; DW | 0x0012 | .. |
+; DW | 0x0012 | .. |
+; DW | 0x0013 | .. |
+; DW | 0x0013 | .. |
+; DW | 0x0014 | .. |
+; DW | 0x0014 | .. |
+; DW | 0x0015 | .. |
+; DW | 0x0015 | .. |
+; DW | 0x0016 | .. |
+; DW | 0x0017 | .. |
+; DW | 0x0017 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0002 | .. |
+; DW | 0x0003 | .. |
+; DW | 0x0003 | .. |
+; DW | 0x0004 | .. |
+; DW | 0x0005 | .. |
+; DW | 0x0006 | .. |
+; DW | 0x0007 | .. |
+; DW | 0x0008 | .. |
+; DW | 0x0009 | .. |
+; DW | 0x0009 | .. |
+; DW | 0x000a | .. |
+; DW | 0x000b | .. |
+; DW | 0x000c | .. |
+; DW | 0x000d | .. |
+; DW | 0x000e | .. |
+; DW | 0x000e | .. |
+; DW | 0x000f | .. |
+; DW | 0x0010 | .. |
+; DW | 0x0011 | .. |
+; DW | 0x0012 | .. |
+; DW | 0x0013 | .. |
+; DW | 0x0014 | .. |
+; DW | 0x0014 | .. |
+; DW | 0x0015 | .. |
+; DW | 0x0016 | .. |
+; DW | 0x0017 | .. |
+; DW | 0x0018 | .. |
+; DW | 0x0019 | .. |
+; DW | 0x001a | .. |
+; DW | 0x001a | .. |
+; DW | 0x001b | .. |
+; DW | 0x001c | .. |
+; DW | 0x001d | .. |
+; DW | 0x001e | .. |
+; DW | 0x001f | .. |
+; DW | 0x001f | .. |
+; DW | 0x0020 | .  |
+; DW | 0x0021 | .! |
+; DW | 0x0022 | ." |
+; DW | 0x0023 | .# |
+; DW | 0x0024 | .$ |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0002 | .. |
+; DW | 0x0003 | .. |
+; DW | 0x0004 | .. |
+; DW | 0x0005 | .. |
+; DW | 0x0006 | .. |
+; DW | 0x0007 | .. |
+; DW | 0x0008 | .. |
+; DW | 0x0009 | .. |
+; DW | 0x000b | .. |
+; DW | 0x000c | .. |
+; DW | 0x000d | .. |
+; DW | 0x000e | .. |
+; DW | 0x000f | .. |
+; DW | 0x0010 | .. |
+; DW | 0x0011 | .. |
+; DW | 0x0012 | .. |
+; DW | 0x0013 | .. |
+; DW | 0x0014 | .. |
+; DW | 0x0015 | .. |
+; DW | 0x0016 | .. |
+; DW | 0x0017 | .. |
+; DW | 0x0018 | .. |
+; DW | 0x0019 | .. |
+; DW | 0x001a | .. |
+; DW | 0x001b | .. |
+; DW | 0x001c | .. |
+; DW | 0x001d | .. |
+; DW | 0x001e | .. |
+; DW | 0x0020 | .  |
+; DW | 0x0021 | .! |
+; DW | 0x0022 | ." |
+; DW | 0x0023 | .# |
+; DW | 0x0024 | .$ |
+; DW | 0x0025 | .% |
+; DW | 0x0026 | .& |
+; DW | 0x0027 | .' |
+; DW | 0x0028 | .( |
+; DW | 0x0029 | .) |
+; DW | 0x002a | .* |
+; DW | 0x002b | .+ |
+; DW | 0x002c | ., |
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; memoOVC, Y = ?, Z = v-c z + 01
+; write UDR0 ? at UDP0 ?
+;
+; UDP0 += 1
+;
+;
+;
+; write UDR0 ? at UDP0 ?
+;
+; UDP0 += 1
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+; memoOVC, Y = ?, Z = ? (may be v-c)
+; write UDR0 ? at UDP0 ?
+;
+; UDP0 += 1
+;
+;
+;
+; write UDR0 ? at UDP0 ?
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+; set UDP0 = A
+;
+; DW | 0x13a3 | .. |
+; DW | 0x0e00 | .. |
+
+;
+;
+;
+
+;
+;
+;
+
+;
+;
+;
+
+;
+; Write UDR0-W
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; write_UDR0 ? at UDP0 0
+;
+;
+;
+; write_UDR0 0 at UDP0 1
+;
+;
+;
+;
+;
+;
+;
+;
+; set UDP = 0
+; write UDR0 0 at UDP 0
+;
+; UDP += 1
+;
+; write UDR0 0 at UDP 1
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; write_UDR0 A at UDP 0
+;
+; UDP += 1
+;
+; write_UDR0 0 at UDP 0
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; set UDP0 = 0
+; write UDR0 0 at UDP0 0t
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; set UDP0 #0x08
+; 0x15 POINT
+; write UDR0 0x15 at UDP0 #0x08
+;
+; set UDP0 #0x09
+;
+; write UDR0 0x15 at UDP0 #0x09
+;
+;
+;
+; write UDR0 0x17 at UDP0 #0x0a
+;
+;
+;
+; write UDR0 0x18 at UDP0 #0x0b
+;
+;
+;
+; write UDR0 0x19 at UDP0 #0x0c
+;
+;
+;
+; write UDR0 0x1a at UDP0 #0x0d
+;
+;
+;
+; write UDR0 0x1b at UDP0 #0x0e
+;
+;
+;
+; write UDR0 0x1c at UDP0 #0x0f
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; 					|
+; B0MOV	UDP0, A		| UDP0 = #0x18
+; 					|
+; B0MOV	UDR0_W, A	| UDR0_W = 0x2c
+; 					|
+; B0MOV	UDP0, A		| UDP0 = #0x19
+; 2epoints		    |
+; B0MOV	UDR0_W, A	| UDR0_W = 0x2e
+; 					|
+; B0MOV	UDP0, A		| UDP0 = #0x1a
+; 2fpoints			| 
+; B0MOV	UDR0_W, A	| UPR0_W = 0x2f
+; 2epoints
+; 2fpoints
+; 					|
+; 					| UE2R_C = #0x03
+; 					|
+; 					| UE2R = #0xa0
+;
+; 0x20 = 32 (dec)
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; set UDP0 = #0x00
+; write_UDR0 0 at UDP0 0
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; set UDP0 = #0x00
+;
+; write UDR0 0x61 at UDP0 0
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; set UDP0 0
+;
+;
+;
+;
+;
+;
+;
+;
+; write UDR0 0x6b or 0x6c at UDP0 0
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; write UDR0 #0x13 at UDP0 0
+;
+;
+;
+; write UDR0 #0x03 at UDP0 1
+;
+;
+;
+; write UDR0 0x01 at UDP0 2
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; write UDR0 #0x13 at UDP0 0
+;
+;
+;
+; write UDR0 #0x04 at UDP0 1
+;
+;
+;
+; write UDR0 #0x03 at UDP0 2
+;
+;
+;
+; write UDR0 #0x30 at UDP0 3
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; write UDR0 #0x13 at UDP0 0
+;
+;
+;
+; write UDR0 #0x06 at UDP0 1
+;
+;
+; FnLock signal
+;
+;
+;
+;
+; write UDR0 0x43 at UDP0 2
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; write UDR0 0x6d at UDP0 0
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; write UDR0 0x6e at UDP0  0
+;
+;
+;
+;
+;
+;
+;
+; write UDR0 0x6e at UDP0  0
+;
+;
+;
+;
+;
+;
+;
+; write UDR0 0x6f at UDP0 0
+;
+;
+;
+;
+;
+;
+;
+; write UDR0 0x70 at UDP0 0
+;
+;
+;
+;
+;
+;
+;
+; write UDR0 0x71 at UDP0 0
+;
+;
+;
+;
+;
+;
+;
+; write UDR0 0x72 at UDP0 0
+;
+;
+;
+;
+;
+;
+;
+; write UDR0 0x73 at UDP0 0
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; write UDR0 0x74 at UDP0 0
+;
+;
+;
+;
+;
+; write UDR0 0x75 at UDP0 0
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; _i2c_rxbyte? : UE0R = i2cBitCnt?
+;
+; DW | 0x0012 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0002 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0008 | .. |
+; DW | 0x00ef | .. |
+; DW | 0x0017 | .. |
+; DW | 0x0047 | .G |
+; DW | 0x0060 | .` |
+; DW | 0x0030 | .0 |
+; DW | 0x0003 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0002 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0009 | .. |
+; DW | 0x0002 | .. |
+; DW | 0x003b | .; |
+; DW | 0x0000 | .. |
+; DW | 0x0002 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x00a0 | .. |
+; DW | 0x0032 | .2 |
+; DW | 0x0009 | .. |
+; DW | 0x0004 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0003 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0009 | .. |
+; DW | 0x0021 | .! |
+; DW | 0x0000 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0022 | ." |
+; DW | 0x0051 | .Q |
+; DW | 0x0000 | .. |
+; DW | 0x0007 | .. |
+; DW | 0x0005 | .. |
+; DW | 0x0081 | .. |
+; DW | 0x0003 | .. |
+; DW | 0x003f | .? |
+; DW | 0x0000 | .. |
+; DW | 0x000a | .. |
+; DW | 0x0009 | .. |
+; DW | 0x0004 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0003 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0002 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0009 | .. |
+; DW | 0x0021 | .! |
+; DW | 0x0000 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0022 | ." |
+; DW | 0x00d3 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0007 | .. |
+; DW | 0x0005 | .. |
+; DW | 0x0082 | .. |
+; DW | 0x0003 | .. |
+; DW | 0x003f | .? |
+; DW | 0x0000 | .. |
+; DW | 0x000a | .. |
+; DW | 05 01    Global: Usage Page      = Generic Desktop (0x01)
+; DW | 09 06    Local:  Usage           = Generic Desktop: Keyboard
+; DW | A1 01    Main:   Collection      = Application (0x01)
+; DW | 05 07    Global: Usage Page      = Keyboard / Keypad (0x07)
+; DW | 19 E0    Local:  Usage Minimum   = Keyboard / Keypad: Keyboard 0xE0
+; DW | 29 E7    Local:  Usage Maximum   = Keyboard / Keypad: Keyboard 0xE7
+; DW | 15 00    Global: Logical Minimum = 0 (0x00)
+; DW | 25 01    Global: Logical Maximum = 1 (0x01)
+; DW | 75 01    Global: Report Size     = 1 (0x01)
+; DW | 95 08    Global: Report Count    = 8 (0x08)
+; DW | 81 02    Main:   Input           = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+; DW | 95 01    Global: Report Count    = 1 (0x01)
+; DW | 75 08    Global: Report Size     = 8 (0x08)
+; DW | 81 01    Main:   Input           = 0x01 (Constant, Array, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+; DW | 95 05    Global: Report Count    = 5 (0x05)
+; DW | 75 01    Global: Report Size     = 1 (0x01)
+; DW | 05 08    Global: Usage Page      = LEDs (0x08)
+; DW | 19 01    Local:  Usage Minimum   = LEDs: 0x01
+; DW | 29 05    Local:  Usage Maximum   = LEDs: 0x05
+; DW | 91 02    Main:   Output          = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+; DW | 95 01    Global: Report Count    = 1 (0x01)
+; DW | 75 03    Global: Report Size     = 3 (0x03)
+; DW | 91 01    Main:   Output          = 0x01 (Constant, Array, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+; DW | 95 06    Global: Report Count    = 6 (0x06)
+; DW | 75 08    Global: Report Size     = 8 (0x08)
+; DW | 16 00 00 Global: Logical Minimum = 0 (0x0000)
+; DW | 26 AF 00 Global: Logical Maximum = 175 (0x00AF)
+; DW | || || ||
+; DW | 05 07    Global: Usage Page      = Keyboard / Keypad (0x07)
+; DW | 1A 00 00 Local:  Usage Minimum   = Keyboard / Keypad: Keyboard 0x00
+; DW | 2A AF 00 Local:  Usage Maximum   = Keyboard / Keypad: Keyboard 0xAF
+; DW | || || ||
+; DW | 81 00    Main:   Input           = 0x00 (Data, Array, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+; DW | 05 0C    Global: Usage Page      = Consumer (0x0C)
+; DW | 09 00    Local:  Usage           = Consumer: 0x00
+; DW | 15 80    Global: Logical Minimum = -128 (0x80)
+; DW | 25 7F    Global: Logical Maximum = 127  (0x7F)
+; DW | 75 08    Global: Report Size     = 8 (0x08)
+; DW | 95 08    Global: Report Count    = 8 (0x08)
+; DW | B1 02    Main:   Feature         = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+; DW | C0       Main:   End Collection
+; DW | 05 01    Global: Usage Page      = Generic Desktop (0x01)
+; DW | 09 02    Local:  Usage           = Generic Desktop: Mouse
+; DW | A1 01    Main:   Collection      = Application (0x01)
+; DW | 85 01    Global: Report ID       = 1 (0x01)
+; DW | 05 09    Global: Usage Page      = Button (0x09)
+; DW | 19 01    Local:  Usage Minimum   = Button: 0x01
+; DW | 29 05    Local:  Usage Maximum   = Button: 0x05
+; DW | 15 00    Global: Logical Minimum = 0 (0x00)
+; DW | 25 01    Global: Logical Maximum = 1 (0x01)
+; DW | 75 01    Global: Report Size     = 1 (0x01)
+; DW | 95 05    Global: Report Count    = 5 (0x05)
+; DW | 81 02    Main:   Input           = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+; DW | 75 03    Global: Report Size     = 3 (0x03)
+; DW | 95 01    Global: Report Count    = 1 (0x01)
+; DW | 81 01    Main:   Input           = 0x01 (Constant, Array, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+; DW | 05 01    Global: Usage Page      = Generic Desktop (0x01)
+; DW | 09 01    Local:  Usage           = Generic Desktop: Pointer
+; DW | A1 00    Main:   Collection      = Physical (0x00)
+; DW | 09 30    Local:  Usage           = Generic Desktop: X
+; DW | 09 31    Local:  Usage           = Generic Desktop: Y
+; DW | 15 81    Global: Logical Minimum = -127 (0x81)
+; DW | 25 7F    Global: Logical Maximum = 127 (0x7F)
+; DW | 75 08    Global: Report Size     = 8 (0x08)
+; DW | 95 02    Global: Report Count    = 2 (0x02)
+; DW | 81 06    Main:   Input           = 0x06 (Data, Variable, Relative, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+; DW | C0       Main:   End Collection
+; DW | 09 38    Local:  Usage           = Generic Desktop: Wheel
+; DW | 95 01    Global: Report Count    = 1 (0x01)
+; DW | 81 06    Main:   Input           = 0x06 (Data, Variable, Relative, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+; DW | 05 0C    Global: Usage Page      = Consumer (0x0C)
+; DW | 0A 38 02 Local:  Usage           = Consumer: 0x238
+; DW | 81 06    Main:   Input           = 0x06 (Data, Variable, Relative, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+; DW | C0       Main:   End Collection
+; DW | 05 0C    Global: Usage Page      = Consumer (0x0C)
+; DW | 09 01    Local:  Usage           = Consumer: 0x01
+; DW | A1 01    Main:   Collection      = Application (0x01)
+; DW | 85 10    Global: Report ID       = 16 (0x10)
+; DW | 15 00    Global: Logical Minimum = 0 (0x00)
+; DW | 26 3C 02 Global: Logical Maximum = 572 (0x023C)
+; DW | 19 00    Local:  Usage Minimum   = Consumer: 0x00
+; DW | 2A 3C 02 Local:  Usage Maximum   = Consumer: 0x23C
+; DW | 75 10    Global: Report Size     = 16 (0x10)
+; DW | 95 01    Global: Report Count    = 1 (0x01)
+; DW | 81 00    Main:   Input           = 0x00 (Data, Array, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+; DW | C0       Main:   End Collection
+; DW | || || ||
+; DW | 06 A3 FF Global: Usage Page      = 0xFFA3 (0xFFA3)
+; DW | 09 01    Local:  Usage           = 0xFFA3: 0x01
+; DW | A1 01    Main:   Collection      = Application (0x01)
+; DW | 85 11    Global: Report ID       = 17 (0x11)
+; DW | 19 00    Local:  Usage Minimum   = 0xFFA3: 0x00
+; DW | 2A FF 00 Local:  Usage Maximum   = 0xFFA3: 0xFF
+; DW | 15 00    Global: Logical Minimum = 0 (0x00)
+; DW | 26 FF 00 Global: Logical Maximum = 255 (0x00FF)
+; DW | 75 08    Global: Report Size     = 8 (0x08)
+; DW | 95 02    Global: Report Count    = 2 (0x02)
+; DW | 81 02    Main:   Input           = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+; DW | C0       Main:   End Collection
+; DW | 06 A0 FF Global: Usage Page      = 0xFFA0 (0xFFA0)
+; DW | 09 01    Local:  Usage           = 0xFFA0: 0x01
+; DW | A1 01    Main:   Collection      = Application (0x01)
+; DW | 85 15    Global: Report ID       = 21 (0x15)
+; DW | 1A F1 00 Local:  Usage Minimum   = 0xFFA0: 0xF1
+; DW | || || ||
+; DW | 2A FC 00 Local:  Usage Maximum   = 0xFFA0: 0xFC
+; DW | 15 00    Global: Logical Minimum = 0 (0x00)
+; DW | 25 01    Global: Logical Maximum = 1 (0x01)
+; DW | 75 01    Global: Report Size     = 1 (0x01)
+; DW | 95 0D    Global: Report Count    = 13 (0x0D)
+; DW | 81 02    Main:   Input           = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+; DW | 95 03    Global: Report Count    = 3 (0x03)
+; DW | 81 01    Main:   Input           = 0x01 (Constant, Array, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+; DW | C0       Main:   End Collection
+; DW | 06 A1 FF Global: Usage Page      = 0xFFA1 (0xFFA1)
+; DW | 09 01    Local:  Usage           = 0xFFA1: 0x01
+; DW | A1 01    Main:   Collection      = Application (0x01)
+; DW | 85 16    Global: Report ID       = 22 (0x16)
+; DW | 19 00    Local:  Usage Minimum   = 0xFFA1: 0x00
+; DW | 2A FF 00 Local:  Usage Maximum   = 0xFFA1: 0xFF
+; DW | || || ||
+; DW | 15 00    Global: Logical Minimum = 0 (0x00)
+; DW | 26 FF 00 Global: Logical Maximum = 255 (0x00FF)
+; DW | 75 08    Global: Report Size     = 8 (0x08)
+; DW | 95 02    Global: Report Count    = 2 (0x02)
+; DW | 81 02    Main:   Input           = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+; DW | C0       Main:   End Collection
+; DW | 06 00 FF Global: Usage Page      = 0xFF00 (0xFF00)
+; DW | 09 01    Local:  Usage           = 0xFF00: 0x01
+; DW | A1 01    Main:   Collection      = Application (0x01)
+; DW | 85 13    Global: Report ID       = 19 (0x13)
+; DW | 09 01    Local:  Usage           = 0xFF00: 0x01
+; DW | 15 00    Global: Logical Minimum = 0 (0x00)
+; DW | 26 FF 00 Global: Logical Maximum = 255 (0x00FF)
+; DW | || || ||
+; DW | 75 08    Global: Report Size     = 8 (0x08)
+; DW | 95 08    Global: Report Count    = 8 (0x08)
+; DW | 81 02    Main:   Input           = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+; DW | 09 02    Local:  Usage           = 0xFF00: 0x02
+; DW | 75 08    Global: Report Size     = 8 (0x08)
+; DW | 95 08    Global: Report Count    = 8 (0x08)
+; DW | 91 02    Main:   Output          = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+; DW | 09 03    Local:  Usage           = 0xFF00: 0x03
+; DW | 75 08    Global: Report Size     = 8 (0x08)
+; DW | 95 08    Global: Report Count    = 8 (0x08)
+; DW | B1 02    Main:   Feature         = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+; DW | C0       Main:   End Collection
+; DW | 0x0304 | .. |
+; DW | 0x0409 | .. |
+; DW | 0x030e | .. |
+; DW | 0x004c | .L | Lenovo\
+; DW | 0x0065 | .e |
+; DW | 0x006e | .n |
+; DW | 0x006f | .o |
+; DW | 0x0076 | .v |
+; DW | 0x006f | .o |
+; DW | 0x035c | .\ |
+; DW | 0x0054 | .T | Thinkpad 
+; DW | 0x0068 | .h |
+; DW | 0x0069 | .i |
+; DW | 0x006e | .n |
+; DW | 0x006b | .k |
+; DW | 0x0050 | .P |
+; DW | 0x0061 | .a |
+; DW | 0x0064 | .d |
+; DW | 0x0020 | .  |
+; DW | 0x0043 | .C | Compact 
+; DW | 0x006f | .o |
+; DW | 0x006d | .m |
+; DW | 0x0070 | .p |
+; DW | 0x0061 | .a |
+; DW | 0x0063 | .c |
+; DW | 0x0074 | .t |
+; DW | 0x0020 | .  |
+; DW | 0x0055 | .U | USB 
+; DW | 0x0053 | .S |
+; DW | 0x0042 | .B |
+; DW | 0x0020 | .  |
+; DW | 0x004b | .K | Keyboard 
+; DW | 0x0065 | .e |
+; DW | 0x0079 | .y |
+; DW | 0x0062 | .b |
+; DW | 0x006f | .o |
+; DW | 0x0061 | .a |
+; DW | 0x0072 | .r |
+; DW | 0x0064 | .d |
+; DW | 0x0020 | .  |
+; DW | 0x0077 | .w | with 
+; DW | 0x0069 | .i |
+; DW | 0x0074 | .t |
+; DW | 0x0068 | .h |
+; DW | 0x0020 | .  |
+; DW | 0x0054 | .T | TrackPoint 
+; DW | 0x0072 | .r |
+; DW | 0x0061 | .a |
+; DW | 0x0063 | .c |
+; DW | 0x006b | .k |
+; DW | 0x0050 | .P |
+; DW | 0x006f | .o |
+; DW | 0x0069 | .i |
+; DW | 0x006e | .n |
+; DW | 0x0074 | .t |
+; DW | 0x0312 | .. |
+; DW | 0x0030 | .0 | 00000000
+; DW | 0x0030 | .0 |
+; DW | 0x0030 | .0 |
+; DW | 0x0030 | .0 |
+; DW | 0x0030 | .0 |
+; DW | 0x0030 | .0 |
+; DW | 0x0030 | .0 |
+; DW | 0x0030 | .0 |
+; DW | 0x0328 | .( | (
+; DW | 0x0048 | .H | HID-CompliantDevice
+; DW | 0x0049 | .I |
+; DW | 0x0044 | .D |
+; DW | 0x002d | .- |
+; DW | 0x0043 | .C |
+; DW | 0x006f | .o |
+; DW | 0x006d | .m |
+; DW | 0x0070 | .p |
+; DW | 0x006c | .l |
+; DW | 0x0069 | .i |
+; DW | 0x0061 | .a |
+; DW | 0x006e | .n |
+; DW | 0x0074 | .t |
+; DW | 0x2044 |  D |
+; DW | 0x0065 | .e |
+; DW | 0x0076 | .v |
+; DW | 0x0069 | .i |
+; DW | 0x0063 | .c |
+; DW | 0x0065 | .e |
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; If 0x00.6 == 0, 
+; If 0x00.6 == 1, 
+; 8
+;
+; 0
+; write UDR0 0 at UDP0 #0x08
+; 9
+;
+; 0
+; write UDR0 0 at UDP0 #0x09
+; a
+;
+; 4f
+; write UDR0 0 at UDP0 #0x0a
+; b
+;
+; 0
+; write UDR0 0 at UDP0 #0x0b
+; c
+;
+; 0
+; write UDR0 0 at UDP0 #0x0c
+; d
+;
+; 0
+; write UDR0 0 at UDP0 #0x0d
+; e
+;
+; 0
+; write UDR0 0 at UDP0 #0x0e
+; f
+;
+; 0
+; write UDR0 0 at UDP0 #0x0f
+;
+;
+
+; [0c28 x 8 + 0c2c x 8]
+;
+;
+; 8
+;
+; 0
+; write UDR0 0 at UDP0 #0x08
+; 9
+;
+; 0
+; write UDR0 0 at UDP0 #0x09
+; a
+;
+; 1
+; write UDR0 1 at UDP0 #0x0a
+; b
+;
+; 1
+; write UDR0 1 at UDP0 #0x0b
+; c
+;
+; 1
+; write UDR0 1 at UDP0 #0x0c
+; d
+;
+; 1
+; write UDR0 1 at UDP0 #0x0d
+; e
+;
+; 1
+; write UDR0 1 at UDP0 #0x0e
+; f
+;
+; 1
+; write UDR0 1 at UDP0 #0x0f
+;
+;
+
+;
+;
+; If 0x13.1 == 0, JMP
+; If 0x13.1 == 1, A = 0x15 POINT 2 --- 1 line avail ?
+;
+; If FZ == 0, JMP
+; If FZ == 1, A = 0x17
+;
+; If FZ == 0,
+; If FZ == 1,
+; ----------- 1 line avail 
+; 0x15 = 0
+; 0x17 = 0
+; 0x18 = 0
+; 0x19 = 0
+; 0x1a = 0
+; 0x1b = 0
+; 0x1c = 0
+;
+;
+
+;
+;
+; If 0x13.5 (ESC-related flag) == 0, clear 0x13.0 and go to general(?) USB sending procedure.
+; 0x15 - 0x1c are scancode?
+; 8
+;
+; 0
+; write UDR0 0 at UDP0 #0x08
+; 9
+;
+; 0
+; write UDR0 0 at UDP0 #0x09
+; a
+;
+; 0
+; write UDR0 0 at UDP0 #0x0a
+; b
+;
+; 0
+; write UDR0 0 at UDP0 #0x0b
+; c
+;
+; 0
+; write UDR0 0 at UDP0 #0x0c
+; d
+;
+; 0
+; write UDR0 0 at UDP0 #0x0d
+; e
+;
+; 0
+; write UDR0 0 at UDP0 #0x0e
+; f
+;
+; 0
+; write UDR0 0 at UDP0 #0x0f
+;
+;
+
+;
+;
+;
+; 8
+;
+; 0x15
+; write UDR0 0x15 at UDP0 #0x08
+; 9
+;
+; 0
+; write UDR0 0 at UDP0 #0x09
+; a
+;
+; 0x17
+; write UDR0 0x17 at UDP0 #0x0a
+; b
+;
+; 0x18
+; write UDR0 0x18 at UDP0 #0x0b
+; c
+;
+; 0x19
+; write UDR0 0x19 at UDP0 #0x0c
+; d
+;
+; a
+; write UDR0 0x1a at UDP0 #0x0d
+; e
+;
+; 0x1b
+; write UDR0 0x1b at UDP0 #0x0e
+; f
+;
+; 0x1c
+; write UDR0 0x1c at UDP0 #0x0f
+
+;
+;
+;
+;
+;
+;
+; DW | 0x2d00 | -. |
+; DW | 0x2f99 | /. |
+; DW | 0x2d80 | -. |
+; DW | 0x2f98 | /. |
+; DW | 0x4013 | @. |
+; DW | 0x0e00 | .. |
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+; Clear 0x13.2
+; 					| 
+; B0MOV	UDP0, A		| UDP0 = #0x18
+; 					| 
+; B0MOV	UDR0_W, A	| write UDR0 0x2c at UDP0 #0x18
+; 					| 
+; B0MOV	UDP0, A		| UDP0 = #0x19
+; 2epoints			| - CONFIRMED - 0x2e: Track point X-axis value
+; B0MOV	UDR0_W, A	| write UDR0 0x2e at UDP0 #0x19
+; 					| 
+; B0MOV	UDP0, A		| UDP0 = #0x1a
+; 2fpoints			| - CONFIRMED - 0x2f: Track point Y-axis value
+; B0MOV	UDR0_W, A	| write UDR0 0x2f at UDP0 #0x1a
+; 2epoints
+; 2fpoints
+; 					| 
+; 					| UE2R_C = #0x03
+; 					| 
+; 					| UE2R = #0xa0
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+; write UDR0 1 at UDP0 #0x18
+;
+;
+;
+;
+;
+; write UDR0 0x2d at UDP0 #0x19
+;
+
+;
+;
+;
+;
+;
+; write UDR0 0x62 at UDP0 #0x19
+
+;
+;					    |
+; B0MOV	UDP0, A		| UDP0 = #0x1a
+; 2epoints			|
+; B0MOV	UDR0_W, A	| UDR0_W = 0x2e
+;					    |
+; B0MOV	UDP0, A		| UDP0 = #0x1b
+; 2fpoints			| 
+; B0MOV	UDR0_W, A	| UDR0_W = 0x2f
+;				        |
+; B0MOV	UDP0, A		| UDP0 = #0x1c
+;					    | 
+;
+; 					|
+; B0MOV	UDR0_W, A	| UDR0_W = 0x30
+;
+
+;
+;				    	|
+; B0MOV	UDR0_W, A	| write UDR0 #0x00 at UDP0 #0x1c
+
+;
+;
+; B0MOV	UDP0, A
+;
+; write UDR0 #0x00 at UDP0 #0x1d
+; 2epoints
+; 2fpoints
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+; write UDR0 #0x16 at UDP0 #0x18 
+;
+;
+;
+; write UDR0 0x31 at UDP0 #0x19 
+;
+;
+;
+;
+;
+; write UDR0 0x30 at UDP0 #0x1a
+;
+
+;
+;
+; write UDR0 #0x00 at UDP0 #0x1a
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; write UDR0 #0x10 at UDP0 #0x18
+;
+;
+;
+; write UDR0 0x23 at UDP0 #0x19
+;
+;
+;
+; write UDR0 0x24 at UDP0 #0x1a
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+; write UDR0 #0x15 at UDP0 #0x18 
+;
+;
+;
+; write UDR0 0x28 at UDP0 #0x19
+;
+;
+;
+; write UDR0 0x29 at UDP0 #0x1a
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+; write UDR0 #0x11 at UDP0 #0x18
+;
+;
+;
+; write UDR0 0x2a at UDP0 #0x19
+;
+;
+;
+; write UDR0 0x2b at UDP0 #0x1a
+;
+;
+;
+;
+;
+; DW | 0x2d00 | -. |
+; DW | 0x2f9b | /. |
+; DW | 0x2d80 | -. |
+; DW | 0x2f9a | /. |
+; DW | 0x0e00 | .. |
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; DW | 0xa720 | .  |
+; DW | 0xa720 | .  |
+; DW | 0xa720 | .  |
+; DW | 0xa720 | .  |
+; DW | 0xa720 | .  |
+; DW | 0xa720 | .  |
+; DW | 0xa720 | .  |
+; DW | 0xa720 | .  |
+; DW | 0xa720 | .  |
+; DW | 0xa720 | .  |
+; DW | 0xa720 | .  |
+; DW | 0xa720 | .  |
+; DW | 0xa720 | .  |
+; DW | 0xa720 | .  |
+; DW | 0xa720 | .  |
+; DW | 0xaaaa | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+; DW | 0xffff | .. |
+;
+;
+;
+;
+;
+; Z = #0xff (Real: + 0x05a0 = 0x2d9f)
+; memoOVC at Y const 27, Z const ff
+;
+;
+;
+;
+;
+;
+; DW | 0x0300 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x3412 | 4. |
+; DW | 0x7856 | xV |
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; set UE0R 0
+; set UE1R 0
+; set UE2R 0
+; set UDP0 0
+; set UDR0_R 0
+; set UDR0_W 0
+; set EP0OUT_CNT 0
+; set UE1R_C 0
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+; Clear UDR0_R
+; Clear UDR0_W
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+;
+
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; memoOVC at Y v-c, Z v-c,
+; write UDR0_W ? at UDP ?
+;
+;
+;
+;
+;
+; write UDR0_W ? at UDP ?
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+; memoOVC, Y = ?, Z = ? 
+; write UDR0_W ? at UDP ?
+;
+;
+;
+;
+;
+; write UDR0_W ? at UDP ?
+;
+;
+;
+; 0x15 POINT 3
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; 0x15 POINT 4
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+; DW | 0x13a3 | .. |
+; DW | 0x0e00 | .. |
+
+;
+;
+;
+
+;
+;
+;
+
+;
+;
+;
+
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+; write UDR0_W #0x00 at UDP #0x00
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+
+;
+;
+; DW | 0xeb31 | .1 |
+; DW | 0xaa3c | .< |
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+; Write UDR0 0x23 at UDP0 #0x00
+;
+;
+;
+; Write UDR0 0x24 at UDP0 #0x01
+;
+;
+;
+; Write UDR0 0x25 at UDP0 #0x02
+;
+;
+;
+; Write UDR0 0x26 at UDP0 #0x03
+;
+;
+;
+; Write UDR0 0x27 at UDP0 #0x04
+;
+;
+;
+; Write UDR0 0x28 at UDP0 #0x05
+;
+;
+;
+; Write UDR0 0x29 at UDP0 #0x06
+;
+;
+;
+; Write UDR0 0x2a at UDP0 #0x07
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+; DW | 0x0012 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0008 | .. |
+; DW | 0x0045 | .E |
+; DW | 0x000c | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0075 | .u |
+; DW | 0x0001 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0009 | .. |
+; DW | 0x0002 | .. |
+; DW | 0x0022 | ." |
+; DW | 0x0000 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0080 | .. |
+; DW | 0x0032 | .2 |
+; DW | 0x0009 | .. |
+; DW | 0x0004 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0003 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0009 | .. |
+; DW | 0x0021 | .! |
+; DW | 0x0000 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0001 | .. |
+; DW | 0x0022 | ." |
+; DW | 0x001f | .. |
+; DW | 0x0000 | .. |
+; DW | 0x0007 | .. |
+; DW | 0x0005 | .. |
+; DW | 0x0081 | .. |
+; DW | 0x0003 | .. |
+; DW | 0x0010 | .. |
+; DW | 0x0000 | .. |
+; DW | 0x00ff | .. |
+; DW | 0x0c05 | .. |
+; DW | 0x0109 | .. |
+; DW | 0x01a1 | .. |
+; DW | 0x0009 | .. |
+; DW | 0x8015 | .. |
+; DW | 0x7f25 | .% |
+; DW | 0x0875 | .u |
+; DW | 0x1095 | .. |
+; DW | 0x0281 | .. |
+; DW | 0x0009 | .. |
+; DW | 0x8015 | .. |
+; DW | 0x7f25 | .% |
+; DW | 0x0875 | .u |
+; DW | 0x0895 | .. |
+; DW | 0x02b1 | .. |
+; DW | 0x00c0 | .. |
+; DW | 0x0304 | .. |
+; DW | 0x0409 | .. |
+
+;
+;
+;
+;
+;
+
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+
+;
+;
+; 2epoints ()
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; 2epoints ()
+;
+;
+;
+;
+
+;
+;
+;
+;
+; 2epoints 
+;
+;
+;
+;
+
+;
+;
+;
+; (Real: + 0x05a0 = 0x2E2C) 
+; memoOVC, Y = const 28, Z = const 8c
+;
+;
+;
+;
+;
+; memoOVC, Y = c-v 28 + g, Z = c-v 8c + g.
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+; memoOVC at Y = const 28, Z = const 8e
+;
+;
+;
+;
+;
+; memoOVC at Y = c-v 28 + g, Z = c-v 8e + g
+; 48point
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; 48point
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; 33points (mut) 0x33 = 0x20
+;
+;
+;
+;
+;
+; 33points
+;
+;
+;
+;
+;
+;
+; memoOVC at Y = const 00, Z = const 00.
+;
+;
+;
+;
+; 33points (mut) 0x33 = 0
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; 33points
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; 2epoints
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; memoOVC, LOOP, start from Y const 00, Z const 00.
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; 0x2f = #0x2f
+; 2fpoints (B0)
+;
+;
+;
+; 0x5a = 0
+; <----------------------------------+
+; 2fpoints (B0)                      |
+; Y = 0x2f                           |
+;                                    |
+; Z = 0x30                           |
+; memoOVC, loop Y v, Z v             |
+;                                    |
+;                                    |
+; 0x38 = Low bit, 0x39 = High bit    |
+; Y = 0                              |
+;                                    |
+;                                    |
+; Z = 0x5a + #0x4a                   |
+;                                    |
+; @YZ = 0x38                         |
+;                                    |
+; Z += 1                             |
+; 0x30 += 1                          |
+;                                    |
+; 0x5a += 2                          |
+;                                    |
+; @YZ = 0x39                         |
+;                                    |
+;                                    |
+; if 0x30 != #0xfc ------------------+
+; if 0x30 == #0xfc
+; 0x33 = #0x2f         33points
+;
+; 0x34 = #0x80
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+
+;
+;
+;
+;
+; memoOVC, Y = const 2f or 2f, Z = const fc or fe.
+;
+;
+;
+;
+;
+; memoOVC, Y = const 2f or 2f. Z = const fc + 1 or fe + 1.
+;
+;
+;
+;
+
+;
+;
+; 0x23 = 0x1b
+;
+; 0x24 = 0x1c
+;
+; 0x25 = 0x1d
+;
+; 0x26 = 0x1e
+;
+
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+; 33points
+;
+;
+;
+;
+;
+;
+;
+;
+
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;

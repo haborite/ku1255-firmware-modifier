@@ -1,0 +1,64 @@
+# Vendor-defined 0xFFA3（Report ID = 17 = 0x11）
+06 A3 FF Global: Usage Page      = 0xFFA3 (0xFFA3)
+09 01    Local:  Usage           = 0xFFA3: 0x01
+A1 01    Main:   Collection      = Application (0x01)
+85 11    Global: Report ID       = 17 (0x11)
+19 00    Local:  Usage Minimum   = 0xFFA3: 0x00
+2A FF 00 Local:  Usage Maximum   = 0xFFA3: 0xFF
+15 00    Global: Logical Minimum = 0 (0x00)
+26 FF 00 Global: Logical Maximum = 255 (0x00FF)
+75 08    Global: Report Size     = 8 (0x08)
+95 02    Global: Report Count    = 2 (0x02)
+81 02    Main:   Input           = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+C0       Main:   End Collection
+
+# Vendor-defined 0xFFA0（Report ID = 21 = 0x15）
+06 A0 FF Global: Usage Page      = 0xFFA0 (0xFFA0)
+09 01    Local:  Usage           = 0xFFA0: 0x01
+A1 01    Main:   Collection      = Application (0x01)
+85 15    Global: Report ID       = 21 (0x15)
+1A F1 00 Local:  Usage Minimum   = 0xFFA0: 0xF1
+2A FC 00 Local:  Usage Maximum   = 0xFFA0: 0xFC
+15 00    Global: Logical Minimum = 0 (0x00)
+25 01    Global: Logical Maximum = 1 (0x01)
+75 01    Global: Report Size     = 1 (0x01)
+95 0D    Global: Report Count    = 13 (0x0D)
+81 02    Main:   Input           = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+95 03    Global: Report Count    = 3 (0x03)
+81 01    Main:   Input           = 0x01 (Constant, Array, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+C0       Main:   End Collection
+
+# Vendor-defined 0xFFA1（Report ID = 22 = 0x16）
+06 A1 FF Global: Usage Page      = 0xFFA1 (0xFFA1)
+09 01    Local:  Usage           = 0xFFA1: 0x01
+A1 01    Main:   Collection      = Application (0x01)
+85 16    Global: Report ID       = 22 (0x16)
+19 00    Local:  Usage Minimum   = 0xFFA1: 0x00
+2A FF 00 Local:  Usage Maximum   = 0xFFA1: 0xFF
+15 00    Global: Logical Minimum = 0 (0x00)
+26 FF 00 Global: Logical Maximum = 255 (0x00FF)
+75 08    Global: Report Size     = 8 (0x08)
+95 02    Global: Report Count    = 2 (0x02)
+81 02    Main:   Input           = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+C0       Main:   End Collection
+
+# Vendor-defined 0xFF00（Report ID = 19 = 0x13）
+06 00 FF Global: Usage Page      = 0xFF00 (0xFF00)
+09 01    Local:  Usage           = 0xFF00: 0x01
+A1 01    Main:   Collection      = Application (0x01)
+85 13    Global: Report ID       = 19 (0x13)
+09 01    Local:  Usage           = 0xFF00: 0x01
+15 00    Global: Logical Minimum = 0 (0x00)
+26 FF 00 Global: Logical Maximum = 255 (0x00FF)
+75 08    Global: Report Size     = 8 (0x08)
+95 08    Global: Report Count    = 8 (0x08)
+81 02    Main:   Input           = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+09 02    Local:  Usage           = 0xFF00: 0x02
+75 08    Global: Report Size     = 8 (0x08)
+95 08    Global: Report Count    = 8 (0x08)
+91 02    Main:   Output          = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+09 03    Local:  Usage           = 0xFF00: 0x03
+75 08    Global: Report Size     = 8 (0x08)
+95 08    Global: Report Count    = 8 (0x08)
+B1 02    Main:   Feature         = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+C0       Main:   End Collection

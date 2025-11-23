@@ -1,0 +1,292 @@
+# Extracted 224 words (16bit)
+# Total bytes = 448
+
+## HID Report Descriptor detected at byte offset 154
+
+## Parsed HID Report Descriptor items:
+  @0x009A: 05 01
+    Global: Usage Page = Generic Desktop (0x01)
+  @0x009C: 09 06
+    Local: Usage = Generic Desktop: Keyboard
+  @0x009E: A1 01
+    Main: Collection = Application (0x01)
+  @0x00A0: 05 07
+    Global: Usage Page = Keyboard / Keypad (0x07)
+  @0x00A2: 19 E0
+    Local: Usage Minimum = Keyboard / Keypad: Keyboard 0xE0
+  @0x00A4: 29 E7
+    Local: Usage Maximum = Keyboard / Keypad: Keyboard 0xE7
+  @0x00A6: 15 00
+    Global: Logical Minimum = 0 (0x00)
+  @0x00A8: 25 01
+    Global: Logical Maximum = 1 (0x01)
+  @0x00AA: 75 01
+    Global: Report Size = 1 (0x01)
+  @0x00AC: 95 08
+    Global: Report Count = 8 (0x08)
+  @0x00AE: 81 02
+    Main: Input = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+  @0x00B0: 95 01
+    Global: Report Count = 1 (0x01)
+  @0x00B2: 75 08
+    Global: Report Size = 8 (0x08)
+  @0x00B4: 81 01
+    Main: Input = 0x01 (Constant, Array, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+  @0x00B6: 95 05
+    Global: Report Count = 5 (0x05)
+  @0x00B8: 75 01
+    Global: Report Size = 1 (0x01)
+  @0x00BA: 05 08
+    Global: Usage Page = LEDs (0x08)
+  @0x00BC: 19 01
+    Local: Usage Minimum = LEDs: 0x01
+  @0x00BE: 29 05
+    Local: Usage Maximum = LEDs: 0x05
+  @0x00C0: 91 02
+    Main: Output = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+  @0x00C2: 95 01
+    Global: Report Count = 1 (0x01)
+  @0x00C4: 75 03
+    Global: Report Size = 3 (0x03)
+  @0x00C6: 91 01
+    Main: Output = 0x01 (Constant, Array, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+  @0x00C8: 95 06
+    Global: Report Count = 6 (0x06)
+  @0x00CA: 75 08
+    Global: Report Size = 8 (0x08)
+  @0x00CC: 16 00 00
+    Global: Logical Minimum = 0 (0x0000)
+  @0x00CF: 26 AF 00
+    Global: Logical Maximum = 175 (0x00AF)
+  @0x00D2: 05 07
+    Global: Usage Page = Keyboard / Keypad (0x07)
+  @0x00D4: 1A 00 00
+    Local: Usage Minimum = Keyboard / Keypad: Keyboard 0x00
+  @0x00D7: 2A AF 00
+    Local: Usage Maximum = Keyboard / Keypad: Keyboard 0xAF
+  @0x00DA: 81 00
+    Main: Input = 0x00 (Data, Array, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+  @0x00DC: 05 0C
+    Global: Usage Page = Consumer (0x0C)
+  @0x00DE: 09 00
+    Local: Usage = Consumer: 0x00
+  @0x00E0: 15 80
+    Global: Logical Minimum = -128 (0x80)
+  @0x00E2: 25 7F
+    Global: Logical Maximum = 127 (0x7F)
+  @0x00E4: 75 08
+    Global: Report Size = 8 (0x08)
+  @0x00E6: 95 08
+    Global: Report Count = 8 (0x08)
+  @0x00E8: B1 02
+    Main: Feature = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+  @0x00EA: C0
+    Main: End Collection
+  @0x00EB: 00
+    Main: Tag0
+  @0x00EC: 05 01
+    Global: Usage Page = Generic Desktop (0x01)
+  @0x00EE: 09 02
+    Local: Usage = Generic Desktop: Mouse
+  @0x00F0: A1 01
+    Main: Collection = Application (0x01)
+  @0x00F2: 85 01
+    Global: Report ID = 1 (0x01)
+  @0x00F4: 05 09
+    Global: Usage Page = Button (0x09)
+  @0x00F6: 19 01
+    Local: Usage Minimum = Button: 0x01
+  @0x00F8: 29 05
+    Local: Usage Maximum = Button: 0x05
+  @0x00FA: 15 00
+    Global: Logical Minimum = 0 (0x00)
+  @0x00FC: 25 01
+    Global: Logical Maximum = 1 (0x01)
+  @0x00FE: 75 01
+    Global: Report Size = 1 (0x01)
+  @0x0100: 95 05
+    Global: Report Count = 5 (0x05)
+  @0x0102: 81 02
+    Main: Input = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+  @0x0104: 75 03
+    Global: Report Size = 3 (0x03)
+  @0x0106: 95 01
+    Global: Report Count = 1 (0x01)
+  @0x0108: 81 01
+    Main: Input = 0x01 (Constant, Array, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+  @0x010A: 05 01
+    Global: Usage Page = Generic Desktop (0x01)
+  @0x010C: 09 01
+    Local: Usage = Generic Desktop: Pointer
+  @0x010E: A1 00
+    Main: Collection = Physical (0x00)
+  @0x0110: 09 30
+    Local: Usage = Generic Desktop: X
+  @0x0112: 09 31
+    Local: Usage = Generic Desktop: Y
+  @0x0114: 15 81
+    Global: Logical Minimum = -127 (0x81)
+  @0x0116: 25 7F
+    Global: Logical Maximum = 127 (0x7F)
+  @0x0118: 75 08
+    Global: Report Size = 8 (0x08)
+  @0x011A: 95 02
+    Global: Report Count = 2 (0x02)
+  @0x011C: 81 06
+    Main: Input = 0x06 (Data, Variable, Relative, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+  @0x011E: C0
+    Main: End Collection
+  @0x011F: 09 38
+    Local: Usage = Generic Desktop: Wheel
+  @0x0121: 95 01
+    Global: Report Count = 1 (0x01)
+  @0x0123: 81 06
+    Main: Input = 0x06 (Data, Variable, Relative, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+  @0x0125: 05 0C
+    Global: Usage Page = Consumer (0x0C)
+  @0x0127: 0A 38 02
+    Local: Usage = Consumer: 0x238
+  @0x012A: 81 06
+    Main: Input = 0x06 (Data, Variable, Relative, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+  @0x012C: C0
+    Main: End Collection
+  @0x012D: 05 0C
+    Global: Usage Page = Consumer (0x0C)
+  @0x012F: 09 01
+    Local: Usage = Consumer: 0x01
+  @0x0131: A1 01
+    Main: Collection = Application (0x01)
+  @0x0133: 85 10
+    Global: Report ID = 16 (0x10)
+  @0x0135: 15 00
+    Global: Logical Minimum = 0 (0x00)
+  @0x0137: 26 3C 02
+    Global: Logical Maximum = 572 (0x023C)
+  @0x013A: 19 00
+    Local: Usage Minimum = Consumer: 0x00
+  @0x013C: 2A 3C 02
+    Local: Usage Maximum = Consumer: 0x23C
+  @0x013F: 75 10
+    Global: Report Size = 16 (0x10)
+  @0x0141: 95 01
+    Global: Report Count = 1 (0x01)
+  @0x0143: 81 00
+    Main: Input = 0x00 (Data, Array, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+  @0x0145: C0
+    Main: End Collection
+  @0x0146: 06 A3 FF
+    Global: Usage Page = 0xFFA3 (0xFFA3)
+  @0x0149: 09 01
+    Local: Usage = 0xFFA3: 0x01
+  @0x014B: A1 01
+    Main: Collection = Application (0x01)
+  @0x014D: 85 11
+    Global: Report ID = 17 (0x11)
+  @0x014F: 19 00
+    Local: Usage Minimum = 0xFFA3: 0x00
+  @0x0151: 2A FF 00
+    Local: Usage Maximum = 0xFFA3: 0xFF
+  @0x0154: 15 00
+    Global: Logical Minimum = 0 (0x00)
+  @0x0156: 26 FF 00
+    Global: Logical Maximum = 255 (0x00FF)
+  @0x0159: 75 08
+    Global: Report Size = 8 (0x08)
+  @0x015B: 95 02
+    Global: Report Count = 2 (0x02)
+  @0x015D: 81 02
+    Main: Input = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+  @0x015F: C0
+    Main: End Collection
+  @0x0160: 06 A0 FF
+    Global: Usage Page = 0xFFA0 (0xFFA0)
+  @0x0163: 09 01
+    Local: Usage = 0xFFA0: 0x01
+  @0x0165: A1 01
+    Main: Collection = Application (0x01)
+  @0x0167: 85 15
+    Global: Report ID = 21 (0x15)
+  @0x0169: 1A F1 00
+    Local: Usage Minimum = 0xFFA0: 0xF1
+  @0x016C: 2A FC 00
+    Local: Usage Maximum = 0xFFA0: 0xFC
+  @0x016F: 15 00
+    Global: Logical Minimum = 0 (0x00)
+  @0x0171: 25 01
+    Global: Logical Maximum = 1 (0x01)
+  @0x0173: 75 01
+    Global: Report Size = 1 (0x01)
+  @0x0175: 95 0D
+    Global: Report Count = 13 (0x0D)
+  @0x0177: 81 02
+    Main: Input = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+  @0x0179: 95 03
+    Global: Report Count = 3 (0x03)
+  @0x017B: 81 01
+    Main: Input = 0x01 (Constant, Array, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+  @0x017D: C0
+    Main: End Collection
+  @0x017E: 06 A1 FF
+    Global: Usage Page = 0xFFA1 (0xFFA1)
+  @0x0181: 09 01
+    Local: Usage = 0xFFA1: 0x01
+  @0x0183: A1 01
+    Main: Collection = Application (0x01)
+  @0x0185: 85 16
+    Global: Report ID = 22 (0x16)
+  @0x0187: 19 00
+    Local: Usage Minimum = 0xFFA1: 0x00
+  @0x0189: 2A FF 00
+    Local: Usage Maximum = 0xFFA1: 0xFF
+  @0x018C: 15 00
+    Global: Logical Minimum = 0 (0x00)
+  @0x018E: 26 FF 00
+    Global: Logical Maximum = 255 (0x00FF)
+  @0x0191: 75 08
+    Global: Report Size = 8 (0x08)
+  @0x0193: 95 02
+    Global: Report Count = 2 (0x02)
+  @0x0195: 81 02
+    Main: Input = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+  @0x0197: C0
+    Main: End Collection
+  @0x0198: 06 00 FF
+    Global: Usage Page = 0xFF00 (0xFF00)
+  @0x019B: 09 01
+    Local: Usage = 0xFF00: 0x01
+  @0x019D: A1 01
+    Main: Collection = Application (0x01)
+  @0x019F: 85 13
+    Global: Report ID = 19 (0x13)
+  @0x01A1: 09 01
+    Local: Usage = 0xFF00: 0x01
+  @0x01A3: 15 00
+    Global: Logical Minimum = 0 (0x00)
+  @0x01A5: 26 FF 00
+    Global: Logical Maximum = 255 (0x00FF)
+  @0x01A8: 75 08
+    Global: Report Size = 8 (0x08)
+  @0x01AA: 95 08
+    Global: Report Count = 8 (0x08)
+  @0x01AC: 81 02
+    Main: Input = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+  @0x01AE: 09 02
+    Local: Usage = 0xFF00: 0x02
+  @0x01B0: 75 08
+    Global: Report Size = 8 (0x08)
+  @0x01B2: 95 08
+    Global: Report Count = 8 (0x08)
+  @0x01B4: 91 02
+    Main: Output = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+  @0x01B6: 09 03
+    Local: Usage = 0xFF00: 0x03
+  @0x01B8: 75 08
+    Global: Report Size = 8 (0x08)
+  @0x01BA: 95 08
+    Global: Report Count = 8 (0x08)
+  @0x01BC: B1 02
+    Main: Feature = 0x02 (Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile)
+  @0x01BE: C0
+    Main: End Collection
+  @0x01BF: 00
+    Main: Tag0

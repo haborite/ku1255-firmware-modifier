@@ -1,0 +1,1 @@
+python make_diff.py fw_fmt.asm fw_mod.asm diff.json comments.txt
