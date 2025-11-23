@@ -4,6 +4,7 @@
 *.exe
 *.spec
 *.bin
+*.asm
 build
 win-unpacked
 node_modules
@@ -21,3 +22,7 @@ flashsn8
 dist
 flashsn8.dist
 deploy
+sn8
+assn8
+dissn8
+flashsn8
