@@ -1,8 +1,8 @@
 [application]
-asset_dir = "public"
-out_dir   = "dist"
 
 [web.app]
+
+# HTML title tag content
 title = "ku1255-firmware-modifier"
 
 # include `assets` in web platform

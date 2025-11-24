@@ -1,0 +1,1 @@
+python make_diff.py ..\firmware\fw_fmt.asm ..\firmware\fw_tmp.asm ..\template\diff.json ..\template\comments.txt

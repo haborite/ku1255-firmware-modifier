@@ -1,6 +1,6 @@
 [package]
 name = "ku1255-firmware-modifier"
-version = "0.7.4"
+version = "0.7.5"
 authors = ["haborite <korintje@ymail.ne.jp>"]
 edition = "2021"
 
@@ -8,8 +8,7 @@ edition = "2021"
 
 [dependencies]
 csv = "1.3"
-dioxus = { version = "0.7", features = ["signals"] }
-dioxus-desktop = "0.7"
+dioxus = { version = "0.6.0", features = [] }
 regex = "1.11.1"
 rfd = "0.15.3"
 serde = { version = "1.0", features = ["derive"] }
@@ -17,11 +16,11 @@ serde_json = "1.0"
 reqwest = { version = "0.11", features = ["blocking", "rustls-tls"] }
 
 [features]
-# default = ["desktop"]
+default = ["desktop"]
 # The feature that are only required for the web = ["dioxus/web"] build target should be optional and only enabled in the web = ["dioxus/web"] feature
 # web = ["dioxus/web"]
 # The feature that are only required for the desktop = ["dioxus/desktop"] build target should be optional and only enabled in the desktop = ["dioxus/desktop"] feature
-# desktop = ["dioxus/desktop"]
+desktop = ["dioxus/desktop"]
 # The feature that are only required for the mobile = ["dioxus/mobile"] build target should be optional and only enabled in the mobile = ["dioxus/mobile"] feature
 # mobile = ["dioxus/mobile"]
 

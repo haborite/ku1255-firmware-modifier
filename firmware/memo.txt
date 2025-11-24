@@ -1,1 +1,0 @@
-The official firmware installer and modified firmware installers will be saved here.

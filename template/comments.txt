@@ -813,7 +813,6 @@
 ; 0x0f = A (LOWER byte)
 ;; Check Mod key flag
 ;; Jump to 2nd layer function
-
 ;;
 ;; Check 0x00.3 (What flag ?)
 ;; If 0x00.3 == 0, JMP 015c

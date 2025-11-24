@@ -45,7 +45,7 @@ rm -rf "$FLASH_GUI_EXTRACTED"
 
 # === 7. Copy project directories ===
 echo "=== 7. Copying project resources ==="
-for dir in boards examples logical_layouts settings; do
+for dir in boards examples logical_layouts settings sn8 template; do
     cp -r "$dir" "$WORKDIR/"
 done
 

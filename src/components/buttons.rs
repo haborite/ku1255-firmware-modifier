@@ -152,12 +152,12 @@ pub fn ButtonLoad(
 
 #[component]
 pub fn ButtonSave(
-    selected_board: ReadSignal<Board>,
+    selected_board: ReadOnlySignal<Board>,
     selected_logical_layout: Memo<LogicalLayout>,
-    id_layout_l0: ReadSignal<HashMap<u32, u8>>,
-    id_layout_l1: ReadSignal<HashMap<u32, u8>>,
-    fn_id: ReadSignal<u8>,
-    tp_sensitivity: ReadSignal<u32>,
+    id_layout_l0: ReadOnlySignal<HashMap<u32, u8>>,
+    id_layout_l1: ReadOnlySignal<HashMap<u32, u8>>,
+    fn_id: ReadOnlySignal<u8>,
+    tp_sensitivity: ReadOnlySignal<u32>,
 ) -> Element {
     rsx! {
         button {

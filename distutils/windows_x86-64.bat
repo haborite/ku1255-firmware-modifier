@@ -19,7 +19,7 @@ if errorlevel 1 (
 
 :: === 2. Build Dioxus App ===
 echo === 2. Building Dioxus App ===
-dx build --release --desktop
+dx build --release --platform desktop
 if errorlevel 1 (
     echo Dioxus build failed.
     exit /b 1
@@ -54,7 +54,7 @@ rmdir /s /q "%FLASH_GUI_EXTRACTED%" 2>nul
 
 :: === 7. Copy project directories ===
 echo === 7. Copying project resources ===
-for %%F in (boards examples logical_layouts settings) do (
+for %%F in (boards examples logical_layouts settings sn8 template) do (
     xcopy /s /e /y "%%F" "%WORKDIR%\%%F\" >nul
 )
 

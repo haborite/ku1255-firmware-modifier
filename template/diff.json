@@ -3258,15 +3258,11 @@
     },
     {
       "op": "insert",
-      "code": "    BTS0 0x00.7                       "
+      "code": "    BTS0         0x00.7               "
     },
     {
       "op": "insert",
-      "code": "    JMP get_L2_key                    "
-    },
-    {
-      "op": "insert",
-      "code": ""
+      "code": "    JMP          get_L2_key           "
     },
     {
       "op": "insert",
@@ -3346,7 +3342,7 @@
     },
     {
       "op": "insert",
-      "code": "    CMPRS        A, #0x${s/fn_key/af} "
+      "code": "    CMPRS        A, #0x${s/fn_id/af} "
     },
     {
       "op": "copy",
@@ -8218,19 +8214,19 @@
     },
     {
       "op": "insert",
-      "code": "    ${e/tp_sp2/NOP/CALL func_07b7}    "
+      "code": "    ${e/tp_accel_0/NOP/CALL func_07b7}    "
     },
     {
       "op": "insert",
-      "code": "    ${e/tp_sp3/NOP/CALL func_07b7}    "
+      "code": "    ${e/tp_accel_1/NOP/CALL func_07b7}    "
     },
     {
       "op": "insert",
-      "code": "    ${e/tp_sp4/NOP/CALL func_07b7}    "
+      "code": "    ${e/tp_accel_2/NOP/CALL func_07b7}    "
     },
     {
       "op": "insert",
-      "code": "    ${e/tp_sp5/NOP/CALL func_07b7}    "
+      "code": "    ${e/tp_accel_3/NOP/CALL func_07b7}    "
     },
     {
       "op": "copy",
