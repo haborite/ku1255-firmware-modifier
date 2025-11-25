@@ -1,28 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-DW 0xABCD 形式（コメント付き）から
-- 16bitワード列を抽出
-- リトルエンディアンのバイト列に変換
-- その中から HID Report Descriptor を検出して解析
-を行うスクリプト。
-
-使い方:
-    python parse_thinkpad_hid.py input.txt
+Usage:
+    python parse_hid_desc.py hid_report.txt
 """
 
 import re
 import sys
 from textwrap import indent
 
-# ------------------------------------------------------------
-# 1. 0x???? ワードを抽出して bytes に
-# ------------------------------------------------------------
 
 def extract_words_from_text(text: str):
-    """
-    テキスト中の 0x???? を全部拾って 16bit 数値リストにする
-    """
     words = []
     for m in re.finditer(r'0x([0-9a-fA-F]{1,4})', text):
         val = int(m.group(1), 16)
@@ -33,7 +21,6 @@ def extract_words_from_text(text: str):
 
 def words_to_le_bytes(words):
     """
-    16bit ワード列をリトルエンディアンの bytes に変換
     0xABCD -> b'\xCD\xAB'
     """
     b = bytearray()
@@ -42,11 +29,6 @@ def words_to_le_bytes(words):
         b.append((w >> 8) & 0xFF)
     return bytes(b)
 
-# ------------------------------------------------------------
-# 2. HID Report Descriptor の解析
-# ------------------------------------------------------------
-
-# HID item の Type / Tag 名 (4bit tag)
 MAIN_TAGS = {
     0x8: "Input",
     0x9: "Output",
@@ -120,12 +102,13 @@ GENERIC_DESKTOP_USAGES = {
     0x38: "Wheel",
 }
 
-KEYBOARD_USAGE_PREFIX = "Keyboard"  # 0x04–0xA4 etc たくさんあるのでここではプレフィックスだけ
+KEYBOARD_USAGE_PREFIX = "Keyboard"
 
 
 def decode_input_output_feature_flags(val: int):
     """
-    Input / Output / Feature のビットフラグを人間向け文字列に。
+    Bit flag -> Human readable string
+    Input / Output / Feature 
     """
     flags = []
     flags.append("Data" if (val & 0x01) == 0 else "Constant")
@@ -140,14 +123,11 @@ def decode_input_output_feature_flags(val: int):
 
 
 def format_usage(usage_page: int | None, usage: int):
-    """
-    Usage Page と Usage 値からそれっぽい人間可読な表記を生成。
-    """
     if usage_page is None:
         return f"Usage 0x{usage:02X} (page unknown)"
 
     up_name = USAGE_PAGE_NAMES.get(usage_page, f"0x{usage_page:02X}")
-    if usage_page == 0x01:  # Generic Desktop
+    if usage_page == 0x01:    # Generic Desktop
         name = GENERIC_DESKTOP_USAGES.get(usage, f"0x{usage:02X}")
         return f"{up_name}: {name}"
     elif usage_page == 0x07:  # Keyboard
@@ -159,19 +139,14 @@ def format_usage(usage_page: int | None, usage: int):
 
 
 def parse_hid_report_descriptor(data: bytes, start_offset: int = 0):
-    """
-    HID Report Descriptor を prefix バイト列からパースして
-    1行ずつ説明を返すジェネレータ。
-    """
     i = start_offset
-    usage_page = None  # 現在の Usage Page を覚えて Usage の解釈に使う
+    usage_page = None
 
     while i < len(data):
         prefix = data[i]
         i += 1
 
         if prefix == 0xFE:
-            # Long item: prefix(0xFE), size, tag, data...
             if i + 2 > len(data):
                 break
             size = data[i]
@@ -214,7 +189,6 @@ def parse_hid_report_descriptor(data: bytes, start_offset: int = 0):
         desc = f"{item_type_name}: {tag_name}"
         value = None
 
-        # リトルエンディアンの符号付き/符号なし値を作る
         if size == 1:
             value = int.from_bytes(payload, "little", signed=False)
             sval = int.from_bytes(payload, "little", signed=True)
@@ -228,7 +202,6 @@ def parse_hid_report_descriptor(data: bytes, start_offset: int = 0):
             value = None
             sval = None
 
-        # グローバルアイテムなどに応じて説明を足す
         if item_type_name == "Global" and tag_name == "Usage Page" and value is not None:
             usage_page = value
             up_name = USAGE_PAGE_NAMES.get(value, f"0x{value:02X}")
@@ -270,19 +243,12 @@ def parse_hid_report_descriptor(data: bytes, start_offset: int = 0):
 
 
 def find_hid_report_start(data: bytes):
-    """
-    それっぽい HID Report Descriptor の開始位置を探す。
-    典型的なシグネチャ: 05 01 09 06 A1 01 (Keyboard Application)
-    """
     pattern = b"\x05\x01\x09\x06\xA1\x01"
     idx = data.find(pattern)
     if idx == -1:
         return None
     return idx
 
-# ------------------------------------------------------------
-# メイン
-# ------------------------------------------------------------
 
 def main():
     if len(sys.argv) != 2:
@@ -300,13 +266,11 @@ def main():
     print(f"# Total bytes = {len(data)}")
     print()
 
-    # 生のバイト列（最初の少しだけ表示）
     print("## First 256 bytes (little-endian hex):")
     hex_str = " ".join(f"{b:02X}" for b in data[:256])
     print(indent(hex_str, "  "))
     print()
 
-    # HID Report Descriptor の開始位置を探す
     start = find_hid_report_start(data)
     if start is None:
         print("!! Could not find HID report descriptor signature (05 01 09 06 A1 01)")
@@ -315,7 +279,6 @@ def main():
     print(f"## HID Report Descriptor detected at byte offset {start}")
     print()
 
-    # HID Report Descriptor を解析して表示
     print("## Parsed HID Report Descriptor items:")
     for item in parse_hid_report_descriptor(data, start_offset=start):
         raw_hex = " ".join(f"{b:02X}" for b in item["raw"])

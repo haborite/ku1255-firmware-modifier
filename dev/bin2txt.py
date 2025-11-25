@@ -5,24 +5,24 @@ def binary_to_hex(input_path, output_path):
         with open(input_path, "rb") as f_in, open(output_path, "w") as f_out:
             offset = 0
             while True:
-                data = f_in.read(16)  # 16バイトずつ読み込む
+                data = f_in.read(16)
                 if not data:
-                    break  # ファイルの終わりに達したら終了
+                    break
 
                 hex_line = f"{offset:08X} | " + " ".join(f"{b:02X}" for b in data)
                 f_out.write(hex_line + "\n")
                 offset += 16
 
-        print(f"バイナリファイルを16進数表記で保存しました: {output_path}")
+        print(f"Saved output text file: {output_path}")
 
     except FileNotFoundError:
-        print(f"エラー: ファイルが見つかりません。")
+        print(f"Error: File not found.")
     except Exception as e:
-        print(f"エラー: {e}")
+        print(f"Error: {e}")
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print(f"使い方: python {sys.argv[0]} <入力バイナリファイル> <出力テキストファイル>")
+        print(f"Usage: python {sys.argv[0]} <Input binary filepath> <Output text filepath>")
         sys.exit(1)
 
     input_file = sys.argv[1]
