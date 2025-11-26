@@ -1,12 +1,28 @@
 use std::process::Command;
 
-const DISSN8_PATH: &str =  "sn8/dissn8/dissn8.dist/dissn8.exe";
-const ASSN8_PATH:  &str =  "sn8/assn8/assn8.dist/assn8.exe";
-const CFG_PATH:    &str =  "sn8/dissn8/dissn8.dist/sn8/sn8f2288.cfg";
+const PYTHON_PATH_UNX: &str = "python/python-linux-embed-amd64/python.exe";
+const PYTHON_PATH_WIN: &str = "python/python-win-embed-amd64/python.exe";
+const DISSN8_PATH: &str = "sn8tools/dissn8";
+const ASSN8_PATH: &str = "sn8tools/assn8";
+const CFG_PATH: &str = "sn8tools/sn8/sn8f2288.cfg";
+
+fn get_python_path() -> std::io::Result<&'static str> {
+    if cfg!(target_os = "macos") || cfg!(target_os = "linux") {
+        Ok(PYTHON_PATH_UNX)
+    } else if cfg!(target_os = "windows") {                    
+        Ok(PYTHON_PATH_WIN)
+    } else {
+        Err(std::io::Error::new(
+            std::io::ErrorKind::Other,
+            "Unsupported OS",
+        ))
+    }
+}
 
 pub fn run_dissn8(fw_bin: &str, out_asm: &str) -> std::io::Result<()> {
-    let status = Command::new(DISSN8_PATH)
-        .args(["-c", CFG_PATH, fw_bin, "-o", out_asm])
+    let python_path = get_python_path()?;
+    let status = Command::new(python_path)
+        .args([DISSN8_PATH, "-c", CFG_PATH, fw_bin, "-o", out_asm])
         .status()?;
 
     if !status.success() {
@@ -18,8 +34,9 @@ pub fn run_dissn8(fw_bin: &str, out_asm: &str) -> std::io::Result<()> {
 }
 
 pub fn run_assn8(fw_asm: &str, out_bin: &str) -> std::io::Result<()> {
-    let status = Command::new(ASSN8_PATH)
-        .args([fw_asm, "-o", out_bin])
+    let python_path = get_python_path()?;
+    let status = Command::new(python_path)
+        .args([ASSN8_PATH, fw_asm, "-o", out_bin])
         .status()?;
 
     if !status.success() {
