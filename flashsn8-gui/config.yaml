@@ -1,0 +1,5 @@
+- module-name: "libusb1"
+  dlls:
+    - from_filenames:
+        prefixes:
+          - "libusb"

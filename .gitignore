@@ -21,3 +21,4 @@ win_x86-64
 dist
 deploy
 python-*-embed-*
+__pycache__

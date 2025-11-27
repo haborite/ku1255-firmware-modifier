@@ -7,13 +7,14 @@ set "DISTDIR=deploy\windows"
 set "ARCHIVE_NAME=ku1255-firmware-modifier-windows.zip"
 set "FLASH_GUI_ZIP=deploy\flashsn8-gui-win.zip"
 set "FLASH_GUI_EXTRACTED=deploy\flashsn8-gui-win"
-set "FLASH_GUI_DEST=%WORKDIR%\firmware\flashsn8"
+set "FLASH_GUI_DEST=%WORKDIR%\sn8tools"
 
 :: === 0. Download embeddable python ===
 call ".\distutils\setup_embed_python.bat"
 
 :: === 1. Compile TailwindCSS ===
 echo === 1. Compiling TailwindCSS ===
+call npm install
 call npx tailwindcss -i ./input.css -o ./public/tailwind.css --minify
 if errorlevel 1 (
     echo TailwindCSS compilation failed.
@@ -57,7 +58,7 @@ rmdir /s /q "%FLASH_GUI_EXTRACTED%" 2>nul
 
 :: === 7. Copy project directories ===
 echo === 7. Copying project resources ===
-for %%F in (boards examples logical_layouts settings sn8tools template python) do (
+for %%F in (boards examples logical_layouts settings sn8tools template python firmware) do (
     xcopy /s /e /y "%%F" "%WORKDIR%\%%F\" >nul
 )
 

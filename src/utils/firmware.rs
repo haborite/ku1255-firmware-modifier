@@ -1,6 +1,5 @@
 use std::collections::HashMap;
 use dioxus::prelude::{Signal, Resource, Readable, Writable};
-use std::process::Command;
 use std::fs;
 use std::path::{Path};
 use std::io;
@@ -9,17 +8,12 @@ use std::io::{Write};
 use crate::utils::template::render_template_file;
 use crate::utils::diff::apply_diff_files;
 use crate::utils::format::format_asm_file;
-use crate::utils::commands::{run_dissn8, run_assn8};
+use crate::utils::commands::{run_dissn8, run_assn8, run_flashsn8_gui};
 use crate::utils::installer::{
     extract_fw_from_installer_to_file,
-    build_installer_with_fw
 };
 
-const FLASHER_UNX_PATH: &str = "firmware/flashsn8/flashsn8-gui.bin";
-const FLASHER_WIN_PATH: &str = "firmware/flashsn8/flashsn8-gui.exe";
-
 const ORG_INSTALLER_PATH: &str = "firmware/tp_compact_usb_kb_with_trackpoint_fw.exe";
-const MOD_INSTALLER_PATH: &str = "firmware/fw_installer_mod.exe";
 
 const ORG_BIN_PATH: &str = "firmware/fw_org.bin";
 const MOD_BIN_PATH: &str = "firmware/fw_mod.bin";
@@ -93,77 +87,11 @@ pub fn install_firmware_by_flashsn8(
         return;
     });
 
-    if cfg!(target_os = "macos") || cfg!(target_os = "linux") {
-        let status = Command::new(FLASHER_UNX_PATH).arg(MOD_BIN_PATH).status();
-        match status {
-            Ok(status) if status.success() => println!("flashsn8 completed successfully."),
-            Ok(status) => eprintln!("flashsn8 failed with exit code: {}", status),
-            Err(err) => eprintln!("Failed to execute flashsn8: {}", err),
-        }
-    } else if cfg!(target_os = "windows") {                    
-        match Command::new(FLASHER_WIN_PATH).arg(MOD_BIN_PATH).spawn() {
-            Ok(_) => println!("Flashsn8 launched"),
-            Err(err) => eprintln!("Failed to launch flashsn8: {}", err),
-        }
-    } else {
-        error_msg.set(Some("Error: Unsupported OS".into()));
-    }
-}
-
-pub fn install_firmware_by_lenovo_installer(
-    id_layout_l0: &Signal<HashMap<u32, u8>>,
-    id_layout_l1: &Signal<HashMap<u32, u8>>,
-    firmware_future: &Resource<Vec<u8>>,
-    fn_id: &Signal<u8>,
-    tp_sensitivity: &Signal<u32>,
-    error_msg: &mut Signal<Option<String>>,    
-) {
-    if let Some(msg) = validate_mod_key_position(&id_layout_l0, &id_layout_l1) {
-        error_msg.set(Some(msg));
-        return;
-    }
-    
-    let _r = build_mod_fw(
-        firmware_future, id_layout_l0, id_layout_l1,
-        fn_id, tp_sensitivity
-    ).unwrap_or_else(|err| {
-        error_msg.set(Some(format!("Failed to build modified firmware: {}", err)));
+    run_flashsn8_gui(MOD_BIN_PATH).unwrap_or_else(|err| {
+        error_msg.set(Some(format!("Failed to launch flashsn8: {}", err)));
         return;
     });
 
-    let modified_fw_bin: Vec<u8> = fs::read(MOD_BIN_PATH).unwrap_or_else(|err| {
-        eprintln!("Failed to read modified firmware binary: {}", err);
-        vec![]
-    });
-
-    let Some(original_binary) = &*firmware_future.read_unchecked() else {
-        error_msg.set(Some("Firmware binary not loaded.".into()));
-        return;
-    };
-
-    let Ok(modified_exe_bin) = build_installer_with_fw(
-        &modified_fw_bin,
-        &original_binary
-    ) else {
-        error_msg.set(Some("Failed to build modified installer.".into()));
-        return;
-    };
-
-    if cfg!(target_os = "windows") {
-        if let Err(err) = fs::File::create(MOD_INSTALLER_PATH)
-            .and_then(|mut file| file.write_all(&modified_exe_bin))
-        {
-            eprintln!("Failed to save modified firmware installer to {}: {}", MOD_INSTALLER_PATH, err);
-            return;
-        }
-        println!("Modified firmware installer successfully saved to {}", MOD_INSTALLER_PATH);
-        match Command::new(MOD_INSTALLER_PATH).spawn() {
-            Ok(_) => println!("Launched modified firmware executable."),
-            Err(err) => eprintln!("Failed to launch modified firmware: {}", err),
-        }
-    } else {
-        error_msg.set(Some("Error: Lenovo official installer only supports MS Windows".into()));
-    }
 }
 
 pub async fn load_or_download_firmware(exe_url_cloned: &str) -> Vec<u8>  {

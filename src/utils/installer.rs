@@ -45,12 +45,13 @@ pub fn extract_fw_from_installer_to_file(
     write_binary(out_path, &decrypted)
 }
 
-/// Build a new installer binary with XOR-encrypted firmware inserted.
-///
-/// Equivalent to the Python script:
-/// - Take the first SN8_SIZE bytes of fw_plain
-/// - XOR with XOR_KEY
-/// - Overwrite installer[SN8_OFFSET .. SN8_OFFSET + SN8_SIZE]
+// Build a new installer binary with XOR-encrypted firmware inserted.
+//
+// Equivalent to the Python script:
+// - Take the first SN8_SIZE bytes of fw_plain
+// - XOR with XOR_KEY
+
+/*
 pub fn build_installer_with_fw(
     fw_plain: &[u8],
     original_installer: &[u8],
@@ -82,23 +83,4 @@ pub fn build_installer_with_fw(
 
     Ok(modified)
 }
-
-// Build installer and save it to a file.
-/*
-pub fn build_installer_with_fw_to_file(
-    fw_plain: &[u8],
-    original_installer: &[u8],
-    out_path: &str,
-) -> Result<(), String> {
-    let modified = build_installer_with_fw(fw_plain, original_installer)?;
-    if let Err(err) = File::create(out_path)
-        .and_then(|mut file| file.write_all(&modified))
-    {
-        eprintln!("Failed to save modified firmware installer to {}: {}", out_path, err);
-        return Err(format!("Failed to save modified firmware installer: {}", err));
-    }
-    println!("Modified firmware installer successfully saved to {}", out_path);
-    Ok(())
-}
-
 */

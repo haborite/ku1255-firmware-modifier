@@ -70,6 +70,12 @@ if errorlevel 1 (
     popd
     exit /b 1
 )
+:: python.exe -m pip install PySide6
+:: if errorlevel 1 (
+::     echo [ERROR] Failed to install ply
+::     popd
+::     exit /b 1
+:: )
 
 echo === Cleaning up unnecessary files ===
 
