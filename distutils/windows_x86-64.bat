@@ -38,6 +38,7 @@ echo === 7. Copying project resources ===
 for %%F in (boards examples logical_layouts settings template firmware) do (
     xcopy /s /e /y "%%F" "%WORKDIR%\%%F\" >nul
 )
+xcopy /s /e /y "sn8tool\win\sn8tool" "%WORKDIR%\sn8tool\" >nul
 
 :: === 8. Copy built binary and assets ===
 echo === 8. Copying built artifacts ===

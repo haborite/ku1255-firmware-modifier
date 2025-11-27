@@ -67,9 +67,6 @@ echo === Preparing directories ===
 if not exist "%BUILD_DIR%" (
     mkdir "%BUILD_DIR%" || (call :fail "Failed to create BUILD_DIR" & exit /b 1)
 )
-:: if not exist "%UPLOAD_DIR%" (
-::     mkdir "%UPLOAD_DIR%" || (call :fail "Failed to create UPLOAD_DIR" & exit /b 1)
-:: )
 exit /b 0
 
 :ensure_venv
@@ -184,13 +181,6 @@ if not exist "%CFG_SRC%" (
         exit /b 1
     )
 )
-
-:: echo   Creating ZIP: %OUTPUT_ZIP%
-:: powershell -Command "Compress-Archive -Path '%OUTPUT_DIR_NAME%' -DestinationPath '%OUTPUT_ZIP%' -Force"
-:: if errorlevel 1 (
-::     call :fail "Failed to create ZIP archive"
-::     exit /b 1
-:: )
 
 exit /b 0
 
