@@ -5,12 +5,9 @@ setlocal
 set "WORKDIR=deploy\windows_working"
 set "DISTDIR=deploy\windows"
 set "ARCHIVE_NAME=ku1255-firmware-modifier-windows.zip"
-set "FLASH_GUI_ZIP=deploy\flashsn8-gui-win.zip"
-set "FLASH_GUI_EXTRACTED=deploy\flashsn8-gui-win"
-set "FLASH_GUI_DEST=%WORKDIR%\sn8tools"
 
-:: === 0. Download embeddable python ===
-call ".\distutils\setup_embed_python.bat"
+:: === 0. Build sn8 tools ===
+call sn8tool\build-win.bat
 
 :: === 1. Compile TailwindCSS ===
 echo === 1. Compiling TailwindCSS ===
@@ -36,29 +33,9 @@ mkdir "%WORKDIR%"
 rmdir /s /q "%DISTDIR%" 2>nul
 mkdir "%DISTDIR%"
 
-:: === 4. Download flashsn8-gui if not cached ===
-echo === 4. Downloading flashsn8-gui (cached if exists) ===
-if not exist "%FLASH_GUI_ZIP%" (
-    powershell -Command "Invoke-WebRequest -Uri 'https://github.com/haborite/flashsn8-gui/releases/download/0.0.1/flashsn8-gui-win-0.0.1.zip' -OutFile '%FLASH_GUI_ZIP%'"
-) else (
-    echo Using cached flashsn8-gui ZIP file: %FLASH_GUI_ZIP%
-)
-
-:: === 5. Extract flashsn8-gui ===
-echo === 5. Extracting flashsn8-gui ===
-rmdir /s /q "%FLASH_GUI_EXTRACTED%" 2>nul
-powershell -Command "Expand-Archive -Path '%FLASH_GUI_ZIP%' -DestinationPath '%FLASH_GUI_EXTRACTED%'"
-
-:: === 6. Copy extracted files into firmware\flashsn8 ===
-echo === 6. Copying flashsn8-gui contents to firmware directory ===
-rmdir /s /q "%FLASH_GUI_DEST%" 2>nul
-mkdir "%FLASH_GUI_DEST%"
-xcopy /e /i /y "%FLASH_GUI_EXTRACTED%\flashsn8-gui-win-0.0.1\*" "%FLASH_GUI_DEST%\" >nul
-rmdir /s /q "%FLASH_GUI_EXTRACTED%" 2>nul
-
 :: === 7. Copy project directories ===
 echo === 7. Copying project resources ===
-for %%F in (boards examples logical_layouts settings sn8tools template python firmware) do (
+for %%F in (boards examples logical_layouts settings template firmware) do (
     xcopy /s /e /y "%%F" "%WORKDIR%\%%F\" >nul
 )
 

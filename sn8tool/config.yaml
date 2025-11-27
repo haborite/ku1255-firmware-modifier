@@ -3,3 +3,8 @@
     - from_filenames:
         prefixes:
           - "libusb"
+- module-name: "ply"
+  dlls:
+    - from_filenames:
+        prefixes:
+          - "ply"
