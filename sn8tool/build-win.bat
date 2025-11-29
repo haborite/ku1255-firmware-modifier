@@ -23,7 +23,6 @@ set "FALLBACK_PYTHON=python"
 
 REM Build / output directories
 set "BUILD_DIR=%PROJECT_ROOT%win"
-:: set "UPLOAD_DIR=%PROJECT_ROOT%upload"
 
 REM Nuitka build settings
 set "DIST_DIR_NAME=%APP_NAME%.dist"
@@ -45,7 +44,7 @@ REM Main flow
 REM ==========================================
 cd /d "%PROJECT_ROOT%"
 
-call :prepare_dirs || exit /b 1
+call :prepare_dirs  || exit /b 1
 call :ensure_venv   || exit /b 1
 call :install_deps  || exit /b 1
 call :build_app     || exit /b 1
@@ -62,6 +61,7 @@ REM ==========================================
 REM Subroutines
 REM ==========================================
 
+REM Prepare build directories
 :prepare_dirs
 echo === Preparing directories ===
 if not exist "%BUILD_DIR%" (
@@ -69,6 +69,7 @@ if not exist "%BUILD_DIR%" (
 )
 exit /b 0
 
+REM Ensure virtual environment exists
 :ensure_venv
 echo === Ensuring virtual environment ===
 if exist "%VENV_DIR%\Scripts\python.exe" (
@@ -90,6 +91,7 @@ if errorlevel 1 (
 set "VENV_PY=%VENV_DIR%\Scripts\python.exe"
 exit /b 0
 
+REM Install / update build dependencies
 :install_deps
 echo === Installing / updating build dependencies ===
 set "VENV_PY=%VENV_DIR%\Scripts\python.exe"
@@ -107,6 +109,7 @@ if errorlevel 1 (
 )
 exit /b 0
 
+REM Build the application with Nuitka
 :build_app
 echo === Building %APP_NAME% with Nuitka ===
 
@@ -115,7 +118,6 @@ if not exist "%ENTRY_SCRIPT%" (
     exit /b 1
 )
 
-REM Get entry script directory
 for %%F in ("%ENTRY_SCRIPT%") do set "ENTRY_DIR=%%~dpF"
 
 if not exist "%CONFIG_YAML%" (
@@ -139,6 +141,7 @@ if errorlevel 1 (
 
 exit /b 0
 
+REM Package the built application
 :package_app
 echo === Packaging build results ===
 cd /d "%BUILD_DIR%"
@@ -160,9 +163,6 @@ if errorlevel 1 (
     exit /b 1
 )
 
-REM ------------------------------------------
-REM Copy sn8/sn8f2288.cfg to output directory
-REM ------------------------------------------
 set "CFG_SRC=%ENTRY_DIR%%CFG_REL_DIR%\%CFG_FILE%"
 set "CFG_DST_DIR=%OUTPUT_DIR_NAME%\%CFG_REL_DIR%"
 set "CFG_DST=%CFG_DST_DIR%\%CFG_FILE%"
@@ -184,6 +184,7 @@ if not exist "%CFG_SRC%" (
 
 exit /b 0
 
+REM Failure handler
 :fail
 echo [ERROR] %~1
 exit /b 1
