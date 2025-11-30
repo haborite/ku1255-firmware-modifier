@@ -3589,356 +3589,160 @@
       "code": "    JMP          func_0186_028a       "
     },
     {
-      "op": "copy",
-      "from": 904
+      "op": "insert",
+      "code": "    JMP          f1_mute              "
     },
     {
-      "op": "copy",
-      "from": 905
+      "op": "insert",
+      "code": "    JMP          f1_mute              "
     },
     {
       "op": "insert",
       "code": "    JMP          func_0186_028a       "
     },
     {
-      "op": "copy",
-      "from": 907
+      "op": "insert",
+      "code": ""
     },
     {
-      "op": "copy",
-      "from": 908
+      "op": "insert",
+      "code": "f1_mute:                              "
     },
     {
       "op": "copy",
       "from": 909
     },
     {
+      "op": "insert",
+      "code": "    B0MOV        Y,     #0x04         "
+    },
+    {
       "op": "copy",
       "from": 910
     },
     {
-      "op": "copy",
-      "from": 911
+      "op": "insert",
+      "code": "    JMP          f2_vol_down          "
     },
     {
-      "op": "copy",
-      "from": 912
+      "op": "insert",
+      "code": "    B0MOV        Z,     #0x55         "
     },
     {
-      "op": "copy",
-      "from": 913
+      "op": "insert",
+      "code": "    JMP          consumer_key         "
     },
     {
-      "op": "copy",
-      "from": 914
+      "op": "insert",
+      "code": ""
     },
     {
-      "op": "copy",
-      "from": 915
-    },
-    {
-      "op": "copy",
-      "from": 916
-    },
-    {
-      "op": "copy",
-      "from": 917
-    },
-    {
-      "op": "copy",
-      "from": 918
-    },
-    {
-      "op": "copy",
-      "from": 919
-    },
-    {
-      "op": "copy",
-      "from": 920
-    },
-    {
-      "op": "copy",
-      "from": 921
-    },
-    {
-      "op": "copy",
-      "from": 922
-    },
-    {
-      "op": "copy",
-      "from": 923
-    },
-    {
-      "op": "copy",
-      "from": 924
-    },
-    {
-      "op": "copy",
-      "from": 925
+      "op": "insert",
+      "code": "f2_vol_down:                          "
     },
     {
       "op": "copy",
       "from": 926
     },
     {
-      "op": "copy",
-      "from": 927
+      "op": "insert",
+      "code": "    JMP          f3_vol_up            "
     },
     {
-      "op": "copy",
-      "from": 928
+      "op": "insert",
+      "code": "    B0MOV        Z,     #0x56         "
     },
     {
-      "op": "copy",
-      "from": 929
+      "op": "insert",
+      "code": "    JMP          consumer_key         "
     },
     {
-      "op": "copy",
-      "from": 930
+      "op": "insert",
+      "code": ""
     },
     {
-      "op": "copy",
-      "from": 931
-    },
-    {
-      "op": "copy",
-      "from": 932
-    },
-    {
-      "op": "copy",
-      "from": 933
-    },
-    {
-      "op": "copy",
-      "from": 934
-    },
-    {
-      "op": "copy",
-      "from": 935
-    },
-    {
-      "op": "copy",
-      "from": 936
-    },
-    {
-      "op": "copy",
-      "from": 937
-    },
-    {
-      "op": "copy",
-      "from": 938
-    },
-    {
-      "op": "copy",
-      "from": 939
-    },
-    {
-      "op": "copy",
-      "from": 940
-    },
-    {
-      "op": "copy",
-      "from": 941
+      "op": "insert",
+      "code": "f3_vol_up:                            "
     },
     {
       "op": "copy",
       "from": 942
     },
     {
-      "op": "copy",
-      "from": 943
+      "op": "insert",
+      "code": "    JMP          f4_mic_mute          "
     },
     {
-      "op": "copy",
-      "from": 944
+      "op": "insert",
+      "code": "    B0MOV        Z,     #0x57         "
     },
     {
-      "op": "copy",
-      "from": 945
+      "op": "insert",
+      "code": "    JMP          consumer_key         "
     },
     {
-      "op": "copy",
-      "from": 946
+      "op": "insert",
+      "code": ""
     },
     {
-      "op": "copy",
-      "from": 947
-    },
-    {
-      "op": "copy",
-      "from": 948
-    },
-    {
-      "op": "copy",
-      "from": 949
-    },
-    {
-      "op": "copy",
-      "from": 950
-    },
-    {
-      "op": "copy",
-      "from": 951
-    },
-    {
-      "op": "copy",
-      "from": 952
-    },
-    {
-      "op": "copy",
-      "from": 953
-    },
-    {
-      "op": "copy",
-      "from": 954
-    },
-    {
-      "op": "copy",
-      "from": 955
-    },
-    {
-      "op": "copy",
-      "from": 956
-    },
-    {
-      "op": "copy",
-      "from": 957
+      "op": "insert",
+      "code": "f4_mic_mute:                          "
     },
     {
       "op": "copy",
       "from": 958
     },
     {
-      "op": "copy",
-      "from": 959
+      "op": "insert",
+      "code": "    JMP          f5_brightness_down   "
     },
     {
-      "op": "copy",
-      "from": 960
+      "op": "insert",
+      "code": "    B0MOV        Z,     #0x58         "
     },
     {
-      "op": "copy",
-      "from": 961
+      "op": "insert",
+      "code": "    JMP          special_key          "
     },
     {
-      "op": "copy",
-      "from": 962
+      "op": "insert",
+      "code": ""
     },
     {
-      "op": "copy",
-      "from": 963
-    },
-    {
-      "op": "copy",
-      "from": 964
-    },
-    {
-      "op": "copy",
-      "from": 965
-    },
-    {
-      "op": "copy",
-      "from": 966
-    },
-    {
-      "op": "copy",
-      "from": 967
-    },
-    {
-      "op": "copy",
-      "from": 968
-    },
-    {
-      "op": "copy",
-      "from": 969
-    },
-    {
-      "op": "copy",
-      "from": 970
-    },
-    {
-      "op": "copy",
-      "from": 971
-    },
-    {
-      "op": "copy",
-      "from": 972
-    },
-    {
-      "op": "copy",
-      "from": 973
+      "op": "insert",
+      "code": "f5_brightness_down:                   "
     },
     {
       "op": "copy",
       "from": 974
     },
     {
-      "op": "copy",
-      "from": 975
+      "op": "insert",
+      "code": "    JMP          f6_brightness_up     "
     },
     {
       "op": "copy",
       "from": 976
     },
     {
-      "op": "copy",
-      "from": 977
+      "op": "insert",
+      "code": "    JMP          f5_brightness_down_b "
     },
     {
-      "op": "copy",
-      "from": 978
+      "op": "insert",
+      "code": "    B0MOV        Z,     #0x59         "
     },
     {
-      "op": "copy",
-      "from": 979
+      "op": "insert",
+      "code": "    JMP          special_key          "
     },
     {
-      "op": "copy",
-      "from": 980
+      "op": "insert",
+      "code": ""
     },
     {
-      "op": "copy",
-      "from": 981
-    },
-    {
-      "op": "copy",
-      "from": 982
-    },
-    {
-      "op": "copy",
-      "from": 983
-    },
-    {
-      "op": "copy",
-      "from": 984
-    },
-    {
-      "op": "copy",
-      "from": 985
-    },
-    {
-      "op": "copy",
-      "from": 986
-    },
-    {
-      "op": "copy",
-      "from": 987
-    },
-    {
-      "op": "copy",
-      "from": 988
-    },
-    {
-      "op": "copy",
-      "from": 989
-    },
-    {
-      "op": "copy",
-      "from": 990
-    },
-    {
-      "op": "copy",
-      "from": 991
+      "op": "insert",
+      "code": "f5_brightness_down_b:                 "
     },
     {
       "op": "copy",
@@ -3949,132 +3753,52 @@
       "from": 993
     },
     {
-      "op": "copy",
-      "from": 994
+      "op": "insert",
+      "code": "    B0MOV        Z,     #0x5a         "
     },
     {
-      "op": "copy",
-      "from": 995
+      "op": "insert",
+      "code": "    JMP          consumer_key         "
     },
     {
-      "op": "copy",
-      "from": 996
+      "op": "insert",
+      "code": ""
     },
     {
-      "op": "copy",
-      "from": 997
-    },
-    {
-      "op": "copy",
-      "from": 998
-    },
-    {
-      "op": "copy",
-      "from": 999
-    },
-    {
-      "op": "copy",
-      "from": 1000
-    },
-    {
-      "op": "copy",
-      "from": 1001
-    },
-    {
-      "op": "copy",
-      "from": 1002
-    },
-    {
-      "op": "copy",
-      "from": 1003
-    },
-    {
-      "op": "copy",
-      "from": 1004
-    },
-    {
-      "op": "copy",
-      "from": 1005
-    },
-    {
-      "op": "copy",
-      "from": 1006
-    },
-    {
-      "op": "copy",
-      "from": 1007
+      "op": "insert",
+      "code": "f6_brightness_up:                     "
     },
     {
       "op": "copy",
       "from": 1008
     },
     {
-      "op": "copy",
-      "from": 1009
+      "op": "insert",
+      "code": "    JMP          f7_process           "
     },
     {
       "op": "copy",
       "from": 1010
     },
     {
-      "op": "copy",
-      "from": 1011
+      "op": "insert",
+      "code": "    JMP          f6_brightness_up_b   "
     },
     {
-      "op": "copy",
-      "from": 1012
+      "op": "insert",
+      "code": "    B0MOV        Z,     #0x5b         "
     },
     {
-      "op": "copy",
-      "from": 1013
+      "op": "insert",
+      "code": "    JMP          special_key          "
     },
     {
-      "op": "copy",
-      "from": 1014
+      "op": "insert",
+      "code": ""
     },
     {
-      "op": "copy",
-      "from": 1015
-    },
-    {
-      "op": "copy",
-      "from": 1016
-    },
-    {
-      "op": "copy",
-      "from": 1017
-    },
-    {
-      "op": "copy",
-      "from": 1018
-    },
-    {
-      "op": "copy",
-      "from": 1019
-    },
-    {
-      "op": "copy",
-      "from": 1020
-    },
-    {
-      "op": "copy",
-      "from": 1021
-    },
-    {
-      "op": "copy",
-      "from": 1022
-    },
-    {
-      "op": "copy",
-      "from": 1023
-    },
-    {
-      "op": "copy",
-      "from": 1024
-    },
-    {
-      "op": "copy",
-      "from": 1025
+      "op": "insert",
+      "code": "f6_brightness_up_b:                   "
     },
     {
       "op": "copy",
@@ -4085,68 +3809,28 @@
       "from": 1027
     },
     {
-      "op": "copy",
-      "from": 1028
+      "op": "insert",
+      "code": "    B0MOV        Z,     #0x5c         "
     },
     {
-      "op": "copy",
-      "from": 1029
+      "op": "insert",
+      "code": "    JMP          consumer_key         "
     },
     {
-      "op": "copy",
-      "from": 1030
+      "op": "insert",
+      "code": ""
     },
     {
-      "op": "copy",
-      "from": 1031
-    },
-    {
-      "op": "copy",
-      "from": 1032
-    },
-    {
-      "op": "copy",
-      "from": 1033
-    },
-    {
-      "op": "copy",
-      "from": 1034
-    },
-    {
-      "op": "copy",
-      "from": 1035
-    },
-    {
-      "op": "copy",
-      "from": 1036
-    },
-    {
-      "op": "copy",
-      "from": 1037
-    },
-    {
-      "op": "copy",
-      "from": 1038
-    },
-    {
-      "op": "copy",
-      "from": 1039
-    },
-    {
-      "op": "copy",
-      "from": 1040
-    },
-    {
-      "op": "copy",
-      "from": 1041
+      "op": "insert",
+      "code": "f7_process:                           "
     },
     {
       "op": "copy",
       "from": 1042
     },
     {
-      "op": "copy",
-      "from": 1043
+      "op": "insert",
+      "code": "    JMP          f8_process           "
     },
     {
       "op": "copy",
@@ -4169,56 +3853,16 @@
       "from": 1048
     },
     {
-      "op": "copy",
-      "from": 1049
+      "op": "insert",
+      "code": "    B0MOV        Z,     #0x5d         "
     },
     {
-      "op": "copy",
-      "from": 1050
+      "op": "insert",
+      "code": "    JMP          special_key          "
     },
     {
-      "op": "copy",
-      "from": 1051
-    },
-    {
-      "op": "copy",
-      "from": 1052
-    },
-    {
-      "op": "copy",
-      "from": 1053
-    },
-    {
-      "op": "copy",
-      "from": 1054
-    },
-    {
-      "op": "copy",
-      "from": 1055
-    },
-    {
-      "op": "copy",
-      "from": 1056
-    },
-    {
-      "op": "copy",
-      "from": 1057
-    },
-    {
-      "op": "copy",
-      "from": 1058
-    },
-    {
-      "op": "copy",
-      "from": 1059
-    },
-    {
-      "op": "copy",
-      "from": 1060
-    },
-    {
-      "op": "copy",
-      "from": 1061
+      "op": "insert",
+      "code": "    "
     },
     {
       "op": "copy",
@@ -4265,16 +3909,16 @@
       "from": 1072
     },
     {
-      "op": "copy",
-      "from": 1073
+      "op": "insert",
+      "code": "f8_process:                           "
     },
     {
       "op": "copy",
       "from": 1074
     },
     {
-      "op": "copy",
-      "from": 1075
+      "op": "insert",
+      "code": "    JMP          f9_process           "
     },
     {
       "op": "copy",
@@ -4285,56 +3929,12 @@
       "from": 1077
     },
     {
-      "op": "copy",
-      "from": 1078
+      "op": "insert",
+      "code": "    B0MOV        Z,     #0x5e         "
     },
     {
-      "op": "copy",
-      "from": 1079
-    },
-    {
-      "op": "copy",
-      "from": 1080
-    },
-    {
-      "op": "copy",
-      "from": 1081
-    },
-    {
-      "op": "copy",
-      "from": 1082
-    },
-    {
-      "op": "copy",
-      "from": 1083
-    },
-    {
-      "op": "copy",
-      "from": 1084
-    },
-    {
-      "op": "copy",
-      "from": 1085
-    },
-    {
-      "op": "copy",
-      "from": 1086
-    },
-    {
-      "op": "copy",
-      "from": 1087
-    },
-    {
-      "op": "copy",
-      "from": 1088
-    },
-    {
-      "op": "copy",
-      "from": 1089
-    },
-    {
-      "op": "copy",
-      "from": 1090
+      "op": "insert",
+      "code": "    JMP          consumer_key         "
     },
     {
       "op": "copy",
@@ -4345,68 +3945,28 @@
       "from": 1092
     },
     {
-      "op": "copy",
-      "from": 1093
+      "op": "insert",
+      "code": "    B0MOV        Z,     #0x5f         "
     },
     {
-      "op": "copy",
-      "from": 1094
+      "op": "insert",
+      "code": "    JMP          special_key          "
     },
     {
-      "op": "copy",
-      "from": 1095
+      "op": "insert",
+      "code": ""
     },
     {
-      "op": "copy",
-      "from": 1096
-    },
-    {
-      "op": "copy",
-      "from": 1097
-    },
-    {
-      "op": "copy",
-      "from": 1098
-    },
-    {
-      "op": "copy",
-      "from": 1099
-    },
-    {
-      "op": "copy",
-      "from": 1100
-    },
-    {
-      "op": "copy",
-      "from": 1101
-    },
-    {
-      "op": "copy",
-      "from": 1102
-    },
-    {
-      "op": "copy",
-      "from": 1103
-    },
-    {
-      "op": "copy",
-      "from": 1104
-    },
-    {
-      "op": "copy",
-      "from": 1105
-    },
-    {
-      "op": "copy",
-      "from": 1106
+      "op": "insert",
+      "code": "f9_process:                           "
     },
     {
       "op": "copy",
       "from": 1107
     },
     {
-      "op": "copy",
-      "from": 1108
+      "op": "insert",
+      "code": "    JMP          f10_process          "
     },
     {
       "op": "copy",
@@ -4433,60 +3993,20 @@
       "from": 1114
     },
     {
-      "op": "copy",
-      "from": 1115
+      "op": "insert",
+      "code": "    B0MOV        Z,     #0x60         "
     },
     {
-      "op": "copy",
-      "from": 1116
+      "op": "insert",
+      "code": "    JMP          special_key          "
     },
     {
-      "op": "copy",
-      "from": 1117
+      "op": "insert",
+      "code": ""
     },
     {
-      "op": "copy",
-      "from": 1118
-    },
-    {
-      "op": "copy",
-      "from": 1119
-    },
-    {
-      "op": "copy",
-      "from": 1120
-    },
-    {
-      "op": "copy",
-      "from": 1121
-    },
-    {
-      "op": "copy",
-      "from": 1122
-    },
-    {
-      "op": "copy",
-      "from": 1123
-    },
-    {
-      "op": "copy",
-      "from": 1124
-    },
-    {
-      "op": "copy",
-      "from": 1125
-    },
-    {
-      "op": "copy",
-      "from": 1126
-    },
-    {
-      "op": "copy",
-      "from": 1127
-    },
-    {
-      "op": "copy",
-      "from": 1128
+      "op": "insert",
+      "code": "f10_process:                          "
     },
     {
       "op": "copy",
@@ -4497,56 +4017,12 @@
       "from": 1130
     },
     {
-      "op": "copy",
-      "from": 1131
+      "op": "insert",
+      "code": "    B0MOV        Z,     #0x61         "
     },
     {
-      "op": "copy",
-      "from": 1132
-    },
-    {
-      "op": "copy",
-      "from": 1133
-    },
-    {
-      "op": "copy",
-      "from": 1134
-    },
-    {
-      "op": "copy",
-      "from": 1135
-    },
-    {
-      "op": "copy",
-      "from": 1136
-    },
-    {
-      "op": "copy",
-      "from": 1137
-    },
-    {
-      "op": "copy",
-      "from": 1138
-    },
-    {
-      "op": "copy",
-      "from": 1139
-    },
-    {
-      "op": "copy",
-      "from": 1140
-    },
-    {
-      "op": "copy",
-      "from": 1141
-    },
-    {
-      "op": "copy",
-      "from": 1142
-    },
-    {
-      "op": "copy",
-      "from": 1143
+      "op": "insert",
+      "code": "    JMP          consumer_key         "
     },
     {
       "op": "copy",
@@ -4561,8 +4037,8 @@
       "from": 1146
     },
     {
-      "op": "copy",
-      "from": 1147
+      "op": "insert",
+      "code": "    JMP          f12_process          "
     },
     {
       "op": "copy",
@@ -4589,60 +4065,20 @@
       "from": 1153
     },
     {
-      "op": "copy",
-      "from": 1154
+      "op": "insert",
+      "code": "    B0MOV        Z,     #0x62         "
     },
     {
-      "op": "copy",
-      "from": 1155
+      "op": "insert",
+      "code": "    JMP          special_key          "
     },
     {
-      "op": "copy",
-      "from": 1156
+      "op": "insert",
+      "code": ""
     },
     {
-      "op": "copy",
-      "from": 1157
-    },
-    {
-      "op": "copy",
-      "from": 1158
-    },
-    {
-      "op": "copy",
-      "from": 1159
-    },
-    {
-      "op": "copy",
-      "from": 1160
-    },
-    {
-      "op": "copy",
-      "from": 1161
-    },
-    {
-      "op": "copy",
-      "from": 1162
-    },
-    {
-      "op": "copy",
-      "from": 1163
-    },
-    {
-      "op": "copy",
-      "from": 1164
-    },
-    {
-      "op": "copy",
-      "from": 1165
-    },
-    {
-      "op": "copy",
-      "from": 1166
-    },
-    {
-      "op": "copy",
-      "from": 1167
+      "op": "insert",
+      "code": "f12_process:                          "
     },
     {
       "op": "copy",
@@ -4759,6 +4195,414 @@
     {
       "op": "copy",
       "from": 1196
+    },
+    {
+      "op": "copy",
+      "from": 1197
+    },
+    {
+      "op": "insert",
+      "code": "consumer_key:"
+    },
+    {
+      "op": "insert",
+      "code": "    BSET         0x13.4               "
+    },
+    {
+      "op": "insert",
+      "code": "    BTS0         0x00.3               "
+    },
+    {
+      "op": "insert",
+      "code": "    B0MOV        Z,     #0x65         "
+    },
+    {
+      "op": "insert",
+      "code": "    MOVC                              "
+    },
+    {
+      "op": "insert",
+      "code": "    MOV          0x21,  A             "
+    },
+    {
+      "op": "insert",
+      "code": "    MOV          A,     R             "
+    },
+    {
+      "op": "insert",
+      "code": "    MOV          0x22,  A             "
+    },
+    {
+      "op": "copy",
+      "from": 1204
+    },
+    {
+      "op": "insert",
+      "code": "              "
+    },
+    {
+      "op": "insert",
+      "code": "special_key:"
+    },
+    {
+      "op": "insert",
+      "code": "    BSET         0x13.6               "
+    },
+    {
+      "op": "insert",
+      "code": "    BTS0         0x00.3               "
+    },
+    {
+      "op": "insert",
+      "code": "    B0MOV        Z,     #0x65         "
+    },
+    {
+      "op": "insert",
+      "code": "    MOVC                              "
+    },
+    {
+      "op": "insert",
+      "code": "    MOV          0x28,  A             "
+    },
+    {
+      "op": "insert",
+      "code": "    MOV          A,     R             "
+    },
+    {
+      "op": "insert",
+      "code": "    MOV          0x29,  A             "
+    },
+    {
+      "op": "copy",
+      "from": 1208
+    },
+    {
+      "op": "insert",
+      "code": ""
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
     },
     {
       "op": "insert",
@@ -5223,6 +5067,78 @@
     {
       "op": "copy",
       "from": 1317
+    },
+    {
+      "op": "insert",
+      "code": ""
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x00e2               "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x00ea               "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x00e9               "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x0001               "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x0002               "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x0070               "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x0004               "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x006f               "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x0008               "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x03f1               "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x0010               "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x0020               "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x0221               "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x0080               "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x03f2               "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x0194               "
+    },
+    {
+      "op": "insert",
+      "code": ""
     },
     {
       "op": "copy",

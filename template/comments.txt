@@ -900,136 +900,57 @@
 
 ; [F1 Mute]
 ;
+;;
 ; Check 0x0f value is F1
 ; if not, Go to [F2 vol --]
-; Else, set 0x13.4 = 1
-; Check 0x00.3
-; If 0x00.3 == 1, 0x21 = 00, and 0x22 = 00
-; If 0x00.3 == 0, 0x21 = E2, and 0x22 = 00
-;
-;
-;
-
-; [F1 Mute]
-;
-;
-;
+;;
+;;
 
 ; [F2 vol --]
 ; Check 0x0f value is F2
 ; if not, Go to [F3 vol ++]
-; Else, set 0x13.4 = 1
-; Check 0x00.3
-; If 0x00.3 == 1, 0x21 = 00, and 0x22 = 00
-; If 0x00.3 == 0, 0x21 = EA, and 0x22 = 00
-;
-;
-;
-
-; [F2 vol --]
-;
-;
-;
+;;
+;;
 
 ; [F3 vol ++]
 ; Check 0x0f value is F3
 ; if not, Go to [F4 Mic Mute]
-; Else, set 0x13.4 = 1
-; Check 0x00.3
-; If 0x00.3 == 1, 0x21 = 00, and 0x22 = 00
-; If 0x00.3 == 0, 0x21 = E9, and 0x22 = 00
-;
-;
-;
-
-; [F3 vol ++]
-;
-;
-;
+;;
+;;
 
 ; [F4 Mic Mute]
 ; Check 0x0f value is F4
 ; if not, Go to F5
-; Else, set 0x13.6 = 1
-; Check 0x00.3
-; If 0x00.3 == 1, 0x28 = 00, and 0x29 = 00
-; If 0x00.3 == 0, 0x28 = 01, and 0x29 = 00
-;
-;
-;
-
-; [F4 Mic Mute]
-;
-;
-;
+;;
+;;
 
 ; [F5 brightness down]
 ; Check 0x0f value is F5
 ; if not, Go to F6
 ; Check 0x12.2
 ; If 0x12.2 == 0, JMP to branch
-; If 0x12.2 == 1, 0x13.6 = 1
-; Check 0x00.3
-; If 0x00.3 == 1, 0x28 = 00, and 0x29 = 00
-; If 0x00.3 == 0, 0x28 = 02, and 0x29 = 00
-;
-;
-;
-
-; [F5 brightness down]
-;
-;
-;
+;;
+;;
 
 ; [F5 brightness down]
 ; Check 0x12.3
 ; If 0x12.2 == 0, Go to 02c3
-; Set 0x13.4 = 1
-; Check 0x00.3
-; If 0x00.3 == 1, 0x21 = 00, and 0x22 = 00
-; If 0x00.3 == 0, 0x21 = 70, and 0x22 = 00
-;
-;
-;
-
-;
-;
-;
-;
+;;
+;; 
 
 ; [F6 brightness up]
 ; Check 0x0f value is F6
 ; if not, Go to F7
 ; Check 0x12.2
 ; If 0x12.2 == 0, JMP to branch
-; If 0x12.2 == 1, 0x13.6 = 1
-; Check 0x00.3
-; If 0x00.3 == 1, 0x28 = 00, and 0x29 = 00
-; If 0x00.3 == 0, 0x28 = 04, and 0x29 = 00
-;
-;
-;
-
-; [F6 brightness up]
-;
-;
-;
+;;
+;;
 
 ; [F6 brightness up]
 ; Check 0x12.3
 ; If 0x12.2 == 0, Go to 02c3
-; Set 0x13.4 = 1
-; Check 0x00.3
-; If 0x00.3 == 1, 0x21 = 00, and 0x22 = 00
-; If 0x00.3 == 0, 0x21 = 6f, and 0x22 = 00
-;
-;
-;
-
-; [F6 brightness up]
-;
-;
-;
+;;
+;;
 
 ; [F7]
 ;
@@ -1039,18 +960,8 @@
 ;
 ;
 ;
-;
-; Check 0x00.3
-; If 0x00.3 == 1,
-; If 0x00.3 == 0, 0x28 = 08, and 0x29 = 00
-;
-;
-;
-
-; [F7]
-;
-;
-;
+;;
+;;
 
 ; [F7]
 ;
@@ -1068,33 +979,12 @@
 ;
 ;
 ;
-;
-; Check 0x00.3
-; If 0x00.3 == 1,
-; If 0x00.3 == 0, 0x21 = f1, and 0x22 = 03
-;
-;
-;
-;
+;;
+;;
 
 ; [F8]
-;
-;
-;
-
-; [F8]
-;
-; Check 0x00.3
-; If 0x00.3 == 1,
-; If 0x00.3 == 0, 0x28 = 10, and 0x29 = 00
-;
-;
-;
-
-; [F8]
-;
-;
-;
+;;
+;;
 
 ; [F9]
 ;
@@ -1105,35 +995,14 @@
 ;
 ;
 ;
-;
-; Check 0x00.3
-; If 0x00.3 == 1,
-; If 0x00.3 == 0, 0x28 = 20, and 0x29 = 00
-;
-;
-;
-
-; [F9]
-;
-;
-;
+;;
+;;
 
 ; [F10]
 ;
 ;
-;
-; Check 0x00.3
-; If 0x00.3 == 1,
-; If 0x00.3 == 0, 0x21 = 21, and 0x22 = 02
-;
-;
-;
-;
-
-; [F10]
-;
-;
-;
+;;
+;;
 
 ; [F11]
 ;
@@ -1144,18 +1013,8 @@
 ;
 ;
 ;
-;
-; Check 0x00.3
-; If 0x00.3 == 1,
-; If 0x00.3 == 0, 0x28 = 80, and 0x29 = 00
-;
-;
-;
-
-; [F11]
-;
-;
-;
+;;
+;;
 
 ; [F12]
 ; Check 0x0f value is F12
@@ -1171,7 +1030,7 @@
 ; 0x22 = #0x03
 ; ===> JMP func_0186_02c3
 
-;
+; [F12]
 ; 0x13.6 = 1
 ; Check 0x00.3
 ; If 0x00.3 == 1, JMP to func_0186_027b
@@ -1187,6 +1046,108 @@
 ; 0x21 = #0x00
 ; 0x22 = #0x00
 ; ===> JMP func_0186_02c3
+
+
+;; Set 0x13.4 = 1
+;; Check 0x00.3
+;; ROM address for 0x0000 
+;;
+;; 0x21 = LOWER byte
+;; 
+;; 0x22 = R (HIGHER byte)
+;;
+
+
+;; Set 0x13.6 = 1
+;; Check 0x00.3
+;; ROM address for 0x0000 
+;;
+;; 0x28 = LOWER byte
+;; 
+;; 0x29 = R (HIGHER byte)
+;;
+
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
 ;; <NOP>
 ;; <NOP>
 ;; <NOP>
@@ -1303,6 +1264,24 @@
 ; If 0x07 < #0x0f, 0x07 and 0x08 reset
 ;
 ;
+
+; <- FIXED - | 0455 | F1c  0x21 = E2, 0x22 = 00
+; <- FIXED - | 0456 | F2c  0x21 = EA, 0x22 = 00
+; <- FIXED - | 0457 | F3c  0x21 = E9, 0x22 = 00
+; <- FIXED - | 0458 | F4s  0x28 = 01, 0x29 = 00
+; <- FIXED - | 0459 | F5s  0x28 = 02, 0x29 = 00
+; <- FIXED - | 045a | F5c  0x21 = 70, 0x22 = 00
+; <- FIXED - | 045b | F6s  0x28 = 04, 0x29 = 00
+; <- FIXED - | 045c | F6c  0x21 = 6f, 0x22 = 00
+; <- FIXED - | 045d | F7s  0x28 = 08, 0x29 = 00
+; <- FIXED - | 045e | F8c  0x21 = f1, 0x22 = 03
+; <- FIXED - | 045f | F8s  0x28 = 10, 0x29 = 00
+; <- FIXED - | 0460 | F9s  0x28 = 20, 0x29 = 00
+; <- FIXED - | 0461 | F10c 0x21 = 21, 0x22 = 02
+; <- FIXED - | 0462 | F11s 0x28 = 80, 0x29 = 00
+; <- FIXED - | 0463 | F12c 0x21 = f2, 0x22 = 03
+; <- FIXED - | 0464 | F12s 0x28 = 94, 0x29 = 01
+
 ; <- FIXED - | 0465 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ; <- FIXED - | 0466 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ; <- FIXED - | 0467 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
