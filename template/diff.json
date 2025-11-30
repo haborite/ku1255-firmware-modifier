@@ -4825,6 +4825,102 @@
       "code": "    NOP                               "
     },
     {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": ""
+    },
+    {
       "op": "copy",
       "from": 1209
     },
@@ -4873,60 +4969,24 @@
       "from": 1220
     },
     {
-      "op": "copy",
-      "from": 1221
+      "op": "insert",
+      "code": "    CMPRS        A,     #0x07         "
     },
     {
-      "op": "copy",
-      "from": 1222
+      "op": "insert",
+      "code": "    JMP          non_l2_mod_keys      "
     },
     {
-      "op": "copy",
-      "from": 1223
-    },
-    {
-      "op": "copy",
-      "from": 1224
-    },
-    {
-      "op": "copy",
-      "from": 1225
-    },
-    {
-      "op": "copy",
-      "from": 1226
-    },
-    {
-      "op": "copy",
-      "from": 1227
-    },
-    {
-      "op": "copy",
-      "from": 1228
-    },
-    {
-      "op": "copy",
-      "from": 1229
-    },
-    {
-      "op": "copy",
-      "from": 1230
-    },
-    {
-      "op": "copy",
-      "from": 1231
-    },
-    {
-      "op": "copy",
-      "from": 1232
+      "op": "insert",
+      "code": "    BSET         0x00.7               "
     },
     {
       "op": "copy",
       "from": 1233
     },
     {
-      "op": "copy",
-      "from": 1234
+      "op": "insert",
+      "code": "    BCLR         0x00.7               "
     },
     {
       "op": "copy",
@@ -4937,20 +4997,52 @@
       "from": 1236
     },
     {
-      "op": "copy",
-      "from": 1237
+      "op": "insert",
+      "code": "non_l2_mod_keys:"
     },
     {
-      "op": "copy",
-      "from": 1238
+      "op": "insert",
+      "code": "    B0MOV        Y,     #0x04         "
+    },
+    {
+      "op": "insert",
+      "code": "    B0MOV        Z,     #0xf5         "
+    },
+    {
+      "op": "insert",
+      "code": "    ADD          Z,     A             "
+    },
+    {
+      "op": "insert",
+      "code": "    MOVC                              "
     },
     {
       "op": "copy",
       "from": 1239
     },
     {
-      "op": "copy",
-      "from": 1240
+      "op": "insert",
+      "code": "    JMP          mod_released         "
+    },
+    {
+      "op": "insert",
+      "code": "    JMP          mod_pressed          "
+    },
+    {
+      "op": "insert",
+      "code": ""
+    },
+    {
+      "op": "insert",
+      "code": "mod_released:                         "
+    },
+    {
+      "op": "insert",
+      "code": "    XOR          A,     #0xff         "
+    },
+    {
+      "op": "insert",
+      "code": "    AND          0x15,  A             "
     },
     {
       "op": "copy",
@@ -4961,140 +5053,12 @@
       "from": 1242
     },
     {
-      "op": "copy",
-      "from": 1243
-    },
-    {
-      "op": "copy",
-      "from": 1244
-    },
-    {
-      "op": "copy",
-      "from": 1245
-    },
-    {
-      "op": "copy",
-      "from": 1246
-    },
-    {
-      "op": "copy",
-      "from": 1247
-    },
-    {
-      "op": "copy",
-      "from": 1248
-    },
-    {
-      "op": "copy",
-      "from": 1249
-    },
-    {
-      "op": "copy",
-      "from": 1250
-    },
-    {
-      "op": "copy",
-      "from": 1251
-    },
-    {
-      "op": "copy",
-      "from": 1252
-    },
-    {
-      "op": "copy",
-      "from": 1253
-    },
-    {
-      "op": "copy",
-      "from": 1254
-    },
-    {
-      "op": "copy",
-      "from": 1255
-    },
-    {
-      "op": "copy",
-      "from": 1256
-    },
-    {
-      "op": "copy",
-      "from": 1257
-    },
-    {
-      "op": "copy",
-      "from": 1258
-    },
-    {
-      "op": "copy",
-      "from": 1259
-    },
-    {
-      "op": "copy",
-      "from": 1260
-    },
-    {
-      "op": "copy",
-      "from": 1261
-    },
-    {
-      "op": "copy",
-      "from": 1262
-    },
-    {
-      "op": "copy",
-      "from": 1263
-    },
-    {
-      "op": "copy",
-      "from": 1264
-    },
-    {
-      "op": "copy",
-      "from": 1265
-    },
-    {
-      "op": "copy",
-      "from": 1266
-    },
-    {
-      "op": "copy",
-      "from": 1267
-    },
-    {
-      "op": "copy",
-      "from": 1268
-    },
-    {
-      "op": "copy",
-      "from": 1269
-    },
-    {
-      "op": "copy",
-      "from": 1270
-    },
-    {
-      "op": "copy",
-      "from": 1271
-    },
-    {
-      "op": "copy",
-      "from": 1272
-    },
-    {
-      "op": "copy",
-      "from": 1273
+      "op": "insert",
+      "code": "mod_pressed:                          "
     },
     {
       "op": "insert",
-      "code": "    BSET         0x00.7               "
-    },
-    {
-      "op": "copy",
-      "from": 1275
-    },
-    {
-      "op": "insert",
-      "code": "    BCLR         0x00.7               "
+      "code": "    OR           0x15,  A             "
     },
     {
       "op": "copy",

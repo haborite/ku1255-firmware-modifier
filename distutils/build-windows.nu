@@ -140,7 +140,11 @@ def assemble-release [root: string, workdir: string, distdir: string, archive_na
     }
 
     print "=== 5. Copying project resources ==="
-    let project_dirs = [ "boards" "examples" "logical_layouts" "settings" "template" "firmware" ]
+    let firmware_dir = $"($workdir)/firmware"
+    if ($firmware_dir | path exists) == false {
+        mkdir $firmware_dir
+    }
+    let project_dirs = [ "boards" "examples" "logical_layouts" "settings" "template" ]
     for d in $project_dirs {
         let src = $"($root)/($d)"
         if ($src | path exists) {

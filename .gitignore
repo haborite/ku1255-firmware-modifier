@@ -4,6 +4,7 @@
 *.exe
 *.spec
 *.bin
+*.btxt
 fw*.asm
 build
 win-unpacked
