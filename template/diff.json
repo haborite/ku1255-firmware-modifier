@@ -3390,7 +3390,7 @@
     },
     {
       "op": "insert",
-      "code": "    JMP          func_0186_028a       "
+      "code": "    JMP          key_categorization   "
     },
     {
       "op": "copy",
@@ -3570,7 +3570,7 @@
     },
     {
       "op": "insert",
-      "code": "    JMP          func_0186_028a       "
+      "code": "    JMP          key_categorization   "
     },
     {
       "op": "copy",
@@ -3586,7 +3586,7 @@
     },
     {
       "op": "insert",
-      "code": "    JMP          func_0186_028a       "
+      "code": "    JMP          key_categorization   "
     },
     {
       "op": "insert",
@@ -3598,7 +3598,7 @@
     },
     {
       "op": "insert",
-      "code": "    JMP          func_0186_028a       "
+      "code": "    JMP          key_categorization   "
     },
     {
       "op": "insert",
@@ -4086,7 +4086,7 @@
     },
     {
       "op": "insert",
-      "code": "    JMP          func_0186_028a       "
+      "code": "    JMP          key_categorization   "
     },
     {
       "op": "copy",
@@ -4282,367 +4282,219 @@
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "key_categorization:                   "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    B0MOV        Y,     #0x04         "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    MOV          A,     0x0f          "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    SUB          A,     #0xd5         "
     },
     {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
+      "op": "copy",
+      "from": 1216
     },
     {
-      "op": "insert",
-      "code": "    NOP                               "
+      "op": "copy",
+      "from": 1217
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    SUB          A,     #0x0b         "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    B0BTS1       FC                   "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    JMP          application_key      "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    SUB          A,     #0x08         "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    B0BTS1       FC                   "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    JMP          modifier_key         "
     },
     {
-      "op": "insert",
-      "code": "    NOP                               "
+      "op": "copy",
+      "from": 1220
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    B0MOV        Z,     #0x15         "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    ADD          Z,     A             "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    MOVC                              "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    MOV          0x0f,  A             "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    MOV          A,     R             "
     },
     {
-      "op": "insert",
-      "code": "    NOP                               "
+      "op": "copy",
+      "from": 1233
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    JMP          macro_key_released   "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    JMP          macro_key_pressed    "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": ""
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "application_key:"
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    ADD          A,     #0x0b         "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    BSET         0x13.4               "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    B0MOV        Z,     #0x45         "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    ADD          Z,     A             "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    BTS0         0x00.3               "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    B0MOV        Z,     #0x65         "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    MOVC                              "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    MOV          0x21,  A             "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    MOV          A,     R             "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    MOV          0x22,  A             "
     },
     {
-      "op": "insert",
-      "code": "    NOP                               "
+      "op": "copy",
+      "from": 1235
     },
     {
-      "op": "insert",
-      "code": "    NOP                               "
+      "op": "copy",
+      "from": 1236
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "macro_key_released:"
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    XOR          A,     #0xff         "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    AND          0x15,  A             "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    JMP          func_0186_02be       "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": ""
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "macro_key_pressed:"
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    OR           0x15,  A             "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    JMP          func_0186_02be       "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": ""
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "modifier_key:"
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    BSET         0x13.0               "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    ADD          A,     #0x08         "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    CMPRS        A,     #0x07         "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    JMP          non_l2_mod_keys      "
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    BSET         0x00.7               "
     },
     {
-      "op": "insert",
-      "code": "    NOP                               "
+      "op": "copy",
+      "from": 1239
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
+      "code": "    BCLR         0x00.7               "
     },
     {
-      "op": "insert",
-      "code": "    NOP                               "
+      "op": "copy",
+      "from": 1241
     },
     {
-      "op": "insert",
-      "code": "    NOP                               "
+      "op": "copy",
+      "from": 1242
     },
     {
       "op": "insert",
@@ -4765,82 +4617,6 @@
       "code": ""
     },
     {
-      "op": "copy",
-      "from": 1209
-    },
-    {
-      "op": "copy",
-      "from": 1210
-    },
-    {
-      "op": "copy",
-      "from": 1211
-    },
-    {
-      "op": "copy",
-      "from": 1212
-    },
-    {
-      "op": "copy",
-      "from": 1213
-    },
-    {
-      "op": "copy",
-      "from": 1214
-    },
-    {
-      "op": "copy",
-      "from": 1215
-    },
-    {
-      "op": "copy",
-      "from": 1216
-    },
-    {
-      "op": "copy",
-      "from": 1217
-    },
-    {
-      "op": "copy",
-      "from": 1218
-    },
-    {
-      "op": "copy",
-      "from": 1219
-    },
-    {
-      "op": "copy",
-      "from": 1220
-    },
-    {
-      "op": "insert",
-      "code": "    CMPRS        A,     #0x07         "
-    },
-    {
-      "op": "insert",
-      "code": "    JMP          non_l2_mod_keys      "
-    },
-    {
-      "op": "insert",
-      "code": "    BSET         0x00.7               "
-    },
-    {
-      "op": "copy",
-      "from": 1233
-    },
-    {
-      "op": "insert",
-      "code": "    BCLR         0x00.7               "
-    },
-    {
-      "op": "copy",
-      "from": 1235
-    },
-    {
-      "op": "copy",
-      "from": 1236
-    },
-    {
       "op": "insert",
       "code": "non_l2_mod_keys:"
     },
@@ -4862,7 +4638,7 @@
     },
     {
       "op": "copy",
-      "from": 1239
+      "from": 1245
     },
     {
       "op": "insert",
@@ -4890,11 +4666,11 @@
     },
     {
       "op": "copy",
-      "from": 1241
+      "from": 1247
     },
     {
       "op": "copy",
-      "from": 1242
+      "from": 1248
     },
     {
       "op": "insert",
@@ -5067,6 +4843,270 @@
     {
       "op": "copy",
       "from": 1317
+    },
+    {
+      "op": "insert",
+      "code": ""
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m01/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m02/0104}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m03/0204}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m04/2004}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m05/0404}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m06/0505}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m07/0606}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m08/0707}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m09/0808}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m10/0909}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m11/0a0a}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m12/0b00}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m13/0c00}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m14/0d00}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m15/0e00}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m16/0f00}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m17/1004}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m18/1100}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m19/1200}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m20/2004}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m21/4004}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m22/8004}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m23/e000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m24/ff00}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m25/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m26/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m27/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m28/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m29/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m30/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m31/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m32/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m33/00d0}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m34/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m35/00d2}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m36/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m37/00d4}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m38/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m39/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m40/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m41/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m42/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m43/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m44/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m45/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m46/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m47/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/m48/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": ""
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/c01/00e2}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/c02/00ea}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/c03/00e9}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/c04/0070}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/c05/006f}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/c06/0030}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/c07/0031}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/c08/0032}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/c09/0033}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/c10/0034}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/c11/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/c12/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/c13/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/c14/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/c15/0000}      "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/c16/0000}      "
     },
     {
       "op": "insert",

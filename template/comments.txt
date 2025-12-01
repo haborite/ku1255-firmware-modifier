@@ -848,7 +848,7 @@
 
 ; [ Fn + B --> Break (Ctrl + P) ]
 ; Check 0x00.0
-; If 0x00.0 == 0, JMP to 0198
+; If 0x00.0 == 0, JMP to 0198 (Normal key process)
 ;; Compare with #0x05 (B key)
 ;; if not, Go to [ Fn + S --> Alt + PrtScn or SysReq ]
 ;; Something to emit Break
@@ -1050,7 +1050,7 @@
 
 ;; Set 0x13.4 = 1
 ;; Check 0x00.3
-;; ROM address for 0x0000 
+;; ROM address for 0x0000
 ;;
 ;; 0x21 = LOWER byte
 ;; 
@@ -1060,157 +1060,101 @@
 
 ;; Set 0x13.6 = 1
 ;; Check 0x00.3
-;; ROM address for 0x0000 
+;; ROM address for 0x0000
 ;;
 ;; 0x28 = LOWER byte
 ;; 
 ;; 0x29 = R (HIGHER byte)
 ;;
 
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
+;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;; ROM address for 0x0000
+;;
+;;
+;;
+;; [hgfedcba] a: LeftControl, b: LeftShift, c: LeftAlt, d: LeftGUI, e: RightControl, f: RightShift, g: RightAlt, h: RightGUI
+;;
+;;
+;;
 
-;
-;
-; A = #0xdf - 0x0f (> #0xdf is modifier keys like Ctrl, Shift, Alt, Windows)
-; Check FC
-; If FC == 1, Go to 0186_02be (Non modifier keys)
-; If FC == 0, (Modifier keys)
-; A = #0xe7 - 0x0f (0xe7 is Keyboard/Keypad Page (0x07) upper limit. Therefore, it may be illegal value.)
-; Check FC
-; If FC == 0, Go to 02be  (illegal value to func_0186_02be)
-; If FC == 1,  (Modifier keys)
-; A = 0b111 AND 0x0f
+
+;;    
+;; ------- Custom counsumer key --------
+;; -------------------------------------
+;;
+;; -------------------------------------
+;; ROM address for 0x0000
+;; -------------------------------------
+;; -------------------------------------
+;; -------------------------------------
+;; -------------------------------------
+;; -------------------------------------
+
+
+;;
+;;
+;;
+
+
+;;
+;;
+
+
 ; Set 0x13.0 = 1  (0x13.0 is modifier key flag?)
-;; If A == 8, Do 2nd layer key process
+;;
+;; If A == #0x07, Do 2nd layer key process
 ;;
 ;; SET 0x00.7 flag (2nd layer key pressed) = 1
 ;; Check 0x00.3 
 ;; If 0x00.3 == 1, 0x00.7 = 0 
 ;; JMP to func_0186_02c3
 
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+
 
 ;; Address of bit musk ROM
 ;;
-;; add 1, 2, 3, 4, 5, 6, 7, 8
+;; add 0, 1, 2, 3, 4, 5, 6, (7)
 ;; Load bit musk
 ;; 
 ;; 
@@ -1265,22 +1209,88 @@
 ;
 ;
 
-; <- FIXED - | 0455 | F1c  0x21 = E2, 0x22 = 00
-; <- FIXED - | 0456 | F2c  0x21 = EA, 0x22 = 00
-; <- FIXED - | 0457 | F3c  0x21 = E9, 0x22 = 00
-; <- FIXED - | 0458 | F4s  0x28 = 01, 0x29 = 00
-; <- FIXED - | 0459 | F5s  0x28 = 02, 0x29 = 00
-; <- FIXED - | 045a | F5c  0x21 = 70, 0x22 = 00
-; <- FIXED - | 045b | F6s  0x28 = 04, 0x29 = 00
-; <- FIXED - | 045c | F6c  0x21 = 6f, 0x22 = 00
-; <- FIXED - | 045d | F7s  0x28 = 08, 0x29 = 00
-; <- FIXED - | 045e | F8c  0x21 = f1, 0x22 = 03
-; <- FIXED - | 045f | F8s  0x28 = 10, 0x29 = 00
-; <- FIXED - | 0460 | F9s  0x28 = 20, 0x29 = 00
-; <- FIXED - | 0461 | F10c 0x21 = 21, 0x22 = 02
-; <- FIXED - | 0462 | F11s 0x28 = 80, 0x29 = 00
-; <- FIXED - | 0463 | F12c 0x21 = f2, 0x22 = 03
-; <- FIXED - | 0464 | F12s 0x28 = 94, 0x29 = 01
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+
+; <- Custom Consumer key - |
+; <- Custom Consumer key - |
+; <- Custom Consumer key - |
+; <- Custom Consumer key - |
+; <- Custom Consumer key - |
+; <- Custom Consumer key - |
+; <- Custom Consumer key - |
+; <- Custom Consumer key - |
+; <- Custom Consumer key - |
+; <- Custom Consumer key - |
+; <- Custom Consumer key - |
+; <- Custom Consumer key - |
+; <- Custom Consumer key - |
+; <- Custom Consumer key - |
+; <- Custom Consumer key - |
+; <- Custom Consumer key - |
+
+; <- Media key - | 0455 | F1c  0x21 = E2, 0x22 = 00
+; <- Media key - | 0456 | F2c  0x21 = EA, 0x22 = 00
+; <- Media key - | 0457 | F3c  0x21 = E9, 0x22 = 00
+; <- Media key - | 0458 | F4s  0x28 = 01, 0x29 = 00
+; <- Media key - | 0459 | F5s  0x28 = 02, 0x29 = 00
+; <- Media key - | 045a | F5c  0x21 = 70, 0x22 = 00
+; <- Media key - | 045b | F6s  0x28 = 04, 0x29 = 00
+; <- Media key - | 045c | F6c  0x21 = 6f, 0x22 = 00
+; <- Media key - | 045d | F7s  0x28 = 08, 0x29 = 00
+; <- Media key - | 045e | F8c  0x21 = f1, 0x22 = 03
+; <- Media key - | 045f | F8s  0x28 = 10, 0x29 = 00
+; <- Media key - | 0460 | F9s  0x28 = 20, 0x29 = 00
+; <- Media key - | 0461 | F10c 0x21 = 21, 0x22 = 02
+; <- Media key - | 0462 | F11s 0x28 = 80, 0x29 = 00
+; <- Media key - | 0463 | F12c 0x21 = f2, 0x22 = 03
+; <- Media key - | 0464 | F12s 0x28 = 94, 0x29 = 01
 
 ; <- FIXED - | 0465 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ; <- FIXED - | 0466 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -1779,7 +1789,7 @@
 ; DW | 0x0000 | .. |
 ; DW | 0x0000 | .. |
 ; DW | 0x004d | End |
-; DW | 0x00af | Fn |
+; DW | 0x00af | Fn | af
 ; DW | 0x0048 | Pause |
 ; DW | 0x0050 | LeftArrow |
 ; DW | 0x00d0 | Keypad Memory Store |
