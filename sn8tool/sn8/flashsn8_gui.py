@@ -23,10 +23,10 @@ import sys
 import time
 import usb1
 
-import struct
 from PySide6.QtCore import QThread, Signal, Qt
 from PySide6.QtWidgets import (
-    QApplication, QWidget, QVBoxLayout, QPushButton, QLabel, QTextEdit, QMessageBox
+    QApplication, QWidget, QVBoxLayout, QPushButton,
+    QLabel, QTextEdit, QMessageBox, QProgressBar
 )
 
 ERASE_BLOCK_LENGTH_WORDS = 0x80
@@ -257,6 +257,8 @@ class FlashWorker(QThread):
             + len(data) // 2
             - 1 # Otherwise it would be first non-erased address
         )
+        # WARNING MESSAGE
+        self.message.emit("⚠⚠⚠ DO NOT unplug the keyboard during flashing! ⚠⚠⚠")
         with self.timer('Programming from %#04x to %#04x...' % (
             base_address_words,
             last_programmed_address_words,
@@ -445,10 +447,17 @@ class ProgressApp(QWidget):
         infile_path,
         vid_pid_list=['0c45:7500', '17ef:6047'],
         bus_address=None,
+        original_fw_path=None,
     ):
         super().__init__()
         self.setWindowTitle("SN8 Flasher GUI")
-        self.progress_label = QLabel("0/0")
+        self.warning_label = QLabel("Make sure that the keyboard is plugged in.")
+        self.warning_label.setStyleSheet("color: black; font-weight: bold;")
+        self.warning_label.setWordWrap(True)
+        self.warning_label.setVisible(True)
+        self.progress_bar = QProgressBar()
+        self.progress_bar.setRange(0, 1)
+        self.progress_bar.setValue(0)
         self.message_box = QTextEdit()
         self.message_box.setReadOnly(True)
         self.start_button = QPushButton("Start")
@@ -456,7 +465,8 @@ class ProgressApp(QWidget):
         self.finish_button.setEnabled(False)
 
         layout = QVBoxLayout()
-        layout.addWidget(self.progress_label)
+        layout.addWidget(self.warning_label)
+        layout.addWidget(self.progress_bar)
         layout.addWidget(self.message_box)
         layout.addWidget(self.start_button)
         layout.addWidget(self.finish_button)
@@ -468,6 +478,120 @@ class ProgressApp(QWidget):
         self.vid_pid_list = vid_pid_list
         self.bus_address = bus_address
         self.infile_path = infile_path
+        self.original_fw_path = original_fw_path
+
+        # If original firmware is provided, validate the target firmware
+        self._initial_safety_check()
+
+    def _initial_safety_check(self):
+        """
+        If an original firmware file is provided, enforce:
+        - modified fw size == original fw size
+        - bytes from 0x0000 to 0x011E identical
+
+        If the check fails:
+        - disable Start button permanently
+        - show an error message in the GUI
+        If no original fw is provided:
+        - enable Start button as usual
+        """
+
+        # No original firmware -> no additional constraint
+        if not self.original_fw_path:
+            self.start_button.setEnabled(False)
+            self.warning_label.setVisible(False)
+            self.message_box.append(
+                "No original firmware specified.\n\n"
+                "Run the script with specifying two firmware files:\n\n"
+                "e.g.) flashsn8_gui.py fw_modified.bin -o fw_original.bin"
+            )
+            return
+
+        try:
+            with open(self.original_fw_path, "rb") as f:
+                original = f.read()
+        except Exception as e:
+            self.start_button.setEnabled(False)
+            self.warning_label.setVisible(True)
+            self.message_box.append(
+                "✖ Failed to read original firmware file. "
+                "Start is disabled.\n"
+                f"Error: {e}"
+            )
+            self.message_box.append(
+                f"Error: could not read original firmware: {e}"
+            )
+            return
+
+        try:
+            with open(self.infile_path, "rb") as f:
+                target = f.read()
+        except Exception as e:
+            self.start_button.setEnabled(False)
+            self.warning_label.setVisible(True)
+            self.message_box.append(
+                "✖ Failed to read target firmware file. "
+                "Start is disabled.\n"
+                f"Error: {e}"
+            )
+            self.message_box.append(f"Error: could not read target firmware: {e}")
+            return
+
+        # 1) File size must be identical
+        if len(original) != len(target):
+            self.start_button.setEnabled(False)
+            self.warning_label.setVisible(True)
+            self.message_box.append(
+                "✖ Firmware safety check FAILED.\n"
+                "- File size does not match the original firmware.\n"
+                "Start is disabled."
+            )
+            self.message_box.append(
+                f"Safety check failed: size mismatch "
+                f"(original={len(original)}, target={len(target)})."
+            )
+            return
+
+        # 2) Bytes from 0x0000 to 0x011E must be identical
+        prefix_end = 0x11E  # inclusive
+        required_length = prefix_end + 1  # so we can slice [0:0x11F]
+
+        if len(original) < required_length or len(target) < required_length:
+            # This is practically the same as a mismatch
+            self.start_button.setEnabled(False)
+            self.warning_label.setVisible(True)
+            self.message_box.append(
+                "✖ Firmware safety check FAILED.\n"
+                "- Firmware image is too short to validate prefix region.\n"
+                "Start is disabled."
+            )
+            self.message_box.append(
+                "Safety check failed: image too short for prefix comparison."
+            )
+            return
+
+        if original[:required_length] != target[:required_length]:
+            self.start_button.setEnabled(False)
+            self.warning_label.setVisible(True)
+            self.message_box.append(
+                "✖ Firmware safety check FAILED.\n"
+                "- Bytes 0x0000–0x011E do not match the original firmware.\n"
+                "Start is disabled."
+            )
+            self.message_box.append(
+                "Safety check failed: prefix region (0x0000–0x011E) mismatch."
+            )
+            return
+
+        # If we reach here, the safety check passes
+        self.start_button.setEnabled(True)
+        self.warning_label.setVisible(True)
+        self.message_box.append(
+            "✓ Firmware safety check PASSED.\n"
+            "✓ File size matches original firmware.\n"
+            "✓ Bytes 0x0000–0x011E are identical.\n"
+            "You may press Start when ready."
+        )
 
     def start_flashing(self):
 
@@ -485,11 +609,16 @@ class ProgressApp(QWidget):
         self.start_button.setEnabled(False)
         self.finish_button.setEnabled(False)
         self.message_box.clear()
-        self.progress_label.setText("0/100")
+        self.progress_bar.setRange(0, 1)
+        self.progress_bar.setValue(0)
+        self.warning_label.setText("IN PROGRESS. DO NOT unplug the keyboard")
         self.worker.start()
 
     def update_progress(self, current, total):
-        self.progress_label.setText(f"{current}/{total}")
+        if total <= 0:
+            total = 1
+        self.progress_bar.setRange(0, total)
+        self.progress_bar.setValue(current)
 
     def append_message(self, msg):
         self.message_box.append(msg)
@@ -500,6 +629,8 @@ class ProgressApp(QWidget):
 
     def enable_finish(self):
         self.finish_button.setEnabled(True)
+        self.warning_label.setStyleSheet("color: green; font-weight: bold;")
+        self.warning_label.setText("✓ Flashing finished.")
 
 class MyArgumentParser(argparse.ArgumentParser):
     def error(self, message):
@@ -530,6 +661,16 @@ def main():
         help='[[bus]:][devnum] of device.',
     )
     parser.add_argument(
+        "-o",
+        "--original-fw",
+        dest="original_fw",
+        help=(
+            "Path to the original (unmodified) firmware .bin file. "
+            "If provided, the flashing target must have identical size "
+            "and identical bytes from 0x0000 to 0x011E."
+        ),
+    )
+    parser.add_argument(
         'infile',
         help='Firmware file to flash.',
     )
@@ -545,6 +686,7 @@ def main():
             args.infile,
             vid_pid_list=args.device,
             bus_address=args.single[0] if args.single else None,
+            original_fw_path=args.original_fw,
         )
         window.resize(400, 300)
         window.show()
