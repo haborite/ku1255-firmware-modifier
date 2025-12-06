@@ -63,7 +63,7 @@ pub fn SelectFnID(
     rsx!{
         div {
             class: "min-w-[6rem]",
-            h2 { class: "text-xl py-4 font-bold text-center", "Function key" },
+            h2 { class: "text-xl py-4 font-bold text-center", "Fn / Media trigger" },
             select {
                 class: "w-full px-2 py-1 border border-gray-300 rounded text-gray-700 text-sm",
                 id: "options",
