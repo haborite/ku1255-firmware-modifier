@@ -62,10 +62,10 @@ pub fn SelectFnID(
 ) -> Element {
     rsx!{
         div {
-            class: "w-full max-w-md mx-auto p-6 space-y-6",
-            h2 { class: "text-xl font-bold text-center", "Function key" },
+            class: "min-w-[6rem]",
+            h2 { class: "text-xl py-4 font-bold text-center", "Function key" },
             select {
-                class: "w-full p-2 border border-gray-300 rounded mb-4 text-gray-700",
+                class: "w-full px-2 py-1 border border-gray-300 rounded text-gray-700 text-sm",
                 id: "options",
                 value: fn_id(),
                 onchange: move |evt| {

@@ -15,101 +15,98 @@ pub fn MacroKeySetting(
 ) -> Element {
     rsx! {
         div {
-            class: "flex flex-col space-y-4",
+            class: "flex flex-col space-y-2",
             {
                 macro_key_map().keys().map(|&trigger_id| {
                     let label = format!("Macro {:02}", trigger_id - 231);
                     rsx!(
-                        div {
-                            class: "flex items-center space-x-4",
-                            div {
-                                class: "flex items-center space-x-2",
-                                h3 { class: "text-l font-bold text-center", {label} },
-                                SelectMacroKeyID {
-                                    general_setting: general_setting.clone(),
-                                    map_key_label: map_key_label.clone(),
-                                    macro_key_map,
-                                    trigger_id
+                        div { class: "flex gap-4 py-2",
+                            span { class: "text-sm font-semibold text-right whitespace-nowrap",
+                                {label}
+                            },
+                            SelectMacroKeyID {
+                                general_setting: general_setting.clone(),
+                                map_key_label: map_key_label.clone(),
+                                macro_key_map,
+                                trigger_id
+                            }
+                            div { class: "flex flex-col gap-1 text-xs",
+                                div { class: "flex items-center gap-2",
+                                    input {
+                                        r#type: "checkbox",
+                                        checked: macro_key_map().get(&trigger_id).unwrap().left_ctrl,
+                                        onchange: move |evt| {
+                                            let mut macro_key_map_mut = macro_key_map.write();
+                                            macro_key_map_mut.get_mut(&trigger_id).unwrap().left_ctrl = evt.checked();
+                                        },
+                                    }
+                                    span { "LCtrl" }
+                                    input {
+                                        r#type: "checkbox",
+                                        checked: macro_key_map().get(&trigger_id).unwrap().left_shift,
+                                        onchange: move |evt| {
+                                            let mut macro_key_map_mut = macro_key_map.write();
+                                            macro_key_map_mut.get_mut(&trigger_id).unwrap().left_shift = evt.checked();
+                                        },
+                                    }
+                                    span { "LShift" }
+                                    input {
+                                        r#type: "checkbox",
+                                        checked: macro_key_map().get(&trigger_id).unwrap().left_alt,
+                                        onchange: move |evt| {
+                                            let mut macro_key_map_mut = macro_key_map.write();
+                                            macro_key_map_mut.get_mut(&trigger_id).unwrap().left_alt = evt.checked();
+                                        },
+                                    }
+                                    span { "LAlt" }
+                                    input {
+                                        r#type: "checkbox",
+                                        checked: macro_key_map().get(&trigger_id).unwrap().left_gui,
+                                        onchange: move |evt| {
+                                            let mut macro_key_map_mut = macro_key_map.write();
+                                            macro_key_map_mut.get_mut(&trigger_id).unwrap().left_gui = evt.checked();
+                                        },
+                                    }
+                                    span { "LWin" }
                                 }
                                 div {
-                                    div {
-                                        class: "flex items-center space-x-4",
-                                        input {
-                                            r#type: "checkbox",
-                                            checked: macro_key_map().get(&trigger_id).unwrap().left_ctrl,
-                                            onchange: move |evt| {
-                                                let mut macro_key_map_mut = macro_key_map.write();
-                                                macro_key_map_mut.get_mut(&trigger_id).unwrap().left_ctrl = evt.checked();
-                                            },
-                                        }
-                                        span { "LCtrl" }
-                                        input {
-                                            r#type: "checkbox",
-                                            checked: macro_key_map().get(&trigger_id).unwrap().left_shift,
-                                            onchange: move |evt| {
-                                                let mut macro_key_map_mut = macro_key_map.write();
-                                                macro_key_map_mut.get_mut(&trigger_id).unwrap().left_shift = evt.checked();
-                                            },
-                                        }
-                                        span { "LShift" }
-                                        input {
-                                            r#type: "checkbox",
-                                            checked: macro_key_map().get(&trigger_id).unwrap().left_alt,
-                                            onchange: move |evt| {
-                                                let mut macro_key_map_mut = macro_key_map.write();
-                                                macro_key_map_mut.get_mut(&trigger_id).unwrap().left_alt = evt.checked();
-                                            },
-                                        }
-                                        span { "LAlt" }
-                                        input {
-                                            r#type: "checkbox",
-                                            checked: macro_key_map().get(&trigger_id).unwrap().left_gui,
-                                            onchange: move |evt| {
-                                                let mut macro_key_map_mut = macro_key_map.write();
-                                                macro_key_map_mut.get_mut(&trigger_id).unwrap().left_gui = evt.checked();
-                                            },
-                                        }
-                                        span { "LGui" }
+                                    class: "flex items-center gap-2",
+                                    input {
+                                        r#type: "checkbox",
+                                        checked: macro_key_map().get(&trigger_id).unwrap().right_ctrl,
+                                        onchange: move |evt| {
+                                            let mut macro_key_map_mut = macro_key_map.write();
+                                            macro_key_map_mut.get_mut(&trigger_id).unwrap().right_ctrl = evt.checked();
+                                        },
                                     }
-                                    div {
-                                        class: "flex items-center space-x-4",
-                                        input {
-                                            r#type: "checkbox",
-                                            checked: macro_key_map().get(&trigger_id).unwrap().right_ctrl,
-                                            onchange: move |evt| {
-                                                let mut macro_key_map_mut = macro_key_map.write();
-                                                macro_key_map_mut.get_mut(&trigger_id).unwrap().right_ctrl = evt.checked();
-                                            },
-                                        }
-                                        span { "RCtrl" }
-                                        input {
-                                            r#type: "checkbox",
-                                            checked: macro_key_map().get(&trigger_id).unwrap().right_shift,
-                                            onchange: move |evt| {
-                                                let mut macro_key_map_mut = macro_key_map.write();
-                                                macro_key_map_mut.get_mut(&trigger_id).unwrap().right_shift = evt.checked();
-                                            },
-                                        }
-                                        span { "RShift" }
-                                        input {
-                                            r#type: "checkbox",
-                                            checked: macro_key_map().get(&trigger_id).unwrap().right_alt,
-                                            onchange: move |evt| {
-                                                let mut macro_key_map_mut = macro_key_map.write();
-                                                macro_key_map_mut.get_mut(&trigger_id).unwrap().right_alt = evt.checked();
-                                            },
-                                        }
-                                        span { "RAlt" }
-                                        input {
-                                            r#type: "checkbox",
-                                            checked: macro_key_map().get(&trigger_id).unwrap().right_gui,
-                                            onchange: move |evt| {
-                                                let mut macro_key_map_mut = macro_key_map.write();
-                                                macro_key_map_mut.get_mut(&trigger_id).unwrap().right_gui = evt.checked();
-                                            },
-                                        }
-                                        span { "RGui" }
+                                    span { "RCtrl" }
+                                    input {
+                                        r#type: "checkbox",
+                                        checked: macro_key_map().get(&trigger_id).unwrap().right_shift,
+                                        onchange: move |evt| {
+                                            let mut macro_key_map_mut = macro_key_map.write();
+                                            macro_key_map_mut.get_mut(&trigger_id).unwrap().right_shift = evt.checked();
+                                        },
                                     }
+                                    span { "RShift" }
+                                    input {
+                                        r#type: "checkbox",
+                                        checked: macro_key_map().get(&trigger_id).unwrap().right_alt,
+                                        onchange: move |evt| {
+                                            let mut macro_key_map_mut = macro_key_map.write();
+                                            macro_key_map_mut.get_mut(&trigger_id).unwrap().right_alt = evt.checked();
+                                        },
+                                    }
+                                    span { "RAlt" }
+                                    input {
+                                        r#type: "checkbox",
+                                        checked: macro_key_map().get(&trigger_id).unwrap().right_gui,
+                                        onchange: move |evt| {
+                                            let mut macro_key_map_mut = macro_key_map.write();
+                                            macro_key_map_mut.get_mut(&trigger_id).unwrap().right_gui = evt.checked();
+                                        },
+                                    }
+                                    span { "RWin" }
                                 }
                             }
                         }
@@ -128,9 +125,9 @@ pub fn SelectMacroKeyID(
 ) -> Element {
     rsx!{
         div {
-            class: "w-full max-w-md mx-auto p-6 space-y-6",
+            class: "min-w-[12 rem]",
             select {
-                class: "w-full p-2 border border-gray-300 rounded mb-4 text-gray-700",
+                class: "w-full px-2 py-1 border border-gray-300 rounded text-gray-700 text-sm",
                 id: "options",
                 value: macro_key_map().get(&trigger_id).unwrap().key_id,
                 onchange: move |evt| {

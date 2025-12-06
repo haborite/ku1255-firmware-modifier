@@ -10,6 +10,7 @@ use dioxus::prelude::*;
 use components::{
     SelectBoard,
     SelectLogicalLayout,
+    ButtonCopyLayer,
     ButtonInstall,
     ButtonLoad,
     ButtonSave,
@@ -93,7 +94,7 @@ pub fn MainWindow(
     // ID Layout variables
     let initial_id_cloned = general_setting.initial_id_map.clone();
     let id_layout_l0 = use_signal(|| initial_id_cloned);
-    let mut id_layout_l1 = use_signal(|| id_layout_l0().clone());
+    let id_layout_l1 = use_signal(|| id_layout_l0().clone());
 
     // Other variables
     let fn_id = use_signal(default_fn_id);
@@ -101,104 +102,116 @@ pub fn MainWindow(
     let macro_key_map: Signal<BTreeMap<u8, MacroKey>> = use_signal(default_macro_key_map);
     let media_key_map: Signal<BTreeMap<u8, u16>> = use_signal(default_media_key_map);
 
+
     rsx! {
         if let Some(msg) = error_msg() {
             ErrorMessage { msg, error_msg }
         }
-        div { class: "max-w-min min-w-max flex flex-col p-4 space-y-4",
-            div { class: "w-full bg-gray-700 p-4 rounded shadow flex space-x-4",
-                label {"Keyboard: "}
-                SelectBoard { 
-                    general_setting: general_setting.clone(),
-                    selected_board_name, 
-                    selected_logical_layout_name, 
-                    selected_board, 
-                }
-                label {"Language: "}
-                SelectLogicalLayout {
-                    general_setting: general_setting.clone(),
-                    selected_logical_layout_name,
-                    selected_logical_layout
-                }
-                div { class: "flex space-x-2 justify-end",
-                    ButtonLoad { 
-                        selected_board_name,
-                        selected_logical_layout_name,
-                        id_layout_l0,
-                        id_layout_l1,
-                        fn_id,
-                        tp_sensitivity,
-                        macro_key_map,
-                        media_key_map
+
+        div { class: "min-h-screen bg-gray-600 text-slate-100",
+            div { class: "mx-auto w-full p-4 space-y-4",
+
+                div { class: "w-full bg-gray-800 p-4 rounded shadow flex flex-wrap items-end gap-4",
+                    div { class: "flex flex-wrap items-center gap-2",
+                        label { class: "text-sm text-gray-200", "Keyboard" }
+                        SelectBoard { 
+                            general_setting: general_setting.clone(),
+                            selected_board_name, 
+                            selected_logical_layout_name, 
+                            selected_board, 
+                        }
+                        label { class: "text-sm text-gray-200", "Language" }
+                        SelectLogicalLayout {
+                            general_setting: general_setting.clone(),
+                            selected_logical_layout_name,
+                            selected_logical_layout
+                        }
                     }
-                    ButtonSave {
-                        selected_board,
-                        selected_logical_layout,
-                        id_layout_l0,
-                        id_layout_l1,
-                        fn_id,
-                        tp_sensitivity,
-                        macro_key_map,
-                        media_key_map
-                    }
-                    ButtonInstall {
-                        id_layout_l0,
-                        id_layout_l1,
-                        firmware_future,
-                        fn_id,
-                        tp_sensitivity,
-                        macro_key_map,
-                        media_key_map,
-                        error_msg
-                    }
-                }
-            }
-            div { class: "flex flex-1 space-x-4",
-                div { class: "flex flex-col flex-1 space-y-4",
-                    Keyboard {
-                        general_setting: general_setting.clone(),
-                        layer_number: 0,
-                        board: selected_board().clone(),
-                        logical_layout: selected_logical_layout().clone(),
-                        id_layout: id_layout_l0,
-                    }
-                    Keyboard {
-                        general_setting: general_setting.clone(),
-                        layer_number: 1,
-                        board: selected_board().clone(),
-                        logical_layout: selected_logical_layout().clone(),
-                        id_layout: id_layout_l1,
-                    }
-                    div { class: "flex flex-1 space-x-4",
-                        button {
-                            class: "w-80 px-1 py-1 bg-gray-500 text-white rounded shadow hover:bg-gray-600",
-                            onclick: move |_| {id_layout_l1.set(id_layout_l0().clone())},
-                            "Copy from Main layer to 2nd layer"
+                    div { class: "flex items-center gap-2 ml-auto",
+                        ButtonCopyLayer { id_layout_l0, id_layout_l1 }
+                        ButtonLoad { 
+                            selected_board_name,
+                            selected_logical_layout_name,
+                            id_layout_l0,
+                            id_layout_l1,
+                            fn_id,
+                            tp_sensitivity,
+                            macro_key_map,
+                            media_key_map
+                        }
+                        ButtonSave {
+                            selected_board,
+                            selected_logical_layout,
+                            id_layout_l0,
+                            id_layout_l1,
+                            fn_id,
+                            tp_sensitivity,
+                            macro_key_map,
+                            media_key_map
+                        }
+                        ButtonInstall {
+                            id_layout_l0,
+                            id_layout_l1,
+                            firmware_future,
+                            fn_id,
+                            tp_sensitivity,
+                            macro_key_map,
+                            media_key_map,
+                            error_msg
                         }
                     }
                 }
-                div { class: "flex flex-col flex-1 space-y-6",
-                    SliderTPSensitivity { tp_sensitivity }
-                    SelectFnID {
-                        general_setting: general_setting.clone(),
-                        fn_id,
-                        map_key_label: selected_logical_layout().map_key_label.clone(),
+
+                div { class: "flex gap-4",
+                    div { class: "bg-black rounded flex flex-col",
+                        Keyboard {
+                            general_setting: general_setting.clone(),
+                            layer_number: 0,
+                            board: selected_board().clone(),
+                            logical_layout: selected_logical_layout().clone(),
+                            id_layout: id_layout_l0,
+                        }
+                        Keyboard {
+                            general_setting: general_setting.clone(),
+                            layer_number: 1,
+                            board: selected_board().clone(),
+                            logical_layout: selected_logical_layout().clone(),
+                            id_layout: id_layout_l1,
+                        }
                     }
-                }      
-            }
-        }
-        div { class: "max-w-min min-w-max flex flex-col p-4 space-y-4",
-            div {
-                MacroKeySetting {
-                    general_setting: general_setting.clone(),
-                    map_key_label: selected_logical_layout().map_key_label.clone(),
-                    macro_key_map: macro_key_map.clone(),
-                }
-            }
-            div {
-                MediaKeySetting {
-                    general_setting: general_setting.clone(),
-                    media_key_map: media_key_map.clone(),
+                    div { class: "flex flex-col gap-4",
+                        div { class: "bg-black rounded",
+                            SliderTPSensitivity { tp_sensitivity }
+                        }
+                        div { class: "flex flex-col bg-black rounded max-h-[calc(100vh-282px)]",
+                            h2 { class: "text-xl font-bold text-center py-2", "Macro keys" },
+                            div { class: "px-6 overflow-y-auto",
+                                MacroKeySetting {
+                                    general_setting: general_setting.clone(),
+                                    map_key_label: selected_logical_layout().map_key_label.clone(),
+                                    macro_key_map: macro_key_map.clone(),
+                                }
+                            }
+                        }
+                    }
+                    div { class: "flex flex-col gap-4", 
+                        div { class: "px-6 bg-black rounded pb-6",
+                            SelectFnID {
+                                general_setting: general_setting.clone(),
+                                fn_id,
+                                map_key_label: selected_logical_layout().map_key_label.clone(),
+                            }
+                        }
+                        div { class: "flex flex-col bg-black rounded max-h-[calc(100vh-220px)]",
+                            h2 { class: "text-xl font-bold text-center py-2", "Media keys" },
+                            div { class: "px-6 overflow-y-auto",
+                                MediaKeySetting {
+                                    general_setting: general_setting.clone(),
+                                    media_key_map: media_key_map.clone(),
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

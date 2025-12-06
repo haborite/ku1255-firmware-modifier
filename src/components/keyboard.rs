@@ -101,8 +101,6 @@ pub fn Keyboard(
             Popup {
                 general_setting,
                 selected_address,
-                // id_list,
-                // usage_names,
                 id_layout,
                 map_key_label: logical_layout.map_key_label,
             }

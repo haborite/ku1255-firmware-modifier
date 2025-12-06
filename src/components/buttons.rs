@@ -9,6 +9,22 @@ use crate::utils::{
 };
 
 #[component]
+pub fn ButtonCopyLayer(
+    id_layout_l0: Signal<BTreeMap<u32, u8>>,
+    id_layout_l1: Signal<BTreeMap<u32, u8>>,    
+) -> Element {
+    rsx! {
+        div { class: "relative inline-flex",
+            button {
+                class: "px-4 py-2 bg-gray-500 text-white rounded shadow hover:bg-gray-600",
+                onclick: move |_| { id_layout_l1.set(id_layout_l0().clone()) },
+                "Copy layer from Main to 2nd"
+            }
+        }
+    }
+}
+
+#[component]
 pub fn ButtonInstall(
     id_layout_l0: Signal<BTreeMap<u32, u8>>,
     id_layout_l1: Signal<BTreeMap<u32, u8>>,
