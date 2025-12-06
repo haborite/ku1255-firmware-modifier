@@ -3,7 +3,12 @@
 **[Lenovo ThinkPad Compact USB キーボード with トラックポイント](https://support.lenovo.com/jp/ja/solutions/pd026745-thinkpad-compact-usb-keyboard-with-trackpoint-overview-and-service-parts)**（日本語モデル: **0B47208**）のファームウェアをカスタマイズするためのシンプルなGUIツールです。  
 
 任意のキーを別のキーに割り当て直すことができます。たとえば左下の `Fn` キー位置に `Ctrl` キーを割り当てるといったカスタマイズが可能です。
-さらに、トラックポイントの加速度をLenovo公式ドライバの限界よりも大きな値に設定することも出来ます。
+さらに、以下のより高度な機能を利用することが出来ます。
+- レイヤー機能: Modキーとの同時押しによりキーの種類を変更
+- キーマクロ機能: Ctrl, Shift, Alt, Winキーとの同時押しを単一キーで代替
+- メディアキー: 音量調節や動画再生停止等の特殊なキーの割り当て
+- トラックポイント速度変更: トラックポイントの加速度をLenovo公式ドライバの限界よりも大きな値に設定可能
+
 変更内容はキーボードのファームウェアに直接書き込まれるため、**PC側の設定変更は不要**です。接続するすべてのデバイスやOSで同じレイアウトが反映されます。
 
 ![GUI Overview](https://github.com/haborite/ku1255-firmware-modifier/blob/main/docs/gui-overview.png)
