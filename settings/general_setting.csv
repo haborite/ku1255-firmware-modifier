@@ -212,17 +212,17 @@ D1,Keypad Memory Recall,,8B
 D2,Keypad Memory Clear,740a6,88
 D3,Keypad Memory Add,,89
 D4,Keypad Memory Subtract,74094,8E
-D5,Keypad Memory Multiply,,8F
-D6,Keypad Memory Divide,,8C
-D7,Keypad +/-,,8D
-D8,Keypad Clear,,82
-D9,Keypad Clear Entry,,83
-DA,Keypad Binary,,80
-DB,Keypad Octal,,81
-DC,Keypad Decimal,,86
-DD,Keypad Hexadecimal,,87
-DE,Reserved,,84
-DF,Reserved,,85
+D5,App 01,,8F
+D6,App 02,,8C
+D7,App 03,,8D
+D8,App 04,,82
+D9,App 05,,83
+DA,App 06,,80
+DB,App 07,,81
+DC,App 08,,86
+DD,App 09,,87
+DE,App 10,,84
+DF,App 11,,85
 E0,LeftControl,74004,BA
 E1,LeftShift,74070,BB
 E2,LeftAlt,74092,B8
@@ -231,3 +231,27 @@ E4,RightControl,7400C,BE
 E5,RightShift,7406C,BF
 E6,RightAlt,7409E,BC
 E7,Right GUI,,BD
+E8,Macro 01,,
+E9,Macro 02,,
+EA,Macro 03,,
+EB,Macro 04,,
+EC,Macro 05,,
+ED,Macro 06,,
+EE,Macro 07,,
+EF,Macro 08,,
+F0,Macro 09,,
+F1,Macro 10,,
+F2,Macro 11,,
+F3,Macro 12,,
+F4,Macro 13,,
+F5,Macro 14,,
+F6,Macro 15,,
+F7,Macro 16,,
+F8,Macro 17,,
+F9,Macro 18,,
+FA,Macro 19,,
+FB,Macro 20,,
+FC,Macro 21,,
+FD,Macro 22,,
+FE,Macro 23,,
+FF,Macro 24,,

@@ -1,20 +1,15 @@
 use dioxus::prelude::*;
-use std::collections::HashMap;
 use rfd::FileDialog;
-use crate::models::{Board, LogicalLayout};
+use crate::models::{KeyboardSpec, UserConfig};
 use crate::utils::{
     install_firmware_by_flashsn8,
-    load_config,
-    save_config,
 };
 
 #[component]
 pub fn ButtonInstall(
-    id_layout_l0: Signal<HashMap<u32, u8>>,
-    id_layout_l1: Signal<HashMap<u32, u8>>,
+    keyboard_spec: ReadOnlySignal<KeyboardSpec>,
+    user_config: ReadOnlySignal<UserConfig>,
     firmware_future: Resource<Vec<u8>>,
-    fn_id: Signal<u8>,
-    tp_sensitivity: Signal<u32>,
     error_msg: Signal<Option<String>>,
 ) -> Element {
 
@@ -24,7 +19,7 @@ pub fn ButtonInstall(
                 class: "px-4 py-2 bg-blue-500 text-white rounded-l shadow hover:bg-blue-600",
                 onclick: move |_| {
                     install_firmware_by_flashsn8(
-                        &id_layout_l0, &id_layout_l1, &firmware_future, &fn_id, &tp_sensitivity, &mut error_msg,    
+                        user_config, firmware_future, error_msg,    
                     );
                 },
                 "Install firmware"              
@@ -36,12 +31,8 @@ pub fn ButtonInstall(
 
 #[component]
 pub fn ButtonLoad(
-    selected_board_name: Signal<String>,
-    selected_logical_layout_name: Signal<String>,
-    id_layout_l0: Signal<HashMap<u32, u8>>,
-    id_layout_l1: Signal<HashMap<u32, u8>>,
-    fn_id: Signal<u8>,
-    tp_sensitivity: Signal<u32>,
+    keyboard_spec: ReadOnlySignal<KeyboardSpec>,
+    user_config: Signal<UserConfig>
 ) -> Element {
     rsx! {
         button {
@@ -52,22 +43,13 @@ pub fn ButtonLoad(
                 .set_directory(std::env::current_exe().unwrap().parent().unwrap().join("examples"))
                 .set_title("Select key-remapping file")
                 .pick_file();
+                println!("{:?}", file);
                 match file {
                     Some(path) => {
-                        if let Ok((
-                            loaded_board_name,
-                            loaded_logical_layout_name,
-                            loaded_id_layout_l0,
-                            loaded_id_layout_l1,
-                            loaded_fn_id,
-                            loaded_tp_sensitivity,
-                        )) = load_config(&path) {
-                            selected_board_name.set(loaded_board_name);
-                            selected_logical_layout_name.set(loaded_logical_layout_name);
-                            id_layout_l0.set(loaded_id_layout_l0);
-                            id_layout_l1.set(loaded_id_layout_l1);
-                            fn_id.set(loaded_fn_id);
-                            tp_sensitivity.set(loaded_tp_sensitivity);
+                        println!("Config file selected: {}", path.display());
+                        let user_config_mut = &mut user_config.write();
+                        if let Err(e) = user_config_mut.update_from_file(&path) {
+                            eprintln!("Failed to load config file: {e}");
                         };
                     },
                     None => println!("file not selected"),
@@ -80,12 +62,8 @@ pub fn ButtonLoad(
 
 #[component]
 pub fn ButtonSave(
-    selected_board: ReadOnlySignal<Board>,
-    selected_logical_layout: Memo<LogicalLayout>,
-    id_layout_l0: ReadOnlySignal<HashMap<u32, u8>>,
-    id_layout_l1: ReadOnlySignal<HashMap<u32, u8>>,
-    fn_id: ReadOnlySignal<u8>,
-    tp_sensitivity: ReadOnlySignal<u32>,
+    keyboard_spec: ReadOnlySignal<KeyboardSpec>,
+    user_config: Signal<UserConfig>
 ) -> Element {
     rsx! {
         button {
@@ -99,16 +77,8 @@ pub fn ButtonSave(
                     .save_file();
                 match save_path {
                     Some(path) => {
-                        println!("Config file has been saved to: {}", path.display());
-                        let _ = save_config(
-                            &path,
-                            &selected_board().board_name,
-                            &selected_logical_layout().layout_name,
-                            &id_layout_l0(),
-                            &id_layout_l1(),
-                            fn_id(),
-                            tp_sensitivity(),
-                        );
+                        println!("Config file to be saved: {}", path.display());
+                        let _ = user_config.read().save_to_file(&path);
                     },
                     None => println!("Cancel"),
                 }

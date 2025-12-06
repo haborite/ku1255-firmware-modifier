@@ -1,49 +1,32 @@
-use std::collections::HashMap;
-use serde::{Serialize, Deserialize};
+use std::{collections::HashMap};
 
-#[derive(Clone, PartialEq)]
-pub struct Board {
-    pub board_name: String,
-    pub board_label: String,
+mod user_config;
+mod keyboard_spec;
+pub use user_config::*;
+pub use keyboard_spec::*;
+
+/// PhysicalLayout Model
+#[derive(Clone, PartialEq, Debug)]
+pub struct PhysicalLayout {
+    pub name: String,
+    pub label: String,
     pub default_logical_layout_name: String,
     pub map_widths: Vec<Vec<u16>>, 
     pub map_address: Vec<Vec<Option<u32>>>,
 }
 
-/*
-impl Board {
-    pub fn new() -> Board {
-        Board {
-            board_name: String::new(),
-            board_label: String::new(),
-            default_logical_layout_name: String::new(),
-            map_widths: vec![vec![]],
-            map_address: vec![vec![]],
-        }
-    }
-}
-*/
 
-#[derive(Clone, PartialEq)]
+// Logical Layout Model
+#[derive(Clone, PartialEq, Debug)]
 pub struct LogicalLayout {
-    pub layout_name: String,
-    pub layout_label: String,
+    pub name: String,
+    pub label: String,
     pub map_key_label: HashMap<u8, KeyLabel>,
 }
 
-/*
-impl LogicalLayout {
-    pub fn new() -> LogicalLayout {
-        LogicalLayout {
-            layout_name: String::new(),
-            layout_label: String::new(),
-            map_key_label: HashMap::new(),
-        }
-    }
-}
-*/
 
-#[derive(Clone, PartialEq)]
+// Key Label Model
+#[derive(Clone, PartialEq, Debug)]
 pub struct KeyLabel {
     pub usage_name: String,
     pub default: String,
@@ -60,16 +43,3 @@ impl KeyLabel {
     }
 }
 
-fn default_fn_id() -> u8 { 0xaf }
-
-#[derive(Serialize, Deserialize)]
-pub struct Config {
-    pub config_version: u32,
-    pub physical_layout_name: String,
-    pub logical_layout_name: String,
-    pub layer0: Vec<[u32; 2]>,
-    pub layer1: Vec<[u32; 2]>,
-    #[serde(default = "default_fn_id")]
-    pub fn_id: u8,
-    pub tp_sensitivity: u32,
-}

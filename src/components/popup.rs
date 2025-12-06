@@ -1,15 +1,15 @@
 use dioxus::prelude::*;
 use std::collections::HashMap;
-use crate::models::KeyLabel;
+use crate::models::{KeyLabel, UserConfig, KeyboardSpec};
 use std::rc::Rc;
 
 #[component]
 pub fn Popup(
+    layer_number: u8,
+    user_config: Signal<UserConfig>,
+    keyboard_spec: ReadOnlySignal<KeyboardSpec>,
     selected_address: Signal<Option<u32>>,
-    id_list: Vec<u8>,
-    usage_names: Vec<String>,
-    id_layout: Signal<HashMap<u32, u8>>,
-    map_key_label: HashMap::<u8, KeyLabel>,
+    map_key_label: ReadOnlySignal<HashMap::<u8, KeyLabel>>,
 ) -> Element {
 
     let mut input_ref = use_signal::<Option<Rc<MountedData>>>(|| None);
@@ -21,10 +21,13 @@ pub fn Popup(
         }
     });
 
+    let id_layout = user_config.read().get_id_layout(layer_number).clone();
+    let avail_hid_usage_names = keyboard_spec.read().avail_hid_usage_names.clone();
+    let key_labels = map_key_label();
+
     rsx! {
         { if let Some(key_address) = selected_address() {
-            // let selected_id = use_signal(|| id_layout().get(&selected_address().unwrap_or(0)).copied().unwrap_or(0));
-            let selected_id = id_layout().get(&selected_address().unwrap_or(0)).copied().unwrap_or(0);
+            let selected_id = id_layout.get(&selected_address().unwrap_or(0)).copied().unwrap_or(0);
             rsx! {
                 div {
                     class: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50",
@@ -43,46 +46,41 @@ pub fn Popup(
                             value: selected_id,
                             onchange: move |evt| {
                                 let new_id: u8 = evt.value().clone().parse().unwrap();
-                                let mut id_layout_clone = id_layout().clone();
-                                id_layout_clone.insert(key_address, new_id);
-                                id_layout.set(id_layout_clone);
+                                user_config.write().update_layer(layer_number, key_address, new_id);
+                                // let new_id: u8 = evt.value().clone().parse().unwrap();
+                                // let mut id_layout_clone = id_layout().clone();
+                                // id_layout_clone.insert(key_address, new_id);
+                                // id_layout.set(id_layout_clone);
                                 selected_address.set(None);
                             },
                             {
-                                id_list.into_iter().enumerate().map(|(idx, kid)|{
-                                    let (label, style) = match map_key_label.get(&kid) {
-                                        None => ("".to_string(), "text-gray-700".to_string()),
-                                        Some(ks) => {
-                                            if ks.default == "" {
-                                                (
-                                                    format!("{{ {:02X}: {} }}", kid, usage_names[idx]),
-                                                    "text-gray-400".to_string()
-                                                )                                                
-                                            } else { 
-                                                if ks.shifted == "" {
-                                                    (
-                                                        format!("{}", ks.default),
-                                                        "text-gray-700".to_string()
-                                                    )
+                                avail_hid_usage_names
+                                    .iter()
+                                    .map(|(&kid, name)| {
+                                        let (label, class) = match key_labels.get(&kid) {
+                                            Some(ks) if !ks.default.is_empty() => {
+                                                let label = if ks.shifted.is_empty() {
+                                                    ks.default.clone()
                                                 } else {
-                                                    (
-                                                        format!("{} and {}", ks.default, ks.shifted),
-                                                        "text-gray-700".to_string()
-                                                    )
-                                                }
+                                                    format!("{} and {}", ks.default, ks.shifted)
+                                                };
+                                                (label, "text-gray-700")
                                             }
-                                        },
-                                    };
-                                    let selected_flag = if kid == selected_id {true} else {false};
-                                    rsx!(
-                                        option {
-                                            class: style,
-                                            value: kid,
-                                            label: label,
-                                            selected: selected_flag,
+                                            _ => (
+                                                format!("{{ {:02X}: {} }}", kid, name),
+                                                "text-gray-400",
+                                            ),
+                                        };
+
+                                        rsx! {
+                                            option {
+                                                class: class,
+                                                value: kid,
+                                                label: label,
+                                                selected: kid == selected_id,
+                                            }
                                         }
-                                    )                                   
-                                })
+                                    })
                             }
                         }
                         button {

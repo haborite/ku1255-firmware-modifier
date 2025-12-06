@@ -1,26 +1,30 @@
 use dioxus::prelude::*;
-use crate::models::{Board, LogicalLayout, KeyLabel};
-use std::collections::HashMap;
+use crate::models::{KeyboardSpec, UserConfig};
 
 #[component]
-pub fn SelectBoard(
-    selected_board_name: Signal<String>,
-    selected_logical_layout_name: Signal<String>,
-    selected_board: Memo<Board>,
-    boards: Vec<Board>,
+pub fn SelectPhysicalLayout(
+    // selected_name: Signal<String>,
+    // selected_logical_layout_name: Signal<String>,
+    // selected_board: Memo<PhysicalLayout>,
+    keyboard_spec: ReadOnlySignal<KeyboardSpec>,
+    user_config: Signal<UserConfig>,
 ) -> Element {
     rsx!{
         select {
             style: format!("width: 250px;"),
             class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500",
             id: "board-select",
-            value: selected_board_name,
+            // value: selected_name,
+            value: user_config.read().physical_layout_name.clone(),
             onchange: move |evt| {
-                selected_board_name.set(evt.value());
-                selected_logical_layout_name.set(selected_board().default_logical_layout_name);
+                let user_config_mut = &mut user_config.write();
+                user_config_mut.update_physical_layout_name(&evt.value());
+                let pl = user_config_mut.get_physical_layout(&keyboard_spec.read());
+                user_config_mut.update_logical_layout_name(&pl.default_logical_layout_name);
+                // selected_logical_layout_name.set(selected_board().default_logical_layout_name);
             },
-            { boards.iter().map(|b|{
-                rsx!(option { value: b.board_name.clone(), label: b.board_label.clone() })
+            { keyboard_spec.read().avail_physical_layouts.iter().map(|b|{
+                rsx!(option { value: b.name.clone(), label: b.label.clone() })
             })}
         }
     }
@@ -28,24 +32,37 @@ pub fn SelectBoard(
 
 #[component]
 pub fn SelectLogicalLayout(
-    selected_logical_layout_name: Signal<String>,
-    selected_logical_layout: Memo<LogicalLayout>,
-    logical_layouts: Vec<LogicalLayout>,
+    // selected_logical_layout_name: Signal<String>,
+    // selected_logical_layout: Memo<LogicalLayout>,
+    keyboard_spec: ReadOnlySignal<KeyboardSpec>,
+    user_config: Signal<UserConfig>
 ) -> Element {
     rsx!{
         select {
             style: format!("width: 250px;"),
             class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500",
             id: "board-select",
-            value: selected_logical_layout_name,
+            // value: selected_logical_layout_name,
+            value: user_config.read().logical_layout_name.clone(),
+            /*
             onmounted: move |_| {
-                selected_logical_layout_name.set(selected_logical_layout().layout_name)
+                // selected_logical_layout_name.set(selected_logical_layout().layout_name)
+                let user_config_mut = &mut user_config.write();
+                user_config_mut.update_logical_layout_name(
+                    &keyboard_spec.read().avail_logical_layouts.iter()
+                        .find(|l| l.layout_name == user_config.read().logical_layout_name)
+                        .unwrap_or(&keyboard_spec.read().avail_logical_layouts.get(0).unwrap())
+                        .layout_name
+                );
             },
+            */
             onchange: move |evt| {
-                selected_logical_layout_name.set(evt.value());
+                // selected_logical_layout_name.set(evt.value());
+                let user_config_mut = &mut user_config.write();
+                user_config_mut.update_logical_layout_name(&evt.value());
             },
-            { logical_layouts.iter().map(|l|{
-                rsx!(option { value: l.layout_name.clone(), label: l.layout_label.clone() })
+            { keyboard_spec.read().avail_logical_layouts.iter().map(|l|{
+                rsx!(option { value: l.name.clone(), label: l.label.clone() })
             })}
         }
     }
@@ -54,12 +71,19 @@ pub fn SelectLogicalLayout(
 
 
 #[component]
-pub fn SelectFnID(
-    id_list: Vec<u8>,
-    usage_names: Vec<String>,
-    fn_id: Signal<u8>,
-    map_key_label: HashMap::<u8, KeyLabel>,
+pub fn SelectFnKeyID(
+    keyboard_spec: ReadOnlySignal<KeyboardSpec>,
+    user_config: Signal<UserConfig>
+    // id_list: ReadOnlySignal<Vec<u8>>,
+    // usage_names: ReadOnlySignal<Vec<String>>,
+    // key_id: Signal<u8>,
+    // map_key_label: HashMap::<u8, KeyLabel>,
 ) -> Element {
+
+    let avail_hid_usage_names = keyboard_spec.read().avail_hid_usage_names.clone();
+    let selected_logical_layout = user_config.read().get_logical_layout(&keyboard_spec.read());
+    let map_key_label = selected_logical_layout.map_key_label;
+
     rsx!{
         div {
             class: "w-full max-w-md mx-auto p-6 space-y-6",
@@ -67,46 +91,39 @@ pub fn SelectFnID(
             select {
                 class: "w-full p-2 border border-gray-300 rounded mb-4 text-gray-700",
                 id: "options",
-                value: fn_id(),
+                value: user_config.read().fn_id,
                 onchange: move |evt| {
                     let new_id: u8 = evt.value().clone().parse().unwrap();
-                    fn_id.set(new_id);
+                    user_config.write().update_fn_id(new_id);
                 },
                 {
-                    id_list.into_iter().enumerate().map(|(idx, kid)|{
-                        let (label, style) = match map_key_label.get(&kid) {
-                            None => ("".to_string(), "text-gray-700".to_string()),
-                            Some(ks) => {
-                                if ks.default == "" {
-                                    (
-                                        format!("{{ {:02X}: {} }}", kid, usage_names[idx]),
-                                        "text-gray-400".to_string()
-                                    )                                                
-                                } else { 
-                                    if ks.shifted == "" {
-                                        (
-                                            format!("{}", ks.default),
-                                            "text-gray-700".to_string()
-                                        )
+                    avail_hid_usage_names
+                        .iter()
+                        .map(|(&kid, name)| {
+                            let (label, class) = match map_key_label.get(&kid) {
+                                Some(ks) if !ks.default.is_empty() => {
+                                    let label = if ks.shifted.is_empty() {
+                                        ks.default.clone()
                                     } else {
-                                        (
-                                            format!("{} and {}", ks.default, ks.shifted),
-                                            "text-gray-700".to_string()
-                                        )
-                                    }
+                                        format!("{} and {}", ks.default, ks.shifted)
+                                    };
+                                    (label, "text-gray-700")
                                 }
-                            },
-                        };
-                        let selected_flag = if kid == fn_id() {true} else {false};
-                        rsx!(
-                            option {
-                                class: style,
-                                value: kid,
-                                label: label,
-                                selected: selected_flag,
+                                _ => (
+                                    format!("{{ {:02X}: {} }}", kid, name),
+                                    "text-gray-400",
+                                ),
+                            };
+
+                            rsx! {
+                                option {
+                                    class: class,
+                                    value: kid,
+                                    label: label,
+                                    selected: kid == user_config.read().fn_id,
+                                }
                             }
-                        )                                   
-                    })
+                        })
                 }
             }
         }

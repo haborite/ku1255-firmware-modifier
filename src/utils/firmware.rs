@@ -1,10 +1,11 @@
 use std::collections::HashMap;
-use dioxus::prelude::{Signal, Resource, Readable, Writable};
+use dioxus::prelude::{Signal, ReadOnlySignal, Resource, Readable, Writable};
 use std::fs;
 use std::path::{Path};
 use std::io;
 use std::io::{Write};
 
+use crate::models::UserConfig;
 use crate::utils::template::render_template_file;
 use crate::utils::diff::apply_diff_files;
 use crate::utils::format::format_asm_file;
@@ -28,12 +29,12 @@ const COMMENTS_PATH: &str = "template/comments.txt";
 
 
 fn validate_mod_key_position(
-    layout0: &Signal<HashMap<u32, u8>>,
-    layout1: &Signal<HashMap<u32, u8>>,
+    layout0: &HashMap<u32, u8>,
+    layout1: &HashMap<u32, u8>,
 ) -> Option<String> {
-    for (k, v) in layout0() {
-        if v == 231 {
-            if layout1().get(&k) != Some(&231) {
+    for (k, v) in layout0 {
+        if *v == 231 {
+            if layout1.get(&k) != Some(&231) {
                 return Some("The 'Mod' key position must be same on the Main and 2nd layers.".into());
             }
         }
@@ -43,11 +44,11 @@ fn validate_mod_key_position(
 
 
 fn build_mod_fw(
-    firmware_future: &Resource<Vec<u8>>,
-    layout0: &Signal<HashMap<u32, u8>>,
-    layout1: &Signal<HashMap<u32, u8>>,
-    fn_id: &Signal<u8>,
-    tp_sensitivity: &Signal<u32>,
+    firmware_future: Resource<Vec<u8>>,
+    layout0: &HashMap<u32, u8>,
+    layout1: &HashMap<u32, u8>,
+    fn_id: u8,
+    tp_sensitivity: u32,
 ) -> Result<(), String> {
 
     let Some(original_binary) = &*firmware_future.read_unchecked() else {
@@ -61,7 +62,7 @@ fn build_mod_fw(
         .map_err(|e| format!("Failed to format ASM: {}", e))?;
     let _r = apply_diff_files(FMT_ASM_PATH, DIFF_PATH, COMMENTS_PATH, TMP_ASM_PATH)
         .map_err(|e| format!("Failed to apply diff: {}", e))?;
-    let _r = modify_asm_file(TMP_ASM_PATH, MOD_ASM_PATH, &layout0(), &layout1(), fn_id(), tp_sensitivity())
+    let _r = modify_asm_file(TMP_ASM_PATH, MOD_ASM_PATH, layout0, layout1, fn_id, tp_sensitivity)
         .map_err(|e| format!("Failed to modify ASM: {}", e))?;
     let _r = run_assn8(MOD_ASM_PATH, MOD_BIN_PATH)
         .map_err(|e| format!("assn8 failed: {}", e))?;
@@ -70,19 +71,20 @@ fn build_mod_fw(
 }
 
 pub fn install_firmware_by_flashsn8(
-    id_layout_l0: &Signal<HashMap<u32, u8>>,
-    id_layout_l1: &Signal<HashMap<u32, u8>>,
-    firmware_future: &Resource<Vec<u8>>,
-    fn_id: &Signal<u8>,
-    tp_sensitivity: &Signal<u32>,
-    error_msg: &mut Signal<Option<String>>,    
+    user_config: ReadOnlySignal<UserConfig>,
+    firmware_future: Resource<Vec<u8>>,
+    mut error_msg: Signal<Option<String>>, 
 ) {
-    if let Some(msg) = validate_mod_key_position(id_layout_l0, id_layout_l1) {
+    let l0 = &user_config.read().layer0;
+    let l1 = &user_config.read().layer1;
+    let fn_id = user_config.read().fn_id;
+    let tp_sp = user_config.read().tp_sensitivity;
+    if let Some(msg) = validate_mod_key_position(&l0, &l1) {
         error_msg.set(Some(msg));
         return;
     }
 
-    let _r = build_mod_fw(firmware_future, id_layout_l0, id_layout_l1, fn_id, tp_sensitivity).unwrap_or_else(|err| {
+    let _r = build_mod_fw(firmware_future, l0, l1, fn_id, tp_sp).unwrap_or_else(|err| {
         error_msg.set(Some(format!("Failed to build modified firmware: {}", err)));
         return;
     });
