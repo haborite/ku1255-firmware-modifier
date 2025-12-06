@@ -1,0 +1,1050 @@
+{
+  "config_version": 2,
+  "physical_layout_name": "0B47208",
+  "logical_layout_name": "JP_Japanese",
+  "layer0": [
+    [
+      475090,
+      41
+    ],
+    [
+      475092,
+      53
+    ],
+    [
+      475094,
+      20
+    ],
+    [
+      475096,
+      30
+    ],
+    [
+      475098,
+      4
+    ],
+    [
+      475100,
+      29
+    ],
+    [
+      475102,
+      42
+    ],
+    [
+      475104,
+      43
+    ],
+    [
+      475106,
+      61
+    ],
+    [
+      475108,
+      59
+    ],
+    [
+      475110,
+      8
+    ],
+    [
+      475112,
+      32
+    ],
+    [
+      475114,
+      7
+    ],
+    [
+      475116,
+      6
+    ],
+    [
+      475120,
+      60
+    ],
+    [
+      475122,
+      100
+    ],
+    [
+      475124,
+      58
+    ],
+    [
+      475126,
+      26
+    ],
+    [
+      475128,
+      31
+    ],
+    [
+      475130,
+      22
+    ],
+    [
+      475132,
+      27
+    ],
+    [
+      475136,
+      231
+    ],
+    [
+      475140,
+      175
+    ],
+    [
+      475148,
+      228
+    ],
+    [
+      475154,
+      10
+    ],
+    [
+      475156,
+      34
+    ],
+    [
+      475158,
+      21
+    ],
+    [
+      475160,
+      33
+    ],
+    [
+      475162,
+      9
+    ],
+    [
+      475164,
+      25
+    ],
+    [
+      475166,
+      5
+    ],
+    [
+      475168,
+      23
+    ],
+    [
+      475170,
+      11
+    ],
+    [
+      475172,
+      35
+    ],
+    [
+      475174,
+      24
+    ],
+    [
+      475176,
+      36
+    ],
+    [
+      475178,
+      13
+    ],
+    [
+      475180,
+      16
+    ],
+    [
+      475182,
+      17
+    ],
+    [
+      475184,
+      28
+    ],
+    [
+      475186,
+      63
+    ],
+    [
+      475188,
+      46
+    ],
+    [
+      475190,
+      12
+    ],
+    [
+      475192,
+      37
+    ],
+    [
+      475194,
+      14
+    ],
+    [
+      475196,
+      54
+    ],
+    [
+      475198,
+      135
+    ],
+    [
+      475200,
+      48
+    ],
+    [
+      475202,
+      40
+    ],
+    [
+      475204,
+      65
+    ],
+    [
+      475206,
+      18
+    ],
+    [
+      475208,
+      38
+    ],
+    [
+      475210,
+      15
+    ],
+    [
+      475212,
+      55
+    ],
+    [
+      475214,
+      53
+    ],
+    [
+      475216,
+      64
+    ],
+    [
+      475218,
+      52
+    ],
+    [
+      475220,
+      45
+    ],
+    [
+      475222,
+      19
+    ],
+    [
+      475224,
+      39
+    ],
+    [
+      475226,
+      51
+    ],
+    [
+      475228,
+      50
+    ],
+    [
+      475230,
+      56
+    ],
+    [
+      475232,
+      47
+    ],
+    [
+      475244,
+      229
+    ],
+    [
+      475248,
+      225
+    ],
+    [
+      475250,
+      62
+    ],
+    [
+      475252,
+      66
+    ],
+    [
+      475254,
+      137
+    ],
+    [
+      475256,
+      67
+    ],
+    [
+      475258,
+      49
+    ],
+    [
+      475260,
+      40
+    ],
+    [
+      475262,
+      44
+    ],
+    [
+      475264,
+      42
+    ],
+    [
+      475268,
+      74
+    ],
+    [
+      475272,
+      68
+    ],
+    [
+      475278,
+      81
+    ],
+    [
+      475282,
+      226
+    ],
+    [
+      475284,
+      212
+    ],
+    [
+      475294,
+      230
+    ],
+    [
+      475302,
+      210
+    ],
+    [
+      475304,
+      69
+    ],
+    [
+      475310,
+      79
+    ],
+    [
+      475312,
+      227
+    ],
+    [
+      475314,
+      82
+    ],
+    [
+      475320,
+      77
+    ],
+    [
+      475322,
+      224
+    ],
+    [
+      475324,
+      72
+    ],
+    [
+      475326,
+      80
+    ],
+    [
+      475328,
+      208
+    ],
+    [
+      475332,
+      76
+    ],
+    [
+      475336,
+      73
+    ],
+    [
+      475338,
+      70
+    ],
+    [
+      475340,
+      80
+    ],
+    [
+      475342,
+      79
+    ]
+  ],
+  "layer1": [
+    [
+      475090,
+      41
+    ],
+    [
+      475092,
+      53
+    ],
+    [
+      475094,
+      20
+    ],
+    [
+      475096,
+      30
+    ],
+    [
+      475098,
+      4
+    ],
+    [
+      475100,
+      29
+    ],
+    [
+      475102,
+      76
+    ],
+    [
+      475104,
+      43
+    ],
+    [
+      475106,
+      61
+    ],
+    [
+      475108,
+      59
+    ],
+    [
+      475110,
+      8
+    ],
+    [
+      475112,
+      32
+    ],
+    [
+      475114,
+      7
+    ],
+    [
+      475116,
+      6
+    ],
+    [
+      475120,
+      60
+    ],
+    [
+      475122,
+      100
+    ],
+    [
+      475124,
+      58
+    ],
+    [
+      475126,
+      26
+    ],
+    [
+      475128,
+      31
+    ],
+    [
+      475130,
+      22
+    ],
+    [
+      475132,
+      27
+    ],
+    [
+      475136,
+      231
+    ],
+    [
+      475140,
+      175
+    ],
+    [
+      475148,
+      228
+    ],
+    [
+      475154,
+      10
+    ],
+    [
+      475156,
+      34
+    ],
+    [
+      475158,
+      21
+    ],
+    [
+      475160,
+      33
+    ],
+    [
+      475162,
+      9
+    ],
+    [
+      475164,
+      25
+    ],
+    [
+      475166,
+      5
+    ],
+    [
+      475168,
+      23
+    ],
+    [
+      475170,
+      11
+    ],
+    [
+      475172,
+      35
+    ],
+    [
+      475174,
+      24
+    ],
+    [
+      475176,
+      36
+    ],
+    [
+      475178,
+      80
+    ],
+    [
+      475180,
+      16
+    ],
+    [
+      475182,
+      17
+    ],
+    [
+      475184,
+      28
+    ],
+    [
+      475186,
+      63
+    ],
+    [
+      475188,
+      46
+    ],
+    [
+      475190,
+      82
+    ],
+    [
+      475192,
+      37
+    ],
+    [
+      475194,
+      81
+    ],
+    [
+      475196,
+      54
+    ],
+    [
+      475198,
+      135
+    ],
+    [
+      475200,
+      48
+    ],
+    [
+      475202,
+      40
+    ],
+    [
+      475204,
+      65
+    ],
+    [
+      475206,
+      18
+    ],
+    [
+      475208,
+      38
+    ],
+    [
+      475210,
+      79
+    ],
+    [
+      475212,
+      55
+    ],
+    [
+      475214,
+      53
+    ],
+    [
+      475216,
+      64
+    ],
+    [
+      475218,
+      52
+    ],
+    [
+      475220,
+      45
+    ],
+    [
+      475222,
+      19
+    ],
+    [
+      475224,
+      39
+    ],
+    [
+      475226,
+      51
+    ],
+    [
+      475228,
+      50
+    ],
+    [
+      475230,
+      56
+    ],
+    [
+      475232,
+      47
+    ],
+    [
+      475244,
+      229
+    ],
+    [
+      475248,
+      225
+    ],
+    [
+      475250,
+      62
+    ],
+    [
+      475252,
+      66
+    ],
+    [
+      475254,
+      137
+    ],
+    [
+      475256,
+      67
+    ],
+    [
+      475258,
+      49
+    ],
+    [
+      475260,
+      40
+    ],
+    [
+      475262,
+      44
+    ],
+    [
+      475264,
+      42
+    ],
+    [
+      475268,
+      74
+    ],
+    [
+      475272,
+      68
+    ],
+    [
+      475278,
+      81
+    ],
+    [
+      475282,
+      226
+    ],
+    [
+      475284,
+      212
+    ],
+    [
+      475294,
+      230
+    ],
+    [
+      475302,
+      210
+    ],
+    [
+      475304,
+      69
+    ],
+    [
+      475310,
+      79
+    ],
+    [
+      475312,
+      227
+    ],
+    [
+      475314,
+      82
+    ],
+    [
+      475320,
+      77
+    ],
+    [
+      475322,
+      224
+    ],
+    [
+      475324,
+      72
+    ],
+    [
+      475326,
+      80
+    ],
+    [
+      475328,
+      208
+    ],
+    [
+      475332,
+      76
+    ],
+    [
+      475336,
+      73
+    ],
+    [
+      475338,
+      70
+    ],
+    [
+      475340,
+      80
+    ],
+    [
+      475342,
+      79
+    ]
+  ],
+  "fn_id": 231,
+  "tp_sensitivity": 2,
+  "macro_key_map": {
+    "232": {
+      "key_id": 4,
+      "left_ctrl": true,
+      "left_shift": false,
+      "left_alt": false,
+      "left_gui": false,
+      "right_ctrl": false,
+      "right_shift": false,
+      "right_alt": false,
+      "right_gui": false
+    },
+    "233": {
+      "key_id": 5,
+      "left_ctrl": true,
+      "left_shift": true,
+      "left_alt": false,
+      "left_gui": false,
+      "right_ctrl": false,
+      "right_shift": false,
+      "right_alt": false,
+      "right_gui": false
+    },
+    "234": {
+      "key_id": 6,
+      "left_ctrl": true,
+      "left_shift": true,
+      "left_alt": true,
+      "left_gui": false,
+      "right_ctrl": false,
+      "right_shift": false,
+      "right_alt": false,
+      "right_gui": false
+    },
+    "235": {
+      "key_id": 0,
+      "left_ctrl": false,
+      "left_shift": false,
+      "left_alt": false,
+      "left_gui": false,
+      "right_ctrl": false,
+      "right_shift": false,
+      "right_alt": false,
+      "right_gui": false
+    },
+    "236": {
+      "key_id": 0,
+      "left_ctrl": false,
+      "left_shift": false,
+      "left_alt": false,
+      "left_gui": false,
+      "right_ctrl": false,
+      "right_shift": false,
+      "right_alt": false,
+      "right_gui": false
+    },
+    "237": {
+      "key_id": 0,
+      "left_ctrl": false,
+      "left_shift": false,
+      "left_alt": false,
+      "left_gui": false,
+      "right_ctrl": false,
+      "right_shift": false,
+      "right_alt": false,
+      "right_gui": false
+    },
+    "238": {
+      "key_id": 0,
+      "left_ctrl": false,
+      "left_shift": false,
+      "left_alt": false,
+      "left_gui": false,
+      "right_ctrl": false,
+      "right_shift": false,
+      "right_alt": false,
+      "right_gui": false
+    },
+    "239": {
+      "key_id": 0,
+      "left_ctrl": false,
+      "left_shift": false,
+      "left_alt": false,
+      "left_gui": false,
+      "right_ctrl": false,
+      "right_shift": false,
+      "right_alt": false,
+      "right_gui": false
+    },
+    "240": {
+      "key_id": 0,
+      "left_ctrl": false,
+      "left_shift": false,
+      "left_alt": false,
+      "left_gui": false,
+      "right_ctrl": false,
+      "right_shift": false,
+      "right_alt": false,
+      "right_gui": false
+    },
+    "241": {
+      "key_id": 0,
+      "left_ctrl": false,
+      "left_shift": false,
+      "left_alt": false,
+      "left_gui": false,
+      "right_ctrl": false,
+      "right_shift": false,
+      "right_alt": false,
+      "right_gui": false
+    },
+    "242": {
+      "key_id": 0,
+      "left_ctrl": false,
+      "left_shift": false,
+      "left_alt": false,
+      "left_gui": false,
+      "right_ctrl": false,
+      "right_shift": false,
+      "right_alt": false,
+      "right_gui": false
+    },
+    "243": {
+      "key_id": 0,
+      "left_ctrl": false,
+      "left_shift": false,
+      "left_alt": false,
+      "left_gui": false,
+      "right_ctrl": false,
+      "right_shift": false,
+      "right_alt": false,
+      "right_gui": false
+    },
+    "244": {
+      "key_id": 0,
+      "left_ctrl": false,
+      "left_shift": false,
+      "left_alt": false,
+      "left_gui": false,
+      "right_ctrl": false,
+      "right_shift": false,
+      "right_alt": false,
+      "right_gui": false
+    },
+    "245": {
+      "key_id": 0,
+      "left_ctrl": false,
+      "left_shift": false,
+      "left_alt": false,
+      "left_gui": false,
+      "right_ctrl": false,
+      "right_shift": false,
+      "right_alt": false,
+      "right_gui": false
+    },
+    "246": {
+      "key_id": 0,
+      "left_ctrl": false,
+      "left_shift": false,
+      "left_alt": false,
+      "left_gui": false,
+      "right_ctrl": false,
+      "right_shift": false,
+      "right_alt": false,
+      "right_gui": false
+    },
+    "247": {
+      "key_id": 0,
+      "left_ctrl": false,
+      "left_shift": false,
+      "left_alt": false,
+      "left_gui": false,
+      "right_ctrl": false,
+      "right_shift": false,
+      "right_alt": false,
+      "right_gui": false
+    },
+    "248": {
+      "key_id": 0,
+      "left_ctrl": false,
+      "left_shift": false,
+      "left_alt": false,
+      "left_gui": false,
+      "right_ctrl": false,
+      "right_shift": false,
+      "right_alt": false,
+      "right_gui": false
+    },
+    "249": {
+      "key_id": 0,
+      "left_ctrl": false,
+      "left_shift": false,
+      "left_alt": false,
+      "left_gui": false,
+      "right_ctrl": false,
+      "right_shift": false,
+      "right_alt": false,
+      "right_gui": false
+    },
+    "250": {
+      "key_id": 0,
+      "left_ctrl": false,
+      "left_shift": false,
+      "left_alt": false,
+      "left_gui": false,
+      "right_ctrl": false,
+      "right_shift": false,
+      "right_alt": false,
+      "right_gui": false
+    },
+    "251": {
+      "key_id": 0,
+      "left_ctrl": false,
+      "left_shift": false,
+      "left_alt": false,
+      "left_gui": false,
+      "right_ctrl": false,
+      "right_shift": false,
+      "right_alt": false,
+      "right_gui": false
+    },
+    "252": {
+      "key_id": 0,
+      "left_ctrl": false,
+      "left_shift": false,
+      "left_alt": false,
+      "left_gui": false,
+      "right_ctrl": false,
+      "right_shift": false,
+      "right_alt": false,
+      "right_gui": false
+    },
+    "253": {
+      "key_id": 0,
+      "left_ctrl": false,
+      "left_shift": false,
+      "left_alt": false,
+      "left_gui": false,
+      "right_ctrl": false,
+      "right_shift": false,
+      "right_alt": false,
+      "right_gui": false
+    },
+    "254": {
+      "key_id": 0,
+      "left_ctrl": false,
+      "left_shift": false,
+      "left_alt": false,
+      "left_gui": false,
+      "right_ctrl": false,
+      "right_shift": false,
+      "right_alt": false,
+      "right_gui": false
+    },
+    "255": {
+      "key_id": 0,
+      "left_ctrl": false,
+      "left_shift": false,
+      "left_alt": false,
+      "left_gui": false,
+      "right_ctrl": false,
+      "right_shift": false,
+      "right_alt": false,
+      "right_gui": false
+    }
+  },
+  "media_key_map": {
+    "213": 50,
+    "214": 51,
+    "215": 52,
+    "216": 233,
+    "217": 234,
+    "218": 0,
+    "219": 0,
+    "220": 0,
+    "221": 0,
+    "222": 0,
+    "223": 0
+  }
+}

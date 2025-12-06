@@ -1,17 +1,19 @@
 use dioxus::prelude::*;
-use std::collections::HashMap;
-use crate::models::{Board, LogicalLayout, KeyLabel};
+use std::sync::Arc;
+use std::collections::BTreeMap;
+use crate::models::{Board, GeneralSeitting, KeyLabel, LogicalLayout};
 use crate::components::Popup;
 
 #[component]
 pub fn Keyboard(
+    general_setting: Arc<GeneralSeitting>,
     layer_number: u8,
-    id_list: Vec<u8>,
-    usage_names: Vec<String>,
+    // id_list: Vec<u8>,
+    // usage_names: Vec<String>,
     board: Board,
     logical_layout: LogicalLayout,
-    id_layout: Signal<HashMap<u32, u8>>,
-    id_layout_original: HashMap<u32, u8>,
+    id_layout: Signal<BTreeMap<u32, u8>>,
+    // id_layout_original: BTreeMap<u32, u8>,
 ) -> Element {
     
     let mut selected_address = use_signal(|| None as Option<u32>);
@@ -32,7 +34,7 @@ pub fn Keyboard(
                             let (id_opt, id_opt_org) = match add_opt {
                                 Some(address) => (
                                     id_layout().get(&address).copied(),
-                                    id_layout_original.get(&address).copied()
+                                    general_setting.initial_id_map.get(&address).copied()
                                 ),
                                 None => (None, None),
                             };
@@ -97,9 +99,10 @@ pub fn Keyboard(
                 }
             }
             Popup {
+                general_setting,
                 selected_address,
-                id_list,
-                usage_names,
+                // id_list,
+                // usage_names,
                 id_layout,
                 map_key_label: logical_layout.map_key_label,
             }

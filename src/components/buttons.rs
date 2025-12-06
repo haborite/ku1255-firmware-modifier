@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 use rfd::FileDialog;
-use crate::models::{Board, LogicalLayout};
+use crate::models::{MacroKey, Board, LogicalLayout};
 use crate::utils::{
     install_firmware_by_flashsn8,
     load_config,
@@ -10,21 +10,30 @@ use crate::utils::{
 
 #[component]
 pub fn ButtonInstall(
-    id_layout_l0: Signal<HashMap<u32, u8>>,
-    id_layout_l1: Signal<HashMap<u32, u8>>,
+    id_layout_l0: Signal<BTreeMap<u32, u8>>,
+    id_layout_l1: Signal<BTreeMap<u32, u8>>,
     firmware_future: Resource<Vec<u8>>,
     fn_id: Signal<u8>,
     tp_sensitivity: Signal<u32>,
+    macro_key_map: Signal<BTreeMap<u8, MacroKey>>,
+    media_key_map: Signal<BTreeMap<u8, u16>>,
     error_msg: Signal<Option<String>>,
 ) -> Element {
 
     rsx! {
         div { class: "relative inline-flex",
             button {
-                class: "px-4 py-2 bg-blue-500 text-white rounded-l shadow hover:bg-blue-600",
+                class: "px-4 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600",
                 onclick: move |_| {
                     install_firmware_by_flashsn8(
-                        &id_layout_l0, &id_layout_l1, &firmware_future, &fn_id, &tp_sensitivity, &mut error_msg,    
+                        id_layout_l0,
+                        id_layout_l1,
+                        firmware_future,
+                        fn_id,
+                        tp_sensitivity,
+                        macro_key_map,
+                        media_key_map,
+                        &mut error_msg,
                     );
                 },
                 "Install firmware"              
@@ -38,10 +47,13 @@ pub fn ButtonInstall(
 pub fn ButtonLoad(
     selected_board_name: Signal<String>,
     selected_logical_layout_name: Signal<String>,
-    id_layout_l0: Signal<HashMap<u32, u8>>,
-    id_layout_l1: Signal<HashMap<u32, u8>>,
+    id_layout_l0: Signal<BTreeMap<u32, u8>>,
+    id_layout_l1: Signal<BTreeMap<u32, u8>>,
     fn_id: Signal<u8>,
     tp_sensitivity: Signal<u32>,
+    macro_key_map: Signal<BTreeMap<u8, MacroKey>>,
+    media_key_map: Signal<BTreeMap<u8, u16>>,
+
 ) -> Element {
     rsx! {
         button {
@@ -61,6 +73,8 @@ pub fn ButtonLoad(
                             loaded_id_layout_l1,
                             loaded_fn_id,
                             loaded_tp_sensitivity,
+                            loaded_macro_key_map,
+                            loaded_media_key_map,
                         )) = load_config(&path) {
                             selected_board_name.set(loaded_board_name);
                             selected_logical_layout_name.set(loaded_logical_layout_name);
@@ -68,6 +82,8 @@ pub fn ButtonLoad(
                             id_layout_l1.set(loaded_id_layout_l1);
                             fn_id.set(loaded_fn_id);
                             tp_sensitivity.set(loaded_tp_sensitivity);
+                            macro_key_map.set(loaded_macro_key_map);
+                            media_key_map.set(loaded_media_key_map);
                         };
                     },
                     None => println!("file not selected"),
@@ -82,10 +98,12 @@ pub fn ButtonLoad(
 pub fn ButtonSave(
     selected_board: ReadOnlySignal<Board>,
     selected_logical_layout: Memo<LogicalLayout>,
-    id_layout_l0: ReadOnlySignal<HashMap<u32, u8>>,
-    id_layout_l1: ReadOnlySignal<HashMap<u32, u8>>,
+    id_layout_l0: ReadOnlySignal<BTreeMap<u32, u8>>,
+    id_layout_l1: ReadOnlySignal<BTreeMap<u32, u8>>,
     fn_id: ReadOnlySignal<u8>,
     tp_sensitivity: ReadOnlySignal<u32>,
+    macro_key_map: ReadOnlySignal<BTreeMap<u8, MacroKey>>,
+    media_key_map: ReadOnlySignal<BTreeMap<u8, u16>>,
 ) -> Element {
     rsx! {
         button {
@@ -108,6 +126,8 @@ pub fn ButtonSave(
                             &id_layout_l1(),
                             fn_id(),
                             tp_sensitivity(),
+                            &macro_key_map(),
+                            &media_key_map(),
                         );
                     },
                     None => println!("Cancel"),

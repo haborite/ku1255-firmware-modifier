@@ -1,9 +1,10 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, BTreeMap};
 use dioxus::prelude::{Signal, Resource, Readable, Writable};
 use std::fs;
 use std::path::{Path};
 use std::io;
 use std::io::{Write};
+use crate::models::MacroKey;
 
 use crate::utils::template::render_template_file;
 use crate::utils::diff::apply_diff_files;
@@ -28,8 +29,8 @@ const COMMENTS_PATH: &str = "template/comments.txt";
 
 
 fn validate_mod_key_position(
-    layout0: &Signal<HashMap<u32, u8>>,
-    layout1: &Signal<HashMap<u32, u8>>,
+    layout0: Signal<BTreeMap<u32, u8>>,
+    layout1: Signal<BTreeMap<u32, u8>>,
 ) -> Option<String> {
     for (k, v) in layout0() {
         if v == 231 {
@@ -43,11 +44,13 @@ fn validate_mod_key_position(
 
 
 fn build_mod_fw(
-    firmware_future: &Resource<Vec<u8>>,
-    layout0: &Signal<HashMap<u32, u8>>,
-    layout1: &Signal<HashMap<u32, u8>>,
-    fn_id: &Signal<u8>,
-    tp_sensitivity: &Signal<u32>,
+    firmware_future: Resource<Vec<u8>>,
+    layout0: Signal<BTreeMap<u32, u8>>,
+    layout1: Signal<BTreeMap<u32, u8>>,
+    fn_id: Signal<u8>,
+    tp_sensitivity: Signal<u32>,
+    macro_key_map: Signal<BTreeMap<u8, MacroKey>>,
+    media_key_map: Signal<BTreeMap<u8, u16>>,
 ) -> Result<(), String> {
 
     let Some(original_binary) = &*firmware_future.read_unchecked() else {
@@ -61,7 +64,7 @@ fn build_mod_fw(
         .map_err(|e| format!("Failed to format ASM: {}", e))?;
     let _r = apply_diff_files(FMT_ASM_PATH, DIFF_PATH, COMMENTS_PATH, TMP_ASM_PATH)
         .map_err(|e| format!("Failed to apply diff: {}", e))?;
-    let _r = modify_asm_file(TMP_ASM_PATH, MOD_ASM_PATH, &layout0(), &layout1(), fn_id(), tp_sensitivity())
+    let _r = modify_asm_file(TMP_ASM_PATH, MOD_ASM_PATH, &layout0(), &layout1(), fn_id(), tp_sensitivity(), &macro_key_map(), &media_key_map())
         .map_err(|e| format!("Failed to modify ASM: {}", e))?;
     let _r = run_assn8(MOD_ASM_PATH, MOD_BIN_PATH)
         .map_err(|e| format!("assn8 failed: {}", e))?;
@@ -70,11 +73,13 @@ fn build_mod_fw(
 }
 
 pub fn install_firmware_by_flashsn8(
-    id_layout_l0: &Signal<HashMap<u32, u8>>,
-    id_layout_l1: &Signal<HashMap<u32, u8>>,
-    firmware_future: &Resource<Vec<u8>>,
-    fn_id: &Signal<u8>,
-    tp_sensitivity: &Signal<u32>,
+    id_layout_l0: Signal<BTreeMap<u32, u8>>,
+    id_layout_l1: Signal<BTreeMap<u32, u8>>,
+    firmware_future: Resource<Vec<u8>>,
+    fn_id: Signal<u8>,
+    tp_sensitivity: Signal<u32>,
+    macro_key_map: Signal<BTreeMap<u8, MacroKey>>,
+    media_key_map: Signal<BTreeMap<u8, u16>>,
     error_msg: &mut Signal<Option<String>>,    
 ) {
     if let Some(msg) = validate_mod_key_position(id_layout_l0, id_layout_l1) {
@@ -82,12 +87,12 @@ pub fn install_firmware_by_flashsn8(
         return;
     }
 
-    let _r = build_mod_fw(firmware_future, id_layout_l0, id_layout_l1, fn_id, tp_sensitivity).unwrap_or_else(|err| {
+    let _r = build_mod_fw(firmware_future, id_layout_l0, id_layout_l1, fn_id, tp_sensitivity, macro_key_map, media_key_map).unwrap_or_else(|err| {
         error_msg.set(Some(format!("Failed to build modified firmware: {}", err)));
         return;
     });
 
-    run_flashsn8_gui(MOD_BIN_PATH).unwrap_or_else(|err| {
+    run_flashsn8_gui(MOD_BIN_PATH, ORG_BIN_PATH).unwrap_or_else(|err| {
         error_msg.set(Some(format!("Failed to launch flashsn8: {}", err)));
         return;
     });
@@ -132,10 +137,12 @@ pub async fn load_or_download_firmware(exe_url_cloned: &str) -> Vec<u8>  {
 fn modify_asm_file(
     in_path: &str,
     out_path: &str,
-    layout0: &HashMap<u32, u8>,
-    layout1: &HashMap<u32, u8>,
+    layout0: &BTreeMap<u32, u8>,
+    layout1: &BTreeMap<u32, u8>,
     fn_id: u8,
     tp_sensitivity: u32,
+    macro_key_map: &BTreeMap<u8, MacroKey>,
+    media_key_map: &BTreeMap<u8, u16>,
 ) -> io::Result<()> {
 
     // Prepare s_values and e_choices
@@ -146,7 +153,7 @@ fn modify_asm_file(
     s_values.insert("fn_key".to_string(), format!("{:02x}", fn_id));
 
     // Key layout mapping
-    let mut map1: HashMap<u32, u8> = HashMap::new();
+    let mut map1: BTreeMap<u32, u8> = BTreeMap::new();
     for (pos, code) in layout1.iter() {
         map1.insert(*pos, *code);
     }
@@ -171,6 +178,26 @@ fn modify_asm_file(
     };
     for (i, accel_switch) in accel_switches.into_iter().enumerate() {
         e_choices.insert(format!("tp_accel_{}", i), accel_switch as usize);
+    }
+
+    // Macro Key
+    for (trigger_key_id, macro_key) in macro_key_map.iter() {
+        let media_key_id = macro_key.key_id;
+        let mut mod_key_bits = 0;
+        if macro_key.left_ctrl {mod_key_bits += 1};
+        if macro_key.left_shift {mod_key_bits += 2};
+        if macro_key.left_alt {mod_key_bits += 4};
+        if macro_key.left_gui {mod_key_bits += 8};
+        if macro_key.right_ctrl {mod_key_bits += 16};
+        if macro_key.right_shift {mod_key_bits += 32};
+        if macro_key.right_alt {mod_key_bits += 64};
+        if macro_key.right_gui {mod_key_bits += 128};
+        s_values.insert(format!("macro_{:02x}", trigger_key_id), format!("{:02x}{:02x}", mod_key_bits, media_key_id));
+    }
+
+    // Media Key
+    for (trigger_key_id, media_key_id) in media_key_map.iter() {
+        s_values.insert(format!("media_{:02x}", trigger_key_id), format!("{:04x}", media_key_id));
     }
 
     let _r = render_template_file(in_path, out_path, &s_values, &e_choices)?;

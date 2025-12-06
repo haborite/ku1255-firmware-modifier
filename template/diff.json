@@ -4850,99 +4850,99 @@
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m01/0000}      "
+      "code": "    DW           0x${s/macro_e8/0000} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m02/0104}      "
+      "code": "    DW           0x${s/macro_e9/0104} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m03/0204}      "
+      "code": "    DW           0x${s/macro_ea/0204} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m04/2004}      "
+      "code": "    DW           0x${s/macro_eb/2004} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m05/0404}      "
+      "code": "    DW           0x${s/macro_ec/0404} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m06/0505}      "
+      "code": "    DW           0x${s/macro_ed/0505} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m07/0606}      "
+      "code": "    DW           0x${s/macro_ee/0606} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m08/0707}      "
+      "code": "    DW           0x${s/macro_ef/0707} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m09/0808}      "
+      "code": "    DW           0x${s/macro_f0/0808} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m10/0909}      "
+      "code": "    DW           0x${s/macro_f1/0909} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m11/0a0a}      "
+      "code": "    DW           0x${s/macro_f2/0a0a} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m12/0b00}      "
+      "code": "    DW           0x${s/macro_f3/0b00} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m13/0c00}      "
+      "code": "    DW           0x${s/macro_f4/0c00} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m14/0d00}      "
+      "code": "    DW           0x${s/macro_f5/0d00} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m15/0e00}      "
+      "code": "    DW           0x${s/macro_f6/0e00} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m16/0f00}      "
+      "code": "    DW           0x${s/macro_f7/0f00} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m17/1004}      "
+      "code": "    DW           0x${s/macro_f8/1004} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m18/1100}      "
+      "code": "    DW           0x${s/macro_f9/1100} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m19/1200}      "
+      "code": "    DW           0x${s/macro_fa/1200} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m20/2004}      "
+      "code": "    DW           0x${s/macro_fb/2004} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m21/4004}      "
+      "code": "    DW           0x${s/macro_fc/4004} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m22/8004}      "
+      "code": "    DW           0x${s/macro_fd/8004} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m23/e000}      "
+      "code": "    DW           0x${s/macro_fe/e000} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m24/ff00}      "
+      "code": "    DW           0x${s/macro_ff/ff00} "
     },
     {
       "op": "insert",
@@ -5046,47 +5046,47 @@
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/c01/00e2}      "
+      "code": "    DW           0x${s/media_d5/00e2} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/c02/00ea}      "
+      "code": "    DW           0x${s/media_d6/00ea} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/c03/00e9}      "
+      "code": "    DW           0x${s/media_d7/00e9} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/c04/0070}      "
+      "code": "    DW           0x${s/media_d8/0070} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/c05/006f}      "
+      "code": "    DW           0x${s/media_d9/006f} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/c06/0030}      "
+      "code": "    DW           0x${s/media_da/0030} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/c07/0031}      "
+      "code": "    DW           0x${s/media_db/0031} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/c08/0032}      "
+      "code": "    DW           0x${s/media_dc/0032} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/c09/0033}      "
+      "code": "    DW           0x${s/media_dd/0033} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/c10/0034}      "
+      "code": "    DW           0x${s/media_de/0034} "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/c11/0000}      "
+      "code": "    DW           0x${s/media_df/0000} "
     },
     {
       "op": "insert",

@@ -1,15 +1,15 @@
 use dioxus::prelude::*;
-use std::collections::HashMap;
-use crate::models::KeyLabel;
+use std::collections::BTreeMap;
+use crate::models::{GeneralSeitting, KeyLabel};
 use std::rc::Rc;
+use std::sync::Arc;
 
 #[component]
 pub fn Popup(
+    general_setting: Arc<GeneralSeitting>,
     selected_address: Signal<Option<u32>>,
-    id_list: Vec<u8>,
-    usage_names: Vec<String>,
-    id_layout: Signal<HashMap<u32, u8>>,
-    map_key_label: HashMap::<u8, KeyLabel>,
+    id_layout: Signal<BTreeMap<u32, u8>>,
+    map_key_label: BTreeMap::<u8, KeyLabel>,
 ) -> Element {
 
     let mut input_ref = use_signal::<Option<Rc<MountedData>>>(|| None);
@@ -23,7 +23,6 @@ pub fn Popup(
 
     rsx! {
         { if let Some(key_address) = selected_address() {
-            // let selected_id = use_signal(|| id_layout().get(&selected_address().unwrap_or(0)).copied().unwrap_or(0));
             let selected_id = id_layout().get(&selected_address().unwrap_or(0)).copied().unwrap_or(0);
             rsx! {
                 div {
@@ -49,13 +48,13 @@ pub fn Popup(
                                 selected_address.set(None);
                             },
                             {
-                                id_list.into_iter().enumerate().map(|(idx, kid)|{
-                                    let (label, style) = match map_key_label.get(&kid) {
+                                general_setting.avail_hid_usage_names.iter().map(|(key_id, usage_name)|{
+                                    let (label, style) = match map_key_label.get(&key_id) {
                                         None => ("".to_string(), "text-gray-700".to_string()),
                                         Some(ks) => {
                                             if ks.default == "" {
                                                 (
-                                                    format!("{{ {:02X}: {} }}", kid, usage_names[idx]),
+                                                    format!("{{ {:02X}: {} }}", key_id, usage_name),
                                                     "text-gray-400".to_string()
                                                 )                                                
                                             } else { 
@@ -73,11 +72,11 @@ pub fn Popup(
                                             }
                                         },
                                     };
-                                    let selected_flag = if kid == selected_id {true} else {false};
+                                    let selected_flag = if *key_id == selected_id {true} else {false};
                                     rsx!(
                                         option {
                                             class: style,
-                                            value: kid,
+                                            value: *key_id,
                                             label: label,
                                             selected: selected_flag,
                                         }

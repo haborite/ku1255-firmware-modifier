@@ -1,13 +1,14 @@
 use dioxus::prelude::*;
-use crate::models::{Board, LogicalLayout, KeyLabel};
-use std::collections::HashMap;
+use std::sync::Arc;
+use crate::models::{Board, GeneralSeitting, KeyLabel, LogicalLayout};
+use std::collections::BTreeMap;
 
 #[component]
 pub fn SelectBoard(
+    general_setting: Arc<GeneralSeitting>,
     selected_board_name: Signal<String>,
     selected_logical_layout_name: Signal<String>,
     selected_board: Memo<Board>,
-    boards: Vec<Board>,
 ) -> Element {
     rsx!{
         select {
@@ -19,7 +20,7 @@ pub fn SelectBoard(
                 selected_board_name.set(evt.value());
                 selected_logical_layout_name.set(selected_board().default_logical_layout_name);
             },
-            { boards.iter().map(|b|{
+            { general_setting.avail_boards.iter().map(|b|{
                 rsx!(option { value: b.board_name.clone(), label: b.board_label.clone() })
             })}
         }
@@ -28,9 +29,9 @@ pub fn SelectBoard(
 
 #[component]
 pub fn SelectLogicalLayout(
+    general_setting: Arc<GeneralSeitting>,
     selected_logical_layout_name: Signal<String>,
     selected_logical_layout: Memo<LogicalLayout>,
-    logical_layouts: Vec<LogicalLayout>,
 ) -> Element {
     rsx!{
         select {
@@ -44,7 +45,7 @@ pub fn SelectLogicalLayout(
             onchange: move |evt| {
                 selected_logical_layout_name.set(evt.value());
             },
-            { logical_layouts.iter().map(|l|{
+            { general_setting.avail_logical_layouts.iter().map(|l|{
                 rsx!(option { value: l.layout_name.clone(), label: l.layout_label.clone() })
             })}
         }
@@ -55,10 +56,9 @@ pub fn SelectLogicalLayout(
 
 #[component]
 pub fn SelectFnID(
-    id_list: Vec<u8>,
-    usage_names: Vec<String>,
+    general_setting: Arc<GeneralSeitting>,
     fn_id: Signal<u8>,
-    map_key_label: HashMap::<u8, KeyLabel>,
+    map_key_label: BTreeMap::<u8, KeyLabel>,
 ) -> Element {
     rsx!{
         div {
@@ -73,13 +73,13 @@ pub fn SelectFnID(
                     fn_id.set(new_id);
                 },
                 {
-                    id_list.into_iter().enumerate().map(|(idx, kid)|{
-                        let (label, style) = match map_key_label.get(&kid) {
+                    general_setting.avail_hid_usage_names.iter().map(|(key_id, usage_name)|{
+                        let (label, style) = match map_key_label.get(&key_id) {
                             None => ("".to_string(), "text-gray-700".to_string()),
                             Some(ks) => {
                                 if ks.default == "" {
                                     (
-                                        format!("{{ {:02X}: {} }}", kid, usage_names[idx]),
+                                        format!("{{ {:02X}: {} }}", key_id, usage_name),
                                         "text-gray-400".to_string()
                                     )                                                
                                 } else { 
@@ -97,11 +97,11 @@ pub fn SelectFnID(
                                 }
                             },
                         };
-                        let selected_flag = if kid == fn_id() {true} else {false};
+                        let selected_flag = if *key_id == fn_id() {true} else {false};
                         rsx!(
                             option {
                                 class: style,
-                                value: kid,
+                                value: *key_id,
                                 label: label,
                                 selected: selected_flag,
                             }
