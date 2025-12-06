@@ -55,14 +55,20 @@ pub fn Keyboard(
 
                             if let Some(kid) = id_opt {
                                 let border_color = match kid {
-                                    0   => "border-gray-500",
-                                    231 => "border-rose-300",
-                                    _   => { if kid == id_opt_org.unwrap() {""} else { if layer_number == 0 {"border-sky-300"} else {"border-green-300"}}}
+                                    0        => "border-gray-500",
+                                    1..213   => if kid == id_opt_org.unwrap() {""} else { "border-sky-300" }
+                                    213..224 => if kid == id_opt_org.unwrap() {""} else { "border-violet-300" }
+                                    224..231 => if kid == id_opt_org.unwrap() {""} else { "border-sky-300" }
+                                    231      => "border-rose-300",
+                                    _        => if kid == id_opt_org.unwrap() {""} else { "border-green-300" }
                                 };
                                 let text_color = match kid {
-                                    0   => "text-gray-500",
-                                    231 => "text-rose-300",
-                                    _   => { if kid == id_opt_org.unwrap() {""} else { if layer_number == 0 {"text-sky-300"} else {"text-green-300"}}}
+                                    0        => "text-gray-500",
+                                    1..213   => if kid == id_opt_org.unwrap() {""} else { "text-sky-300" }
+                                    213..224 => if kid == id_opt_org.unwrap() {""} else { "text-violet-300" }
+                                    224..231 => if kid == id_opt_org.unwrap() {""} else { "text-sky-300" }
+                                    231      => "text-rose-300",
+                                    _        => if kid == id_opt_org.unwrap() {""} else { "text-green-300" }
                                 };
                                 rsx! {
                                     button {
