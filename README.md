@@ -46,16 +46,25 @@ Since all modifications are written directly to the keyboard's firmware, **no sy
    - This layer is disabled by default because the Mod key isn’t initially mapped in the Main Layer.
    - The Mod key must be assigned in both Main and 2nd layers at the same position.
 
-5. **TrackPoint Speed**  
+5. **Macro Keys**
+   Create key macros consisting of combinations of Ctrl, Shift, Alt, and Win keys (up to 24 macros).
+
+6. **Media Keys**
+   Configure media keys such as volume control and display brightness (up to 11 functions).
+
+7. **TrackPoint Speed**  
    Set the trackpoint speed (default: 1). This has nothing to do with Lenovo driver settings or OS mouse settings. It is better to adjust these two settings first before modifying this firmware.
 
-6. **Load config**  
+8. **Fn / Media Trigger**
+   Assign Fn-key functionality in addition to the original behavior of any selected key.
+
+9. **Load config**  
    Load a previously saved keymap from a `.json` file.
 
-7. **Save config**  
+10. **Save config**  
    Save the current keymap to a `.json` file.
 
-8. **Install firmware**  
+11. **Install firmware**  
    Flash the current configuration to the keyboard.  
    Make sure the keyboard is plugged in before proceeding.  
    After installation, unplug and reconnect the keyboard to apply the changes.
