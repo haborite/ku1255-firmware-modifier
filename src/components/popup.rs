@@ -7,10 +7,14 @@ use std::sync::Arc;
 #[component]
 pub fn Popup(
     general_setting: Arc<GeneralSeitting>,
+    layer_number: u8,
     selected_address: Signal<Option<u32>>,
-    id_layout: Signal<BTreeMap<u32, u8>>,
+    id_layout_l0: Signal<BTreeMap<u32, u8>>,
+    id_layout_l1: Signal<BTreeMap<u32, u8>>,
     map_key_label: BTreeMap::<u8, KeyLabel>,
 ) -> Element {
+
+    let mut id_layout = { if layer_number == 0 { id_layout_l0 } else { id_layout_l1 } };
 
     let mut input_ref = use_signal::<Option<Rc<MountedData>>>(|| None);
     use_effect(move || {
@@ -42,9 +46,12 @@ pub fn Popup(
                             value: selected_id,
                             onchange: move |evt| {
                                 let new_id: u8 = evt.value().clone().parse().unwrap();
-                                let mut id_layout_clone = id_layout().clone();
-                                id_layout_clone.insert(key_address, new_id);
-                                id_layout.set(id_layout_clone);
+                                let mut id_layout_mut = id_layout.write();
+                                id_layout_mut.insert(key_address, new_id);
+                                if (new_id == 231) && (layer_number == 0) {
+                                    let mut id_layout_l1_mut = id_layout_l1.write();
+                                    id_layout_l1_mut.insert(key_address, new_id);
+                                }
                                 selected_address.set(None);
                             },
                             {

@@ -138,6 +138,7 @@ pub fn SelectMacroKeyID(
                 {
                     general_setting.avail_hid_usage_names
                         .iter()
+                        .filter(|(&kid, _name)| {kid < 213})
                         .map(|(&kid, name)| {
                             let (label, class) = match map_key_label.get(&kid) {
                                 Some(ks) if !ks.default.is_empty() => {

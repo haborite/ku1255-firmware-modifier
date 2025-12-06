@@ -8,14 +8,13 @@ use crate::components::Popup;
 pub fn Keyboard(
     general_setting: Arc<GeneralSeitting>,
     layer_number: u8,
-    // id_list: Vec<u8>,
-    // usage_names: Vec<String>,
     board: Board,
     logical_layout: LogicalLayout,
-    id_layout: Signal<BTreeMap<u32, u8>>,
-    // id_layout_original: BTreeMap<u32, u8>,
+    id_layout_l0: Signal<BTreeMap<u32, u8>>,
+    id_layout_l1: Signal<BTreeMap<u32, u8>>,
 ) -> Element {
-    
+
+    let id_layout = { if layer_number == 0 { id_layout_l0 } else { id_layout_l1 } };
     let mut selected_address = use_signal(|| None as Option<u32>);
 
     rsx! {
@@ -34,7 +33,11 @@ pub fn Keyboard(
                             let (id_opt, id_opt_org) = match add_opt {
                                 Some(address) => (
                                     id_layout().get(&address).copied(),
-                                    general_setting.initial_id_map.get(&address).copied()
+                                    if layer_number == 0 {
+                                        general_setting.initial_id_map.get(&address).copied()
+                                    } else {
+                                        id_layout_l0().get(&address).copied()
+                                    }
                                 ),
                                 None => (None, None),
                             };
@@ -100,8 +103,10 @@ pub fn Keyboard(
             }
             Popup {
                 general_setting,
+                layer_number,
                 selected_address,
-                id_layout,
+                id_layout_l0,
+                id_layout_l1,
                 map_key_label: logical_layout.map_key_label,
             }
         }

@@ -169,14 +169,16 @@ pub fn MainWindow(
                             layer_number: 0,
                             board: selected_board().clone(),
                             logical_layout: selected_logical_layout().clone(),
-                            id_layout: id_layout_l0,
+                            id_layout_l0: id_layout_l0,
+                            id_layout_l1: id_layout_l1,
                         }
                         Keyboard {
                             general_setting: general_setting.clone(),
                             layer_number: 1,
                             board: selected_board().clone(),
                             logical_layout: selected_logical_layout().clone(),
-                            id_layout: id_layout_l1,
+                            id_layout_l0: id_layout_l0,
+                            id_layout_l1: id_layout_l1,
                         }
                     }
                     div { class: "flex flex-col gap-4",
