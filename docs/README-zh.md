@@ -34,6 +34,8 @@
 
 ## 🖥️ 界面总览
 
+![Interface Overview](https://github.com/haborite/ku1255-firmware-modifier/blob/main/docs/interface-overview.png)
+
 1. **Keyboard Selection（键盘选择）**
    选择你的键盘型号。美式布局请选择：`0B47190 (84 keys - ANSI)`。
 
@@ -49,16 +51,28 @@
    * 该层**默认禁用**，因为初始状态下主层未映射 Mod 键。
    * **必须在主层与第二层的同一位置同时分配 Mod 键**。
 
-5. **TrackPoint Speed（小红点速度）**
+5. **Macro Keys**  
+   Create key macros consisting of combinations of Ctrl, Shift, Alt, and Win keys (up to 24 macros).
+
+6. **Media Keys**  
+   Configure media keys such as volume control and display brightness (up to 11 functions).
+
+7. **TrackPoint Speed（小红点速度）**  
    设置 TrackPoint 速度（默认值：1）。这与联想驱动或操作系统的鼠标设置**无关**。建议**先**在驱动/系统里完成设置，再来修改固件速度。
 
-6. **Load config（加载配置）**
+8. **Enable middle button click**  
+   Enable middle button click (just like on a standard mouse).
+
+9. **Fn / Media Trigger**  
+   Assign Fn-key functionality in addition to the original behavior of any selected key.
+
+10. **Load config（加载配置）**
    从 `.json` 文件加载已保存的键位映射。
 
-7. **Save config（保存配置）**
+11. **Save config（保存配置）**
    将当前键位映射保存为 `.json` 文件。
 
-8. **Install firmware（安装固件）**
+12. **Install firmware（安装固件）**
    将当前配置刷写到键盘。
    开始前请确保键盘已插入。
    安装完成后，**拔下并重新插入**键盘以使更改生效。
