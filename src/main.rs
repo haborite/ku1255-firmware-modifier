@@ -24,7 +24,7 @@ use components::{
 
 use models::{
     Board, LogicalLayout, GeneralSeitting, MacroKey, 
-    default_fn_id, default_tp_sensitivity, default_macro_key_map, default_media_key_map,
+    default_fn_id, default_tp_sensitivity, default_macro_key_map, default_media_key_map, default_enable_middle_click
 };
 use utils::{load_url, load_or_download_firmware};
 
@@ -101,7 +101,7 @@ pub fn MainWindow(
     let tp_sensitivity = use_signal(default_tp_sensitivity);
     let macro_key_map: Signal<BTreeMap<u8, MacroKey>> = use_signal(default_macro_key_map);
     let media_key_map: Signal<BTreeMap<u8, u16>> = use_signal(default_media_key_map);
-
+    let mut enable_middle_click: Signal<bool> = use_signal(default_enable_middle_click);
 
     rsx! {
         if let Some(msg) = error_msg() {
@@ -137,7 +137,8 @@ pub fn MainWindow(
                             fn_id,
                             tp_sensitivity,
                             macro_key_map,
-                            media_key_map
+                            media_key_map,
+                            enable_middle_click
                         }
                         ButtonSave {
                             selected_board,
@@ -147,7 +148,8 @@ pub fn MainWindow(
                             fn_id,
                             tp_sensitivity,
                             macro_key_map,
-                            media_key_map
+                            media_key_map,
+                            enable_middle_click,
                         }
                         ButtonInstall {
                             id_layout_l0,
@@ -157,6 +159,7 @@ pub fn MainWindow(
                             tp_sensitivity,
                             macro_key_map,
                             media_key_map,
+                            enable_middle_click,
                             error_msg
                         }
                     }
@@ -182,8 +185,26 @@ pub fn MainWindow(
                         }
                     }
                     div { class: "flex flex-col gap-4",
-                        div { class: "bg-black rounded",
-                            SliderTPSensitivity { tp_sensitivity }
+                        div { class: "flex gap-4",
+                            div { class: "bg-black rounded flex flex-1", 
+                                SliderTPSensitivity { tp_sensitivity }
+                            }
+                            div { class: "bg-black rounded flex flex-1",
+                                div { class: "w-full p-6 space-y-6",
+                                    h2 { class: "text-xl font-bold text-center flex-wrap",
+                                        "Enable middle",
+                                        br {},
+                                        "button click",
+                                    }
+                                    div { class: "flex justify-center",
+                                        input {
+                                            r#type: "checkbox",
+                                            checked: enable_middle_click(),
+                                            onchange: move |evt| { enable_middle_click.set(evt.checked()); },
+                                        }
+                                    }
+                                }
+                            }
                         }
                         div { class: "flex flex-col bg-black rounded max-h-[calc(100vh-282px)]",
                             h2 { class: "text-xl font-bold text-center py-2", "Macro keys" },

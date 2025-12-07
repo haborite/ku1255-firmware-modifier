@@ -96,6 +96,8 @@ pub fn default_media_key_map() -> BTreeMap<u8, u16> {
         .collect::<BTreeMap<u8, u16>>()
 }
 
+pub fn default_enable_middle_click() -> bool { false }
+
 #[derive(Serialize, Deserialize, )]
 pub struct Config {
     pub config_version: u32,
@@ -111,6 +113,8 @@ pub struct Config {
     pub macro_key_map: BTreeMap<u8, MacroKey>, 
     #[serde(default = "default_media_key_map")]
     pub media_key_map: BTreeMap<u8, u16>,
+    #[serde(default = "default_enable_middle_click")]
+    pub enable_middle_click: bool,
 }
 
 // Combination Key Mode

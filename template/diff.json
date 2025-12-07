@@ -9213,8 +9213,8 @@
       "from": 2321
     },
     {
-      "op": "copy",
-      "from": 2322
+      "op": "insert",
+      "code": "    MOV          A,  #0x04            "
     },
     {
       "op": "copy",
@@ -13789,8 +13789,8 @@
       "from": 3469
     },
     {
-      "op": "copy",
-      "from": 3470
+      "op": "insert",
+      "code": "    ${e/mclick/B0BSET/B0BCLR} 0x14.5 "
     },
     {
       "op": "copy",

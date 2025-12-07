@@ -33,6 +33,7 @@ pub fn ButtonInstall(
     tp_sensitivity: Signal<u32>,
     macro_key_map: Signal<BTreeMap<u8, MacroKey>>,
     media_key_map: Signal<BTreeMap<u8, u16>>,
+    enable_middle_click: Signal<bool>,
     error_msg: Signal<Option<String>>,
 ) -> Element {
 
@@ -49,6 +50,7 @@ pub fn ButtonInstall(
                         tp_sensitivity,
                         macro_key_map,
                         media_key_map,
+                        enable_middle_click,
                         &mut error_msg,
                     );
                 },
@@ -69,7 +71,7 @@ pub fn ButtonLoad(
     tp_sensitivity: Signal<u32>,
     macro_key_map: Signal<BTreeMap<u8, MacroKey>>,
     media_key_map: Signal<BTreeMap<u8, u16>>,
-
+    enable_middle_click: Signal<bool>,
 ) -> Element {
     rsx! {
         button {
@@ -91,6 +93,7 @@ pub fn ButtonLoad(
                             loaded_tp_sensitivity,
                             loaded_macro_key_map,
                             loaded_media_key_map,
+                            loaded_enable_middle_click
                         )) = load_config(&path) {
                             selected_board_name.set(loaded_board_name);
                             selected_logical_layout_name.set(loaded_logical_layout_name);
@@ -100,6 +103,7 @@ pub fn ButtonLoad(
                             tp_sensitivity.set(loaded_tp_sensitivity);
                             macro_key_map.set(loaded_macro_key_map);
                             media_key_map.set(loaded_media_key_map);
+                            enable_middle_click.set(loaded_enable_middle_click);
                         };
                     },
                     None => println!("file not selected"),
@@ -120,6 +124,7 @@ pub fn ButtonSave(
     tp_sensitivity: ReadOnlySignal<u32>,
     macro_key_map: ReadOnlySignal<BTreeMap<u8, MacroKey>>,
     media_key_map: ReadOnlySignal<BTreeMap<u8, u16>>,
+    enable_middle_click: ReadOnlySignal<bool>,
 ) -> Element {
     rsx! {
         button {
@@ -144,6 +149,7 @@ pub fn ButtonSave(
                             tp_sensitivity(),
                             &macro_key_map(),
                             &media_key_map(),
+                            enable_middle_click(),
                         );
                     },
                     None => println!("Cancel"),

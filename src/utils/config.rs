@@ -11,7 +11,7 @@ use crate::models::{Config, MacroKey};
 
 
 pub fn load_config(filepath: &Path)
-    -> io::Result<(String, String, BTreeMap<u32, u8>, BTreeMap<u32, u8>, u8, u32, BTreeMap<u8, MacroKey>, BTreeMap<u8, u16>)> 
+    -> io::Result<(String, String, BTreeMap<u32, u8>, BTreeMap<u32, u8>, u8, u32, BTreeMap<u8, MacroKey>, BTreeMap<u8, u16>, bool)> 
 {
     let file = File::open(filepath)?;
     let config: Config = from_reader(file)?;
@@ -21,6 +21,7 @@ pub fn load_config(filepath: &Path)
     let tp_sensitivity = config.tp_sensitivity;
     let macro_key_map = config.macro_key_map;
     let media_key_map = config.media_key_map;
+    let enable_middle_click = config.enable_middle_click;
     Ok((
         config.physical_layout_name,
         config.logical_layout_name,
@@ -30,6 +31,7 @@ pub fn load_config(filepath: &Path)
         tp_sensitivity,
         macro_key_map,
         media_key_map,
+        enable_middle_click,
     ))
 }
 
@@ -43,6 +45,7 @@ pub fn save_config(
     tp_sensitivity: u32,
     macro_key_map: &BTreeMap<u8, MacroKey>,
     media_key_map: &BTreeMap<u8, u16>,
+    enable_middle_click: bool,
 ) -> io::Result<()> {
     let layer0: Vec<[u32; 2]> = id_layout_l0.iter()
         .map(|(&key, &value)| [key, value as u32])
@@ -60,6 +63,7 @@ pub fn save_config(
         tp_sensitivity,
         macro_key_map: macro_key_map.clone(),
         media_key_map: media_key_map.clone(),
+        enable_middle_click,
     };
     let file = File::create(filepath)?;
     let writer = BufWriter::new(file);

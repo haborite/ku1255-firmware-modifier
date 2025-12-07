@@ -51,6 +51,7 @@ fn build_mod_fw(
     tp_sensitivity: Signal<u32>,
     macro_key_map: Signal<BTreeMap<u8, MacroKey>>,
     media_key_map: Signal<BTreeMap<u8, u16>>,
+    enable_middle_click: Signal<bool>,
 ) -> Result<(), String> {
 
     let Some(original_binary) = &*firmware_future.read_unchecked() else {
@@ -64,7 +65,7 @@ fn build_mod_fw(
         .map_err(|e| format!("Failed to format ASM: {}", e))?;
     let _r = apply_diff_files(FMT_ASM_PATH, DIFF_PATH, COMMENTS_PATH, TMP_ASM_PATH)
         .map_err(|e| format!("Failed to apply diff: {}", e))?;
-    let _r = modify_asm_file(TMP_ASM_PATH, MOD_ASM_PATH, &layout0(), &layout1(), fn_id(), tp_sensitivity(), &macro_key_map(), &media_key_map())
+    let _r = modify_asm_file(TMP_ASM_PATH, MOD_ASM_PATH, &layout0(), &layout1(), fn_id(), tp_sensitivity(), &macro_key_map(), &media_key_map(), enable_middle_click())
         .map_err(|e| format!("Failed to modify ASM: {}", e))?;
     let _r = run_assn8(MOD_ASM_PATH, MOD_BIN_PATH)
         .map_err(|e| format!("assn8 failed: {}", e))?;
@@ -80,6 +81,7 @@ pub fn install_firmware_by_flashsn8(
     tp_sensitivity: Signal<u32>,
     macro_key_map: Signal<BTreeMap<u8, MacroKey>>,
     media_key_map: Signal<BTreeMap<u8, u16>>,
+    enable_middle_click: Signal<bool>,
     error_msg: &mut Signal<Option<String>>,    
 ) {
     if let Some(msg) = validate_mod_key_position(id_layout_l0, id_layout_l1) {
@@ -87,7 +89,7 @@ pub fn install_firmware_by_flashsn8(
         return;
     }
 
-    let _r = build_mod_fw(firmware_future, id_layout_l0, id_layout_l1, fn_id, tp_sensitivity, macro_key_map, media_key_map).unwrap_or_else(|err| {
+    let _r = build_mod_fw(firmware_future, id_layout_l0, id_layout_l1, fn_id, tp_sensitivity, macro_key_map, media_key_map, enable_middle_click).unwrap_or_else(|err| {
         error_msg.set(Some(format!("Failed to build modified firmware: {}", err)));
         return;
     });
@@ -143,6 +145,7 @@ fn modify_asm_file(
     tp_sensitivity: u32,
     macro_key_map: &BTreeMap<u8, MacroKey>,
     media_key_map: &BTreeMap<u8, u16>,
+    enable_middle_click: bool,
 ) -> io::Result<()> {
 
     // Prepare s_values and e_choices
@@ -199,6 +202,9 @@ fn modify_asm_file(
     for (trigger_key_id, media_key_id) in media_key_map.iter() {
         s_values.insert(format!("media_{:02x}", trigger_key_id), format!("{:04x}", media_key_id));
     }
+
+    // Enable middle click
+    e_choices.insert("mclick".to_string(), if enable_middle_click {1} else {0});
 
     let _r = render_template_file(in_path, out_path, &s_values, &e_choices)?;
     Ok(())
