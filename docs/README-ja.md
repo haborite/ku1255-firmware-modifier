@@ -36,6 +36,8 @@
 
 ## 🖥️ 画面の説明
 
+![Interface Overview](https://github.com/haborite/ku1255-firmware-modifier/blob/main/docs/interface-overview.png)
+
 1. **Keyboard 選択**  
    お使いのキーボードモデルを選択します。日本語版のJIS配列の場合は以下を選択： `0B47208 (89 keys - JIS)`
 

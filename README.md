@@ -38,6 +38,8 @@ Since all modifications are written directly to the keyboard's firmware, **no sy
 
 ## 🖥️ Interface Overview
 
+![Interface Overview](https://github.com/haborite/ku1255-firmware-modifier/blob/main/docs/interface-overview.png)
+
 1. **Keyboard Selection**  
    Choose your keyboard model. For US layout, select: `0B47190 (84 keys - ANSI)`
 
