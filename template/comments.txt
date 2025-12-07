@@ -2026,7 +2026,7 @@
 ;
 ;
 ;
-;
+; [Middle-button 1] Write No operation to disable the auto-scrolling
 ;
 ;
 ; [RETURN POINT FROM TRACKPOINT PROCESS]
@@ -2035,8 +2035,8 @@
 ;; [ tp speed++ ] x4
 ;; [ tp speed++ ] x5
 
-;
-;
+; Related to the auto-scrolling
+; [Middle-button 2] Write No operation to disable the auto-scrolling
 ;
 ; 32points
 ; 0x34 <= 0x32
@@ -2259,11 +2259,11 @@
 ;
 ;
 ;
+; [Middle-button 3] Write No operation to disable the auto-scrolling
 ;
 ;
 ;
-;
-;
+; Related to the auto-scrolling
 ;
 ;
 ;
@@ -5600,7 +5600,7 @@
 
 ;
 ;
-;
+; [Middle-button 4] Write No operation to disable the auto-scrolling
 ;
 ;
 ; write UDR0 0x62 at UDP0 #0x19
