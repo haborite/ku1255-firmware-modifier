@@ -153,7 +153,7 @@ fn modify_asm_file(
     let mut e_choices = HashMap::new();
 
     // Replace Function key ID
-    s_values.insert("fn_key".to_string(), format!("{:02x}", fn_id));
+    s_values.insert("fn_id".to_string(), format!("{:02x}", fn_id));
 
     // Key layout mapping
     let mut map1: BTreeMap<u32, u8> = BTreeMap::new();
