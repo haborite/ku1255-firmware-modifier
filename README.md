@@ -63,16 +63,19 @@ Since all modifications are written directly to the keyboard's firmware, **no sy
 7. **TrackPoint Speed**  
    Set the trackpoint speed (default: 1). This has nothing to do with Lenovo driver settings or OS mouse settings. It is better to adjust these two settings first before modifying this firmware.
 
-8. **Fn / Media Trigger**  
+8. **Enable middle button click**  
+   Enable middle button click (just like on a standard mouse).
+
+9. **Fn / Media Trigger**  
    Assign Fn-key functionality in addition to the original behavior of any selected key.
 
-9. **Load config**  
+10. **Load config**  
    Load a previously saved keymap from a `.json` file.
 
-10. **Save config**  
+11. **Save config**  
    Save the current keymap to a `.json` file.
 
-11. **Install firmware**  
+12. **Install firmware**  
    Flash the current configuration to the keyboard.  
    Make sure the keyboard is plugged in before proceeding.  
    After installation, unplug and reconnect the keyboard to apply the changes.
