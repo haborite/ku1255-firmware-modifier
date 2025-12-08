@@ -40,7 +40,7 @@ impl std::error::Error for TemplateError {}
 /// - `e_choices`: index (0-based) to pick one of the enum choices for `e` type.
 ///
 /// Example placeholders:
-///   ${s/fn_key/af}
+///   ${s/fn_id/af}
 ///   ${e/tp_sp5/NOP/CALL func_07b7}
 pub fn render_template(
     input: &str,
@@ -88,7 +88,7 @@ pub fn render_template(
     Ok(out)
 }
 
-/// Handle one placeholder body, e.g. "s/fn_key/af" or "e/tp_sp5/NOP/CALL func_07b7"
+/// Handle one placeholder body, e.g. "s/fn_id/af" or "e/tp_sp5/NOP/CALL func_07b7"
 fn render_placeholder(
     inner: &str,
     s_values: &HashMap<String, String>,
@@ -113,7 +113,7 @@ fn render_placeholder(
             }
         }
         "e" => {
-            // e / <name> / choice0 / choice1 / ...
+            // e / <name> / choice0 (default) / choice1 / ...
             if parts.len() < 4 {
                 return Err(TemplateError::InvalidFormat(format!(
                     "Enum placeholder '{}' must have at least one choice",
