@@ -64,7 +64,7 @@ Since all modifications are written directly to the keyboard's firmware, **no sy
    Set the trackpoint speed (default: 1). This has nothing to do with Lenovo driver settings or OS mouse settings. It is better to adjust these two settings first before modifying this firmware.
 
 8. **Enable middle button click**  
-   Enable middle button click (just like on a standard mouse).
+   Enable middle button click (just like on a standard mouse) even with the official driver on MS Windows.
 
 9. **Fn / Media Trigger**  
    Assign Fn-key functionality in addition to the original behavior of any selected key.

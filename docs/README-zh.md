@@ -61,7 +61,7 @@
    设置 TrackPoint 速度（默认值：1）。这与联想驱动或操作系统的鼠标设置**无关**。建议**先**在驱动/系统里完成设置，再来修改固件速度。
 
 8. **Enable middle button click**  
-   Enable middle button click (just like on a standard mouse).
+   Enable middle button click (just like on a standard mouse) even with the official driver on MS Windows.
 
 9. **Fn / Media Trigger**  
    Assign Fn-key functionality in addition to the original behavior of any selected key.
