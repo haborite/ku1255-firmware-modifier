@@ -9,7 +9,6 @@ pub enum TemplateError {
     EmptyPlaceholder(usize),
     InvalidFormat(String),
     UnknownKind(String),
-    MissingEnumChoice { name: String },
     EnumIndexOutOfRange { name: String, idx: usize, len: usize },
 }
 
@@ -24,9 +23,6 @@ impl std::fmt::Display for TemplateError {
             }
             TemplateError::InvalidFormat(msg) => write!(f, "Invalid placeholder format: {}", msg),
             TemplateError::UnknownKind(k) => write!(f, "Unknown placeholder kind: {}", k),
-            TemplateError::MissingEnumChoice { name } => {
-                write!(f, "Enum choice index not provided for '{}'", name)
-            }
             TemplateError::EnumIndexOutOfRange { name, idx, len } => write!(
                 f,
                 "Enum index {} for '{}' out of range (choices = {})",
@@ -125,17 +121,15 @@ fn render_placeholder(
                 )));
             }
             let choices: Vec<&str> = parts[2..].to_vec();
-            let idx = e_choices
-                .get(&name)
-                .ok_or_else(|| TemplateError::MissingEnumChoice { name: name.clone() })?;
-            if *idx >= choices.len() {
+            let idx = e_choices.get(&name).copied().unwrap_or(0);
+            if idx >= choices.len() {
                 return Err(TemplateError::EnumIndexOutOfRange {
                     name,
-                    idx: *idx,
+                    idx,
                     len: choices.len(),
                 });
             }
-            Ok(choices[*idx].to_string())
+            Ok(choices[idx].to_string())
         }
         other => Err(TemplateError::UnknownKind(other.to_string())),
     }
