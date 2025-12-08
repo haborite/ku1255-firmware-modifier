@@ -1233,30 +1233,30 @@
 ; <- Macro - |
 ; <- Macro - |
 ; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
 
 ; <- Custom Consumer key - |
 ; <- Custom Consumer key - |
@@ -1269,11 +1269,11 @@
 ; <- Custom Consumer key - |
 ; <- Custom Consumer key - |
 ; <- Custom Consumer key - |
-; <- Custom Consumer key - |
-; <- Custom Consumer key - |
-; <- Custom Consumer key - |
-; <- Custom Consumer key - |
-; <- Custom Consumer key - |
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
+; <- Currently not used
 
 ; <- Media key - | 0455 | F1c  0x21 = E2, 0x22 = 00
 ; <- Media key - | 0456 | F2c  0x21 = EA, 0x22 = 00
