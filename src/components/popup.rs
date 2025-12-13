@@ -1,16 +1,25 @@
+use crate::models::{Config, ConfigStoreExt, GeneralSeitting};
 use dioxus::prelude::*;
-use std::collections::HashMap;
-use crate::models::{KeyLabel, UserConfig, KeyboardSpec};
 use std::rc::Rc;
+use std::sync::Arc;
 
 #[component]
 pub fn Popup(
+    general_setting: Arc<GeneralSeitting>,
+    config: Store<Config>,
     layer_number: u8,
-    user_config: Signal<UserConfig>,
-    keyboard_spec: ReadOnlySignal<KeyboardSpec>,
     selected_address: Signal<Option<u32>>,
-    map_key_label: ReadOnlySignal<HashMap::<u8, KeyLabel>>,
+    // id_layout_l0: Signal<BTreeMap<u32, u8>>,
+    // id_layout_l1: Signal<BTreeMap<u32, u8>>,
+    // map_key_label: BTreeMap::<u8, KeyLabel>,
 ) -> Element {
+    let mut id_layout = {
+        if layer_number == 0 {
+            config.layer0()
+        } else {
+            config.layer1()
+        }
+    };
 
     let mut input_ref = use_signal::<Option<Rc<MountedData>>>(|| None);
     use_effect(move || {
@@ -21,81 +30,105 @@ pub fn Popup(
         }
     });
 
-    let id_layout = user_config.read().get_id_layout(layer_number).clone();
-    let avail_hid_usage_names = keyboard_spec.read().avail_hid_usage_names.clone();
-    let key_labels = map_key_label();
-
-    rsx! {
-        { if let Some(key_address) = selected_address() {
-            let selected_id = id_layout.get(&selected_address().unwrap_or(0)).copied().unwrap_or(0);
-            rsx! {
+    if let Some(key_address) = selected_address() {
+        let selected_id = id_layout()
+            .get(&selected_address().unwrap_or(0))
+            .copied()
+            .unwrap_or(0);
+        rsx! {
+            div {
+                class: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50",
+                id: "overlay",
                 div {
-                    class: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50",
-                    id: "overlay",                    
-                    div { 
-                        class: "bg-white p-6 rounded-lg shadow-lg w-80",
-                        label {
-                            onmounted: move |cx| {input_ref.set(Some(cx.data()))},
-                            class: "block mb-2 text-sm font-medium text-gray-700",
-                            r#for: "options",
-                            "Select a key to be assigned for {key_address}: "
-                        }
-                        select {
-                            class: "w-full p-2 border border-gray-300 rounded mb-4 text-gray-700",
-                            id: "options",
-                            value: selected_id,
-                            onchange: move |evt| {
-                                let new_id: u8 = evt.value().clone().parse().unwrap();
-                                user_config.write().update_layer(layer_number, key_address, new_id);
-                                // let new_id: u8 = evt.value().clone().parse().unwrap();
-                                // let mut id_layout_clone = id_layout().clone();
-                                // id_layout_clone.insert(key_address, new_id);
-                                // id_layout.set(id_layout_clone);
-                                selected_address.set(None);
-                            },
-                            {
-                                avail_hid_usage_names
-                                    .iter()
-                                    .map(|(&kid, name)| {
-                                        let (label, class) = match key_labels.get(&kid) {
-                                            Some(ks) if !ks.default.is_empty() => {
-                                                let label = if ks.shifted.is_empty() {
-                                                    ks.default.clone()
-                                                } else {
-                                                    format!("{} and {}", ks.default, ks.shifted)
-                                                };
-                                                (label, "text-gray-700")
-                                            }
-                                            _ => (
-                                                format!("{{ {:02X}: {} }}", kid, name),
-                                                "text-gray-400",
-                                            ),
-                                        };
-
-                                        rsx! {
-                                            option {
-                                                class: class,
-                                                value: kid,
-                                                label: label,
-                                                selected: kid == selected_id,
+                    class: "bg-white p-6 rounded-lg shadow-lg w-80",
+                    label {
+                        onmounted: move |cx| {input_ref.set(Some(cx.data()))},
+                        class: "block mb-2 text-sm font-medium text-gray-700",
+                        r#for: "options",
+                        "Select a key to be assigned for {key_address}: "
+                    }
+                    select {
+                        class: "w-full p-2 border border-gray-300 rounded mb-4 text-gray-700",
+                        id: "options",
+                        value: selected_id,
+                        onchange: move |evt| {
+                            let new_id: u8 = evt.value().parse().unwrap();
+                            id_layout.insert(key_address, new_id);
+                            if (new_id == 231) && (layer_number == 0) {
+                                config.layer1().insert(key_address, new_id);
+                            }
+                            selected_address.set(None);
+                        },
+                        {
+                            general_setting.avail_hid_usage_names.iter().map(|(key_id, usage_name)|{
+                                let (label, style) = match config.read().logical_layout(&general_setting).map_key_label.get(&key_id) {
+                                    None => ("".to_string(), "text-gray-700".to_string()),
+                                    Some(ks) => {
+                                        if ks.default == "" {
+                                            (
+                                                format!("{{ {:02X}: {} }}", key_id, usage_name),
+                                                "text-gray-400".to_string()
+                                            )
+                                        } else {
+                                            if ks.shifted == "" {
+                                                (
+                                                    format!("{}", ks.default),
+                                                    "text-gray-700".to_string()
+                                                )
+                                            } else {
+                                                (
+                                                    format!("{} and {}", ks.default, ks.shifted),
+                                                    "text-gray-700".to_string()
+                                                )
                                             }
                                         }
-                                    })
-                            }
+                                    },
+                                };
+                                let selected_flag = if *key_id == selected_id {true} else {false};
+                                rsx!(
+                                    option {
+                                        class: style,
+                                        value: *key_id,
+                                        label: label,
+                                        selected: selected_flag,
+                                    }
+                                )
+                            })
                         }
-                        button {
-                            class: "w-full bg-red-600 text-white py-2 rounded hover:bg-red-700",
-                            id: "submitBtn",
-                            onclick: move |_evt| {
-                                selected_address.set(None);
-                            },
-                            "Cancel"
-                        }
+                    }
+                    button {
+                        class: "w-full bg-red-600 text-white py-2 rounded hover:bg-red-700",
+                        id: "submitBtn",
+                        onclick: move |_evt| {
+                            selected_address.set(None);
+                        },
+                        "Cancel"
                     }
                 }
             }
-        } else {
-            rsx!{}
-        }}
+        }
+    } else {
+        rsx! {}
     }
 }
+
+/*
+
+#[component]
+fn KeyOption(
+    style: String,
+    key_id: u8,
+    label: String,
+    selected_flag: bool,
+) -> Element {
+    rsx!(
+        option {
+            class: style,
+            value: key_id,
+            label: label,
+            selected: selected_flag,
+        }
+    )
+}
+
+    */

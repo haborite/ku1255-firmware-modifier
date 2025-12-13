@@ -212,17 +212,17 @@ D1,Keypad Memory Recall,,8B
 D2,Keypad Memory Clear,740a6,88
 D3,Keypad Memory Add,,89
 D4,Keypad Memory Subtract,74094,8E
-D5,App 01,,8F
-D6,App 02,,8C
-D7,App 03,,8D
-D8,App 04,,82
-D9,App 05,,83
-DA,App 06,,80
-DB,App 07,,81
-DC,App 08,,86
-DD,App 09,,87
-DE,App 10,,84
-DF,App 11,,85
+D5,Media 01,,8F
+D6,Media 02,,8C
+D7,Media 03,,8D
+D8,Media 04,,82
+D9,Media 05,,83
+DA,Media 06,,80
+DB,Media 07,,81
+DC,Media 08,,86
+DD,Media 09,,87
+DE,Media 10,,84
+DF,Media 11,,85
 E0,LeftControl,74004,BA
 E1,LeftShift,74070,BB
 E2,LeftAlt,74092,B8

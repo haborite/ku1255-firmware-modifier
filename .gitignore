@@ -24,3 +24,4 @@ deploy
 python-*-embed-*
 __pycache__
 .venv*
+public/tailwind.css

@@ -6,12 +6,14 @@ mod popup;
 mod messages;
 mod macro_key;
 mod media_key;
+mod checkbox;
 
 pub use keyboard::Keyboard;
-pub use selects::{SelectPhysicalLayout, SelectLogicalLayout, SelectFnKeyID};
+pub use selects::{SelectBoard, SelectLogicalLayout, SelectFnID};
 pub use sliders::SliderTPSensitivity;
-pub use buttons::{ButtonInstall, ButtonLoad, ButtonSave};
+pub use buttons::{ButtonCopyLayer, ButtonInstall, ButtonLoad, ButtonSave};
 pub use popup::Popup;
 pub use messages::ErrorMessage;
 pub use macro_key::MacroKeySetting;
 pub use media_key::MediaKeySetting;
+pub use checkbox::EnableMiddleClick;

@@ -1,8 +1,12 @@
-mod firmware;
-pub use firmware::*;
+pub mod firmware;
 
-mod template;
-mod diff;
-mod format;
-mod commands;
-mod installer;
+pub mod commands;
+
+pub mod mod_asm;
+
+pub mod template;
+pub mod diff;
+pub mod format;
+
+pub mod lenovo_fw_installer;
+pub use lenovo_fw_installer::*;

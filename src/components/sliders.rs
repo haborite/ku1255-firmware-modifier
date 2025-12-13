@@ -1,9 +1,9 @@
 use dioxus::prelude::*;
-use crate::models::UserConfig;
+use crate::models::Config;
 
 #[component]
 pub fn SliderTPSensitivity(
-    user_config: Signal<UserConfig>
+    config: Store<Config>,
 ) -> Element {
     rsx! (
         div {
@@ -18,17 +18,17 @@ pub fn SliderTPSensitivity(
                         min: 1,
                         max: 5,
                         step: 1,
-                        value: user_config.read().tp_sensitivity,
+                        value: config.read().tp_sensitivity,
                         onchange: move |evt| {
-                            let new_tp_sensitivity = u32::from_str_radix(&evt.value(), 10).unwrap();
-                            user_config.write().update_tp_sensitivity(new_tp_sensitivity);
+                            let new_sensitivity = u32::from_str_radix(&evt.value(), 10).unwrap();
+                            config.write().update_tp_sensitivity(new_sensitivity);
                         },
                     },
                 },
                 span {
                     class: "text-xl w-24 text-center",
                     {
-                        let n = user_config.read().tp_sensitivity;
+                        let n = config.read().tp_sensitivity;
                         match n {
                             1 => "1 (default)".to_string(),
                             _ => n.to_string()

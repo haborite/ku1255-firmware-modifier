@@ -212,17 +212,17 @@ D1,,
 D2,,
 D3,,
 D4,,
-D5,a01,App
-D6,a02,App
-D7,a03,App
-D8,a04,App
-D9,a05,App
-DA,a06,App
-DB,a07,App
-DC,a08,App
-DD,a09,App
-DE,a10,App
-DF,a11,App
+D5,Media 01,
+D6,Media 02,
+D7,Media 03,
+D8,Media 04,
+D9,Media 05,
+DA,Media 06,
+DB,Media 07,
+DC,Media 08,
+DD,Media 09,
+DE,Media 10,
+DF,Media 11,
 E0,LCtrl,
 E1,LShift,
 E2,LAlt,
@@ -231,27 +231,27 @@ E4,RCtrl,
 E5,RShift,
 E6,RAlt,
 E7,Mod,
-E8,m01,Macro
-E9,m02,Macro
-EA,m03,Macro
-EB,m04,Macro
-EC,m05,Macro
-ED,m06,Macro
-EE,m07,Macro
-EF,m08,Macro
-F0,m09,Macro
-F1,m10,Macro
-F2,m11,Macro
-F3,m12,Macro
-F4,m13,Macro
-F5,m14,Macro
-F6,m15,Macro
-F7,m16,Macro
-F8,m17,Macro
-F9,m18,Macro
-FA,m19,Macro
-FB,m20,Macro
-FC,m21,Macro
-FD,m22,Macro
-FE,m23,Macro
-FF,m24,Macro
+E8,Macro 01,
+E9,Macro 02,
+EA,Macro 03,
+EB,Macro 04,
+EC,Macro 05,
+ED,Macro 06,
+EE,Macro 07,
+EF,Macro 08,
+F0,Macro 09,
+F1,Macro 10,
+F2,Macro 11,
+F3,Macro 12,
+F4,Macro 13,
+F5,Macro 14,
+F6,Macro 15,
+F7,Macro 16,
+F8,Macro 17,
+F9,Macro 18,
+FA,Macro 19,
+FB,Macro 20,
+FC,Macro 21,
+FD,Macro 22,
+FE,Macro 23,
+FF,Macro 24,

@@ -450,7 +450,7 @@ class ProgressApp(QWidget):
         original_fw_path=None,
     ):
         super().__init__()
-        self.setWindowTitle("SN8 Flasher GUI")
+        self.setWindowTitle("KU-1255 Firmware Installer")
         self.warning_label = QLabel("Make sure that the keyboard is plugged in.")
         self.warning_label.setStyleSheet("color: black; font-weight: bold;")
         self.warning_label.setWordWrap(True)

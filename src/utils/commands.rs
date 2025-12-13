@@ -55,11 +55,11 @@ pub fn run_assn8(fw_asm_path: &str, out_bin_path: &str) -> std::io::Result<()> {
     Ok(())
 }
 
-pub fn run_flashsn8_gui(fw_bin_path: &str) -> std::io::Result<()> {
+pub fn run_flashsn8_gui(fw_bin_path: &str, fw_org_path: &str) -> std::io::Result<()> {
     // let python_path = get_python_path()?;
     let sn8tool_path = get_sn8tool_path()?;
     let status = Command::new(sn8tool_path)
-        .args(["flashsn8-gui", fw_bin_path])
+        .args(["flashsn8-gui", fw_bin_path, "-o", fw_org_path])
         .status()?;
     if !status.success() {
         eprintln!("flashsn8-gui failed with {:?}", status);

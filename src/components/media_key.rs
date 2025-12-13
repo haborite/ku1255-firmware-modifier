@@ -1,31 +1,34 @@
 use dioxus::prelude::*;
-use crate::models::{KeyboardSpec, UserConfig};
+use std::sync::Arc;
+use crate::models::{Config, ConfigStoreExt, GeneralSeitting};
 
 /// Application Key Setting Component
-/// Receives:
-/// id_list: Vec<u8>: Key ID list
-/// usage_names: Vec<String>: Usage names corresponding to key IDs
-/// trigger_ids: Vec<u8>: Trigger key IDs for application keys
-/// application_keys: HashMap<u8, ApplicationKey>: How key ids (u8) are converted to application keys
-/// List of slect box for application key
 #[component]
 pub fn MediaKeySetting(
-    keyboard_spec: ReadOnlySignal<KeyboardSpec>,
-    user_config: Signal<UserConfig>
+    general_setting: Arc<GeneralSeitting>,
+    config: Store<Config>,
+    // media_key_map: Signal<BTreeMap<u8, u16>>,
 ) -> Element {
+    let media_key_map = config.media_key_map();
     rsx! {
         div {
             class: "flex flex-col space-y-4",
             {
-                user_config.read().media_key_map.keys().map(|&trigger_key_id| {
+                media_key_map().iter().map(|(trigger_key_id, media_key_id)| {
+                    let label = format!("Media {:02}", trigger_key_id - 212);
                     rsx!(
                         div {
-                            class: "flex items-center space-x-4",
-                            label {
-                                class: "w-32",
-                                r#for: format!("Trigger Key ID: {:02X}", trigger_key_id)
+                            class: "flex gap-4 py-2",
+                            span {
+                                class: "text-sm font-semibold text-right whitespace-nowrap",
+                                {label}
+                            },
+                            SelectMediaKeyID {
+                                general_setting: general_setting.clone(),
+                                config,
+                                trigger_key_id: *trigger_key_id,
+                                media_key_id: *media_key_id,
                             }
-                            SelectAppKeyID { trigger_key_id, keyboard_spec, user_config }
                         }
                     )
                 })
@@ -35,24 +38,37 @@ pub fn MediaKeySetting(
 }
 
 #[component]
-pub fn SelectAppKeyID(
+pub fn SelectMediaKeyID(
+    general_setting: Arc<GeneralSeitting>,
+    config: Store<Config>,
     trigger_key_id: u8,
-    keyboard_spec: ReadOnlySignal<KeyboardSpec>,
-    user_config: Signal<UserConfig>
+    media_key_id: u16,
+    // media_key_map: Signal<BTreeMap<u8, u16>>,
 ) -> Element {
     rsx!{
         div {
-            class: "w-full max-w-md mx-auto p-6 space-y-6",
-            h2 { class: "text-xl font-bold text-center", "Function key" },
+            class: "min-w-[12rem]",
             select {
-                class: "w-full p-2 border border-gray-300 rounded mb-4 text-gray-700",
+                class: "w-full px-2 py-1 border border-gray-300 rounded text-gray-700 text-sm",
                 id: "options",
-                value: keyboard_spec.read().get_media_key_usage_name(
-                    user_config.read().get_media_key_id(trigger_key_id)
-                ),
+                value: general_setting.avail_media_key_usage_names.get(&media_key_id).unwrap().clone(),
                 onchange: move |evt| {
-                    let new_id: u16 = evt.value().clone().parse().unwrap();
-                    user_config.write().update_media_key_map(trigger_key_id, new_id);
+                    let new_media_key_id: u16 = evt.value().parse().unwrap();
+                    config.write().update_media_key_map(trigger_key_id, new_media_key_id); 
+                },
+                {
+                    general_setting.avail_media_key_usage_names
+                        .iter()
+                        .map(|(&avail_media_key_id, media_key_usage_name)| {
+                            rsx! {
+                                option {
+                                    class: "text-gray-700",
+                                    value: avail_media_key_id,
+                                    label: media_key_usage_name.clone(),
+                                    selected: avail_media_key_id == media_key_id,
+                                }
+                            }
+                        })
                 }
             }
         }

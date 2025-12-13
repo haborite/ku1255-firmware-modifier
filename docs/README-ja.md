@@ -3,7 +3,12 @@
 **[Lenovo ThinkPad Compact USB キーボード with トラックポイント](https://support.lenovo.com/jp/ja/solutions/pd026745-thinkpad-compact-usb-keyboard-with-trackpoint-overview-and-service-parts)**（日本語モデル: **0B47208**）のファームウェアをカスタマイズするためのシンプルなGUIツールです。  
 
 任意のキーを別のキーに割り当て直すことができます。たとえば左下の `Fn` キー位置に `Ctrl` キーを割り当てるといったカスタマイズが可能です。
-さらに、トラックポイントの加速度をLenovo公式ドライバの限界よりも大きな値に設定することも出来ます。
+さらに、以下のより高度な機能を利用することが出来ます。
+- レイヤー機能: Modキーとの同時押しによりキーの種類を変更
+- キーマクロ機能: Ctrl, Shift, Alt, Winキーとの同時押しを単一キーで代替
+- メディアキー: 音量調節や動画再生停止等の特殊なキーの割り当て
+- トラックポイント速度変更: トラックポイントの加速度をLenovo公式ドライバの限界よりも大きな値に設定可能
+
 変更内容はキーボードのファームウェアに直接書き込まれるため、**PC側の設定変更は不要**です。接続するすべてのデバイスやOSで同じレイアウトが反映されます。
 
 ![GUI Overview](https://github.com/haborite/ku1255-firmware-modifier/blob/main/docs/gui-overview.png)
@@ -31,6 +36,8 @@
 
 ## 🖥️ 画面の説明
 
+![Interface Overview](https://github.com/haborite/ku1255-firmware-modifier/blob/main/docs/interface-overview.png)
+
 1. **Keyboard 選択**  
    お使いのキーボードモデルを選択します。日本語版のJIS配列の場合は以下を選択： `0B47208 (89 keys - JIS)`
 
@@ -45,17 +52,32 @@
    - 初期状態ではModキーがMain Layerに存在しないため、このレイヤーは無効です。  
    - Modキーの位置はMain Layerと2nd Layerで同じである必要があります。
 
-5. **TrackPoint Speed**  
+5. **Macro keys**
+   任意のキーを、Ctrl, Shift, Alt, Winキーの組み合わせたキーマクロを作成することが出来ます（最大24種類）。
+   設定したキーマクロ（Macro01 - 24）をMainまたは2nd Layerにマッピング出来ます。
+
+6. **Media keys**  
+   音量やディスプレイの明るさ調整等の機能を担うメディアキーを設定することが出来ます（最大11種類）。
+   設定したメディアキー（Media01 - 11）をMainまたは2nd Layerにマッピング出来ます。
+
+7. **TrackPoint Speed**  
    トラックポイント速度を設定します（デフォルト: 1）。トラックポイント速度を調節する際は、まずはLenovo公式ドライバ設定のポインタ速度およびOSのマウス速度設定を優先することをお勧めします。それらで満足な速度が得られない場合に、このファームウェアカスタマイズを検討してください。
 
-6. **Load config**  
+8. **Enable middle button click**  
+   通常、MS Windows上で公式ドライバを使うと中ボタンクリックが無効化されてスクロール専用アイコンになりますが、
+   このチェックボックスをONにすると、中ボタンクリック判定を有効化します（通常のマウスの中ボタンと同じ挙動になる）。
+
+9. **Fn / Media trigger**  
+   選択したキーに対して（本来の動作に加えて）Fnキーとしての機能も付与することが出来ます。
+
+10. **Load config**  
    `.json` 形式の保存済みキーマップを読み込みます。
 
-7. **Save config**  
+11. **Save config**  
    現在のキーマップを `.json` ファイルとして保存します。
 
 
-8. **Install firmware**  
+12. **Install firmware**  
    現在の設定をキーボードに書き込みます。  
    書き込み前にキーボードが接続されていることを確認してください。  
    書き込み後にキーボードを一度USBから外し、再接続することで設定が反映されます。
