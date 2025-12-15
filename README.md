@@ -90,6 +90,23 @@ Since all modifications are written directly to the keyboard's firmware, **no sy
 5. After installation finishes, close the installer.
 6. Unplug and reconnect the keyboard. The new keymap will take effect.
 
+## Limitation of combination keys
+
+The key matrix of KU-1255 is shown below (written in the logical layout of US ANSI).
+When pressing three keys at once, if one key shares both the row and column with the other two, the last pressed key is not be recognized (to prevent ghost key).
+This comes purely from the physical key matrix limitation. Thus there is nothing we can do from the firmware or driver.
+
+| col1 | col2 | col3 | col4 | col5 | col6 | col7 | col8 | col9 | col10 | col11 | col12 | col13 | col14 | col15 | col16 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| ` and ~ | F1 | F2 | 5 | 6 | = and + | F8 | - | F9 |  | Home |  | Del | Left Ctrl |  |  |
+| 1 | 2 | 3 | 4 | 7 | 8 | 9 | 0 | F10 | End | F11 | F12 | Insert |  |  |  |
+| TAB | CapsLock | F3 | T | Y | ] and } | F7 | [ and { | BackSpace |  |  | Left Win |  |  | Left Shift |  |
+| Q | W | E | R | U | I | O | P | International3 |  |  |  |  |  |  |  |
+| A | S | D | F | J | K | L | ; and : |  | Fn |  |  | PrtSc |  |  |  |
+| Esc |  | F4 | G | H | F6 | International4 | ' and " | F5 | ↑ |  |  |  |  |  | Left Alt |
+| Z | X | C | V | M | , | . | NonーUS # and ~ | Enter |  |  |  | PgUp | Rigth Ctrl | Right Shift |  |
+| International5 |  |  | B | N | International1 | International2 | / and ? | Space | ← | ↓ | → | PgDn |  |  | Right Alt |
+
 ---
 
 # Acknowledgements
@@ -101,6 +118,7 @@ The reffered table of Usage IDs and names
 
 The app is designed to be extendable to support keyboards for various languages.  
 Contributions to add keyboards for your own language are very welcome!
+
 
 
 
