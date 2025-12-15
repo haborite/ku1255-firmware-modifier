@@ -90,7 +90,7 @@ Since all modifications are written directly to the keyboard's firmware, **no sy
 5. After installation finishes, close the installer.
 6. Unplug and reconnect the keyboard. The new keymap will take effect.
 
-## Limitation of combination keys
+## ⚠️ Limitation of combination keys
 
 The key matrix of KU-1255 is shown below (written in the logical layout of US ANSI).
 When pressing three keys at once, if one key shares both the row and column with the other two, the last pressed key is not be recognized (to prevent ghost key).
@@ -118,6 +118,7 @@ The reffered table of Usage IDs and names
 
 The app is designed to be extendable to support keyboards for various languages.  
 Contributions to add keyboards for your own language are very welcome!
+
 
 
 
