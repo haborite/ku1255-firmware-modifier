@@ -92,6 +92,24 @@
 5. インストールが完了したらインストーラーを閉じます
 6. キーボードをUSBから一度取り外し、再接続すると新しい設定が有効になります
 
+## ⚠️ 同時押し制限
+
+KU-1255の電気配線上のキーマトリクスは下表の通りです（ANSI論理配列表記で記述しています）.
+３つのキーを同時押しした際に、もしそのうち一つのキーの列・行がともに他の２キーと重複する場合, 最後に押したキーは認識されなくなります (ゴーストキーを防ぐため）。
+この制限は純粋に物理的な電気配線上の制約であり、ファームウェアを含むソフトウェア側からこの制限に対して出来ることはありません.
+
+| col1 | col2 | col3 | col4 | col5 | col6 | col7 | col8 | col9 | col10 | col11 | col12 | col13 | col14 | col15 | col16 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| ` and ~ | F1 | F2 | 5 | 6 | = and + | F8 | - | F9 |  | Home |  | Del | Left Ctrl |  |  |
+| 1 | 2 | 3 | 4 | 7 | 8 | 9 | 0 | F10 | End | F11 | F12 | Insert |  |  |  |
+| TAB | CapsLock | F3 | T | Y | ] and } | F7 | [ and { | BackSpace |  |  | Left Win |  |  | Left Shift |  |
+| Q | W | E | R | U | I | O | P | International3 |  |  |  |  |  |  |  |
+| A | S | D | F | J | K | L | ; and : |  | Fn |  |  | PrtSc |  |  |  |
+| Esc |  | F4 | G | H | F6 | International4 | ' and " | F5 | ↑ |  |  |  |  |  | Left Alt |
+| Z | X | C | V | M | , | . | NonーUS # and ~ | Enter |  |  |  | PgUp | Rigth Ctrl | Right Shift |  |
+| International5 |  |  | B | N | International1 | International2 | / and ? | Space | ← | ↓ | → | PgDn |  |  | Right Alt |
+
+
 ---
 
 # 謝辞
