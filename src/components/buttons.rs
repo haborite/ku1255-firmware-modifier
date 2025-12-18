@@ -36,26 +36,23 @@ pub fn ButtonInstall(
     enable_middle_click: Signal<bool>,
     error_msg: Signal<Option<String>>,
 ) -> Element {
-
     rsx! {
-        div { class: "relative inline-flex",
-            button {
-                class: "px-4 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600",
-                onclick: move |_| {
-                    install_firmware_by_flashsn8(
-                        id_layout_l0,
-                        id_layout_l1,
-                        firmware_future,
-                        fn_id,
-                        tp_sensitivity,
-                        macro_key_map,
-                        media_key_map,
-                        enable_middle_click,
-                        &mut error_msg,
-                    );
-                },
-                "Install firmware"              
-            }
+        button {
+            class: "px-4 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600",
+            onclick: move |_| {
+                install_firmware_by_flashsn8(
+                    id_layout_l0,
+                    id_layout_l1,
+                    firmware_future,
+                    fn_id,
+                    tp_sensitivity,
+                    macro_key_map,
+                    media_key_map,
+                    enable_middle_click,
+                    &mut error_msg,
+                );
+            },
+            "Install firmware"              
         }
     }
 }
@@ -116,15 +113,15 @@ pub fn ButtonLoad(
 
 #[component]
 pub fn ButtonSave(
-    selected_board: ReadOnlySignal<Board>,
+    selected_board: ReadSignal<Board>,
     selected_logical_layout: Memo<LogicalLayout>,
-    id_layout_l0: ReadOnlySignal<BTreeMap<u32, u8>>,
-    id_layout_l1: ReadOnlySignal<BTreeMap<u32, u8>>,
-    fn_id: ReadOnlySignal<u8>,
-    tp_sensitivity: ReadOnlySignal<u32>,
-    macro_key_map: ReadOnlySignal<BTreeMap<u8, MacroKey>>,
-    media_key_map: ReadOnlySignal<BTreeMap<u8, u16>>,
-    enable_middle_click: ReadOnlySignal<bool>,
+    id_layout_l0: ReadSignal<BTreeMap<u32, u8>>,
+    id_layout_l1: ReadSignal<BTreeMap<u32, u8>>,
+    fn_id: ReadSignal<u8>,
+    tp_sensitivity: ReadSignal<u32>,
+    macro_key_map: ReadSignal<BTreeMap<u8, MacroKey>>,
+    media_key_map: ReadSignal<BTreeMap<u8, u16>>,
+    enable_middle_click: ReadSignal<bool>,
 ) -> Element {
     rsx! {
         button {

@@ -9,11 +9,12 @@ pub fn MediaKeySetting(
     general_setting: Arc<GeneralSeitting>,
     media_key_map: Signal<BTreeMap<u8, u16>>,
 ) -> Element {
+    let media_key_map_read = media_key_map.read();
     rsx! {
         div {
             class: "flex flex-col space-y-4",
             {
-                media_key_map().iter().map(|(trigger_key_id, media_key_id)| {
+                media_key_map_read.iter().map(|(trigger_key_id, media_key_id)| {
                     let label = format!("Media {:02}", trigger_key_id - 212);
                     rsx!(
                         div {

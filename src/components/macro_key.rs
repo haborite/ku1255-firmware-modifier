@@ -13,11 +13,12 @@ pub fn MacroKeySetting(
     map_key_label: BTreeMap<u8, KeyLabel>,
     macro_key_map: Signal<BTreeMap<u8, MacroKey>>,
 ) -> Element {
+    let macro_key_map_read = macro_key_map.read();
     rsx! {
         div {
             class: "flex flex-col space-y-2",
             {
-                macro_key_map().keys().map(|&trigger_id| {
+                macro_key_map_read.keys().map(|&trigger_id| {
                     let label = format!("Macro {:02}", trigger_id - 231);
                     rsx!(
                         div { class: "flex gap-4 py-2",
@@ -138,7 +139,7 @@ pub fn SelectMacroKeyID(
                 {
                     general_setting.avail_hid_usage_names
                         .iter()
-                        .filter(|(&kid, _name)| {kid < 213})
+                        .filter(|&(&kid, ref _name)| {kid < 213})
                         .map(|(&kid, name)| {
                             let (label, class) = match map_key_label.get(&kid) {
                                 Some(ks) if !ks.default.is_empty() => {

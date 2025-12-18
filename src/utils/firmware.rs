@@ -1,5 +1,5 @@
 use std::collections::{HashMap, BTreeMap};
-use dioxus::prelude::{Signal, Resource, Readable, Writable};
+use dioxus::prelude::{Signal, Resource, ReadableExt, WritableExt};
 use std::fs;
 use std::path::{Path};
 use std::io;
