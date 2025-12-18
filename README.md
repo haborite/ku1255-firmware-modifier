@@ -102,7 +102,7 @@ When pressing three keys at once, if one key shares both the row and column with
 | TAB | CapsLock | F3 | T | Y | ] and } | F7 | [ and { | BackSpace |  |  | Left Win |  |  | Left Shift |  |
 | Q | W | E | R | U | I | O | P | International3 |  |  |  |  |  |  |  |
 | A | S | D | F | J | K | L | ; and : |  | Fn |  |  | PrtSc |  |  |  |
-| Esc |  | F4 | G | H | F6 | International4 | ' and " | F5 | ↑ |  |  |  |  |  | Left Alt |
+| Esc | NonーUS \ | F4 | G | H | F6 | International4 | ' and " | F5 | ↑ |  |  |  |  |  | Left Alt |
 | Z | X | C | V | M | , | . | NonーUS # and ~ | Enter |  |  |  | PgUp | Rigth Ctrl | Right Shift |  |
 | International5 |  |  | B | N | International1 | International2 | / and ? | Space | ← | ↓ | → | PgDn |  |  | Right Alt |
 
@@ -117,6 +117,7 @@ The reffered table of Usage IDs and names
 
 The app is designed to be extendable to support keyboards for various languages.  
 Contributions to add keyboards for your own language are very welcome!
+
 
 
 
