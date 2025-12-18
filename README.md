@@ -95,16 +95,24 @@ Since all modifications are written directly to the keyboard's firmware, **no sy
 The key matrix of KU-1255 is shown below (written in the logical layout of US ANSI).
 When pressing three keys at once, if one key shares both the row and column with the other two, the last pressed key is not be recognized (to prevent ghost key).
 
-| col1 | col2 | col3 | col4 | col5 | col6 | col7 | col8 | col9 | col10 | col11 | col12 | col13 | col14 | col15 | col16 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| ` and ~ | F1 | F2 | 5 | 6 | = and + | F8 | - | F9 |  | Home |  | Del | Left Ctrl |  |  |
-| 1 | 2 | 3 | 4 | 7 | 8 | 9 | 0 | F10 | End | F11 | F12 | Insert |  |  |  |
-| TAB | CapsLock | F3 | T | Y | ] and } | F7 | [ and { | BackSpace |  |  | Left Win |  |  | Left Shift |  |
-| Q | W | E | R | U | I | O | P | International3 |  |  |  |  |  |  |  |
-| A | S | D | F | J | K | L | ; and : |  | Fn |  |  | PrtSc |  |  |  |
-| Esc | NonーUS \ | F4 | G | H | F6 | International4 | ' and " | F5 | ↑ |  |  |  |  |  | Left Alt |
-| Z | X | C | V | M | , | . | NonーUS # and ~ | Enter |  |  |  | PgUp | Rigth Ctrl | Right Shift |  |
-| International5 |  |  | B | N | International1 | International2 | / and ? | Space | ← | ↓ | → | PgDn |  |  | Right Alt |
+|  | P1.0 | P1.1 | P1.2 | P1.3 | P1.4 | P1.5 | P1.6 | P1.7 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| P0.3 | UP | (none) | (none) | END | FN | PAUSE | LEFT | KP\_MEMSTORE |
+| P0.4 | (none) | HOME | (none) | F11 | (none) | (none) | DOWN | (none) |
+| P0.5 | F5 | F9 | INTERNATIONAL3 | F10 | BACKSLASH | RETURN | SPACE | BACKSPACE |
+| P0.6 | (none) | DELETE | (none) | INSERT | PRINTSCREEN | PAGEUP | PAGEDOWN | (none) |
+| P2.0 | F4 | F2 | E | 3 | D | C | (none) | F3 |
+| P2.1 | H | 6 | U | 7 | J | M | N | Y |
+| P2.2 | ESCAPE | GRAVE | Q | 1 | A | Z | INTERNATIONAL5 | TAB |
+| P2.3 | (none) | (none) | (none) | (none) | (none) | RSHIFT | (none) | LSHIFT |
+| P4.0 | NONUSBACKSLASH | F1 | W | 2 | S | X | (none) | CAPSLOCK |
+| P4.1 | G | 5 | R | 4 | F | V | B | T |
+| P4.2 | INTERNATIONAL4 | F8 | O | 9 | L | PERIOD | INTERNATIONAL2 | F7 |
+| P4.3 | APOSTROPHE | MINUS | P | 0 | SEMICOLON | NONUSHASH | SLASH | LEFTBRACKET |
+| P4.4 | F6 | EQUALS | I | 8 | K | COMMA | INTERNATIONAL1 | RIGHTBRACKET |
+| P4.5 | (none) | LCTRL | (none) | (none) | (none) | RCTRL | (none) | (none) |
+| P4.6 | LALT | KP\_MEMSUBTRACT | (none) | (none) | (none) | (none) | RALT | (none) |
+| P4.7 | (none) | (none) | KP\_MEMCLEAR | F12 | (none) | (none) | RIGHT | LGUI |
 
 ---
 
@@ -117,6 +125,7 @@ The reffered table of Usage IDs and names
 
 The app is designed to be extendable to support keyboards for various languages.  
 Contributions to add keyboards for your own language are very welcome!
+
 
 
 
