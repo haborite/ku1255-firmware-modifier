@@ -460,25 +460,25 @@
 ; <- Key matrix mask 16 for P0.6 - |
 
 
+;; Load 8-bit mask
+;; Save 8-bit mask to 0x07
 ;; Set waiting time (14 times)
 ;; Delay function
 ;; Read column buffer values (P0.0-0.7)
 ;; Convert active-low to be active-high
-;
-;
-;
-;
-;
-;
-;
-;; Store at RAM. RAM[0x0100 + 0] = columns
-;; Increment Z value
+;; Mask the read column buffer values
+;; Save the masked raw bits to 0x08
 ;; 
+;; Get Z val of RAM address where the row bits to be saved
+;; A: masked raw bits
+;; Store at RAM. RAM[0x0100 + 0] = columns
+;; 
+;; Increment Z val
 ;;
 
 ; Key-scanning
 ; Y = #0x01
-; Z = #0x00
+; Z = #0x86
 ; ---------- [row 7] Set port 2.2 to be output mode.
 ; Set port 2.2 buffer low
 ;;

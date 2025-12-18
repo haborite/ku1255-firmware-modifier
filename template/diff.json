@@ -1854,59 +1854,59 @@
     },
     {
       "op": "insert",
-      "code": "    MOV          A,     #0x0e         "
+      "code": "    MOVC                              "
     },
     {
       "op": "insert",
-      "code": "    CALL         func_0140            "
+      "code": "    MOV          0x07,  A             "
+    },
+    {
+      "op": "copy",
+      "from": 450
+    },
+    {
+      "op": "copy",
+      "from": 451
+    },
+    {
+      "op": "copy",
+      "from": 452
+    },
+    {
+      "op": "copy",
+      "from": 453
     },
     {
       "op": "insert",
-      "code": "    B0MOV        A,     P1            "
+      "code": "    AND          A,     0x07          "
     },
     {
       "op": "insert",
-      "code": "    XOR          A,     #0xff         "
+      "code": "    MOV          0x08,  A             "
     },
     {
       "op": "insert",
-      "code": "    NOP"
+      "code": "    MOV          A,     #0x7a         "
     },
     {
       "op": "insert",
-      "code": "    NOP"
+      "code": "    ADD          Z,     A             "
     },
     {
       "op": "insert",
-      "code": "    NOP"
+      "code": "    MOV          A,     0x08          "
+    },
+    {
+      "op": "copy",
+      "from": 454
     },
     {
       "op": "insert",
-      "code": "    NOP"
+      "code": "    MOV          A,     #0x87         "
     },
     {
       "op": "insert",
-      "code": "    NOP"
-    },
-    {
-      "op": "insert",
-      "code": "    NOP"
-    },
-    {
-      "op": "insert",
-      "code": "    NOP"
-    },
-    {
-      "op": "insert",
-      "code": "    B0MOV        @YZ,   A             "
-    },
-    {
-      "op": "insert",
-      "code": "    INCMS        Z                    "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
+      "code": "    ADD          Z,     A             "
     },
     {
       "op": "insert",
@@ -1921,20 +1921,20 @@
       "code": "key_scan:                             "
     },
     {
-      "op": "copy",
-      "from": 446
+      "op": "insert",
+      "code": "    B0MOV        Y,     #0x01         "
     },
     {
-      "op": "copy",
-      "from": 447
+      "op": "insert",
+      "code": "    B0MOV        Z,     #0x86         "
     },
     {
-      "op": "copy",
-      "from": 448
+      "op": "insert",
+      "code": "    B0BSET       P2M.2                "
     },
     {
-      "op": "copy",
-      "from": 449
+      "op": "insert",
+      "code": "    B0BCLR       P2.2                 "
     },
     {
       "op": "insert",
