@@ -478,15 +478,15 @@
 
 ; Key-scanning
 ; Y = #0x01
-; Z = #0x86
+; Z = #0x86 (for ROM, not RAM)
 ; ---------- [row 7] Set port 2.2 to be output mode.
 ; Set port 2.2 buffer low
-;;
+;; Read row and store in Y = #0x01, Z = #0x00
 ; Set port 2.2 buffer high
 ; Set port 2.2 to be input mode.
 ; ---------- [row 5] Set port 2.0 to be output mode.
 ; Set port 2.0 buffer low
-;; 
+;; Read row and store in Y = #0x01, Z = #0x01
 ; Set port 2.0 buffer high
 ; Set port 2.0 to be input mode.
 ; ---------- [row 9] P4.0 
@@ -567,10 +567,10 @@
 ; Z = 0x00 + row_i -> RAM[0x0100 + row_i]
 ; A = column bit pattern of row_i (8-bit)
 ; Save current row pattern into 0x09
-; save x to R             ;; CALL         func_0475            ; Count number of set bits (popcount) -> result stored in 0x0a.
-; A = x - 1               ;; MOV          A,     #0x01         ; A = 1
-; A = x & (x - 1)         ;; SUB          A,     0x0a          ; A = 1 - popcount
-; if Z==1 => <=1 set bits ;; B0BTS0       FC                   ; If popcount >= 2, borrow occurs -> FC = 0
+; save x to R
+; A = x - 1
+; A = x & (x - 1)
+; if Z==1 => <=1 set bits
 ; If popcount <= 1 (single or no key), skip comparison and go to next row
 ; popcount >= 2 -> initialize secondary row index (row_j++)
 ;
@@ -585,7 +585,7 @@
 ; A = x & (x - 1)
 ; if Z==1 => <=1 set bits
 ; If one or zero, continue scanning other rows
-; If two or more, suspicious pattern detected
+; JMP func_0186_00df ; If two or more, suspicious pattern detected
 
 ; === Advance to next row_j ===
 ; row_j++
@@ -605,7 +605,7 @@
 ; A = 14 - row_i
 ; Check if row_i <= 14
 ; Continue scanning remaining rows
-; === Common cleanup after abnormal handling ===
+;func_0186_00d7:                       ; === Common cleanup after abnormal handling ===
 ; Clear working registers 0x09, 0x0a, 0x0b, 0x0c
 ; Clear abnormal-processing flag
 ; Reset row_i index
@@ -615,54 +615,54 @@
 ; Reset bit-processing counter
 ; Resume normal key change processing
 
-; === Ghosting workaround: pattern case 1 ===
-;
-;
-; A = row_i pattern
-; Save row_i pattern into R
-;
-; A = row_j pattern
-; Compare row_i and row_j
-; If not equal, try next pattern
-;
-; Check for pattern 1100_0000
-;
-; Keep only MSB (1000_0000)
-;
-; Mask row_i pattern
-; Cleanup and exit abnormal handling
+; func_0186_00df:                       ; === Ghosting workaround: pattern case 1 ===
+;    B0MOV        Y,     #0x01         ; 
+;    B0MOV        Z,     #0x09         ; S9 row (P2.3): Row of LShift(1.7) and RShift(1.5)
+;    B0MOV        A,     @YZ           ; A = row_i pattern
+;    B0MOV        R,     A             ; Save row_i pattern into R
+;    B0MOV        Z,     #0x0d         ; S13 row (P4.7): Row of LGUI(1.7), Right(1.6), F12(1.3), KP_MEMCLEAR(1.2)
+;    B0MOV        A,     @YZ           ; A = row_j pattern
+;    CMPRS        A,     R             ; Compare row_i and row_j
+;    JMP          func_0186_00ee       ; If not equal, try next pattern
+;    B0MOV        A,     R             ;
+;    CMPRS        A,     #0xc0         ; Check for pattern 1100_0000
+;    JMP          func_0186_00ee       ;
+;    AND          A,     #0x80         ; Keep only MSB (1000_0000)
+;    B0MOV        Z,     #0x09         ;
+;    B0MOV        @YZ,   A             ; Mask row_i pattern
+;    JMP          func_0186_00d7       ; Cleanup and exit abnormal handling
 
-; === Ghosting workaround: pattern case 2 ===
-;
-;
-; A = row_j pattern
-;
-;
-; A = row_i pattern
-;
-;
-;
-; Check for pattern 1000_1000
-;
-; Keep only MSB
-;
-;
+;func_0186_00ee:                       ; === Ghosting workaround: pattern case 2 ===
+;    B0MOV        Y,     #0x01         ;
+;    B0MOV        Z,     #0x0d         ; S13 row (P4.7): Row of LGUI(1.7), Right(1.6), F12(1.3), KP_MEMCLEAR(1.2)
+;    B0MOV        A,     @YZ           ; A = row_j pattern
+;    B0MOV        R,     A             ;
+;    B0MOV        Z,     #0x09         ; S9 row (P2.3): Row of LShift(1.7) and RShift(1.5)
+;    B0MOV        A,     @YZ           ; A = row_i pattern
+;    CMPRS        A,     R             ;
+;    JMP          func_0186_00fc       ;
+;    B0MOV        A,     R             ;
+;    CMPRS        A,     #0x88         ; Check for pattern 1000_1000
+;    JMP          func_0186_00fc       ;
+;    AND          A,     #0x80         ; Keep only MSB
+;    B0MOV        @YZ,   A             ;
+;    JMP          func_0186_00d7       ;
 
-; === Ghosting workaround: pattern case 3 ===
-;
-;
-; A = row_j pattern
-;
-;
-; A = another row pattern
-;
-;
-;
-; Check for pattern 1100_0000
-;
-; Keep bit 0100_0000 only
-;
-;
+;func_0186_00fc:                       ; === Ghosting workaround: pattern case 3 ===
+;    B0MOV        Y,     #0x01         ;
+;    B0MOV        Z,     #0x0d         ; S13 row (P4.7): Row of LGUI(1.7), Right(1.6), F12(1.3), KP_MEMCLEAR(1.2)
+;    B0MOV        A,     @YZ           ; A = row_j pattern
+;    B0MOV        R,     A             ;
+;    B0MOV        Z,     #0x0c         ; S12 row (P4.6): Row of RALT(1.6), LALT(1.0), KP_MEMSUBTACT(1.1)
+;    B0MOV        A,     @YZ           ; A = another row pattern
+;    CMPRS        A,     R             ;
+;    JMP          func_0186_010a       ;
+;    B0MOV        A,     R             ;
+;    CMPRS        A,     #0xc0         ; Check for pattern 1100_0000
+;    JMP          func_0186_010a       ;
+;    AND          A,     #0x40         ; Keep bit 0100_0000 only
+;    B0MOV        @YZ,   A             ;
+;    JMP          func_0186_00d7       ;
 
 ; === Unrecoverable ghosting -> full reset ===
 ; Check if reset already performed
@@ -1315,7 +1315,7 @@
 ; func_0475:                          ;; === Popcount of 8-bit value in 0x09 (Replacable by a smart bit trick) ===
 ;;    CLR          0x0a                 ; Clear popcount accumulator
 ;;    B0MOV        Y,     #0x04         ; Clear popcount accumulator
-;;    B0MOV        Z,     #0x65         ; #0x65 (+0) (Real +0x05a0 = 0x0a05)
+;;    B0MOV        Z,     6565         ; #0x65 (+0) (Real +0x05a0 = 0x0a05)
 ;;    MOV          A,     0x09          ; Base address of 4-bit popcount table
 ;;    AND          A,     #0x0f         ; Extract lower nibble
 ;;    ADD          Z,     A             ; Z = table_base + low_nibble
