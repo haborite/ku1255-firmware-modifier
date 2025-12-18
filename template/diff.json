@@ -1061,8 +1061,8 @@
       "from": 264
     },
     {
-      "op": "copy",
-      "from": 265
+      "op": "insert",
+      "code": "    CALL         key_scan             "
     },
     {
       "op": "copy",
@@ -1781,8 +1781,144 @@
       "from": 444
     },
     {
-      "op": "copy",
-      "from": 445
+      "op": "insert",
+      "code": "    DW           0x${s/km00/00ff}     "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/km01/00bf}     "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/km02/00bf}     "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/km03/0022}     "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/km04/00ff}     "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/km05/00ff}     "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/km06/00ff}     "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/km07/00ff}     "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/km08/00ff}     "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/km09/00a0}     "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/km0a/00ff}     "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/km0b/004a}     "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/km0c/0043}     "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/km0d/00cc}     "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/km0e/00f9}     "
+    },
+    {
+      "op": "insert",
+      "code": "    DW           0x${s/km0f/007a}     "
+    },
+    {
+      "op": "insert",
+      "code": ""
+    },
+    {
+      "op": "insert",
+      "code": "read_row:"
+    },
+    {
+      "op": "insert",
+      "code": "    MOV          A,     #0x0e         "
+    },
+    {
+      "op": "insert",
+      "code": "    CALL         func_0140            "
+    },
+    {
+      "op": "insert",
+      "code": "    B0MOV        A,     P1            "
+    },
+    {
+      "op": "insert",
+      "code": "    XOR          A,     #0xff         "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP"
+    },
+    {
+      "op": "insert",
+      "code": "    NOP"
+    },
+    {
+      "op": "insert",
+      "code": "    NOP"
+    },
+    {
+      "op": "insert",
+      "code": "    NOP"
+    },
+    {
+      "op": "insert",
+      "code": "    NOP"
+    },
+    {
+      "op": "insert",
+      "code": "    NOP"
+    },
+    {
+      "op": "insert",
+      "code": "    NOP"
+    },
+    {
+      "op": "insert",
+      "code": "    B0MOV        @YZ,   A             "
+    },
+    {
+      "op": "insert",
+      "code": "    INCMS        Z                    "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    RET                               "
+    },
+    {
+      "op": "insert",
+      "code": ""
+    },
+    {
+      "op": "insert",
+      "code": "key_scan:                             "
     },
     {
       "op": "copy",
@@ -1801,24 +1937,8 @@
       "from": 449
     },
     {
-      "op": "copy",
-      "from": 450
-    },
-    {
-      "op": "copy",
-      "from": 451
-    },
-    {
-      "op": "copy",
-      "from": 452
-    },
-    {
-      "op": "copy",
-      "from": 453
-    },
-    {
-      "op": "copy",
-      "from": 454
+      "op": "insert",
+      "code": "    CALL         read_row             "
     },
     {
       "op": "copy",
@@ -1830,14 +1950,6 @@
     },
     {
       "op": "copy",
-      "from": 457
-    },
-    {
-      "op": "copy",
-      "from": 458
-    },
-    {
-      "op": "copy",
       "from": 459
     },
     {
@@ -1845,24 +1957,8 @@
       "from": 460
     },
     {
-      "op": "copy",
-      "from": 461
-    },
-    {
-      "op": "copy",
-      "from": 462
-    },
-    {
-      "op": "copy",
-      "from": 463
-    },
-    {
-      "op": "copy",
-      "from": 464
-    },
-    {
-      "op": "copy",
-      "from": 465
+      "op": "insert",
+      "code": "    CALL         read_row             "
     },
     {
       "op": "copy",
@@ -1874,14 +1970,6 @@
     },
     {
       "op": "copy",
-      "from": 468
-    },
-    {
-      "op": "copy",
-      "from": 469
-    },
-    {
-      "op": "copy",
       "from": 470
     },
     {
@@ -1889,24 +1977,8 @@
       "from": 471
     },
     {
-      "op": "copy",
-      "from": 472
-    },
-    {
-      "op": "copy",
-      "from": 473
-    },
-    {
-      "op": "copy",
-      "from": 474
-    },
-    {
-      "op": "copy",
-      "from": 475
-    },
-    {
-      "op": "copy",
-      "from": 476
+      "op": "insert",
+      "code": "    CALL         read_row             "
     },
     {
       "op": "copy",
@@ -1918,14 +1990,6 @@
     },
     {
       "op": "copy",
-      "from": 479
-    },
-    {
-      "op": "copy",
-      "from": 480
-    },
-    {
-      "op": "copy",
       "from": 481
     },
     {
@@ -1933,24 +1997,8 @@
       "from": 482
     },
     {
-      "op": "copy",
-      "from": 483
-    },
-    {
-      "op": "copy",
-      "from": 484
-    },
-    {
-      "op": "copy",
-      "from": 485
-    },
-    {
-      "op": "copy",
-      "from": 486
-    },
-    {
-      "op": "copy",
-      "from": 487
+      "op": "insert",
+      "code": "    CALL         read_row             "
     },
     {
       "op": "copy",
@@ -1962,14 +2010,6 @@
     },
     {
       "op": "copy",
-      "from": 490
-    },
-    {
-      "op": "copy",
-      "from": 491
-    },
-    {
-      "op": "copy",
       "from": 492
     },
     {
@@ -1977,24 +2017,8 @@
       "from": 493
     },
     {
-      "op": "copy",
-      "from": 494
-    },
-    {
-      "op": "copy",
-      "from": 495
-    },
-    {
-      "op": "copy",
-      "from": 496
-    },
-    {
-      "op": "copy",
-      "from": 497
-    },
-    {
-      "op": "copy",
-      "from": 498
+      "op": "insert",
+      "code": "    CALL         read_row             "
     },
     {
       "op": "copy",
@@ -2006,14 +2030,6 @@
     },
     {
       "op": "copy",
-      "from": 501
-    },
-    {
-      "op": "copy",
-      "from": 502
-    },
-    {
-      "op": "copy",
       "from": 503
     },
     {
@@ -2021,24 +2037,8 @@
       "from": 504
     },
     {
-      "op": "copy",
-      "from": 505
-    },
-    {
-      "op": "copy",
-      "from": 506
-    },
-    {
-      "op": "copy",
-      "from": 507
-    },
-    {
-      "op": "copy",
-      "from": 508
-    },
-    {
-      "op": "copy",
-      "from": 509
+      "op": "insert",
+      "code": "    CALL         read_row             "
     },
     {
       "op": "copy",
@@ -2050,14 +2050,6 @@
     },
     {
       "op": "copy",
-      "from": 512
-    },
-    {
-      "op": "copy",
-      "from": 513
-    },
-    {
-      "op": "copy",
       "from": 514
     },
     {
@@ -2065,24 +2057,8 @@
       "from": 515
     },
     {
-      "op": "copy",
-      "from": 516
-    },
-    {
-      "op": "copy",
-      "from": 517
-    },
-    {
-      "op": "copy",
-      "from": 518
-    },
-    {
-      "op": "copy",
-      "from": 519
-    },
-    {
-      "op": "copy",
-      "from": 520
+      "op": "insert",
+      "code": "    CALL         read_row             "
     },
     {
       "op": "copy",
@@ -2094,14 +2070,6 @@
     },
     {
       "op": "copy",
-      "from": 523
-    },
-    {
-      "op": "copy",
-      "from": 524
-    },
-    {
-      "op": "copy",
       "from": 525
     },
     {
@@ -2109,24 +2077,8 @@
       "from": 526
     },
     {
-      "op": "copy",
-      "from": 527
-    },
-    {
-      "op": "copy",
-      "from": 528
-    },
-    {
-      "op": "copy",
-      "from": 529
-    },
-    {
-      "op": "copy",
-      "from": 530
-    },
-    {
-      "op": "copy",
-      "from": 531
+      "op": "insert",
+      "code": "    CALL         read_row             "
     },
     {
       "op": "copy",
@@ -2138,14 +2090,6 @@
     },
     {
       "op": "copy",
-      "from": 534
-    },
-    {
-      "op": "copy",
-      "from": 535
-    },
-    {
-      "op": "copy",
       "from": 536
     },
     {
@@ -2153,24 +2097,8 @@
       "from": 537
     },
     {
-      "op": "copy",
-      "from": 538
-    },
-    {
-      "op": "copy",
-      "from": 539
-    },
-    {
-      "op": "copy",
-      "from": 540
-    },
-    {
-      "op": "copy",
-      "from": 541
-    },
-    {
-      "op": "copy",
-      "from": 542
+      "op": "insert",
+      "code": "    CALL         read_row             "
     },
     {
       "op": "copy",
@@ -2182,14 +2110,6 @@
     },
     {
       "op": "copy",
-      "from": 545
-    },
-    {
-      "op": "copy",
-      "from": 546
-    },
-    {
-      "op": "copy",
       "from": 547
     },
     {
@@ -2197,24 +2117,8 @@
       "from": 548
     },
     {
-      "op": "copy",
-      "from": 549
-    },
-    {
-      "op": "copy",
-      "from": 550
-    },
-    {
-      "op": "copy",
-      "from": 551
-    },
-    {
-      "op": "copy",
-      "from": 552
-    },
-    {
-      "op": "copy",
-      "from": 553
+      "op": "insert",
+      "code": "    CALL         read_row             "
     },
     {
       "op": "copy",
@@ -2226,14 +2130,6 @@
     },
     {
       "op": "copy",
-      "from": 556
-    },
-    {
-      "op": "copy",
-      "from": 557
-    },
-    {
-      "op": "copy",
       "from": 558
     },
     {
@@ -2241,24 +2137,8 @@
       "from": 559
     },
     {
-      "op": "copy",
-      "from": 560
-    },
-    {
-      "op": "copy",
-      "from": 561
-    },
-    {
-      "op": "copy",
-      "from": 562
-    },
-    {
-      "op": "copy",
-      "from": 563
-    },
-    {
-      "op": "copy",
-      "from": 564
+      "op": "insert",
+      "code": "    CALL         read_row             "
     },
     {
       "op": "copy",
@@ -2270,14 +2150,6 @@
     },
     {
       "op": "copy",
-      "from": 567
-    },
-    {
-      "op": "copy",
-      "from": 568
-    },
-    {
-      "op": "copy",
       "from": 569
     },
     {
@@ -2285,24 +2157,8 @@
       "from": 570
     },
     {
-      "op": "copy",
-      "from": 571
-    },
-    {
-      "op": "copy",
-      "from": 572
-    },
-    {
-      "op": "copy",
-      "from": 573
-    },
-    {
-      "op": "copy",
-      "from": 574
-    },
-    {
-      "op": "copy",
-      "from": 575
+      "op": "insert",
+      "code": "    CALL         read_row             "
     },
     {
       "op": "copy",
@@ -2314,14 +2170,6 @@
     },
     {
       "op": "copy",
-      "from": 578
-    },
-    {
-      "op": "copy",
-      "from": 579
-    },
-    {
-      "op": "copy",
       "from": 580
     },
     {
@@ -2329,24 +2177,8 @@
       "from": 581
     },
     {
-      "op": "copy",
-      "from": 582
-    },
-    {
-      "op": "copy",
-      "from": 583
-    },
-    {
-      "op": "copy",
-      "from": 584
-    },
-    {
-      "op": "copy",
-      "from": 585
-    },
-    {
-      "op": "copy",
-      "from": 586
+      "op": "insert",
+      "code": "    CALL         read_row             "
     },
     {
       "op": "copy",
@@ -2358,14 +2190,6 @@
     },
     {
       "op": "copy",
-      "from": 589
-    },
-    {
-      "op": "copy",
-      "from": 590
-    },
-    {
-      "op": "copy",
       "from": 591
     },
     {
@@ -2373,24 +2197,8 @@
       "from": 592
     },
     {
-      "op": "copy",
-      "from": 593
-    },
-    {
-      "op": "copy",
-      "from": 594
-    },
-    {
-      "op": "copy",
-      "from": 595
-    },
-    {
-      "op": "copy",
-      "from": 596
-    },
-    {
-      "op": "copy",
-      "from": 597
+      "op": "insert",
+      "code": "    CALL         read_row             "
     },
     {
       "op": "copy",
@@ -2402,14 +2210,6 @@
     },
     {
       "op": "copy",
-      "from": 600
-    },
-    {
-      "op": "copy",
-      "from": 601
-    },
-    {
-      "op": "copy",
       "from": 602
     },
     {
@@ -2417,24 +2217,8 @@
       "from": 603
     },
     {
-      "op": "copy",
-      "from": 604
-    },
-    {
-      "op": "copy",
-      "from": 605
-    },
-    {
-      "op": "copy",
-      "from": 606
-    },
-    {
-      "op": "copy",
-      "from": 607
-    },
-    {
-      "op": "copy",
-      "from": 608
+      "op": "insert",
+      "code": "    CALL         read_row             "
     },
     {
       "op": "copy",
@@ -2446,14 +2230,6 @@
     },
     {
       "op": "copy",
-      "from": 611
-    },
-    {
-      "op": "copy",
-      "from": 612
-    },
-    {
-      "op": "copy",
       "from": 613
     },
     {
@@ -2461,24 +2237,8 @@
       "from": 614
     },
     {
-      "op": "copy",
-      "from": 615
-    },
-    {
-      "op": "copy",
-      "from": 616
-    },
-    {
-      "op": "copy",
-      "from": 617
-    },
-    {
-      "op": "copy",
-      "from": 618
-    },
-    {
-      "op": "copy",
-      "from": 619
+      "op": "insert",
+      "code": "    CALL         read_row             "
     },
     {
       "op": "copy",
@@ -2487,14 +2247,6 @@
     {
       "op": "copy",
       "from": 621
-    },
-    {
-      "op": "copy",
-      "from": 622
-    },
-    {
-      "op": "copy",
-      "from": 623
     },
     {
       "op": "copy",
@@ -4334,7 +4086,7 @@
     },
     {
       "op": "insert",
-      "code": "    B0MOV        Z,     #0x15         "
+      "code": "    B0MOV        Z,     #0x25         "
     },
     {
       "op": "insert",
@@ -4495,6 +4247,330 @@
     {
       "op": "copy",
       "from": 1242
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
     },
     {
       "op": "insert",
@@ -4943,70 +5019,6 @@
     {
       "op": "insert",
       "code": "    DW           0x${s/macro_ff/ff00} "
-    },
-    {
-      "op": "insert",
-      "code": "    DW           0x${s/m25/0000}      "
-    },
-    {
-      "op": "insert",
-      "code": "    DW           0x${s/m26/0000}      "
-    },
-    {
-      "op": "insert",
-      "code": "    DW           0x${s/m27/0000}      "
-    },
-    {
-      "op": "insert",
-      "code": "    DW           0x${s/m28/0000}      "
-    },
-    {
-      "op": "insert",
-      "code": "    DW           0x${s/m29/0000}      "
-    },
-    {
-      "op": "insert",
-      "code": "    DW           0x${s/m30/0000}      "
-    },
-    {
-      "op": "insert",
-      "code": "    DW           0x${s/m31/0000}      "
-    },
-    {
-      "op": "insert",
-      "code": "    DW           0x${s/m32/0000}      "
-    },
-    {
-      "op": "insert",
-      "code": "    DW           0x${s/m33/00d0}      "
-    },
-    {
-      "op": "insert",
-      "code": "    DW           0x${s/m34/0000}      "
-    },
-    {
-      "op": "insert",
-      "code": "    DW           0x${s/m35/00d2}      "
-    },
-    {
-      "op": "insert",
-      "code": "    DW           0x${s/m36/0000}      "
-    },
-    {
-      "op": "insert",
-      "code": "    DW           0x${s/m37/00d4}      "
-    },
-    {
-      "op": "insert",
-      "code": "    DW           0x${s/m38/0000}      "
-    },
-    {
-      "op": "insert",
-      "code": "    DW           0x${s/m39/0000}      "
-    },
-    {
-      "op": "insert",
-      "code": "    DW           0x${s/m40/0000}      "
     },
     {
       "op": "insert",

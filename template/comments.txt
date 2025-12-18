@@ -187,6 +187,24 @@
 ;
 ;
 ;
+; Enable D+ pull-up
+;
+;
+;
+;
+;
+;
+;
+; Set all P0 ports to be input mode
+;
+;
+;
+; Set all P1 ports to be input mode
+;
+;
+;
+;
+; Set P2 ports to be out-in-in-in-in-in-in-in (10000000)
 ;
 ;
 ;
@@ -197,35 +215,17 @@
 ;
 ;
 ;
+; Set all P4 ports to be input mode
+;
+;
+;
+; Set P5 ports to be in-in-out-out-out-out-out-out (00111111)
 ;
 ;
 ;
 ;
 ;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
+; Set P0.5 port to be out
 ;
 ;
 ;
@@ -262,7 +262,7 @@
 ;
 ; POINT A (maybe)
 ;
-;
+; Key-scanning
 ;
 ;
 ;
@@ -442,6 +442,28 @@
 ;
 ;
 
+; <- Key matrix mask 01 for P2.2 - |
+; <- Key matrix mask 02 for P2.0 - |
+; <- Key matrix mask 03 for P4.0 - |
+; <- Key matrix mask 04 for P4.5 - |
+; <- Key matrix mask 05 for P4.1 - |
+; <- Key matrix mask 06 for P2.1 - |
+; <- Key matrix mask 07 for P4.4 - |
+; <- Key matrix mask 08 for P4.2 - |
+; <- Key matrix mask 09 for P4.3 - |
+; <- Key matrix mask 10 for P2.3 - |
+; <- Key matrix mask 11 for P0.5 - |
+; <- Key matrix mask 12 for P0.4 - |
+; <- Key matrix mask 13 for P4.6 - |
+; <- Key matrix mask 14 for P4.7 - |
+; <- Key matrix mask 15 for P0.3 - |
+; <- Key matrix mask 16 for P0.6 - |
+
+
+;; Set waiting time (14 times)
+;; Delay function
+;; Read column buffer values (P0.0-0.7)
+;; Convert active-low to be active-high
 ;
 ;
 ;
@@ -449,351 +471,267 @@
 ;
 ;
 ;
+;; Store at RAM. RAM[0x0100 + 0] = columns
+;; Increment Z value
+;; 
+;;
+
+; Key-scanning
+; Y = #0x01
+; Z = #0x00
+; ---------- [row 7] Set port 2.2 to be output mode.
+; Set port 2.2 buffer low
+;;
+; Set port 2.2 buffer high
+; Set port 2.2 to be input mode.
+; ---------- [row 5] Set port 2.0 to be output mode.
+; Set port 2.0 buffer low
+;; 
+; Set port 2.0 buffer high
+; Set port 2.0 to be input mode.
+; ---------- [row 9] P4.0 
+; Set port 4.0 buffer low
+;;
 ;
+; P4.0
+; ---------- [row 14] P4.5 
 ;
+;;
 ;
+; P4.5
+; ---------- [row 10] P4.1 
 ;
+;;
 ;
+; P4.1
+; ---------- [row 6] P2.1 
 ;
+;;
+;
+; P2.1
+; ---------- [row 13] P4.4 
 ;
+;;
+;
+; P4.4
+; ---------- [row 11] P4.2 
 ;
+;;
 ;
+; P4.2
+; ---------- P4.3 [row 12]
 ;
+;;
 ;
+; P4.3
+; ---------- P2.3 [row 8]
 ;
+;;
 ;
+; P2.3
+; ---------- P0.5 [row 3]
 ;
+;;
 ;
+; P0.5
+; ---------- P0.4 [row 2]
 ;
+;;
 ;
+; P0.4
+; ---------- P4.6 [row 15]
 ;
+;;
 ;
+; P4.6
+; ---------- P4.7 [row 16]
 ;
+;;
 ;
+; P4.7
+; ---------- P0.3 [row 1]
 ;
+;;
 ;
+; P0.3
+; ---------- P0.6 [row 4]
 ;
+;;
 ;
+; P0.6
 ;
 ;
+; === Ghosting / abnormal multi-key detection phase (entry) ===
+; Set Y=0x01, Z=0x00 -> point to current scan buffer RAM[0x0100..]
+; A = row index (row_i)
+; Z = 0x00 + row_i -> RAM[0x0100 + row_i]
+; A = column bit pattern of row_i (8-bit)
+; Save current row pattern into 0x09
+; Count number of set bits (popcount) -> result stored in 0x0a
+; A = 1
+; A = 1 - popcount
+; If popcount >= 2, borrow occurs -> FC = 0
+; If popcount <= 1 (single or no key), skip comparison and go to next row
+; popcount >= 2 -> initialize secondary row index (row_j++)
 ;
+; === Compare row_i with other rows (row_j loop) ===
+; Reset Y=0x01, Z=0x00 -> current scan buffer
+; A = secondary row index (row_j)
+; Z = 0x00 + row_j
+; A = column bit pattern of row_j
+; Compare row_j pattern with row_i pattern
+; If not equal, continue scanning other rows
+; If equal, suspicious pattern detected -> special handling
+
+; === Advance to next row_j ===
+; row_j++
 ;
+; A = 15 (maximum row index)
+; A = 15 - row_j
+; Check if row_j <= 15
+; If still within range, continue comparison
+; Reset row_j to row_i
 ;
+; === Advance to next row_i ===
+; row_i++
 ;
+; row_j++
 ;
+; A = 14 (last row index to check)
+; A = 14 - row_i
+; Check if row_i <= 14
+; Continue scanning remaining rows
+; === Common cleanup after abnormal handling ===
+; Clear working registers 0x09, 0x0a, 0x0b, 0x0c
+; Clear abnormal-processing flag
+; Reset row_i index
+; Reset row_j index
+; Clear row offset pointer
 ;
+; Reset bit-processing counter
+; Resume normal key change processing
+
+; === Ghosting workaround: pattern case 1 ===
 ;
 ;
+; A = row_i pattern
+; Save row_i pattern into R
 ;
+; A = row_j pattern
+; Compare row_i and row_j
+; If not equal, try next pattern
 ;
+; Check for pattern 1100_0000
 ;
+; Keep only MSB (1000_0000)
 ;
+; Mask row_i pattern
+; Cleanup and exit abnormal handling
+
+; === Ghosting workaround: pattern case 2 ===
 ;
 ;
+; A = row_j pattern
 ;
 ;
+; A = row_i pattern
 ;
 ;
 ;
+; Check for pattern 1000_1000
 ;
+; Keep only MSB
 ;
 ;
+
+; === Ghosting workaround: pattern case 3 ===
 ;
 ;
+; A = row_j pattern
 ;
 ;
+; A = another row pattern
 ;
 ;
 ;
+; Check for pattern 1100_0000
 ;
+; Keep bit 0100_0000 only
 ;
 ;
+
+; === Unrecoverable ghosting -> full reset ===
+; Check if reset already performed
+; If yes, silently return
+; Mark reset performed
+; Request report update
+; Set special-state flag
 ;
 ;
 ;
+; Clear RAM[0x0120..] (key state buffer)
 ;
 ;
 ;
 ;
 ;
 ;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
+; Clear modifier state
+; Send all-keys-released report
+; Request resynchronization
+; === Clear working variables ===
 ;
 ;
 ;
 ;
 ;
 
+; === Normal key change detection ===
+; Clear special-state flag
+; Point to current scan buffer
+; 
 ;
 ;
+; Check if row data is zero
 ;
+; Save current row data
 ;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
+; Mark valid row detected
 ;
 ;
 ;
 
 ;
+; Store current row data
+;
+;
+; Point to previous scan buffer
 ;
 ;
 ;
+; Load previous row data
 ;
-;
-;
-;
-;
-;
-;
-;
-;
-;
+; Compare current vs previous
 ;
 ;
 
+; === No change ===
 ;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
+; Update previous buffer
 ;
 
+; === Change detected (generate diff) ===
+; Prepare diff buffer
 ;
 ;
 ;
 ;
 ;
 ;
+; diff = current XOR previous
 ;
 ;
-;
-;
-;
-;
-;
-;
-;
-
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-
-;
-;
-;
-;
-
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
+; Store changed bits mask
 ;
 ; Check 0x0b.0
 ; If 0x0b.0 == 0, ===> JMP func_0186_02c3
@@ -1080,8 +1018,8 @@
 ;;
 ;;
 ;;
-;; ROM address for 0x0000
-;;
+;; Macro key ROM address
+;; 
 ;;
 ;;
 ;; [hgfedcba] a: LeftControl, b: LeftShift, c: LeftAlt, d: LeftGUI, e: RightControl, f: RightShift, g: RightAlt, h: RightGUI
@@ -1121,6 +1059,87 @@
 ;; If 0x00.3 == 1, 0x00.7 = 0 
 ;; JMP to func_0186_02c3
 
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
+;; <NOP>
 ;; <NOP>
 ;; <NOP>
 ;; <NOP>
@@ -1233,30 +1252,14 @@
 ; <- Macro - |
 ; <- Macro - |
 ; <- Macro - |
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
+; <- Macro - |
 
 ; <- Custom Consumer key - |
 ; <- Custom Consumer key - |
@@ -1269,11 +1272,11 @@
 ; <- Custom Consumer key - |
 ; <- Custom Consumer key - |
 ; <- Custom Consumer key - |
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
-; <- Currently not used
+; <- Custom Consumer key - |
+; <- Custom Consumer key - |
+; <- Custom Consumer key - |
+; <- Custom Consumer key - |
+; <- Custom Consumer key - |
 
 ; <- Media key - | 0455 | F1c  0x21 = E2, 0x22 = 00
 ; <- Media key - | 0456 | F2c  0x21 = EA, 0x22 = 00
@@ -3024,25 +3027,25 @@
 ;
 ;
 ;
+;          P1.0           P1.1           P1.2           P1.3           P1.4           P1.5           P1.6           P1.7
+;            R0             R3             R2             R5             R4             R6             R7             R1
 ;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
+;            UP         (none)         (none)            END             FN          PAUSE           LEFT    KP_MEMSTORE   P0.3/S14
+;        (none)           HOME         (none)            F11         (none)         (none)           DOWN         (none)   P0.4/S11
+;            F5             F9 INTERNATIONAL3            F10      BACKSLASH         RETURN          SPACE      BACKSPACE   P0.5/S10
+;        (none)         DELETE         (none)         INSERT    PRINTSCREEN         PAGEUP       PAGEDOWN         (none)   P0.6/S15
+;            F4             F2              E              3              D              C         (none)             F3   P2.0/S1
+;             H              6              U              7              J              M              N              Y   P2.1/S5
+;        ESCAPE          GRAVE              Q              1              A              Z INTERNATIONAL5            TAB   P2.2/S0
+;        (none)         (none)         (none)         (none)         (none)         RSHIFT         (none)         LSHIFT   P2.3/S9
+;NONUSBACKSLASH             F1              W              2              S              X         (none)       CAPSLOCK   P4.0/S2
+;             G              5              R              4              F              V              B              T   P4.1/S4
+;INTERNATIONAL4             F8              O              9              L         PERIOD INTERNATIONAL2             F7   P4.2/S7
+;    APOSTROPHE          MINUS              P              0      SEMICOLON      NONUSHASH          SLASH    LEFTBRACKET   P4.3/S8
+;            F6         EQUALS              I              8              K          COMMA INTERNATIONAL1   RIGHTBRACKET   P4.4/S6
+;        (none)          LCTRL         (none)         (none)         (none)          RCTRL         (none)         (none)   P4.5/S3
+;          LALT KP_MEMSUBTRACT         (none)         (none)         (none)         (none)           RALT         (none)   P4.6/S12
+;        (none)         (none)    KP_MEMCLEAR            F12         (none)         (none)          RIGHT           LGUI   P4.7/S13
 ;
 ;
 ;
@@ -6092,9 +6095,9 @@
 ;
 ;
 ;
-;
-;
-;
+; 
+; 0x0e = UDA value AND 01111111
+; 0x0e point
 ;
 ;
 ;
@@ -6639,7 +6642,7 @@
 ;
 ;
 ;
-;
+; 0x0e = 0x04
 ;
 ;
 ;
