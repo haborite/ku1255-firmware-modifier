@@ -2281,20 +2281,20 @@
       "from": 631
     },
     {
-      "op": "copy",
-      "from": 632
+      "op": "insert",
+      "code": "    MOV          R,     A             "
     },
     {
-      "op": "copy",
-      "from": 633
+      "op": "insert",
+      "code": "    SUB          A,     #0x01         "
     },
     {
-      "op": "copy",
-      "from": 634
+      "op": "insert",
+      "code": "    AND          A,     R             "
     },
     {
-      "op": "copy",
-      "from": 635
+      "op": "insert",
+      "code": "    B0BTS0       FZ                   "
     },
     {
       "op": "copy",
@@ -2329,8 +2329,24 @@
       "from": 643
     },
     {
-      "op": "copy",
-      "from": 644
+      "op": "insert",
+      "code": "    AND          A,     0x09          "
+    },
+    {
+      "op": "insert",
+      "code": "    MOV          R,     A             "
+    },
+    {
+      "op": "insert",
+      "code": "    SUB          A,     #0x01         "
+    },
+    {
+      "op": "insert",
+      "code": "    AND          A,     R             "
+    },
+    {
+      "op": "insert",
+      "code": "    B0BTS0       FZ                   "
     },
     {
       "op": "copy",
@@ -4674,22 +4690,6 @@
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
       "code": ""
     },
     {
@@ -5261,88 +5261,88 @@
       "from": 1334
     },
     {
-      "op": "copy",
-      "from": 1335
+      "op": "insert",
+      "code": ""
     },
     {
-      "op": "copy",
-      "from": 1336
+      "op": "insert",
+      "code": "    NOP                               "
     },
     {
-      "op": "copy",
-      "from": 1337
+      "op": "insert",
+      "code": "    NOP                               "
     },
     {
-      "op": "copy",
-      "from": 1338
+      "op": "insert",
+      "code": "    NOP                               "
     },
     {
-      "op": "copy",
-      "from": 1339
+      "op": "insert",
+      "code": "    NOP                               "
     },
     {
-      "op": "copy",
-      "from": 1340
+      "op": "insert",
+      "code": "    NOP                               "
     },
     {
-      "op": "copy",
-      "from": 1341
+      "op": "insert",
+      "code": "    NOP                               "
     },
     {
-      "op": "copy",
-      "from": 1342
+      "op": "insert",
+      "code": "    NOP                               "
     },
     {
-      "op": "copy",
-      "from": 1343
+      "op": "insert",
+      "code": "    NOP                               "
     },
     {
-      "op": "copy",
-      "from": 1344
+      "op": "insert",
+      "code": "    NOP                               "
     },
     {
-      "op": "copy",
-      "from": 1345
+      "op": "insert",
+      "code": "    NOP                               "
     },
     {
-      "op": "copy",
-      "from": 1346
+      "op": "insert",
+      "code": "    NOP                               "
     },
     {
-      "op": "copy",
-      "from": 1347
+      "op": "insert",
+      "code": "    NOP                               "
     },
     {
-      "op": "copy",
-      "from": 1348
+      "op": "insert",
+      "code": "    NOP                               "
     },
     {
-      "op": "copy",
-      "from": 1349
+      "op": "insert",
+      "code": "    NOP                               "
     },
     {
-      "op": "copy",
-      "from": 1350
+      "op": "insert",
+      "code": "    NOP                               "
     },
     {
-      "op": "copy",
-      "from": 1351
+      "op": "insert",
+      "code": "    NOP                               "
     },
     {
-      "op": "copy",
-      "from": 1352
+      "op": "insert",
+      "code": "    NOP                               "
     },
     {
-      "op": "copy",
-      "from": 1353
+      "op": "insert",
+      "code": "    NOP                               "
     },
     {
-      "op": "copy",
-      "from": 1354
+      "op": "insert",
+      "code": "    NOP                               "
     },
     {
-      "op": "copy",
-      "from": 1355
+      "op": "insert",
+      "code": "    NOP                               "
     },
     {
       "op": "copy",

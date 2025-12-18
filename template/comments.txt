@@ -494,67 +494,67 @@
 ;;
 ;
 ; P4.0
-; ---------- [row 14] P4.5 
+; ---------- [row 14] P4.5
 ;
 ;;
 ;
 ; P4.5
-; ---------- [row 10] P4.1 
+; ---------- [row 10] P4.1
 ;
 ;;
 ;
 ; P4.1
-; ---------- [row 6] P2.1 
+; ---------- [row 06] P2.1
 ;
 ;;
 ;
 ; P2.1
-; ---------- [row 13] P4.4 
+; ---------- [row 13] P4.4
 ;
 ;;
 ;
 ; P4.4
-; ---------- [row 11] P4.2 
+; ---------- [row 11] P4.2
 ;
 ;;
 ;
 ; P4.2
-; ---------- P4.3 [row 12]
+; ---------- [row 12] P4.3
 ;
 ;;
 ;
 ; P4.3
-; ---------- P2.3 [row 8]
+; ---------- [row 08] P2.3
 ;
 ;;
 ;
 ; P2.3
-; ---------- P0.5 [row 3]
+; ---------- [row 03] P0.5
 ;
 ;;
 ;
 ; P0.5
-; ---------- P0.4 [row 2]
+; ---------- [row 02] P0.4
 ;
 ;;
 ;
 ; P0.4
-; ---------- P4.6 [row 15]
+; ---------- [row 15] P4.6
 ;
 ;;
 ;
 ; P4.6
-; ---------- P4.7 [row 16]
+; ---------- [row 16] P4.7
 ;
 ;;
 ;
 ; P4.7
-; ---------- P0.3 [row 1]
+; ---------- [row 01] P0.3
 ;
 ;;
 ;
 ; P0.3
-; ---------- P0.6 [row 4]
+; ---------- [row 04] P0.6
 ;
 ;;
 ;
@@ -567,10 +567,10 @@
 ; Z = 0x00 + row_i -> RAM[0x0100 + row_i]
 ; A = column bit pattern of row_i (8-bit)
 ; Save current row pattern into 0x09
-; Count number of set bits (popcount) -> result stored in 0x0a
-; A = 1
-; A = 1 - popcount
-; If popcount >= 2, borrow occurs -> FC = 0
+; save x to R             ;; CALL         func_0475            ; Count number of set bits (popcount) -> result stored in 0x0a. It should be replaced by a simple bit trick.
+; A = x - 1               ;; MOV          A,     #0x01         ; A = 1
+; A = x & (x - 1)         ;; SUB          A,     0x0a          ; A = 1 - popcount
+; if Z==1 => <=1 set bits ;; B0BTS0       FC                   ; If popcount >= 2, borrow occurs -> FC = 0
 ; If popcount <= 1 (single or no key), skip comparison and go to next row
 ; popcount >= 2 -> initialize secondary row index (row_j++)
 ;
@@ -579,9 +579,13 @@
 ; A = secondary row index (row_j)
 ; Z = 0x00 + row_j
 ; A = column bit pattern of row_j
-; Compare row_j pattern with row_i pattern
-; If not equal, continue scanning other rows
-; If equal, suspicious pattern detected -> special handling
+; A = pattern(row_i)
+; save x to R
+; A = x - 1
+; A = x & (x - 1)
+; if Z==1 => <=1 set bits
+; If one or zero, continue scanning other rows
+; If two or more, suspicious pattern detected
 
 ; === Advance to next row_j ===
 ; row_j++
@@ -1165,10 +1169,6 @@
 ;; <NOP>
 ;; <NOP>
 ;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
 
 
 ;; Address of bit musk ROM
@@ -1252,14 +1252,14 @@
 ; <- Macro - |
 ; <- Macro - |
 ; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
+; <- NOT USED ANYMORE - |
+; <- NOT USED ANYMORE - |
+; <- NOT USED ANYMORE - |
+; <- NOT USED ANYMORE - |
+; <- NOT USED ANYMORE - |
+; <- NOT USED ANYMORE - |
+; <- NOT USED ANYMORE - |
+; <- NOT USED ANYMORE - |
 
 ; <- Custom Consumer key - |
 ; <- Custom Consumer key - |
@@ -1272,11 +1272,11 @@
 ; <- Custom Consumer key - |
 ; <- Custom Consumer key - |
 ; <- Custom Consumer key - |
-; <- Custom Consumer key - |
-; <- Custom Consumer key - |
-; <- Custom Consumer key - |
-; <- Custom Consumer key - |
-; <- Custom Consumer key - |
+; <- NOT USED ANYMORE - |
+; <- NOT USED ANYMORE - |
+; <- NOT USED ANYMORE - |
+; <- NOT USED ANYMORE - |
+; <- NOT USED ANYMORE - |
 
 ; <- Media key - | 0455 | F1c  0x21 = E2, 0x22 = 00
 ; <- Media key - | 0456 | F2c  0x21 = EA, 0x22 = 00
@@ -1296,46 +1296,46 @@
 ; <- Media key - | 0464 | F12s 0x28 = 94, 0x29 = 01
 
 ; <- FIXED - | 0465 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- FIXED - | 0466 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- FIXED - | 0467 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- FIXED - | 0468 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- FIXED - | 0469 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- FIXED - | 046a | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- FIXED - | 046b | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- FIXED - | 046c | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- FIXED - | 046d | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- FIXED - | 046e | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- FIXED - | 046f | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- FIXED - | 0470 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- FIXED - | 0471 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- FIXED - | 0472 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- FIXED - | 0473 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- FIXED - | 0474 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; <- NOT USED ANYMORE - | 0466 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; <- NOT USED ANYMORE - | 0467 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; <- NOT USED ANYMORE - | 0468 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; <- NOT USED ANYMORE - | 0469 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; <- NOT USED ANYMORE - | 046a | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; <- NOT USED ANYMORE - | 046b | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; <- NOT USED ANYMORE - | 046c | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; <- NOT USED ANYMORE - | 046d | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; <- NOT USED ANYMORE - | 046e | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; <- NOT USED ANYMORE - | 046f | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; <- NOT USED ANYMORE - | 0470 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; <- NOT USED ANYMORE - | 0471 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; <- NOT USED ANYMORE - | 0472 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; <- NOT USED ANYMORE - | 0473 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; <- NOT USED ANYMORE - | 0474 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-; []
-;
-;
-; #0x65 (+0) (Real +0x05a0 = 0x0a05)
-;
-; 0x09 AND #0x0f (00001111)
-; Z = Z + #0x65 + 0x09 AND 00001111
-;
-;
-; memoOVC at Y = const 04, Z = c-v 65 + g
-; 0x0a = 0x0a + YZ
-;
-; #0x65 (+0)
-;
-;
-;
-;
-;
-; memoOVC at Y = const 04, Z = c-c 65 + 0f
-;
-;
+; func_0475:                          ;; === Popcount of 8-bit value in 0x09 (Replacable by a smart bit trick) ===
+;;    CLR          0x0a                 ; Clear popcount accumulator
+;;    B0MOV        Y,     #0x04         ; Clear popcount accumulator
+;;    B0MOV        Z,     #0x65         ; #0x65 (+0) (Real +0x05a0 = 0x0a05)
+;;    MOV          A,     0x09          ; Base address of 4-bit popcount table
+;;    AND          A,     #0x0f         ; Extract lower nibble
+;;    ADD          Z,     A             ; Z = table_base + low_nibble
+;;    B0BTS0       FC                   ; Z = table_base + low_nibble
+;;    INCMS        Y                    ;
+;;     MOVC                              ; Load popcount(low_nibble) from ROM into A
+;;    ADD          0x0a,  A             ; Accumulate count
+;;    B0MOV        Y,     #0x04         ; Reset ROM page
+;;    B0MOV        Z,     #0x65         ; Reset table base
+;;    SWAP         0x09                 ; Swap high/low nibbles
+;;    AND          A,     #0x0f         ; Extract original high nibble
+;;    ADD          Z,     A             ; Z = table_base + high_nibble
+;;    B0BTS0       FC                   ;
+;;    INCMS        Y                    ;
+;;    MOVC                              ; Load popcount(high_nibble)
+;;    ADD          0x0a,  A             ; Add to total popcount
+;;    RET                               ; Return with popcount in 0x0a
 
-; [ Non-modifier special key process ]
-; Set 0x10 = 0
+; [ Non-modifier special key process ]                 ; 0489
+; Set 0x10 = 0                                         ; 0489
 ;
 ; Set Y and Z and return to func_0186+0x2c2
 ;
@@ -1354,8 +1354,8 @@
 ;
 ;
 
-;
-;
+; 049a 
+; 049a 
 ;
 ;
 ;
