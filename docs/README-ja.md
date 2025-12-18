@@ -104,7 +104,7 @@ KU-1255の電気配線上のキーマトリクスは下表の通りです（ANSI
 | TAB | CapsLock | F3 | T | Y | ] and } | F7 | [ and { | BackSpace |  |  | Left Win |  |  | Left Shift |  |
 | Q | W | E | R | U | I | O | P | International3 |  |  |  |  |  |  |  |
 | A | S | D | F | J | K | L | ; and : |  | Fn |  |  | PrtSc |  |  |  |
-| Esc |  | F4 | G | H | F6 | International4 | ' and " | F5 | ↑ |  |  |  |  |  | Left Alt |
+| Esc | NonーUS \ | F4 | G | H | F6 | International4 | ' and " | F5 | ↑ |  |  |  |  |  | Left Alt |
 | Z | X | C | V | M | , | . | NonーUS # and ~ | Enter |  |  |  | PgUp | Rigth Ctrl | Right Shift |  |
 | International5 |  |  | B | N | International1 | International2 | / and ? | Space | ← | ↓ | → | PgDn |  |  | Right Alt |
 
