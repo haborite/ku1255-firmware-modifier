@@ -567,7 +567,7 @@
 ; Z = 0x00 + row_i -> RAM[0x0100 + row_i]
 ; A = column bit pattern of row_i (8-bit)
 ; Save current row pattern into 0x09
-; save x to R             ;; CALL         func_0475            ; Count number of set bits (popcount) -> result stored in 0x0a. It should be replaced by a simple bit trick.
+; save x to R             ;; CALL         func_0475            ; Count number of set bits (popcount) -> result stored in 0x0a.
 ; A = x - 1               ;; MOV          A,     #0x01         ; A = 1
 ; A = x & (x - 1)         ;; SUB          A,     0x0a          ; A = 1 - popcount
 ; if Z==1 => <=1 set bits ;; B0BTS0       FC                   ; If popcount >= 2, borrow occurs -> FC = 0
@@ -1295,7 +1295,7 @@
 ; <- Media key - | 0463 | F12c 0x21 = f2, 0x22 = 03
 ; <- Media key - | 0464 | F12s 0x28 = 94, 0x29 = 01
 
-; <- FIXED - | 0465 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; <- FIXED (just for get 0x0000) - | 0465 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ; <- NOT USED ANYMORE - | 0466 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ; <- NOT USED ANYMORE - | 0467 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ; <- NOT USED ANYMORE - | 0468 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
