@@ -14,7 +14,7 @@ const EXE_URL_SETTING_PATH: &str = "settings/url.txt";
 
 #[derive(PartialEq, Clone)]
 pub struct GeneralSeitting {
-    pub initial_id_map: BTreeMap<u32, u8>,
+    pub initial_id_map: BTreeMap<u8, Option<u8>>,
     pub avail_hid_usage_names: BTreeMap<u8, String>,
     pub avail_media_key_usage_names: BTreeMap<u16, String>,
     pub avail_boards: Vec<Board>,
@@ -39,7 +39,7 @@ impl GeneralSeitting {
 
         let (id_map, usage_names) = GeneralSeitting::load_general_settings(general_setting_path)?;
         let media_key_usage_names = GeneralSeitting::load_media_key_settings(media_key_setting_path)?;
-        let avail_boards = GeneralSeitting::load_boards(boards_dir_path, general_setting_path)?;
+        let avail_boards = GeneralSeitting::load_boards(boards_dir_path)?;
         let avail_logical_layouts = GeneralSeitting::load_logical_layouts(logical_layouts_dir_path, general_setting_path)?;
         let official_firmware_url = GeneralSeitting::load_url(official_firmware_url_path)?;
 
@@ -54,7 +54,7 @@ impl GeneralSeitting {
 
     }
 
-    pub fn load_general_settings(general_setting_path: &Path) -> io::Result<(BTreeMap<u32, u8>, BTreeMap<u8, String>)> {
+    pub fn load_general_settings(general_setting_path: &Path) -> io::Result<(BTreeMap<u8, Option<u8>>, BTreeMap<u8, String>)> {
 
         let file = File::open(general_setting_path)?;
         let mut rdr = csv::Reader::from_reader(BufReader::new(file));
@@ -66,8 +66,8 @@ impl GeneralSeitting {
             let id = u8::from_str_radix(id_str, 16).unwrap_or(0);
             let usage_name = record.get(1).unwrap_or("").trim();
             let address_str = record.get(2).unwrap_or("").trim();
-            if let Some(address) = u32::from_str_radix(address_str, 16).ok() {
-                id_map.insert(address, id);
+            if let Some(address) = u8::from_str_radix(address_str, 16).ok() {
+                id_map.insert(address, Some(id));
             };
             usage_names.insert(id, usage_name.to_string());
         }
@@ -89,7 +89,7 @@ impl GeneralSeitting {
         Ok(media_key_usage_names)
     }
 
-    pub fn load_address2id(general_config_path: &Path) -> io::Result<BTreeMap<u32, u8>> {
+    pub fn load_address2id(general_config_path: &Path) -> io::Result<BTreeMap<u8, Option<u8>>> {
         let file = File::open(general_config_path)?;
         let mut rdr = csv::Reader::from_reader(BufReader::new(file));
         let mut id_map = BTreeMap::new();
@@ -102,14 +102,14 @@ impl GeneralSeitting {
                 break
             };
             let address_str = record.get(2).unwrap_or("").trim();
-            if let Some(address) = u32::from_str_radix(address_str, 16).ok() {
-                id_map.insert(address, id);
+            if let Some(address) = u8::from_str_radix(address_str, 16).ok() {
+                id_map.insert(address, Some(id));
             };
         }
         Ok(id_map)
     }
 
-    pub fn load_board(board_config_path: &Path, general_config_path: &Path) -> io::Result<Board> {
+    pub fn load_board(board_config_path: &Path) -> io::Result<Board> {
         let file = File::open(board_config_path)?;
         let reader = BufReader::new(file);
 
@@ -119,6 +119,7 @@ impl GeneralSeitting {
             Label,
             DefaultLogicalLayout,
             KeyId,
+            KeyAddress,
             Width,
         }
 
@@ -127,6 +128,7 @@ impl GeneralSeitting {
         let mut board_label = "".to_string();
         let mut default_logical_layout_name = "".to_string();
         let mut map_ids: Vec<Vec<Option<u8>>> = Vec::new();
+        let mut map_address: Vec<Vec<Option<u8>>> = Vec::new();
         let mut map_widths: Vec<Vec<u16>> = Vec::new();
 
         for line in reader.lines() {
@@ -152,6 +154,10 @@ impl GeneralSeitting {
                 }
                 "[key_id]" => {
                     section = Section::KeyId;
+                    continue;
+                }
+                "[key_address]" => {
+                    section = Section::KeyAddress;
                     continue;
                 }
                 "[key_width]" => {
@@ -192,6 +198,19 @@ impl GeneralSeitting {
                         .collect::<Vec<_>>();
                     map_ids.push(row);
                 }
+                Section::KeyAddress => {
+                    let row = tokens
+                        .into_iter()
+                        .map(|s| {
+                            if s.is_empty() {
+                                None
+                            } else {
+                                u8::from_str_radix(s, 16).ok()
+                            }
+                        })
+                        .collect::<Vec<_>>();
+                    map_address.push(row);
+                }
                 Section::Width => {
                     let row = tokens
                         .into_iter()
@@ -213,17 +232,13 @@ impl GeneralSeitting {
             ));
         }
 
-        let address2id = GeneralSeitting::load_address2id(general_config_path)?;
+        // let address2id = GeneralSeitting::load_address2id(general_config_path)?;
 
-        let map_address = map_ids.into_iter().map(|v|{
-            v.into_iter().map(|id_opt|{
-                if let Some(id) = id_opt {
-                    address2id.iter().find_map(|(k, v)| if *v == id { Some(*k) } else { None })
-                } else {
-                    None
-                }
-            }).collect()
-        }).collect();
+        // let map_address: Vec<Vec<Option<u8>>> = map_ids.into_iter().map(|v|{
+        //     v.into_iter().map(|id_opt|{
+        //         address2id.iter().find_map(|(k, val)| if *val == id_opt { Some(*k) } else { None })
+        //     }).collect()
+        // }).collect();
 
         Ok(Board {
             board_name,
@@ -234,7 +249,7 @@ impl GeneralSeitting {
         })
     }
 
-    pub fn load_boards(dir: &Path, general_config_path: &Path) -> io::Result<Vec<Board>> {
+    pub fn load_boards(dir: &Path) -> io::Result<Vec<Board>> {
         let mut cfg_files = Vec::new();
         let mut cfgs = Vec::new();
         for entry in std::fs::read_dir(dir)? {
@@ -249,7 +264,7 @@ impl GeneralSeitting {
             }
         }
         for cfg_filepath in cfg_files {
-            if let Ok(cfg) = GeneralSeitting::load_board(&cfg_filepath, general_config_path) {
+            if let Ok(cfg) = GeneralSeitting::load_board(&cfg_filepath) {
                 cfgs.push(cfg);
             };
         }

@@ -236,6 +236,9 @@ pub fn MainWindow(
                         }
                     }
                 }
+                div { class: "w-full bg-gray-800 p-4 rounded shadow flex flex-wrap items-end gap-4",
+                    h2 { class: "text-xl font-bold text-center py-2", "Key matrix" },
+                }
             }
         }
     }

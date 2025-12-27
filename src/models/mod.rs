@@ -24,7 +24,7 @@ pub struct Board {
     pub board_label: String,
     pub default_logical_layout_name: String,
     pub map_widths: Vec<Vec<u16>>, 
-    pub map_address: Vec<Vec<Option<u32>>>,
+    pub map_address: Vec<Vec<Option<u8>>>,
 }
 
 /*
@@ -103,8 +103,8 @@ pub struct Config {
     pub config_version: u32,
     pub physical_layout_name: String,
     pub logical_layout_name: String,
-    pub layer0: Vec<[u32; 2]>,
-    pub layer1: Vec<[u32; 2]>,
+    pub layer0: BTreeMap<u8, Option<u8>>, 
+    pub layer1: BTreeMap<u8, Option<u8>>, 
     #[serde(default = "default_fn_id")]
     pub fn_id: u8,
     #[serde(default = "default_tp_sensitivity")]
@@ -116,6 +116,7 @@ pub struct Config {
     #[serde(default = "default_enable_middle_click")]
     pub enable_middle_click: bool,
 }
+
 
 // Combination Key Mode
 #[derive(Clone, PartialEq, Serialize, Deserialize, Debug)]

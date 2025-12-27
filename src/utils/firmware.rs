@@ -29,12 +29,12 @@ const COMMENTS_PATH: &str = "template/comments.txt";
 
 
 fn validate_mod_key_position(
-    layout0: Signal<BTreeMap<u32, u8>>,
-    layout1: Signal<BTreeMap<u32, u8>>,
+    layout0: Signal<BTreeMap<u8, Option<u8>>>,
+    layout1: Signal<BTreeMap<u8, Option<u8>>>,
 ) -> Option<String> {
     for (k, v) in layout0() {
-        if v == 231 {
-            if layout1().get(&k) != Some(&231) {
+        if v == Some(231) {
+            if layout1().get(&k) != Some(&Some(231)) {
                 return Some("The 'Mod' key position must be same on the Main and 2nd layers.".into());
             }
         }
@@ -45,8 +45,8 @@ fn validate_mod_key_position(
 
 fn build_mod_fw(
     firmware_future: Resource<Vec<u8>>,
-    layout0: Signal<BTreeMap<u32, u8>>,
-    layout1: Signal<BTreeMap<u32, u8>>,
+    layout0: Signal<BTreeMap<u8, Option<u8>>>,
+    layout1: Signal<BTreeMap<u8, Option<u8>>>,
     fn_id: Signal<u8>,
     tp_sensitivity: Signal<u32>,
     macro_key_map: Signal<BTreeMap<u8, MacroKey>>,
@@ -74,8 +74,8 @@ fn build_mod_fw(
 }
 
 pub fn install_firmware_by_flashsn8(
-    id_layout_l0: Signal<BTreeMap<u32, u8>>,
-    id_layout_l1: Signal<BTreeMap<u32, u8>>,
+    id_layout_l0: Signal<BTreeMap<u8, Option<u8>>>,
+    id_layout_l1: Signal<BTreeMap<u8, Option<u8>>>,
     firmware_future: Resource<Vec<u8>>,
     fn_id: Signal<u8>,
     tp_sensitivity: Signal<u32>,
@@ -139,8 +139,8 @@ pub async fn load_or_download_firmware(exe_url_cloned: &str) -> Vec<u8>  {
 fn modify_asm_file(
     in_path: &str,
     out_path: &str,
-    layout0: &BTreeMap<u32, u8>,
-    layout1: &BTreeMap<u32, u8>,
+    layout0: &BTreeMap<u8, Option<u8>>,
+    layout1: &BTreeMap<u8, Option<u8>>,
     fn_id: u8,
     tp_sensitivity: u32,
     macro_key_map: &BTreeMap<u8, MacroKey>,
@@ -156,15 +156,15 @@ fn modify_asm_file(
     s_values.insert("fn_id".to_string(), format!("{:02x}", fn_id));
 
     // Key layout mapping
-    let mut map1: BTreeMap<u32, u8> = BTreeMap::new();
+    let mut map1: BTreeMap<u8, Option<u8>> = BTreeMap::new();
     for (pos, code) in layout1.iter() {
         map1.insert(*pos, *code);
     }
     for (pos0, code0) in layout0.iter() {
         if let Some(code1) = map1.get(pos0) {
             s_values.insert(
-                format!("{:06}", pos0),
-                format!("{:02x}{:02x}", code1, code0),
+                format!("{:02x}", pos0),
+                format!("{:02x}{:02x}", code1.unwrap_or(0), code0.unwrap_or(0)),
             );
         } else {
             eprintln!("Warning: pos {pos0} not found in layout1");

@@ -10,12 +10,12 @@ pub fn Keyboard(
     layer_number: u8,
     board: Board,
     logical_layout: LogicalLayout,
-    id_layout_l0: Signal<BTreeMap<u32, u8>>,
-    id_layout_l1: Signal<BTreeMap<u32, u8>>,
+    id_layout_l0: Signal<BTreeMap<u8, Option<u8>>>,
+    id_layout_l1: Signal<BTreeMap<u8, Option<u8>>>,
 ) -> Element {
 
     let id_layout = { if layer_number == 0 { id_layout_l0 } else { id_layout_l1 } };
-    let mut selected_address = use_signal(|| None as Option<u32>);
+    let mut selected_address = use_signal(|| None as Option<u8>);
 
     rsx! {
         div { class: "p-4 space-y-4",
@@ -42,33 +42,33 @@ pub fn Keyboard(
                                 None => (None, None),
                             };
                             let key_label = match &id_opt {
-                                Some(kid) => {
+                                Some(Some(kid)) => {
                                     match logical_layout.map_key_label.get(&kid) {
                                         Some(kl) => kl.clone(),
                                         None => KeyLabel::new(),
                                     }
                                 },
-                                None => KeyLabel::new(),
+                                _ => KeyLabel::new(),
                             };
                             let key_default = key_label.default.clone();
                             let key_shifted = key_label.shifted.clone();
 
                             if let Some(kid) = id_opt {
                                 let border_color = match kid {
-                                    0        => "border-gray-500",
-                                    1..213   => if kid == id_opt_org.unwrap() {""} else { "border-sky-300" }
-                                    213..224 => if kid == id_opt_org.unwrap() {""} else { "border-violet-300" }
-                                    224..231 => if kid == id_opt_org.unwrap() {""} else { "border-sky-300" }
-                                    231      => "border-rose-300",
-                                    _        => if kid == id_opt_org.unwrap() {""} else { "border-green-300" }
+                                    None           => "border-gray-500",
+                                    Some(0..213)   => if kid == id_opt_org.unwrap_or(Some(0)) {""} else { "border-sky-300" }
+                                    Some(213..224) => if kid == id_opt_org.unwrap_or(Some(0)) {""} else { "border-violet-300" }
+                                    Some(224..231) => if kid == id_opt_org.unwrap_or(Some(0)) {""} else { "border-sky-300" }
+                                    Some(231)      => "border-rose-300",
+                                    _              => if kid == id_opt_org.unwrap_or(Some(0)) {""} else { "border-green-300" }
                                 };
                                 let text_color = match kid {
-                                    0        => "text-gray-500",
-                                    1..213   => if kid == id_opt_org.unwrap() {""} else { "text-sky-300" }
-                                    213..224 => if kid == id_opt_org.unwrap() {""} else { "text-violet-300" }
-                                    224..231 => if kid == id_opt_org.unwrap() {""} else { "text-sky-300" }
-                                    231      => "text-rose-300",
-                                    _        => if kid == id_opt_org.unwrap() {""} else { "text-green-300" }
+                                    None           => "text-gray-500",
+                                    Some(0..213)   => if kid == id_opt_org.unwrap_or(Some(0)) {""} else { "text-sky-300" }
+                                    Some(213..224) => if kid == id_opt_org.unwrap_or(Some(0)) {""} else { "text-violet-300" }
+                                    Some(224..231) => if kid == id_opt_org.unwrap_or(Some(0)){""} else { "text-sky-300" }
+                                    Some(231)      => "text-rose-300",
+                                    _              => if kid == id_opt_org.unwrap_or(Some(0)) {""} else { "text-green-300" }
                                 };
                                 rsx! {
                                     button {

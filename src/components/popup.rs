@@ -8,9 +8,9 @@ use std::sync::Arc;
 pub fn Popup(
     general_setting: Arc<GeneralSeitting>,
     layer_number: u8,
-    selected_address: Signal<Option<u32>>,
-    id_layout_l0: Signal<BTreeMap<u32, u8>>,
-    id_layout_l1: Signal<BTreeMap<u32, u8>>,
+    selected_address: Signal<Option<u8>>,
+    id_layout_l0: Signal<BTreeMap<u8, Option<u8>>>,
+    id_layout_l1: Signal<BTreeMap<u8, Option<u8>>>,
     map_key_label: BTreeMap::<u8, KeyLabel>,
 ) -> Element {
 
@@ -27,7 +27,7 @@ pub fn Popup(
 
     rsx! {
         { if let Some(key_address) = selected_address() {
-            let selected_id = id_layout().get(&selected_address().unwrap_or(0)).copied().unwrap_or(0);
+            let selected_id = id_layout().get(&selected_address().unwrap_or(0)).copied().unwrap_or(None);
             rsx! {
                 div {
                     class: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50",
@@ -47,10 +47,10 @@ pub fn Popup(
                             onchange: move |evt| {
                                 let new_id: u8 = evt.value().clone().parse().unwrap();
                                 let mut id_layout_mut = id_layout.write();
-                                id_layout_mut.insert(key_address, new_id);
+                                id_layout_mut.insert(key_address, Some(new_id));
                                 if (new_id == 231) && (layer_number == 0) {
                                     let mut id_layout_l1_mut = id_layout_l1.write();
-                                    id_layout_l1_mut.insert(key_address, new_id);
+                                    id_layout_l1_mut.insert(key_address, Some(new_id));
                                 }
                                 selected_address.set(None);
                             },
@@ -79,7 +79,7 @@ pub fn Popup(
                                             }
                                         },
                                     };
-                                    let selected_flag = if *key_id == selected_id {true} else {false};
+                                    let selected_flag = if Some(*key_id) == selected_id {true} else {false};
                                     rsx!(
                                         option {
                                             class: style,

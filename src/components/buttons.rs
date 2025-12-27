@@ -10,8 +10,8 @@ use crate::utils::{
 
 #[component]
 pub fn ButtonCopyLayer(
-    id_layout_l0: Signal<BTreeMap<u32, u8>>,
-    id_layout_l1: Signal<BTreeMap<u32, u8>>,    
+    id_layout_l0: Signal<BTreeMap<u8, Option<u8>>>,
+    id_layout_l1: Signal<BTreeMap<u8, Option<u8>>>,    
 ) -> Element {
     rsx! {
         div { class: "relative inline-flex",
@@ -26,8 +26,8 @@ pub fn ButtonCopyLayer(
 
 #[component]
 pub fn ButtonInstall(
-    id_layout_l0: Signal<BTreeMap<u32, u8>>,
-    id_layout_l1: Signal<BTreeMap<u32, u8>>,
+    id_layout_l0: Signal<BTreeMap<u8, Option<u8>>>,
+    id_layout_l1: Signal<BTreeMap<u8, Option<u8>>>,
     firmware_future: Resource<Vec<u8>>,
     fn_id: Signal<u8>,
     tp_sensitivity: Signal<u32>,
@@ -62,8 +62,8 @@ pub fn ButtonInstall(
 pub fn ButtonLoad(
     selected_board_name: Signal<String>,
     selected_logical_layout_name: Signal<String>,
-    id_layout_l0: Signal<BTreeMap<u32, u8>>,
-    id_layout_l1: Signal<BTreeMap<u32, u8>>,
+    id_layout_l0: Signal<BTreeMap<u8, Option<u8>>>,
+    id_layout_l1: Signal<BTreeMap<u8, Option<u8>>>,
     fn_id: Signal<u8>,
     tp_sensitivity: Signal<u32>,
     macro_key_map: Signal<BTreeMap<u8, MacroKey>>,
@@ -81,26 +81,29 @@ pub fn ButtonLoad(
                 .pick_file();
                 match file {
                     Some(path) => {
-                        if let Ok((
-                            loaded_board_name,
-                            loaded_logical_layout_name,
-                            loaded_id_layout_l0,
-                            loaded_id_layout_l1,
-                            loaded_fn_id,
-                            loaded_tp_sensitivity,
-                            loaded_macro_key_map,
-                            loaded_media_key_map,
-                            loaded_enable_middle_click
-                        )) = load_config(&path) {
-                            selected_board_name.set(loaded_board_name);
-                            selected_logical_layout_name.set(loaded_logical_layout_name);
-                            id_layout_l0.set(loaded_id_layout_l0);
-                            id_layout_l1.set(loaded_id_layout_l1);
-                            fn_id.set(loaded_fn_id);
-                            tp_sensitivity.set(loaded_tp_sensitivity);
-                            macro_key_map.set(loaded_macro_key_map);
-                            media_key_map.set(loaded_media_key_map);
-                            enable_middle_click.set(loaded_enable_middle_click);
+                        match load_config(&path) {
+                            Ok((
+                                loaded_board_name,
+                                loaded_logical_layout_name,
+                                loaded_id_layout_l0,
+                                loaded_id_layout_l1,
+                                loaded_fn_id,
+                                loaded_tp_sensitivity,
+                                loaded_macro_key_map,
+                                loaded_media_key_map,
+                                loaded_enable_middle_click
+                            )) => {
+                                selected_board_name.set(loaded_board_name);
+                                selected_logical_layout_name.set(loaded_logical_layout_name);
+                                id_layout_l0.set(loaded_id_layout_l0);
+                                id_layout_l1.set(loaded_id_layout_l1);
+                                fn_id.set(loaded_fn_id);
+                                tp_sensitivity.set(loaded_tp_sensitivity);
+                                macro_key_map.set(loaded_macro_key_map);
+                                media_key_map.set(loaded_media_key_map);
+                                enable_middle_click.set(loaded_enable_middle_click);
+                            },
+                            Err(e) => {eprintln!("Failed to load file: {}", e)},
                         };
                     },
                     None => println!("file not selected"),
@@ -115,8 +118,8 @@ pub fn ButtonLoad(
 pub fn ButtonSave(
     selected_board: ReadSignal<Board>,
     selected_logical_layout: Memo<LogicalLayout>,
-    id_layout_l0: ReadSignal<BTreeMap<u32, u8>>,
-    id_layout_l1: ReadSignal<BTreeMap<u32, u8>>,
+    id_layout_l0: ReadSignal<BTreeMap<u8, Option<u8>>>,
+    id_layout_l1: ReadSignal<BTreeMap<u8, Option<u8>>>,
     fn_id: ReadSignal<u8>,
     tp_sensitivity: ReadSignal<u32>,
     macro_key_map: ReadSignal<BTreeMap<u8, MacroKey>>,
