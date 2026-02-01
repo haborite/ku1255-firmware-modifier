@@ -225,10 +225,10 @@ impl GeneralSeitting {
             }
         }
 
-        if map_ids.len() != map_widths.len() {
+        if map_address.len() != map_widths.len() {
             return Err(io::Error::new(
                 io::ErrorKind::InvalidData,
-                "Row count mismatch between key IDs and widths",
+                "Row count mismatch between key addresses and widths",
             ));
         }
 
