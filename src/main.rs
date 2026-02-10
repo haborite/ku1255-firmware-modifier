@@ -114,22 +114,22 @@ pub fn MainWindow(
                 div { class: "w-full bg-gray-800 p-4 rounded shadow flex flex-wrap items-end gap-4",
                     div { class: "flex flex-wrap items-center gap-2",
                         label { class: "text-sm text-gray-200", "Keyboard" }
-                        SelectBoard { 
+                        SelectBoard {
                             general_setting: general_setting.clone(),
-                            selected_board_name, 
-                            selected_logical_layout_name, 
-                            selected_board, 
+                            selected_board_name,
+                            selected_logical_layout_name,
+                            selected_board,
                         }
                         label { class: "text-sm text-gray-200", "Language" }
                         SelectLogicalLayout {
                             general_setting: general_setting.clone(),
                             selected_logical_layout_name,
-                            selected_logical_layout
+                            selected_logical_layout,
                         }
                     }
                     div { class: "flex items-center gap-2 ml-auto",
                         ButtonCopyLayer { id_layout_l0, id_layout_l1 }
-                        ButtonLoad { 
+                        ButtonLoad {
                             selected_board_name,
                             selected_logical_layout_name,
                             id_layout_l0,
@@ -138,7 +138,7 @@ pub fn MainWindow(
                             tp_sensitivity,
                             macro_key_map,
                             media_key_map,
-                            enable_middle_click
+                            enable_middle_click,
                         }
                         ButtonSave {
                             selected_board,
@@ -160,7 +160,7 @@ pub fn MainWindow(
                             macro_key_map,
                             media_key_map,
                             enable_middle_click,
-                            error_msg
+                            error_msg,
                         }
                     }
                 }
@@ -172,42 +172,44 @@ pub fn MainWindow(
                             layer_number: 0,
                             board: selected_board().clone(),
                             logical_layout: selected_logical_layout().clone(),
-                            id_layout_l0: id_layout_l0,
-                            id_layout_l1: id_layout_l1,
+                            id_layout_l0,
+                            id_layout_l1,
                         }
                         Keyboard {
                             general_setting: general_setting.clone(),
                             layer_number: 1,
                             board: selected_board().clone(),
                             logical_layout: selected_logical_layout().clone(),
-                            id_layout_l0: id_layout_l0,
-                            id_layout_l1: id_layout_l1,
+                            id_layout_l0,
+                            id_layout_l1,
                         }
                     }
                     div { class: "flex flex-col gap-4",
                         div { class: "flex gap-4",
-                            div { class: "bg-black rounded flex flex-1", 
+                            div { class: "bg-black rounded flex flex-1",
                                 SliderTPSensitivity { tp_sensitivity }
                             }
                             div { class: "bg-black rounded flex flex-1",
                                 div { class: "w-full p-6 space-y-6",
                                     h2 { class: "text-xl font-bold text-center flex-wrap",
-                                        "Enable middle",
-                                        br {},
-                                        "button click",
+                                        "Enable middle"
+                                        br {}
+                                        "button click"
                                     }
                                     div { class: "flex justify-center",
                                         input {
                                             r#type: "checkbox",
                                             checked: enable_middle_click(),
-                                            onchange: move |evt| { enable_middle_click.set(evt.checked()); },
+                                            onchange: move |evt| {
+                                                enable_middle_click.set(evt.checked());
+                                            },
                                         }
                                     }
                                 }
                             }
                         }
                         div { class: "flex flex-col bg-black rounded max-h-[calc(100vh-282px)]",
-                            h2 { class: "text-xl font-bold text-center py-2", "Macro keys" },
+                            h2 { class: "text-xl font-bold text-center py-2", "Macro keys" }
                             div { class: "px-6 overflow-y-auto",
                                 MacroKeySetting {
                                     general_setting: general_setting.clone(),
@@ -217,7 +219,7 @@ pub fn MainWindow(
                             }
                         }
                     }
-                    div { class: "flex flex-col gap-4", 
+                    div { class: "flex flex-col gap-4",
                         div { class: "px-6 bg-black rounded pb-6",
                             SelectFnID {
                                 general_setting: general_setting.clone(),
@@ -226,7 +228,7 @@ pub fn MainWindow(
                             }
                         }
                         div { class: "flex flex-col bg-black rounded max-h-[calc(100vh-220px)]",
-                            h2 { class: "text-xl font-bold text-center py-2", "Media keys" },
+                            h2 { class: "text-xl font-bold text-center py-2", "Media keys" }
                             div { class: "px-6 overflow-y-auto",
                                 MediaKeySetting {
                                     general_setting: general_setting.clone(),
@@ -236,9 +238,9 @@ pub fn MainWindow(
                         }
                     }
                 }
-                div { class: "w-full bg-gray-800 p-4 rounded shadow flex flex-wrap items-end gap-4",
-                    h2 { class: "text-xl font-bold text-center py-2", "Key matrix" },
-                }
+                        // div { class: "w-full bg-gray-800 p-4 rounded shadow flex flex-wrap items-end gap-4",
+            //     h2 { class: "text-xl font-bold text-center py-2", "Key matrix" },
+            // }
             }
         }
     }
