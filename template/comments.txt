@@ -1272,14 +1272,14 @@
 ; <- Macro - |
 ; <- Macro - |
 ; <- Macro - |
-; <- Media key - | F4s  0x28 = 01, 0x29 = 00
-; <- Media key - | F5s  0x28 = 02, 0x29 = 00
-; <- Media key - | F6s  0x28 = 04, 0x29 = 00
-; <- Media key - | F7s  0x28 = 08, 0x29 = 00
-; <- Media key - | F8s  0x28 = 10, 0x29 = 00
-; <- Media key - | F9s  0x28 = 20, 0x29 = 00
-; <- Media key - | F11s 0x28 = 80, 0x29 = 00
-; <- Media key - | F12s 0x28 = 94, 0x29 = 01
+; <- NOT USED ANYMORE - |
+; <- NOT USED ANYMORE - |
+; <- NOT USED ANYMORE - |
+; <- NOT USED ANYMORE - |
+; <- NOT USED ANYMORE - |
+; <- NOT USED ANYMORE - |
+; <- NOT USED ANYMORE - |
+; <- NOT USED ANYMORE - |
 
 ; <- Custom Consumer key - |
 ; <- Custom Consumer key - |
