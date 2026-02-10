@@ -6774,7 +6774,7 @@
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/46/0000}   "
     },
     {
       "op": "insert",
@@ -6806,7 +6806,7 @@
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/86/0000}   "
     },
     {
       "op": "insert",
@@ -6814,7 +6814,7 @@
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/d0/0000}   "
     },
     {
       "op": "insert",
@@ -6822,15 +6822,15 @@
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/d2/0000}   "
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/d3/0000}   "
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/d4/0000}   "
     },
     {
       "op": "insert",
@@ -6838,11 +6838,11 @@
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/d6/0000}   "
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/d7/0000}   "
     },
     {
       "op": "insert",
@@ -7006,23 +7006,23 @@
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/70/0000}   "
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/71/0000}   "
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/72/0000}   "
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/73/0000}   "
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/74/0000}   "
     },
     {
       "op": "insert",
@@ -7030,7 +7030,7 @@
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/76/0000}   "
     },
     {
       "op": "insert",
@@ -7070,7 +7070,7 @@
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/10/0000}   "
     },
     {
       "op": "insert",
@@ -7078,7 +7078,7 @@
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/12/0000}   "
     },
     {
       "op": "insert",
@@ -7086,11 +7086,11 @@
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/14/0000}   "
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/15/0000}   "
     },
     {
       "op": "insert",
@@ -7098,7 +7098,7 @@
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/17/0000}   "
     },
     {
       "op": "insert",
@@ -7110,19 +7110,19 @@
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/e2/0000}   "
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/e3/0000}   "
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/e4/0000}   "
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/e5/0000}   "
     },
     {
       "op": "insert",
@@ -7130,15 +7130,15 @@
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/e7/0000}   "
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/f0/0000}   "
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/f1/0000}   "
     },
     {
       "op": "insert",
@@ -7150,11 +7150,11 @@
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/f4/0000}   "
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/f5/0000}   "
     },
     {
       "op": "insert",
@@ -7170,11 +7170,11 @@
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/01/0000}   "
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/02/0000}   "
     },
     {
       "op": "insert",
@@ -7198,7 +7198,7 @@
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/30/0000}   "
     },
     {
       "op": "insert",
@@ -7206,7 +7206,7 @@
     },
     {
       "op": "insert",
-      "code": "    DW           0x0000               "
+      "code": "    DW           0x${s/32/0000}   "
     },
     {
       "op": "insert",
@@ -7225,8 +7225,8 @@
       "code": "    DW           0x${s/36/004e}   "
     },
     {
-      "op": "copy",
-      "from": 1826
+      "op": "insert",
+      "code": "    DW           0x${s/37/0000}   "
     },
     {
       "op": "copy",

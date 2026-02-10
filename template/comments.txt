@@ -1803,7 +1803,7 @@
 ; DW | 0x0046 | PrintScreen |
 ; DW | 0x004b | PageUp |
 ; DW | 0x004e | PageDown |
-; DW | 0x0000 | .. | 
+; DW | 0x0000 | .. |
 
 ; [ Trackpoint I2C ]
 ; tpSDA  = 1
