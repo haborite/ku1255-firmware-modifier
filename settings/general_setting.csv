@@ -204,14 +204,14 @@ C9,Keypad |,
 CA,Keypad ||,
 CB,Keypad :,
 CC,Keypad #,
-CD,Keypad Space,
-CE,Keypad @,
-CF,Keypad !,
-D0,Keypad Memory Store,07
-D1,Keypad Memory Recall,
-D2,Keypad Memory Clear,F2
-D3,Keypad Memory Add,
-D4,Keypad Memory Subtract,E1
+CD,Mute microphone,
+CE,Decrease brightness,
+CF,Increase brightness,
+D0,Switch monitors,07
+D1,Switch networks,
+D2,Settings Panel,F2
+D3,Task view,
+D4,Start menu,E1
 D5,Media 01,
 D6,Media 02,
 D7,Media 03,

@@ -860,15 +860,21 @@
 ;;
 ;;
 
-; [F4 Mic Mute]
+
 ; Check 0x0f value is F4
 ; if not, Go to F5
+;
+
+; [F4 Mic Mute]
 ;;
 ;;
 
-; [F5 brightness down]
+;
 ; Check 0x0f value is F5
 ; if not, Go to F6
+; if not, Go to F6
+
+; [F5 brightness down]
 ; Check 0x12.2
 ; If 0x12.2 == 0, JMP to branch
 ;;
@@ -880,9 +886,12 @@
 ;;
 ;; 
 
-; [F6 brightness up]
+
 ; Check 0x0f value is F6
 ; if not, Go to F7
+;
+
+; [F6 brightness up]
 ; Check 0x12.2
 ; If 0x12.2 == 0, JMP to branch
 ;;
@@ -894,6 +903,20 @@
 ;;
 ;;
 
+
+;
+;
+;  
+
+; [F7]
+;
+;
+;
+;
+;
+;;
+;;
+
 ; [F7]
 ;
 ;
@@ -902,23 +925,15 @@
 ;
 ;
 ;
-;;
-;;
+;
+;
 
-; [F7]
-;
-;
-;
-;
-;
-;
+
 ;
 ;
 ;
 
 ; [F8]
-;
-;
 ;
 ;
 ;;
@@ -927,6 +942,11 @@
 ; [F8]
 ;;
 ;;
+
+
+;
+;
+;
 
 ; [F9]
 ;
@@ -935,16 +955,22 @@
 ;
 ;
 ;
-;
-;
 ;;
 ;;
 
+
+;
+;
+;
+
 ; [F10]
-;
-;
 ;;
 ;;
+
+; 
+;
+;
+;
 
 ; [F11]
 ;
@@ -953,14 +979,15 @@
 ;
 ;
 ;
-;
-;
 ;;
 ;;
 
-; [F12]
+
 ; Check 0x0f value is F12
 ;; If not F12, go to key categorization
+;
+
+; [F12]
 ; If F12, 0x12.3 flag check
 ; If 0x12.3 == 0, JMP to func_0186_0273
 ; If 0x12.3 == 1, 
@@ -1022,6 +1049,9 @@
 ;;
 ;;
 ;;
+;;
+;;
+;;
 ;; Macro key ROM address
 ;; 
 ;;
@@ -1045,6 +1075,18 @@
 ;; -------------------------------------
 
 
+;; 
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+
+
 ;;
 ;;
 ;;
@@ -1063,28 +1105,6 @@
 ;; If 0x00.3 == 1, 0x00.7 = 0 
 ;; JMP to func_0186_02c3
 
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
 ;; <NOP>
 ;; <NOP>
 ;; <NOP>
@@ -1252,14 +1272,14 @@
 ; <- Macro - |
 ; <- Macro - |
 ; <- Macro - |
-; <- NOT USED ANYMORE - |
-; <- NOT USED ANYMORE - |
-; <- NOT USED ANYMORE - |
-; <- NOT USED ANYMORE - |
-; <- NOT USED ANYMORE - |
-; <- NOT USED ANYMORE - |
-; <- NOT USED ANYMORE - |
-; <- NOT USED ANYMORE - |
+; <- Media key - | F4s  0x28 = 01, 0x29 = 00
+; <- Media key - | F5s  0x28 = 02, 0x29 = 00
+; <- Media key - | F6s  0x28 = 04, 0x29 = 00
+; <- Media key - | F7s  0x28 = 08, 0x29 = 00
+; <- Media key - | F8s  0x28 = 10, 0x29 = 00
+; <- Media key - | F9s  0x28 = 20, 0x29 = 00
+; <- Media key - | F11s 0x28 = 80, 0x29 = 00
+; <- Media key - | F12s 0x28 = 94, 0x29 = 01
 
 ; <- Custom Consumer key - |
 ; <- Custom Consumer key - |

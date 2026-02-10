@@ -3438,7 +3438,7 @@
     },
     {
       "op": "insert",
-      "code": "    JMP          f4_mic_mute          "
+      "code": "    JMP          f4_mic_mute_pre      "
     },
     {
       "op": "insert",
@@ -3454,7 +3454,7 @@
     },
     {
       "op": "insert",
-      "code": "f4_mic_mute:                          "
+      "code": "f4_mic_mute_pre:"
     },
     {
       "op": "copy",
@@ -3462,7 +3462,19 @@
     },
     {
       "op": "insert",
-      "code": "    JMP          f5_brightness_down   "
+      "code": "    JMP          f5_brightness_dn_pre "
+    },
+    {
+      "op": "insert",
+      "code": "    JMP          f4_mic_mute          "
+    },
+    {
+      "op": "insert",
+      "code": ""
+    },
+    {
+      "op": "insert",
+      "code": "f4_mic_mute:                          "
     },
     {
       "op": "insert",
@@ -3478,7 +3490,7 @@
     },
     {
       "op": "insert",
-      "code": "f5_brightness_down:                   "
+      "code": "f5_brightness_dn_pre:                 "
     },
     {
       "op": "copy",
@@ -3486,7 +3498,19 @@
     },
     {
       "op": "insert",
-      "code": "    JMP          f6_brightness_up     "
+      "code": "    JMP          f6_brightness_up_pre "
+    },
+    {
+      "op": "insert",
+      "code": "    JMP          f5_brightness_down   "
+    },
+    {
+      "op": "insert",
+      "code": ""
+    },
+    {
+      "op": "insert",
+      "code": "f5_brightness_down:                   "
     },
     {
       "op": "copy",
@@ -3534,7 +3558,7 @@
     },
     {
       "op": "insert",
-      "code": "f6_brightness_up:                     "
+      "code": "f6_brightness_up_pre:"
     },
     {
       "op": "copy",
@@ -3542,7 +3566,19 @@
     },
     {
       "op": "insert",
-      "code": "    JMP          f7_process           "
+      "code": "    JMP          f7_process_pre       "
+    },
+    {
+      "op": "insert",
+      "code": "    JMP          f6_brightness_up     "
+    },
+    {
+      "op": "insert",
+      "code": ""
+    },
+    {
+      "op": "insert",
+      "code": "f6_brightness_up:                     "
     },
     {
       "op": "copy",
@@ -3590,7 +3626,7 @@
     },
     {
       "op": "insert",
-      "code": "f7_process:                           "
+      "code": "f7_process_pre:"
     },
     {
       "op": "copy",
@@ -3598,7 +3634,19 @@
     },
     {
       "op": "insert",
-      "code": "    JMP          f8_process           "
+      "code": "    JMP          f8_process_pre       "
+    },
+    {
+      "op": "insert",
+      "code": "    JMP          f7_process           "
+    },
+    {
+      "op": "insert",
+      "code": ""
+    },
+    {
+      "op": "insert",
+      "code": "f7_process:                           "
     },
     {
       "op": "copy",
@@ -3678,7 +3726,7 @@
     },
     {
       "op": "insert",
-      "code": "f8_process:                           "
+      "code": "f8_process_pre:"
     },
     {
       "op": "copy",
@@ -3686,7 +3734,19 @@
     },
     {
       "op": "insert",
-      "code": "    JMP          f9_process           "
+      "code": "    JMP          f9_process_pre       "
+    },
+    {
+      "op": "insert",
+      "code": "    JMP          f8_process           "
+    },
+    {
+      "op": "insert",
+      "code": ""
+    },
+    {
+      "op": "insert",
+      "code": "f8_process:                           "
     },
     {
       "op": "copy",
@@ -3726,7 +3786,7 @@
     },
     {
       "op": "insert",
-      "code": "f9_process:                           "
+      "code": "f9_process_pre:"
     },
     {
       "op": "copy",
@@ -3734,7 +3794,19 @@
     },
     {
       "op": "insert",
-      "code": "    JMP          f10_process          "
+      "code": "    JMP          f10_process_pre      "
+    },
+    {
+      "op": "insert",
+      "code": "    JMP          f9_process           "
+    },
+    {
+      "op": "insert",
+      "code": ""
+    },
+    {
+      "op": "insert",
+      "code": "f9_process:                           "
     },
     {
       "op": "copy",
@@ -3774,15 +3846,27 @@
     },
     {
       "op": "insert",
-      "code": "f10_process:                          "
+      "code": "f10_process_pre:"
     },
     {
       "op": "copy",
       "from": 1129
     },
     {
-      "op": "copy",
-      "from": 1130
+      "op": "insert",
+      "code": "    JMP          f11_process_pre      "
+    },
+    {
+      "op": "insert",
+      "code": "    JMP          f10_process          "
+    },
+    {
+      "op": "insert",
+      "code": ""
+    },
+    {
+      "op": "insert",
+      "code": "f10_process:                          "
     },
     {
       "op": "insert",
@@ -3793,12 +3877,12 @@
       "code": "    JMP          consumer_key         "
     },
     {
-      "op": "copy",
-      "from": 1144
+      "op": "insert",
+      "code": ""
     },
     {
-      "op": "copy",
-      "from": 1145
+      "op": "insert",
+      "code": "f11_process_pre:                      "
     },
     {
       "op": "copy",
@@ -3806,7 +3890,19 @@
     },
     {
       "op": "insert",
-      "code": "    JMP          f12_process          "
+      "code": "    JMP          f12_process_pre      "
+    },
+    {
+      "op": "insert",
+      "code": "    JMP          f11_process          "
+    },
+    {
+      "op": "insert",
+      "code": ""
+    },
+    {
+      "op": "insert",
+      "code": "f11_process:                          "
     },
     {
       "op": "copy",
@@ -3846,7 +3942,7 @@
     },
     {
       "op": "insert",
-      "code": "f12_process:                          "
+      "code": "f12_process_pre:"
     },
     {
       "op": "copy",
@@ -3855,6 +3951,18 @@
     {
       "op": "insert",
       "code": "    JMP          key_categorization   "
+    },
+    {
+      "op": "insert",
+      "code": "    JMP          f12_process          "
+    },
+    {
+      "op": "insert",
+      "code": ""
+    },
+    {
+      "op": "insert",
+      "code": "f12_process:                          "
     },
     {
       "op": "copy",
@@ -4062,7 +4170,7 @@
     },
     {
       "op": "insert",
-      "code": "    SUB          A,     #0xd5         "
+      "code": "    SUB          A,     #0xcd         "
     },
     {
       "op": "copy",
@@ -4071,6 +4179,18 @@
     {
       "op": "copy",
       "from": 1217
+    },
+    {
+      "op": "insert",
+      "code": "    SUB          A,     #0x08         "
+    },
+    {
+      "op": "insert",
+      "code": "    B0BTS1       FC                   "
+    },
+    {
+      "op": "insert",
+      "code": "    JMP          function_key         "
     },
     {
       "op": "insert",
@@ -4121,8 +4241,8 @@
       "code": "    MOV          A,     R             "
     },
     {
-      "op": "copy",
-      "from": 1233
+      "op": "insert",
+      "code": "    BTS0         0x00.3               "
     },
     {
       "op": "insert",
@@ -4181,12 +4301,60 @@
       "code": "    MOV          0x22,  A             "
     },
     {
-      "op": "copy",
-      "from": 1235
+      "op": "insert",
+      "code": "    JMP          func_0186_02c3       "
+    },
+    {
+      "op": "insert",
+      "code": ""
+    },
+    {
+      "op": "insert",
+      "code": "function_key:"
+    },
+    {
+      "op": "insert",
+      "code": "    ADD          A,     #0x08         "
     },
     {
       "op": "copy",
-      "from": 1236
+      "from": 1221
+    },
+    {
+      "op": "insert",
+      "code": "    JMP          f4_mic_mute          "
+    },
+    {
+      "op": "insert",
+      "code": "    JMP          f5_brightness_down   "
+    },
+    {
+      "op": "insert",
+      "code": "    JMP          f6_brightness_up     "
+    },
+    {
+      "op": "insert",
+      "code": "    JMP          f7_process           "
+    },
+    {
+      "op": "insert",
+      "code": "    JMP          f8_process           "
+    },
+    {
+      "op": "insert",
+      "code": "    JMP          f9_process           "
+    },
+    {
+      "op": "insert",
+      "code": "    JMP          f11_process          "
+    },
+    {
+      "op": "insert",
+      "code": "    JMP          f12_process          "
+    },
+    {
+      "op": "insert",
+      "code": ""
     },
     {
       "op": "insert",
@@ -4250,7 +4418,7 @@
     },
     {
       "op": "copy",
-      "from": 1239
+      "from": 1233
     },
     {
       "op": "insert",
@@ -4258,99 +4426,11 @@
     },
     {
       "op": "copy",
-      "from": 1241
-    },
-    {
-      "op": "copy",
-      "from": 1242
+      "from": 1235
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
+      "code": "    "
     },
     {
       "op": "insert",
@@ -4714,7 +4794,7 @@
     },
     {
       "op": "copy",
-      "from": 1245
+      "from": 1239
     },
     {
       "op": "insert",
@@ -4742,11 +4822,11 @@
     },
     {
       "op": "copy",
-      "from": 1247
+      "from": 1241
     },
     {
       "op": "copy",
-      "from": 1248
+      "from": 1242
     },
     {
       "op": "insert",
@@ -5022,35 +5102,35 @@
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m41/0000}      "
+      "code": "    DW           0x0001               "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m42/0000}      "
+      "code": "    DW           0x0002               "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m43/0000}      "
+      "code": "    DW           0x0004               "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m44/0000}      "
+      "code": "    DW           0x0008               "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m45/0000}      "
+      "code": "    DW           0x0010               "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m46/0000}      "
+      "code": "    DW           0x0020               "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m47/0000}      "
+      "code": "    DW           0x0080               "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/m48/0000}      "
+      "code": "    DW           0x0194               "
     },
     {
       "op": "insert",
