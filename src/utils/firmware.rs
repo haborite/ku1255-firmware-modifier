@@ -1,10 +1,10 @@
 use std::collections::{HashMap, BTreeMap};
-use dioxus::prelude::{Signal, Resource, ReadableExt, WritableExt};
+use dioxus::prelude::{Signal, ReadSignal, Resource, ReadableExt, WritableExt};
 use std::fs;
 use std::path::{Path};
 use std::io;
 use std::io::{Write};
-use crate::models::MacroKey;
+use crate::models::{Board, MacroKey};
 
 use crate::utils::template::render_template_file;
 use crate::utils::diff::apply_diff_files;
@@ -52,6 +52,7 @@ fn build_mod_fw(
     macro_key_map: Signal<BTreeMap<u8, MacroKey>>,
     media_key_map: Signal<BTreeMap<u8, u16>>,
     enable_middle_click: Signal<bool>,
+    selected_board: ReadSignal<Board>,
 ) -> Result<(), String> {
 
     let Some(original_binary) = &*firmware_future.read_unchecked() else {
@@ -65,7 +66,18 @@ fn build_mod_fw(
         .map_err(|e| format!("Failed to format ASM: {}", e))?;
     let _r = apply_diff_files(FMT_ASM_PATH, DIFF_PATH, COMMENTS_PATH, TMP_ASM_PATH)
         .map_err(|e| format!("Failed to apply diff: {}", e))?;
-    let _r = modify_asm_file(TMP_ASM_PATH, MOD_ASM_PATH, &layout0(), &layout1(), fn_id(), tp_sensitivity(), &macro_key_map(), &media_key_map(), enable_middle_click())
+    let _r = modify_asm_file(
+        TMP_ASM_PATH, 
+        MOD_ASM_PATH, 
+        &layout0(), 
+        &layout1(), 
+        fn_id(), 
+        tp_sensitivity(), 
+        &macro_key_map(), 
+        &media_key_map(), 
+        enable_middle_click(),
+        &selected_board(),
+    )
         .map_err(|e| format!("Failed to modify ASM: {}", e))?;
     let _r = run_assn8(MOD_ASM_PATH, MOD_BIN_PATH)
         .map_err(|e| format!("assn8 failed: {}", e))?;
@@ -82,6 +94,7 @@ pub fn install_firmware_by_flashsn8(
     macro_key_map: Signal<BTreeMap<u8, MacroKey>>,
     media_key_map: Signal<BTreeMap<u8, u16>>,
     enable_middle_click: Signal<bool>,
+    selected_board: ReadSignal<Board>,
     error_msg: &mut Signal<Option<String>>,    
 ) {
     if let Some(msg) = validate_mod_key_position(id_layout_l0, id_layout_l1) {
@@ -89,7 +102,17 @@ pub fn install_firmware_by_flashsn8(
         return;
     }
 
-    let _r = build_mod_fw(firmware_future, id_layout_l0, id_layout_l1, fn_id, tp_sensitivity, macro_key_map, media_key_map, enable_middle_click).unwrap_or_else(|err| {
+    let _r = build_mod_fw(
+        firmware_future, 
+        id_layout_l0, 
+        id_layout_l1, 
+        fn_id, 
+        tp_sensitivity, 
+        macro_key_map, 
+        media_key_map, 
+        enable_middle_click,
+        selected_board,
+    ).unwrap_or_else(|err| {
         error_msg.set(Some(format!("Failed to build modified firmware: {}", err)));
         return;
     });
@@ -146,6 +169,7 @@ fn modify_asm_file(
     macro_key_map: &BTreeMap<u8, MacroKey>,
     media_key_map: &BTreeMap<u8, u16>,
     enable_middle_click: bool,
+    selected_board: &Board,
 ) -> io::Result<()> {
 
     // Prepare s_values and e_choices
@@ -205,6 +229,17 @@ fn modify_asm_file(
 
     // Enable middle click
     e_choices.insert("mclick".to_string(), if enable_middle_click {1} else {0});
+
+    // Set keymask
+    let mut kms: [u8; 16] = [0; 16];
+    for &addr in selected_board.map_address.iter().flatten().flatten() {
+        let row = (addr >> 4) as usize;
+        let col = (addr & 0x07) as u32;
+        kms[row] |= 1u8 << col;
+    }
+    for (i, km) in kms.into_iter().enumerate() {
+        s_values.insert(format!("km_{:01x}", i), format!("00{:02x}", km));
+    }
 
     let _r = render_template_file(in_path, out_path, &s_values, &e_choices)?;
     Ok(())

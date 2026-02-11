@@ -161,6 +161,7 @@ pub fn MainWindow(
                             macro_key_map,
                             media_key_map,
                             enable_middle_click,
+                            selected_board,
                             error_msg,
                         }
                     }

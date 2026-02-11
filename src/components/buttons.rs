@@ -34,6 +34,7 @@ pub fn ButtonInstall(
     macro_key_map: Signal<BTreeMap<u8, MacroKey>>,
     media_key_map: Signal<BTreeMap<u8, u16>>,
     enable_middle_click: Signal<bool>,
+    selected_board: ReadSignal<Board>,
     error_msg: Signal<Option<String>>,
 ) -> Element {
     rsx! {
@@ -49,10 +50,11 @@ pub fn ButtonInstall(
                     macro_key_map,
                     media_key_map,
                     enable_middle_click,
+                    selected_board,
                     &mut error_msg,
                 );
             },
-            "Install firmware"              
+            "Install firmware"
         }
     }
 }
@@ -75,24 +77,28 @@ pub fn ButtonLoad(
             class: "px-4 py-2 bg-green-500 text-white rounded shadow hover:bg-green-600",
             onclick: move |_| {
                 let file = FileDialog::new()
-                .add_filter("Config files", &["json"])
-                .set_directory(std::env::current_exe().unwrap().parent().unwrap().join("examples"))
-                .set_title("Select key-remapping file")
-                .pick_file();
+                    .add_filter("Config files", &["json"])
+                    .set_directory(
+                        std::env::current_exe().unwrap().parent().unwrap().join("examples"),
+                    )
+                    .set_title("Select key-remapping file")
+                    .pick_file();
                 match file {
                     Some(path) => {
                         match load_config(&path) {
-                            Ok((
-                                loaded_board_name,
-                                loaded_logical_layout_name,
-                                loaded_id_layout_l0,
-                                loaded_id_layout_l1,
-                                loaded_fn_id,
-                                loaded_tp_sensitivity,
-                                loaded_macro_key_map,
-                                loaded_media_key_map,
-                                loaded_enable_middle_click
-                            )) => {
+                            Ok(
+                                (
+                                    loaded_board_name,
+                                    loaded_logical_layout_name,
+                                    loaded_id_layout_l0,
+                                    loaded_id_layout_l1,
+                                    loaded_fn_id,
+                                    loaded_tp_sensitivity,
+                                    loaded_macro_key_map,
+                                    loaded_media_key_map,
+                                    loaded_enable_middle_click,
+                                ),
+                            ) => {
                                 selected_board_name.set(loaded_board_name);
                                 selected_logical_layout_name.set(loaded_logical_layout_name);
                                 id_layout_l0.set(loaded_id_layout_l0);
@@ -102,10 +108,10 @@ pub fn ButtonLoad(
                                 macro_key_map.set(loaded_macro_key_map);
                                 media_key_map.set(loaded_media_key_map);
                                 enable_middle_click.set(loaded_enable_middle_click);
-                            },
-                            Err(e) => {eprintln!("Failed to load file: {}", e)},
+                            }
+                            Err(e) => eprintln!("Failed to load file: {}", e),
                         };
-                    },
+                    }
                     None => println!("file not selected"),
                 }
             },
@@ -132,7 +138,9 @@ pub fn ButtonSave(
             onclick: move |_| {
                 let save_path = FileDialog::new()
                     .add_filter("JSON files", &["json"])
-                    .set_directory(std::env::current_exe().unwrap().parent().unwrap().join("examples"))
+                    .set_directory(
+                        std::env::current_exe().unwrap().parent().unwrap().join("examples"),
+                    )
                     .set_file_name("config.json")
                     .set_title("Set config filepath")
                     .save_file();
@@ -151,7 +159,7 @@ pub fn ButtonSave(
                             &media_key_map(),
                             enable_middle_click(),
                         );
-                    },
+                    }
                     None => println!("Cancel"),
                 }
             },
