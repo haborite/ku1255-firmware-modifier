@@ -93,6 +93,7 @@ pub fn MainWindow(
 
     // ID Layout variables
     let initial_id_cloned = general_setting.initial_id_map.clone();
+    // let initial_id_cloned = selected_board().initial_id_map.clone();
     let id_layout_l0 = use_signal(|| initial_id_cloned);
     let id_layout_l1 = use_signal(|| id_layout_l0().clone());
 

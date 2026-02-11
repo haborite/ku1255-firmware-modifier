@@ -70,7 +70,7 @@ ID,usage_name,Address
 44,F11,13
 45,F12,F3
 46,PrintScreen,34
-47,Scroll Lock,
+47,Scroll Lock,E2
 48,Pause,05
 49,Insert,33
 4A,Home,11
@@ -101,7 +101,7 @@ ID,usage_name,Address
 63,Keypad . and Delete,
 64,Non-US Slash Bar,80
 65,Application,
-66,Power,
+66,Power,F4
 67,Keypad =,
 68,F13,
 69,F14,
@@ -164,9 +164,9 @@ A1,Oper,
 A2,Clear/Again,
 A3,CrSel/Props,
 A4,ExSel,
-A5,Reserved,
-A6,Reserved,
-A7,Reserved,
+A5,Reserved,E3
+A6,Reserved,F1
+A7,Reserved,01
 A8,Reserved,
 A9,Reserved,
 AA,Reserved,
@@ -204,7 +204,7 @@ C9,Keypad |,
 CA,Keypad ||,
 CB,Keypad :,
 CC,Keypad #,
-CD,Mute microphone,
+CD,Mute microphone,15
 CE,Decrease brightness,
 CF,Increase brightness,
 D0,Switch monitors,07
@@ -212,9 +212,9 @@ D1,Switch networks,
 D2,Settings Panel,F2
 D3,Task view,
 D4,Start menu,E1
-D5,Media 01,
-D6,Media 02,
-D7,Media 03,
+D5,Media 01,14
+D6,Media 02,17
+D7,Media 03,12
 D8,Media 04,
 D9,Media 05,
 DA,Media 06,
@@ -230,7 +230,7 @@ E3,Left GUI,F7
 E4,RightControl,D5
 E5,RightShift,75
 E6,RightAlt,E6
-E7,Right GUI,
+E7,Right GUI,10
 E8,Macro 01,
 E9,Macro 02,
 EA,Macro 03,

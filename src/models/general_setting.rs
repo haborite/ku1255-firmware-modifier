@@ -234,11 +234,21 @@ impl GeneralSeitting {
 
         // let address2id = GeneralSeitting::load_address2id(general_config_path)?;
 
-        // let map_address: Vec<Vec<Option<u8>>> = map_ids.into_iter().map(|v|{
+        let initial_id_map: BTreeMap<u8, Option<u8>> = map_address
+            .iter().flatten()
+            .zip(map_ids.iter().flatten())
+            .filter_map(|(addr_opt, id_opt)| {
+                addr_opt.map(|addr| (addr, *id_opt))
+            })
+            .collect();
+
+        // let initial_id_map: Vec<Vec<Option<u8>>> = map_ids.into_iter().map(|v|{
         //     v.into_iter().map(|id_opt|{
-        //         address2id.iter().find_map(|(k, val)| if *val == id_opt { Some(*k) } else { None })
+        //         map_address.iter().find_map(|(k, val)| if *val == id_opt { Some(*k) } else { None })
         //     }).collect()
         // }).collect();
+        println!("Board name: {board_name}");
+        println!("Initial ID map: {:?}", initial_id_map);
 
         Ok(Board {
             board_name,
@@ -246,6 +256,7 @@ impl GeneralSeitting {
             default_logical_layout_name,
             map_widths,
             map_address,
+            initial_id_map,
         })
     }
 

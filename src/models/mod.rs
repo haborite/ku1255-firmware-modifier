@@ -25,6 +25,7 @@ pub struct Board {
     pub default_logical_layout_name: String,
     pub map_widths: Vec<Vec<u16>>, 
     pub map_address: Vec<Vec<Option<u8>>>,
+    pub initial_id_map: BTreeMap<u8, Option<u8>>,
 }
 
 /*
