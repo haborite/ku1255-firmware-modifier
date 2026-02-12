@@ -60,7 +60,7 @@ ${s/03/004d}
 ${e/tp_accel_0/NOP/CALL func_07b7}
 ```
 
-This is the place holders. These place holders are divided to three parts `${1/2/3}`:
+These are placeholders I defined. They consist of enclosing `${` `}`, separating `/`, and more than three separated values like `${value_1/value_2/value_3}`:
 
 - If the 1st section is `s`, the placeholer means `string`.
     - 2nd section is name of the placeholder. It can be used to specify the place holders from the Rust code.
@@ -69,6 +69,7 @@ This is the place holders. These place holders are divided to three parts `${1/2
     - 2nd section is name of the placeholder. It can be used to specify the place holders from the Rust code.
     - 3rd section is the `index 0` value for the place holder. If the main code does not anything on the place holder, the place holder will be replaced by this value.
     - The nth sections (n > 3) are `index n-3` values.
+ - `src/utils/template.rs` is the placeholder replacement engine. `fn modify_asm_file` in `src/utils/firmware/.rs` defines how the placeholders are customized dinamically according to user-input information.
 
 ## Assembler references
 
