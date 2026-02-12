@@ -1,6 +1,6 @@
 [package]
 name = "ku1255-firmware-modifier"
-version = "0.7.5"
+version = "0.9.2"
 authors = ["haborite <korintje@ymail.ne.jp>"]
 edition = "2024"
 

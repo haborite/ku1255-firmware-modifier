@@ -74,7 +74,7 @@ KU-1255 uses SONiX [SN8F2288](https://www.sonix.com.tw/article-en-1002-3048) chi
 
 You can download several references from the [sonix website](https://www.sonix.com.tw/article-en-1002-3048).
 
-I often uses the [instruction guide](https://www.sonix.com.tw/files/1/44B04F2DC46250C6E050007F010027B5) to learn the operations used in SN8.
+I often use the [instruction guide](https://www.sonix.com.tw/files/1/44B04F2DC46250C6E050007F010027B5) to learn the operations used in SN8.
 
 
 ## Notes
