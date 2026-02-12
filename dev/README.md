@@ -70,14 +70,12 @@ This is the place holders. These place holders are divided to three parts `${1/2
 
 ## Assembler references
 
-KU-1255 uses SONiX [SN8F2288](https://www.sonix.com.tw/article-en-1002-3048) chip.
-
-You can download several references from the [sonix website](https://www.sonix.com.tw/article-en-1002-3048).
-
-I often use the [instruction guide](https://www.sonix.com.tw/files/1/44B04F2DC46250C6E050007F010027B5) to learn the operations used in SN8.
-
+- KU-1255 uses SONiX [SN8F2288](https://www.sonix.com.tw/article-en-1002-3048) chip.
+- You can download several references from the [sonix website](https://www.sonix.com.tw/article-en-1002-3048).
+- I often use the [instruction guide](https://www.sonix.com.tw/files/1/44B04F2DC46250C6E050007F010027B5) to learn the operations used in SN8.
+- [KU-1255 custom open-source firmware](https://github.com/ranma/ku1255cfw) wrote by [@ranma](https://github.com/ranma) is also very helpful to understand the firmware structure. He wrote it from scratch in the clean room method.
 
 ## Notes
 In the assembler source code, the program often refer ROM addresses in the program itself (by `MOVC` operation). It means that increase / decrease the number of operation lines easily breaks the program. I have added safety check in the firmware installer, which will check and prevent a keyboard from being flashed an incorrect firmware.
 
-The most convenient way is to keeping the number of operation lines constant between `DW` regions. You can see several pieces of many continuous `NOP` operations (No operation) in the source code. They have been created by improving code efficiency. You can use these `NOP`s as a buffer of the operations to keep the number of lines constant by increasing / decreasing them.
+The most convenient way is to keep the number of operation lines constant between `DW` regions. You can see several pieces of many continuous `NOP` operations (No operation) in the source code. They have been created by improving code efficiency. You can use these `NOP`s as a buffer of the operations to keep the number of lines constant by increasing / decreasing them.
