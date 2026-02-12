@@ -30,9 +30,9 @@
    The GUI app will launch. Click button `Install` and check that firmware installer launches in another window. You can see that several `.bin` and `.asm` files are created under the `firmware` directory after clicking that button.
 
 ## Firmware modification flow
-In the `firmware` directory, following files are created:
+In the `firmware` directory, following files will be created after pressing `Install` button:
 
-- `tp_compact_usb_kb_with_trackpoint_fw.exe`: The original Lenovo firmware installer exe. This consists of firmware binary and its installer.
+- `tp_compact_usb_kb_with_trackpoint_fw.exe`: The original Lenovo firmware installer exe downloaded from [Lenovo official page](https://support.lenovo.com/jp/ja/solutions/pd026745). This consists of firmware binary and its installer.
 - `fw_org.bin`: Binary of the original firmware. This is extracted from `tp_compact_usb_kb_with_trackpoint_fw.exe`.
 - `fw_org.asm`: Original firmware source code. This is disassembled from `fw_org.bin` by `sn8tool/sn8tool.exe (dissn.py)`.
 - `fw_fmt.asm`: Formatted firmware source code. This is formatted from `fw_org.bin` by `src/utils/format.rs`.
@@ -40,7 +40,9 @@ In the `firmware` directory, following files are created:
 - `fw_mod.asm`: Modified firmware source code. This is created from `fw_tmp.asm` by `src/utils/template.rs` (All the placeholders are replaced by actual values).
 - `fw_mod.bin`: Modified firmware binary: This is the final product, which is assembeld from `fw_mod.asm` by `sn8tool/sn8tool.exe (assn.py)`. 
 
-A developer modifys manually `fw_tmp.asm` to customize the firmware. Use dev/make_diff.py to generate diff.json and comments.txt from differences between `fw_fmt.asm` and `fw_tmp.asm`.
+These .bin and .asm files are not directly saved in the project repository. Instead, we use `template/diff.json` and `template/comments.txt` to save modifications.
+
+A developer modifys manually `fw_tmp.asm` to customize the firmware. Use `dev/make_diff.py` to generate `diff.json` and `comments.txt` from differences between `fw_fmt.asm` and `fw_tmp.asm`.
 
 ```
 cd dev
