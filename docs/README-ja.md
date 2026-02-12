@@ -84,15 +84,16 @@
 
 ## 🔧 使用例：FnキーとCtrlキーを入れ替える
 
-1. `Load config` をクリックし、次のファイルを開く： `examples/Swap-Fn-Ctrl.json`
-2. **Main Layer** 上で `Fn` と `Left Ctrl` の位置が入れ替わっていることを確認します。  
+1. `Load config` をクリックし、次のファイルを開きます： `examples/Swap-Fn-Ctrl.json`
+2. 左上の**Keyboard selection**でキーボードの種類を選びます（JIS or US など）。
+3. **Main Layer** 上で `Fn` と `Left Ctrl` の位置が入れ替わっていることを確認します。  
    （入れ替わったキーは青くハイライトされます。）
-3. `Install firmware` をクリック
-4. ファームウェアインストーラーが起動したら **Start** をクリック
-5. インストールが完了したらインストーラーを閉じます
-6. キーボードをUSBから一度取り外し、再接続すると新しい設定が有効になります
+4. `Install firmware` をクリック
+5. ファームウェアインストーラーが起動したら **Start** をクリック
+6. インストールが完了したらインストーラーを閉じます
+7. キーボードをUSBから一度取り外し、再接続すると新しい設定が有効になります
 
-## 電気的なキーマトリクス
+## 電気回路上のキーマトリクス
 
 |  | P1.0 | P1.1 | P1.2 | P1.3 | P1.4 | P1.5 | P1.6 | P1.7 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -112,6 +113,13 @@
 | P4.5 | (none) | LCTRL | (none) | (none) | (none) | RCTRL | (none) | (none) |
 | P4.6 | LALT | KP\_MEMSUBTRACT | (none) | (none) | (none) | (none) | RALT | (none) |
 | P4.7 | (none) | (none) | KP\_MEMCLEAR | F12 | (none) | (none) | RIGHT | LGUI |
+
+
+## 開発
+devlopment guideをご覧ください
+
+https://github.com/haborite/ku1255-firmware-modifier/tree/main/dev#readme
+
 
 ---
 

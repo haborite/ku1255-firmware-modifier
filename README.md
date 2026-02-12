@@ -83,12 +83,13 @@ Since all modifications are written directly to the keyboard's firmware, **no sy
 ## 🔧 Example: Swapping Fn and Ctrl Keys
 
 1. Click `Load config` and open the file: `example/Swap-Fn-Ctrl.json`
-2. In the **Main Layer**, verify that the `Fn` and `Left Ctrl` keys are swapped.  
+2. Select keyboard you use in the `Keyboard` selection.
+3. In the **Main Layer**, verify that the `Fn` and `Left Ctrl` keys are swapped.  
    (Swapped keys will be highlighted in blue.)
-3. Click `Install firmware`.
-4. When the firmware installer launches, click **Start**.
-5. After installation finishes, close the installer.
-6. Unplug and reconnect the keyboard. The new keymap will take effect.
+4. Click `Install firmware`.
+5. When the firmware installer launches, click **Start**.
+6. After installation finishes, close the installer.
+7. Unplug and reconnect the keyboard. The new keymap will take effect.
 
 ## Electrical key matrix
 
@@ -112,6 +113,9 @@ Since all modifications are written directly to the keyboard's firmware, **no sy
 | P4.7 | (none) | (none) | KP\_MEMCLEAR | F12 | (none) | (none) | RIGHT | LGUI |
 
 ---
+
+# Development
+See https://github.com/haborite/ku1255-firmware-modifier/tree/main/dev#readme
 
 # Acknowledgements
 The firmware binary analysis methodology employed in this project is based on the discussion in the following thread
