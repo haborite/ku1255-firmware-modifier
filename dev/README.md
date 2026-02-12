@@ -80,4 +80,4 @@ I often use the [instruction guide](https://www.sonix.com.tw/files/1/44B04F2DC46
 ## Notes
 In the assembler source code, the program often refer ROM addresses in the program itself (by `MOVC` operation). It means that increase / decrease the number of operation lines easily breaks the program. I have added safety check in the firmware installer, which will check and prevent a keyboard from being flashed an incorrect firmware.
 
-The most convenient way is to keeping the number of operation lines constant between `DW` regions. You can see many `NOP` operations (No operation) in the source code. These are created by improving code efficiency. You can use these `NOP`s as a buffer of the operations to keep the number of lines constant by increasing / decreasing them.
+The most convenient way is to keeping the number of operation lines constant between `DW` regions. You can see several pieces of many continuous `NOP` operations (No operation) in the source code. These are created by improving code efficiency. You can use these `NOP`s as a buffer of the operations to keep the number of lines constant by increasing / decreasing them.
