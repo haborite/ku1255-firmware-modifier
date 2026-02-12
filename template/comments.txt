@@ -2394,23 +2394,23 @@
 ;
 
 ;
-;
-;
-;
-
-;
-;
-;
+; Y = #0x08
+; Z = #0x54
 ;
 
 ;
-;
-;
+; Y = #0x08
+; Z = #0x80
 ;
 
 ;
+; Y = #0x08
+; Z = #0xab
 ;
+
 ;
+; Y = #0x08
+; Z = #0xd6
 ;
 
 ;
@@ -2508,7 +2508,7 @@
 ;
 ;
 ;
-; memoOVC Y = ?, Z = v-c z + 29
+; memoOVC Y = #0x08 or #0x09?, Z = v-c z + 29
 ;
 ; 33points
 ;
@@ -2526,7 +2526,7 @@
 ; B033points | B00x33 = invert(invert(B00x33) + 1 + 0x35) + 1
 ;
 ;
-; DW | 0x0000 | .. |
+; DW | 0x0000 | .. | address: 0x0854. designated from func_07e6_000d
 ; DW | 0x0000 | .. |
 ; DW | 0x0000 | .. |
 ; DW | 0xffff | .. |
@@ -2570,7 +2570,7 @@
 ; DW | 0xffea | .. |
 ; DW | 0xffe9 | .. |
 ; DW | 0xffe9 | .. |
-; DW | 0x0000 | .. |
+; DW | 0x0000 | .. | address: 0x0880. designated from func_07e6_0010
 ; DW | 0x0000 | .. |
 ; DW | 0xffff | .. |
 ; DW | 0xffff | .. |
@@ -2613,7 +2613,7 @@
 ; DW | 0xffee | .. |
 ; DW | 0xffee | .. |
 ; DW | 0xffed | .. |
-; DW | 0x0000 | .. |
+; DW | 0x0000 | .. | address: 0x08ab. designated from func_07e6_0013
 ; DW | 0x0000 | .. |
 ; DW | 0x0000 | .. |
 ; DW | 0xffff | .. |
@@ -2656,7 +2656,7 @@
 ; DW | 0xfff6 | .. |
 ; DW | 0xfff6 | .. |
 ; DW | 0xfff6 | .. |
-; DW | 0x0000 | .. |
+; DW | 0x0000 | .. | address: 0x08d6. designated from func_07e6_0016
 ; DW | 0x0000 | .. |
 ; DW | 0x0000 | .. |
 ; DW | 0x0000 | .. |
