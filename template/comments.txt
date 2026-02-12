@@ -3421,12 +3421,12 @@
 ;
 ;
 ;
+; Set FnLock signal ON?
 ;
 ;
 ;
 ;
-;
-;
+; Clear FnLock signal?
 ;
 ;
 ;
@@ -4286,8 +4286,8 @@
 ;
 ; write UDR0 #0x06 at UDP0 1
 ;
+; Check FnLock signal
 ;
-; FnLock signal
 ;
 ;
 ;
