@@ -1272,14 +1272,14 @@
 ; <- Macro - |
 ; <- Macro - |
 ; <- Macro - |
-; <- NOT USED ANYMORE - |
-; <- NOT USED ANYMORE - |
-; <- NOT USED ANYMORE - |
-; <- NOT USED ANYMORE - |
-; <- NOT USED ANYMORE - |
-; <- NOT USED ANYMORE - |
-; <- NOT USED ANYMORE - |
-; <- NOT USED ANYMORE - |
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
 
 ; <- Custom Consumer key - |
 ; <- Custom Consumer key - |
@@ -1292,11 +1292,11 @@
 ; <- Custom Consumer key - |
 ; <- Custom Consumer key - |
 ; <- Custom Consumer key - |
-; <- NOT USED ANYMORE - |
-; <- NOT USED ANYMORE - |
-; <- NOT USED ANYMORE - |
-; <- NOT USED ANYMORE - |
-; <- NOT USED ANYMORE - |
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
 
 ; <- Media key - | 0455 | F1c  0x21 = E2, 0x22 = 00
 ; <- Media key - | 0456 | F2c  0x21 = EA, 0x22 = 00
@@ -1315,22 +1315,22 @@
 ; <- Media key - | 0463 | F12c 0x21 = f2, 0x22 = 03
 ; <- Media key - | 0464 | F12s 0x28 = 94, 0x29 = 01
 
-; <- FIXED (just for get 0x0000) - | 0465 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- NOT USED ANYMORE - | 0466 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- NOT USED ANYMORE - | 0467 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- NOT USED ANYMORE - | 0468 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- NOT USED ANYMORE - | 0469 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- NOT USED ANYMORE - | 046a | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- NOT USED ANYMORE - | 046b | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- NOT USED ANYMORE - | 046c | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- NOT USED ANYMORE - | 046d | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- NOT USED ANYMORE - | 046e | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- NOT USED ANYMORE - | 046f | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- NOT USED ANYMORE - | 0470 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- NOT USED ANYMORE - | 0471 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- NOT USED ANYMORE - | 0472 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- NOT USED ANYMORE - | 0473 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- NOT USED ANYMORE - | 0474 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; <- FIXED (just for get 0x0000) - | 0465 |
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
+; <- NOT USED ANYMORE
 
 ; func_0475:                          ;; === Popcount of 8-bit value in 0x09 (Replacable by a smart bit trick) ===
 ;;    CLR          0x0a                 ; Clear popcount accumulator
@@ -3047,25 +3047,25 @@
 ;
 ;
 ;
-;          P1.0           P1.1           P1.2           P1.3           P1.4           P1.5           P1.6           P1.7
-;            R0             R3             R2             R5             R4             R6             R7             R1
 ;
-;            UP         (none)         (none)            END             FN          PAUSE           LEFT    KP_MEMSTORE   P0.3/S14
-;        (none)           HOME         (none)            F11         (none)         (none)           DOWN         (none)   P0.4/S11
-;            F5             F9 INTERNATIONAL3            F10      BACKSLASH         RETURN          SPACE      BACKSPACE   P0.5/S10
-;        (none)         DELETE         (none)         INSERT    PRINTSCREEN         PAGEUP       PAGEDOWN         (none)   P0.6/S15
-;            F4             F2              E              3              D              C         (none)             F3   P2.0/S1
-;             H              6              U              7              J              M              N              Y   P2.1/S5
-;        ESCAPE          GRAVE              Q              1              A              Z INTERNATIONAL5            TAB   P2.2/S0
-;        (none)         (none)         (none)         (none)         (none)         RSHIFT         (none)         LSHIFT   P2.3/S9
-;NONUSBACKSLASH             F1              W              2              S              X         (none)       CAPSLOCK   P4.0/S2
-;             G              5              R              4              F              V              B              T   P4.1/S4
-;INTERNATIONAL4             F8              O              9              L         PERIOD INTERNATIONAL2             F7   P4.2/S7
-;    APOSTROPHE          MINUS              P              0      SEMICOLON      NONUSHASH          SLASH    LEFTBRACKET   P4.3/S8
-;            F6         EQUALS              I              8              K          COMMA INTERNATIONAL1   RIGHTBRACKET   P4.4/S6
-;        (none)          LCTRL         (none)         (none)         (none)          RCTRL         (none)         (none)   P4.5/S3
-;          LALT KP_MEMSUBTRACT         (none)         (none)         (none)         (none)           RALT         (none)   P4.6/S12
-;        (none)         (none)    KP_MEMCLEAR            F12         (none)         (none)          RIGHT           LGUI   P4.7/S13
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
 ;
 ;
 ;
