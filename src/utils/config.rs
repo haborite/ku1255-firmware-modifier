@@ -15,7 +15,6 @@ pub fn load_config(filepath: &Path)
 {
     let file = File::open(filepath)?;
     let config: Config = from_reader(file)?;
-    println!("{:?}", config.layer0);
     Ok((
         config.physical_layout_name,
         config.logical_layout_name,

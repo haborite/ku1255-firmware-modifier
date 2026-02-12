@@ -2433,10 +2433,6 @@
       "from": 665
     },
     {
-      "op": "insert",
-      "code": ""
-    },
-    {
       "op": "copy",
       "from": 667
     },
@@ -2474,10 +2470,6 @@
     },
     {
       "op": "insert",
-      "code": ""
-    },
-    {
-      "op": "insert",
       "code": "    NOP                               "
     },
     {
@@ -2538,14 +2530,6 @@
     },
     {
       "op": "insert",
-      "code": ""
-    },
-    {
-      "op": "insert",
-      "code": ""
-    },
-    {
-      "op": "insert",
       "code": "    NOP                               "
     },
     {
@@ -2599,14 +2583,6 @@
     {
       "op": "insert",
       "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": ""
-    },
-    {
-      "op": "insert",
-      "code": ""
     },
     {
       "op": "insert",
@@ -5102,35 +5078,35 @@
     },
     {
       "op": "insert",
-      "code": "    DW           0x0001               "
+      "code": "    NOP                               "
     },
     {
       "op": "insert",
-      "code": "    DW           0x0002               "
+      "code": "    NOP                               "
     },
     {
       "op": "insert",
-      "code": "    DW           0x0004               "
+      "code": "    NOP                               "
     },
     {
       "op": "insert",
-      "code": "    DW           0x0008               "
+      "code": "    NOP                               "
     },
     {
       "op": "insert",
-      "code": "    DW           0x0010               "
+      "code": "    NOP                               "
     },
     {
       "op": "insert",
-      "code": "    DW           0x0020               "
+      "code": "    NOP                               "
     },
     {
       "op": "insert",
-      "code": "    DW           0x0080               "
+      "code": "    NOP                               "
     },
     {
       "op": "insert",
-      "code": "    DW           0x0194               "
+      "code": "    NOP                               "
     },
     {
       "op": "insert",
@@ -5182,23 +5158,23 @@
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/c12/0000}      "
+      "code": "    NOP                               "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/c13/0000}      "
+      "code": "    NOP                               "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/c14/0000}      "
+      "code": "    NOP                               "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/c15/0000}      "
+      "code": "    NOP                               "
     },
     {
       "op": "insert",
-      "code": "    DW           0x${s/c16/0000}      "
+      "code": "    NOP                               "
     },
     {
       "op": "insert",
@@ -5217,20 +5193,20 @@
       "code": "    DW           0x00e9               "
     },
     {
-      "op": "insert",
-      "code": "    DW           0x0001               "
+      "op": "copy",
+      "from": 1320
     },
     {
-      "op": "insert",
-      "code": "    DW           0x0002               "
+      "op": "copy",
+      "from": 1321
     },
     {
       "op": "insert",
       "code": "    DW           0x0070               "
     },
     {
-      "op": "insert",
-      "code": "    DW           0x0004               "
+      "op": "copy",
+      "from": 1333
     },
     {
       "op": "insert",
@@ -5273,76 +5249,68 @@
       "code": ""
     },
     {
-      "op": "copy",
-      "from": 1318
-    },
-    {
-      "op": "copy",
-      "from": 1319
-    },
-    {
-      "op": "copy",
-      "from": 1320
-    },
-    {
-      "op": "copy",
-      "from": 1321
-    },
-    {
-      "op": "copy",
-      "from": 1322
-    },
-    {
-      "op": "copy",
-      "from": 1323
-    },
-    {
-      "op": "copy",
-      "from": 1324
-    },
-    {
-      "op": "copy",
-      "from": 1325
-    },
-    {
-      "op": "copy",
-      "from": 1326
-    },
-    {
-      "op": "copy",
-      "from": 1327
-    },
-    {
-      "op": "copy",
-      "from": 1328
-    },
-    {
-      "op": "copy",
-      "from": 1329
-    },
-    {
-      "op": "copy",
-      "from": 1330
-    },
-    {
-      "op": "copy",
-      "from": 1331
-    },
-    {
-      "op": "copy",
-      "from": 1332
-    },
-    {
-      "op": "copy",
-      "from": 1333
-    },
-    {
-      "op": "copy",
-      "from": 1334
+      "op": "insert",
+      "code": "    DW           0x0000               "
     },
     {
       "op": "insert",
-      "code": ""
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
+    },
+    {
+      "op": "insert",
+      "code": "    NOP                               "
     },
     {
       "op": "insert",

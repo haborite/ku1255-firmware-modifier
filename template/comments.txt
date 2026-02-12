@@ -605,7 +605,6 @@
 ; A = 14 - row_i
 ; Check if row_i <= 14
 ; Continue scanning remaining rows
-; func_0186_00d7:                     ; === Common cleanup after abnormal handling ===
 ; Clear working registers 0x09, 0x0a, 0x0b, 0x0c
 ; Clear abnormal-processing flag
 ; Reset row_i index
@@ -615,54 +614,49 @@
 ; Reset bit-processing counter
 ; Resume normal key change processing
 
-; func_0186_00df:                     ; === Ghosting workaround: pattern case 1 ===
-;    B0MOV        Y,     #0x01         ; 
-;    B0MOV        Z,     #0x09         ; S9 row (P2.3): Row of LShift(1.7) and RShift(1.5)
-;    B0MOV        A,     @YZ           ; A = row_i pattern
-;    B0MOV        R,     A             ; Save row_i pattern into R
-;    B0MOV        Z,     #0x0d         ; S13 row (P4.7): Row of LGUI(1.7), Right(1.6), F12(1.3), KP_MEMCLEAR(1.2)
-;    B0MOV        A,     @YZ           ; A = row_j pattern
-;    CMPRS        A,     R             ; Compare row_i and row_j
-;    JMP          func_0186_00ee       ; If not equal, try next pattern
-;    B0MOV        A,     R             ;
-;    CMPRS        A,     #0xc0         ; Check for pattern 1100_0000
-;    JMP          func_0186_00ee       ;
-;    AND          A,     #0x80         ; Keep only MSB (1000_0000)
-;    B0MOV        Z,     #0x09         ;
-;    B0MOV        @YZ,   A             ; Mask row_i pattern
-;    JMP          func_0186_00d7       ; Cleanup and exit abnormal handling
-
-; func_0186_00ee:                     ; === Ghosting workaround: pattern case 2 ===
-;    B0MOV        Y,     #0x01         ;
-;    B0MOV        Z,     #0x0d         ; S13 row (P4.7): Row of LGUI(1.7), Right(1.6), F12(1.3), KP_MEMCLEAR(1.2)
-;    B0MOV        A,     @YZ           ; A = row_j pattern
-;    B0MOV        R,     A             ;
-;    B0MOV        Z,     #0x09         ; S9 row (P2.3): Row of LShift(1.7) and RShift(1.5)
-;    B0MOV        A,     @YZ           ; A = row_i pattern
-;    CMPRS        A,     R             ;
-;    JMP          func_0186_00fc       ;
-;    B0MOV        A,     R             ;
-;    CMPRS        A,     #0x88         ; Check for pattern 1000_1000
-;    JMP          func_0186_00fc       ;
-;    AND          A,     #0x80         ; Keep only MSB
-;    B0MOV        @YZ,   A             ;
-;    JMP          func_0186_00d7       ;
-
-; func_0186_00fc:                     ; === Ghosting workaround: pattern case 3 ===
-;    B0MOV        Y,     #0x01         ;
-;    B0MOV        Z,     #0x0d         ; S13 row (P4.7): Row of LGUI(1.7), Right(1.6), F12(1.3), KP_MEMCLEAR(1.2)
-;    B0MOV        A,     @YZ           ; A = row_j pattern
-;    B0MOV        R,     A             ;
-;    B0MOV        Z,     #0x0c         ; S12 row (P4.6): Row of RALT(1.6), LALT(1.0), KP_MEMSUBTACT(1.1)
-;    B0MOV        A,     @YZ           ; A = another row pattern
-;    CMPRS        A,     R             ;
-;    JMP          func_0186_010a       ;
-;    B0MOV        A,     R             ;
-;    CMPRS        A,     #0xc0         ; Check for pattern 1100_0000
-;    JMP          func_0186_010a       ;
-;    AND          A,     #0x40         ; Keep bit 0100_0000 only
-;    B0MOV        @YZ,   A             ;
-;    JMP          func_0186_00d7       ;
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
 
 ; === Unrecoverable ghosting -> full reset ===
 ; Check if reset already performed
@@ -1105,90 +1099,90 @@
 ;; If 0x00.3 == 1, 0x00.7 = 0 
 ;; JMP to func_0186_02c3
 
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
-;; <NOP>
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
 
 
 ;; Address of bit musk ROM
@@ -1272,14 +1266,14 @@
 ; <- Macro - |
 ; <- Macro - |
 ; <- Macro - |
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
 
 ; <- Custom Consumer key - |
 ; <- Custom Consumer key - |
@@ -1292,11 +1286,11 @@
 ; <- Custom Consumer key - |
 ; <- Custom Consumer key - |
 ; <- Custom Consumer key - |
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
 
 ; <- Media key - | 0455 | F1c  0x21 = E2, 0x22 = 00
 ; <- Media key - | 0456 | F2c  0x21 = EA, 0x22 = 00
@@ -1316,43 +1310,41 @@
 ; <- Media key - | 0464 | F12s 0x28 = 94, 0x29 = 01
 
 ; <- FIXED (just for get 0x0000) - | 0465 |
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
-; <- NOT USED ANYMORE
-
-; func_0475:                          ;; === Popcount of 8-bit value in 0x09 (Replacable by a smart bit trick) ===
-;;    CLR          0x0a                 ; Clear popcount accumulator
-;;    B0MOV        Y,     #0x04         ; Clear popcount accumulator
-;;    B0MOV        Z,     6565         ; #0x65 (+0) (Real +0x05a0 = 0x0a05)
-;;    MOV          A,     0x09          ; Base address of 4-bit popcount table
-;;    AND          A,     #0x0f         ; Extract lower nibble
-;;    ADD          Z,     A             ; Z = table_base + low_nibble
-;;    B0BTS0       FC                   ; Z = table_base + low_nibble
-;;    INCMS        Y                    ;
-;;     MOVC                              ; Load popcount(low_nibble) from ROM into A
-;;    ADD          0x0a,  A             ; Accumulate count
-;;    B0MOV        Y,     #0x04         ; Reset ROM page
-;;    B0MOV        Z,     #0x65         ; Reset table base
-;;    SWAP         0x09                 ; Swap high/low nibbles
-;;    AND          A,     #0x0f         ; Extract original high nibble
-;;    ADD          Z,     A             ; Z = table_base + high_nibble
-;;    B0BTS0       FC                   ;
-;;    INCMS        Y                    ;
-;;    MOVC                              ; Load popcount(high_nibble)
-;;    ADD          0x0a,  A             ; Add to total popcount
-;;    RET                               ; Return with popcount in 0x0a
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
+;; <NOP> <- NOT USED ANYMORE
 
 ; [ Non-modifier special key process ]                 ; 0489
 ; Set 0x10 = 0                                         ; 0489

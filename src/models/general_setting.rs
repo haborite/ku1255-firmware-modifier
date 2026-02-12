@@ -242,14 +242,6 @@ impl GeneralSeitting {
             })
             .collect();
 
-        // let initial_id_map: Vec<Vec<Option<u8>>> = map_ids.into_iter().map(|v|{
-        //     v.into_iter().map(|id_opt|{
-        //         map_address.iter().find_map(|(k, val)| if *val == id_opt { Some(*k) } else { None })
-        //     }).collect()
-        // }).collect();
-        println!("Board name: {board_name}");
-        println!("Initial ID map: {:?}", initial_id_map);
-
         Ok(Board {
             board_name,
             board_label,
