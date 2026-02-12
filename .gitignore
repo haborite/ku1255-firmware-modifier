@@ -26,3 +26,4 @@ __pycache__
 .venv*
 public/tailwind.css
 sn8tool
+sn8tool/sn8
