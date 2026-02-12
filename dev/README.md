@@ -25,6 +25,7 @@
 
 3. Dev mode run test (Do it after deploy test)
    ```
+   dx config set always-on-top false
    dx serve
    ```
    The GUI app will launch. Click button `Install` and check that firmware installer launches in another window. You can see that several `.bin` and `.asm` files are created under the `firmware` directory after clicking that button.
