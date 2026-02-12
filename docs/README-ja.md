@@ -85,7 +85,7 @@
 ## 🔧 使用例：FnキーとCtrlキーを入れ替える
 
 1. `Load config` をクリックし、次のファイルを開きます： `examples/Swap-Fn-Ctrl.json`
-2. 左上の**Keyboard selection**でキーボードの種類を選びます（JIS or US など）。
+2. 左上の**Keyboard selection**でキーボードの種類を選びます（JIS or ANSI など）。
 3. **Main Layer** 上で `Fn` と `Left Ctrl` の位置が入れ替わっていることを確認します。  
    （入れ替わったキーは青くハイライトされます。）
 4. `Install firmware` をクリック
