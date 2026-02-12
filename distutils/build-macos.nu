@@ -159,10 +159,11 @@ def assemble-release [
     }
 
     # Optionally include sn8tool into the release payload
-    let sn8tool_out = $"($root)/sn8tool/macos/sn8tool"
+    let sn8tool_out = $"($root)/sn8files/macos/sn8tool"
     if ($sn8tool_out | path exists) {
         print "=== 6. Including sn8tool binaries ==="
         cp -r $sn8tool_out $"($workdir)/sn8tool"
+        cp -r $sn8tool_out $"($root)/sn8tool"
     }
 
     print "=== 7. Creating ZIP archive ==="
@@ -188,7 +189,7 @@ def main [] {
     let workdir      = $"($root)/deploy/macos_working"
     let distdir      = $"($root)/deploy/macos"
     let archive_name = "ku1255-firmware-modifier-macos.zip"
-    let sn8_root     = $"($root)/sn8tool"
+    let sn8_root     = $"($root)/sn8files"
 
     if ($sn8_root | path exists) == false {
         print $"[WARN] sn8tool directory not found at: ($sn8_root)"

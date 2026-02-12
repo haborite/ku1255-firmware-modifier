@@ -157,10 +157,11 @@ def assemble-release [
         }
     }
 
-    let sn8tool_out = $"($root)/sn8tool/linux/sn8tool"
+    let sn8tool_out = $"($root)/sn8files/linux/sn8tool"
     if ($sn8tool_out | path exists) {
         print "=== 6. Including sn8tool ==="
         cp -r $sn8tool_out $"($workdir)/sn8tool"
+        cp -r $sn8tool_out $"($root)/sn8tool"
     }
 
     print "=== 7. Creating ZIP archive ==="
@@ -186,7 +187,7 @@ def main [] {
     let workdir      = $"($root)/deploy/linux_working"
     let distdir      = $"($root)/deploy/linux"
     let archive_name = "ku1255-firmware-modifier-linux.zip"
-    let sn8_root     = $"($root)/sn8tool"
+    let sn8_root     = $"($root)/sn8files"
 
     if ($sn8_root | path exists) == false {
         print $"[WARN] sn8tool directory not found: ($sn8_root)"
