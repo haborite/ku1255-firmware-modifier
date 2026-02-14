@@ -416,6 +416,14 @@
 ;
 
 ;
+; Y = #0x28 (fixed)
+; Z = #0x00 (fixed)
+; | ROM-Loading POINT (1) >>>
+; Always true?
+;
+;
+
+;
 ;
 ;
 ;
@@ -426,14 +434,6 @@
 ;
 ;
 ;
-;
-;
-;
-;
-
-;
-;
-;
 
 ;
 ;
@@ -442,25 +442,25 @@
 ;
 ;
 
-; <- Key matrix mask 01 for P2.2 - |
-; <- Key matrix mask 02 for P2.0 - |
-; <- Key matrix mask 03 for P4.0 - |
-; <- Key matrix mask 04 for P4.5 - |
-; <- Key matrix mask 05 for P4.1 - |
-; <- Key matrix mask 06 for P2.1 - |
-; <- Key matrix mask 07 for P4.4 - |
-; <- Key matrix mask 08 for P4.2 - |
-; <- Key matrix mask 09 for P4.3 - |
-; <- Key matrix mask 10 for P2.3 - |
-; <- Key matrix mask 11 for P0.5 - |
-; <- Key matrix mask 12 for P0.4 - |
-; <- Key matrix mask 13 for P4.6 - |
-; <- Key matrix mask 14 for P4.7 - |
-; <- Key matrix mask 15 for P0.3 - |
-; <- Key matrix mask 16 for P0.6 - |
+; <- Key matrix mask 01 for P2.2 - | ROM-Loaded POINT (2) <<< Key-matrix mask
+; <- Key matrix mask 02 for P2.0 - | ROM-Loaded POINT (2) <<< Key-matrix mask
+; <- Key matrix mask 03 for P4.0 - | ROM-Loaded POINT (2) <<< Key-matrix mask
+; <- Key matrix mask 04 for P4.5 - | ROM-Loaded POINT (2) <<< Key-matrix mask
+; <- Key matrix mask 05 for P4.1 - | ROM-Loaded POINT (2) <<< Key-matrix mask
+; <- Key matrix mask 06 for P2.1 - | ROM-Loaded POINT (2) <<< Key-matrix mask
+; <- Key matrix mask 07 for P4.4 - | ROM-Loaded POINT (2) <<< Key-matrix mask
+; <- Key matrix mask 08 for P4.2 - | ROM-Loaded POINT (2) <<< Key-matrix mask
+; <- Key matrix mask 09 for P4.3 - | ROM-Loaded POINT (2) <<< Key-matrix mask
+; <- Key matrix mask 10 for P2.3 - | ROM-Loaded POINT (2) <<< Key-matrix mask
+; <- Key matrix mask 11 for P0.5 - | ROM-Loaded POINT (2) <<< Key-matrix mask
+; <- Key matrix mask 12 for P0.4 - | ROM-Loaded POINT (2) <<< Key-matrix mask
+; <- Key matrix mask 13 for P4.6 - | ROM-Loaded POINT (2) <<< Key-matrix mask
+; <- Key matrix mask 14 for P4.7 - | ROM-Loaded POINT (2) <<< Key-matrix mask
+; <- Key matrix mask 15 for P0.3 - | ROM-Loaded POINT (2) <<< Key-matrix mask
+; <- Key matrix mask 16 for P0.6 - | ROM-Loaded POINT (2) <<< Key-matrix mask
 
 
-;; Load 8-bit mask
+;; Load 8-bit mask | ROM-Loading POINT (2) >>>
 ;; Save 8-bit mask to 0x07
 ;; Set waiting time (14 times)
 ;; Delay function
@@ -743,9 +743,9 @@
 ; Z = #0xa0 (+0) (Real #0x04B0, Offset = 0x05A0)
 ;
 ; Z = 0x08 + Z
-;
-; If Carry flag == 1, Y = Y + 1. If Y == 0, skip next. 
-; IF Carry flag == 0, Copy from ROM [Y, Z] to A. memoOVC Y const 05, Z c-v a0 + var
+; Carry-up trematment
+; Y = #0x05 or #0x06, Z = #0xa0 + 0x08
+; Load key ID of the pressed key | ROM-Loading POINT (3) >>>
 ; 0x0f = A (LOWER byte)
 ;; Check Mod key flag
 ;; Jump to 2nd layer function
@@ -1014,7 +1014,7 @@
 ;; Set 0x13.4 = 1
 ;; Check 0x00.3
 ;; ROM address for 0x0000
-;;
+;; Load consumer key byte pair | ROM-Loading POINT (4) >>>
 ;; 0x21 = LOWER byte
 ;; 
 ;; 0x22 = R (HIGHER byte)
@@ -1024,7 +1024,7 @@
 ;; Set 0x13.6 = 1
 ;; Check 0x00.3
 ;; ROM address for 0x0000
-;;
+;; Load special functional key byte pair | ROM-Loading POINT (5) >>>
 ;; 0x28 = LOWER byte
 ;; 
 ;; 0x29 = R (HIGHER byte)
@@ -1048,7 +1048,7 @@
 ;;
 ;; Macro key ROM address
 ;; 
-;;
+;; Load macro key ID (lower byte) and modifier key state (higher byte) | ROM-Loading POINT (6) >>>
 ;;
 ;; [hgfedcba] a: LeftControl, b: LeftShift, c: LeftAlt, d: LeftGUI, e: RightControl, f: RightShift, g: RightAlt, h: RightGUI
 ;;
@@ -1062,7 +1062,7 @@
 ;;
 ;; -------------------------------------
 ;; ROM address for 0x0000
-;; -------------------------------------
+;; Load custom consumer key byte pair | ROM-Loading POINT (7) >>>
 ;; -------------------------------------
 ;; -------------------------------------
 ;; -------------------------------------
@@ -1188,7 +1188,7 @@
 ;; Address of bit musk ROM
 ;;
 ;; add 0, 1, 2, 3, 4, 5, 6, (7)
-;; Load bit musk
+;; Load bit musk (Y = #0x04, Z = #0xf5 + A) | ROM-Loading POINT (8) >>>
 ;; 
 ;; 
 ;; 
@@ -1242,30 +1242,30 @@
 ;
 ;
 
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
-; <- Macro - |
+; <- Macro - | ROM-Loaded POINT (6) <<<
+; <- Macro - | ROM-Loaded POINT (6) <<<
+; <- Macro - | ROM-Loaded POINT (6) <<<
+; <- Macro - | ROM-Loaded POINT (6) <<<
+; <- Macro - | ROM-Loaded POINT (6) <<<
+; <- Macro - | ROM-Loaded POINT (6) <<<
+; <- Macro - | ROM-Loaded POINT (6) <<<
+; <- Macro - | ROM-Loaded POINT (6) <<<
+; <- Macro - | ROM-Loaded POINT (6) <<<
+; <- Macro - | ROM-Loaded POINT (6) <<<
+; <- Macro - | ROM-Loaded POINT (6) <<<
+; <- Macro - | ROM-Loaded POINT (6) <<<
+; <- Macro - | ROM-Loaded POINT (6) <<<
+; <- Macro - | ROM-Loaded POINT (6) <<<
+; <- Macro - | ROM-Loaded POINT (6) <<<
+; <- Macro - | ROM-Loaded POINT (6) <<<
+; <- Macro - | ROM-Loaded POINT (6) <<<
+; <- Macro - | ROM-Loaded POINT (6) <<<
+; <- Macro - | ROM-Loaded POINT (6) <<<
+; <- Macro - | ROM-Loaded POINT (6) <<<
+; <- Macro - | ROM-Loaded POINT (6) <<<
+; <- Macro - | ROM-Loaded POINT (6) <<<
+; <- Macro - | ROM-Loaded POINT (6) <<<
+; <- Macro - | ROM-Loaded POINT (6) <<<
 ;; <NOP> <- NOT USED ANYMORE
 ;; <NOP> <- NOT USED ANYMORE
 ;; <NOP> <- NOT USED ANYMORE
@@ -1275,39 +1275,39 @@
 ;; <NOP> <- NOT USED ANYMORE
 ;; <NOP> <- NOT USED ANYMORE
 
-; <- Custom Consumer key - |
-; <- Custom Consumer key - |
-; <- Custom Consumer key - |
-; <- Custom Consumer key - |
-; <- Custom Consumer key - |
-; <- Custom Consumer key - |
-; <- Custom Consumer key - |
-; <- Custom Consumer key - |
-; <- Custom Consumer key - |
-; <- Custom Consumer key - |
-; <- Custom Consumer key - |
+; <- Custom Consumer key - | ROM-Loaded POINT (7) <<<
+; <- Custom Consumer key - | ROM-Loaded POINT (7) <<<
+; <- Custom Consumer key - | ROM-Loaded POINT (7) <<<
+; <- Custom Consumer key - | ROM-Loaded POINT (7) <<<
+; <- Custom Consumer key - | ROM-Loaded POINT (7) <<<
+; <- Custom Consumer key - | ROM-Loaded POINT (7) <<<
+; <- Custom Consumer key - | ROM-Loaded POINT (7) <<<
+; <- Custom Consumer key - | ROM-Loaded POINT (7) <<<
+; <- Custom Consumer key - | ROM-Loaded POINT (7) <<<
+; <- Custom Consumer key - | ROM-Loaded POINT (7) <<<
+; <- Custom Consumer key - | ROM-Loaded POINT (7) <<<
 ;; <NOP> <- NOT USED ANYMORE
 ;; <NOP> <- NOT USED ANYMORE
 ;; <NOP> <- NOT USED ANYMORE
 ;; <NOP> <- NOT USED ANYMORE
 ;; <NOP> <- NOT USED ANYMORE
 
-; <- Media key - | 0455 | F1c  0x21 = E2, 0x22 = 00
-; <- Media key - | 0456 | F2c  0x21 = EA, 0x22 = 00
-; <- Media key - | 0457 | F3c  0x21 = E9, 0x22 = 00
-; <- Media key - | 0458 | F4s  0x28 = 01, 0x29 = 00
-; <- Media key - | 0459 | F5s  0x28 = 02, 0x29 = 00
-; <- Media key - | 045a | F5c  0x21 = 70, 0x22 = 00
-; <- Media key - | 045b | F6s  0x28 = 04, 0x29 = 00
-; <- Media key - | 045c | F6c  0x21 = 6f, 0x22 = 00
-; <- Media key - | 045d | F7s  0x28 = 08, 0x29 = 00
-; <- Media key - | 045e | F8c  0x21 = f1, 0x22 = 03
-; <- Media key - | 045f | F8s  0x28 = 10, 0x29 = 00
-; <- Media key - | 0460 | F9s  0x28 = 20, 0x29 = 00
-; <- Media key - | 0461 | F10c 0x21 = 21, 0x22 = 02
-; <- Media key - | 0462 | F11s 0x28 = 80, 0x29 = 00
-; <- Media key - | 0463 | F12c 0x21 = f2, 0x22 = 03
-; <- Media key - | 0464 | F12s 0x28 = 94, 0x29 = 01
+; <- Fx key - | F1c  0x21 = E2, 0x22 = 00 | ROM-Loaded POINT (4) <<<
+; <- Fx key - | F2c  0x21 = EA, 0x22 = 00 | ROM-Loaded POINT (4) <<<
+; <- Fx key - | F3c  0x21 = E9, 0x22 = 00 | ROM-Loaded POINT (4) <<<
+; <- Fx key - | F4s  0x28 = 01, 0x29 = 00 | ROM-Loaded POINT (5) <<<
+; <- Fx key - | F5s  0x28 = 02, 0x29 = 00 | ROM-Loaded POINT (5) <<<
+; <- Fx key - | F5c  0x21 = 70, 0x22 = 00 | ROM-Loaded POINT (4) <<<
+; <- Fx key - | F6s  0x28 = 04, 0x29 = 00 | ROM-Loaded POINT (5) <<<
+; <- Fx key - | F6c  0x21 = 6f, 0x22 = 00 | ROM-Loaded POINT (4) <<<
+; <- Fx key - | F7s  0x28 = 08, 0x29 = 00 | ROM-Loaded POINT (5) <<<
+; <- Fx key - | F8c  0x21 = f1, 0x22 = 03 | ROM-Loaded POINT (4) <<<
+; <- Fx key - | F8s  0x28 = 10, 0x29 = 00 | ROM-Loaded POINT (5) <<<
+; <- Fx key - | F9s  0x28 = 20, 0x29 = 00 | ROM-Loaded POINT (5) <<<
+; <- Fx key - | F10c 0x21 = 21, 0x22 = 02 | ROM-Loaded POINT (4) <<<
+; <- Fx key - | F11s 0x28 = 80, 0x29 = 00 | ROM-Loaded POINT (5) <<<
+; <- Fx key - | F12c 0x21 = f2, 0x22 = 03 | ROM-Loaded POINT (4) <<<
+; <- Fx key - | F12s 0x28 = 94, 0x29 = 01 | ROM-Loaded POINT (5) <<<
 
 ; <- FIXED (just for get 0x0000) - | 0465 |
 ;; <NOP> <- NOT USED ANYMORE
@@ -1487,15 +1487,15 @@
 ;
 ;
 ;
-; <- FIXED | 00000000 | <<< Mask-like data region. ROM address: from 0x04f4 to 0x04fc <<<<<<<
-; <- FIXED | 00000001 | <<< may be reffered from func_04fd_003b and func_054f_003b <<<<<<<<<<
-; <- FIXED | 00000010 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- FIXED | 00000100 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- FIXED | 00001000 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- FIXED | 00010000 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- FIXED | 00100000 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- FIXED | 01000000 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; <- FIXED | 10000000 | <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; | 00000000 | ROM-Loaded POINT (8) <<< General AllZero pattern. used by func_04fd_003b, func_054f_003b, and non_l2_mod_keys
+; | 00000001 | ROM-Loaded POINT (8) <<< General One-hot pattern. used by func_04fd_003b, func_054f_003b, and non_l2_mod_keys
+; | 00000010 | ROM-Loaded POINT (8) <<< General One-hot pattern. used by func_04fd_003b, func_054f_003b, and non_l2_mod_keys
+; | 00000100 | ROM-Loaded POINT (8) <<< General One-hot pattern. used by func_04fd_003b, func_054f_003b, and non_l2_mod_keys
+; | 00001000 | ROM-Loaded POINT (8) <<< General One-hot pattern. used by func_04fd_003b, func_054f_003b, and non_l2_mod_keys
+; | 00010000 | ROM-Loaded POINT (8) <<< General One-hot pattern. used by func_04fd_003b, func_054f_003b, and non_l2_mod_keys
+; | 00100000 | ROM-Loaded POINT (8) <<< General One-hot pattern. used by func_04fd_003b, func_054f_003b, and non_l2_mod_keys
+; | 01000000 | ROM-Loaded POINT (8) <<< General One-hot pattern. used by func_04fd_003b, func_054f_003b, and non_l2_mod_keys
+; | 10000000 | ROM-Loaded POINT (8) <<< General One-hot pattern. used by func_04fd_003b, func_054f_003b, and non_l2_mod_keys
 
 ;
 ;
@@ -1574,7 +1574,7 @@
 ; Carry flag check
 ; (may be omittable)
 ; 
-; memoOVC at Y = #0x04, Z = #0xf4 + 0x0d
+; memoOVC at Y = #0x04, Z = #0xf4 + 0x0d | ROM-Loading POINT (8) >>>
 ; bit inversion
 ; mask 0x0c
 ; Set Flag FC = 1
@@ -1670,7 +1670,7 @@
 ; Check the carry flag
 ; If carry occurs, Y = Y + 1
 ; No operation
-; A <-- ROM [Y,Z]. memoOVC Y = 04, Z = f4 + g.
+; Load one-hot pattern. Y = #0x04, Z = #0xf4 + 0x0d. | ROM-Loading POINT (8) >>>
 ; 0x0c val = 0x0c val ORed with loaded YZ val
 ; Set the carry flag = 1
 ; ---> Return to func_0186+0x158
@@ -1687,135 +1687,135 @@
 ; Set Carry flag = 0
 ; Clear P5.5
 ; ---> Return to func_0186+0x158
-; DW | 0x0000 | .. | <<<<<<<<<<<<<<<<<<<< Key ID mapping region <<<<<<<<<<<<<<<<
-; DW | 0x0029 | Escape |
-; DW | 0x0035 | Grave Accent and Tilde |
-; DW | 0x0014 | q and Q |
-; DW | 0x001e | 1 and ! |
-; DW | 0x0004 | a and A |
-; DW | 0x001d | z and Z |
-; DW | 0x008b | International5 |
-; DW | 0x002b | Tab |
-; DW | 0x003d | F4 |
-; DW | 0x003b | F2 |
-; DW | 0x0008 | e and E |
-; DW | 0x0020 | 3 and # |
-; DW | 0x0007 | d and D |
-; DW | 0x0006 | c and C |
-; DW | 0x0000 | .. |
-; DW | 0x003c | F3 |
-; DW | 0x0064 | NonーUS Slash Bar |
-; DW | 0x003a | F1 |
-; DW | 0x001a | w and W |
-; DW | 0x001f | 2 and @ |
-; DW | 0x0016 | s and S |
-; DW | 0x001b | x and X |
-; DW | 0x0000 | .. |
-; DW | 0x0039 | Caps Lock |
-; DW | 0x0000 | .. |
-; DW | 0x00e0 | LeftControl |
-; DW | 0x0000 | .. |
-; DW | 0x0000 | .. |
-; DW | 0x0000 | .. |
-; DW | 0x00e4 | RightControl |
-; DW | 0x0000 | .. |
-; DW | 0x0000 | .. |
-; DW | 0x000a | g and G |
-; DW | 0x0022 | 5 and % |
-; DW | 0x0015 | r and R |
-; DW | 0x0021 | 4 and $ |
-; DW | 0x0009 | f and F |
-; DW | 0x0019 | v and V |
-; DW | 0x0005 | b and B |
-; DW | 0x0017 | t and T |
-; DW | 0x000b | h and H |
-; DW | 0x0023 | 6 and ^ |
-; DW | 0x0018 | u and U |
-; DW | 0x0024 | 7 and & |
-; DW | 0x000d | j and J |
-; DW | DW | 0x0010 | m and M |
-; DW | 0x0011 | n and N |
-; DW | 0x001c | y and Y |
-; DW | 0x003f | F6 |
-; DW | 0x002e | = and + |
-; DW | 0x000c | i and I |
-; DW | 0x0025 | 8 and * |
-; DW | 0x000e | k and K |
-; DW | 0x0036 | Comma and < |
-; DW | 0x0087 | International1 |
-; DW | 0x0030 | ] and } |
-; DW | 0x008a | International4 |
-; DW | 0x0041 | F8 |
-; DW | 0x0012 | o and O |
-; DW | 0x0026 | 9 and ( |
-; DW | 0x000f | l and L |
-; DW | 0x0037 | . and > |
-; DW | 0x0088 | International2 |
-; DW | 0x0040 | F7 |
-; DW | 0x0034 | ' and " |
-; DW | 0x002d | ー and Underscore |
-; DW | 0x0013 | p and P |
-; DW | 0x0027 | 0 and ) |
-; DW | 0x0033 | ; and : |
-; DW | 0x0032 | NonーUS # and ~ |
-; DW | 0x0038 | / and ? |
-; DW | 0x002f | [ and { |
-; DW | 0x0000 | .. |
-; DW | 0x0000 | .. |
-; DW | 0x0000 | .. |
-; DW | 0x0000 | .. |
-; DW | 0x0000 | .. |
-; DW | 0x00e5 | RightShift |
-; DW | 0x0000 | .. |
-; DW | 0x00e1 | LeftShift |
-; DW | 0x003e | F5 |
-; DW | 0x0042 | F9 |
-; DW | 0x0089 | International3 |
-; DW | 0x0043 | F10 |
-; DW | 0x0031 | \ and | |
-; DW | 0x0028 | Return (ENTER) |
-; DW | 0x002c | Spacebar |
-; DW | 0x002a | DELETE (Backspace) |
-; DW | 0x0000 | .. |
-; DW | 0x004a | Home |
-; DW | 0x0000 | .. |
-; DW | 0x0044 | F11 |
-; DW | 0x0000 | .. |
-; DW | 0x0000 | .. |
-; DW | 0x0051 | DownArrow |
-; DW | 0x0000 | .. |
-; DW | 0x00e2 | LeftAlt |
-; DW | 0x00d4 | Keypad Memory Subtract |
-; DW | 0x0000 | .. |
-; DW | 0x0000 | .. |
-; DW | 0x0000 | .. |
-; DW | 0x0000 | .. |
-; DW | 0x00e6 | RightAlt |
-; DW | 0x0000 | .. |
-; DW | 0x0000 | .. |
-; DW | 0x0000 | .. |
-; DW | 0x00d2 | Keypad Memory Clear |
-; DW | 0x0045 | F12 |
-; DW | 0x0000 | .. |
-; DW | 0x0000 | .. |
-; DW | 0x004f | RightArrow |
-; DW | 0x00e3 | Left GUI |
-; DW | 0x0052 | UpArrow |
-; DW | 0x0000 | .. |
-; DW | 0x0000 | .. |
-; DW | 0x004d | End |
-; DW | 0x00af | Fn | af
-; DW | 0x0048 | Pause |
-; DW | 0x0050 | LeftArrow |
-; DW | 0x00d0 | Keypad Memory Store |
-; DW | 0x0000 | .. |
-; DW | 0x004c | Delete Forward |
-; DW | 0x0000 | .. |
-; DW | 0x0049 | Insert |
-; DW | 0x0046 | PrintScreen |
-; DW | 0x004b | PageUp |
-; DW | 0x004e | PageDown |
-; DW | 0x0000 | .. |
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map 
+; | 0x0029 | Escape                 | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0035 | Grave Accent and Tilde | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0014 | q and Q                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x001e | 1 and !                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0004 | a and A                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x001d | z and Z                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x008b | International5         | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x002b | Tab                    | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x003d | F4                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x003b | F2                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0008 | e and E                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0020 | 3 and #                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0007 | d and D                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0006 | c and C                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x003c | F3                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0064 | Non-US Slash Bar       | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x003a | F1                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x001a | w and W                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x001f | 2 and @                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0016 | s and S                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x001b | x and X                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0039 | Caps Lock              | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x00e0 | LeftControl            | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x00e4 | RightControl           | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x000a | g and G                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0022 | 5 and %                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0015 | r and R                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0021 | 4 and $                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0009 | f and F                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0019 | v and V                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0005 | b and B                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0017 | t and T                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x000b | h and H                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0023 | 6 and ^                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0018 | u and U                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0024 | 7 and &                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x000d | j and J                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0010 | m and M                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0011 | n and N                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x001c | y and Y                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x003f | F6                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x002e | = and +                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x000c | i and I                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0025 | 8 and *                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x000e | k and K                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0036 | Comma and <            | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0087 | International1         | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0030 | ] and }                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x008a | International4         | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0041 | F8                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0012 | o and O                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0026 | 9 and (                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x000f | l and L                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0037 | . and >                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0088 | International2         | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0040 | F7                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0034 | ' and "                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x002d | - and Underscore       | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0013 | p and P                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0027 | 0 and )                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0033 | ; and :                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0032 | Non-US # and ~         | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0038 | / and ?                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x002f | [ and {                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x00e5 | RightShift             | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x00e1 | LeftShift              | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x003e | F5                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0042 | F9                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0089 | International3         | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0043 | F10                    | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0031 | \ and |                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0028 | Return (ENTER)         | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x002c | Spacebar               | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x002a | DELETE (Backspace)     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x004a | Home                   | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0044 | F11                    | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0051 | DownArrow              | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x00e2 | LeftAlt                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x00d4 | Keypad Memory Subtract | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x00e6 | RightAlt               | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x00d2 | Keypad Memory Clear    | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0045 | F12                    | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x004f | RightArrow             | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x00e3 | Left GUI               | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0052 | UpArrow                | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x004d | End                    | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x00af | Fn                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0048 | Pause                  | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0050 | LeftArrow              | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x00d0 | Keypad Memory Store    | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x004c | Delete Forward         | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0049 | Insert                 | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0046 | PrintScreen            | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x004b | PageUp                 | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x004e | PageDown               | ROM-Loaded POINT (3) <<< Key ID Map
+; | 0x0000 | ..                     | ROM-Loaded POINT (3) <<< Key ID Map
 
 ; [ Trackpoint I2C ]
 ; tpSDA  = 1
@@ -2153,7 +2153,7 @@
 ;
 ;
 ;
-; DW | 0x0e00 | .. |
+; DW | 0x0e00 | .. | unreachable?
 
 ;
 ; 32points
@@ -2187,7 +2187,7 @@
 ;
 ;
 ;
-; DW | 0x0e00 | .. |
+; DW | 0x0e00 | .. | unreachable?
 
 ;
 ;
@@ -2231,7 +2231,7 @@
 ;
 ;
 ;
-; DW | 0x0e00 | .. |
+; DW | 0x0e00 | .. | unreachable?
 
 ;
 ; 33points
@@ -2264,7 +2264,7 @@
 ;
 ;
 ;
-; DW | 0x0e00 | .. |
+; DW | 0x0e00 | .. | unreachable?
 
 ;
 ;
@@ -2414,23 +2414,23 @@
 ;
 
 ;
-;
-;
-;
-
-;
-;
-;
+; Y = #0x09
+; Z = #0x01
 ;
 
 ;
-;
-;
+; Y = #0x09
+; Z = #0x2c
 ;
 
 ;
+; Y = #0x09
+; Z = #0x57
 ;
+
 ;
+; Y = #0x09
+; Z = #0x83
 ;
 ;
 ;
@@ -2464,8 +2464,8 @@
 ;
 ;
 ;
-;
-;
+; (Y, Z) = #0x29 or 0x34 + (#0x08, #0x54) or (#0x08, #0x80) or (#0x08, #0xab) or (#0x08, #0xd6) | ROM-Loading POINT (9) >>>
+;          or (#0x09, #0x01) or (#0x09, #0x2c) or (#0x09, #0x57) or (#0x09, #0x83)      |
 ; 32points
 ;
 ;
@@ -2490,7 +2490,7 @@
 ; 33points
 ; 33points
 ;
-;DW
+;
 ;
 ;
 ;
@@ -2508,8 +2508,8 @@
 ;
 ;
 ;
-; memoOVC Y = #0x08 or #0x09?, Z = v-c z + 29
-;
+; (Y, Z) = #0x29 or 0x35 + (#0x08, #0x54) or (#0x08, #0x80) or (#0x08, #0xab) or (#0x08, #0xd6) | ROM-Loading POINT (9) >>>
+;          or (#0x09, #0x01) or (#0x09, #0x2c) or (#0x09, #0x57) or (#0x09, #0x83)      |
 ; 33points
 ;
 ;
@@ -2525,353 +2525,353 @@
 ;
 ; B033points | B00x33 = invert(invert(B00x33) + 1 + 0x35) + 1
 ;
-;
-; DW | 0x0000 | .. | address: 0x0854. designated from func_07e6_000d
-; DW | 0x0000 | .. |
-; DW | 0x0000 | .. |
-; DW | 0xffff | .. |
-; DW | 0xfffe | .. |
-; DW | 0xfffe | .. |
-; DW | 0xfffd | .. |
-; DW | 0xfffd | .. |
-; DW | 0xfffc | .. |
-; DW | 0xfffc | .. |
-; DW | 0xfffb | .. |
-; DW | 0xfffa | .. |
-; DW | 0xfffa | .. |
-; DW | 0xfff9 | .. |
-; DW | 0xfff9 | .. |
-; DW | 0xfff8 | .. |
-; DW | 0xfff8 | .. |
-; DW | 0xfff7 | .. |
-; DW | 0xfff7 | .. |
-; DW | 0xfff6 | .. |
-; DW | 0xfff6 | .. |
-; DW | 0xfff5 | .. |
-; DW | 0xfff4 | .. |
-; DW | 0xfff4 | .. |
-; DW | 0xfff3 | .. |
-; DW | 0xfff3 | .. |
-; DW | 0xfff2 | .. |
-; DW | 0xfff2 | .. |
-; DW | 0xfff1 | .. |
-; DW | 0xfff1 | .. |
-; DW | 0xfff0 | .. |
-; DW | 0xffef | .. |
-; DW | 0xffef | .. |
-; DW | 0xffee | .. |
-; DW | 0xffee | .. |
-; DW | 0xffed | .. |
-; DW | 0xffed | .. |
-; DW | 0xffec | .. |
-; DW | 0xffec | .. |
-; DW | 0xffeb | .. |
-; DW | 0xffeb | .. |
-; DW | 0xffea | .. |
-; DW | 0xffe9 | .. |
-; DW | 0xffe9 | .. |
-; DW | 0x0000 | .. | address: 0x0880. designated from func_07e6_0010
-; DW | 0x0000 | .. |
-; DW | 0xffff | .. |
-; DW | 0xffff | .. |
-; DW | 0xfffe | .. |
-; DW | 0xfffe | .. |
-; DW | 0xfffd | .. |
-; DW | 0xfffd | .. |
-; DW | 0xfffc | .. |
-; DW | 0xfffc | .. |
-; DW | 0xfffb | .. |
-; DW | 0xfffb | .. |
-; DW | 0xfffb | .. |
-; DW | 0xfffa | .. |
-; DW | 0xfffa | .. |
-; DW | 0xfff9 | .. |
-; DW | 0xfff9 | .. |
-; DW | 0xfff8 | .. |
-; DW | 0xfff8 | .. |
-; DW | 0xfff7 | .. |
-; DW | 0xfff7 | .. |
-; DW | 0xfff7 | .. |
-; DW | 0xfff6 | .. |
-; DW | 0xfff6 | .. |
-; DW | 0xfff5 | .. |
-; DW | 0xfff5 | .. |
-; DW | 0xfff4 | .. |
-; DW | 0xfff4 | .. |
-; DW | 0xfff3 | .. |
-; DW | 0xfff3 | .. |
-; DW | 0xfff2 | .. |
-; DW | 0xfff2 | .. |
-; DW | 0xfff2 | .. |
-; DW | 0xfff1 | .. |
-; DW | 0xfff1 | .. |
-; DW | 0xfff0 | .. |
-; DW | 0xfff0 | .. |
-; DW | 0xffef | .. |
-; DW | 0xffef | .. |
-; DW | 0xffee | .. |
-; DW | 0xffee | .. |
-; DW | 0xffee | .. |
-; DW | 0xffed | .. |
-; DW | 0x0000 | .. | address: 0x08ab. designated from func_07e6_0013
-; DW | 0x0000 | .. |
-; DW | 0x0000 | .. |
-; DW | 0xffff | .. |
-; DW | 0xffff | .. |
-; DW | 0xffff | .. |
-; DW | 0xfffe | .. |
-; DW | 0xfffe | .. |
-; DW | 0xfffe | .. |
-; DW | 0xfffe | .. |
-; DW | 0xfffd | .. |
-; DW | 0xfffd | .. |
-; DW | 0xfffd | .. |
-; DW | 0xfffd | .. |
-; DW | 0xfffc | .. |
-; DW | 0xfffc | .. |
-; DW | 0xfffc | .. |
-; DW | 0xfffc | .. |
-; DW | 0xfffb | .. |
-; DW | 0xfffb | .. |
-; DW | 0xfffb | .. |
-; DW | 0xfffb | .. |
-; DW | 0xfffa | .. |
-; DW | 0xfffa | .. |
-; DW | 0xfffa | .. |
-; DW | 0xfffa | .. |
-; DW | 0xfff9 | .. |
-; DW | 0xfff9 | .. |
-; DW | 0xfff9 | .. |
-; DW | 0xfff9 | .. |
-; DW | 0xfff8 | .. |
-; DW | 0xfff8 | .. |
-; DW | 0xfff8 | .. |
-; DW | 0xfff8 | .. |
-; DW | 0xfff7 | .. |
-; DW | 0xfff7 | .. |
-; DW | 0xfff7 | .. |
-; DW | 0xfff7 | .. |
-; DW | 0xfff6 | .. |
-; DW | 0xfff6 | .. |
-; DW | 0xfff6 | .. |
-; DW | 0xfff6 | .. |
-; DW | 0xfff6 | .. |
-; DW | 0x0000 | .. | address: 0x08d6. designated from func_07e6_0016
-; DW | 0x0000 | .. |
-; DW | 0x0000 | .. |
-; DW | 0x0000 | .. |
-; DW | 0xffff | .. |
-; DW | 0xffff | .. |
-; DW | 0xffff | .. |
-; DW | 0xffff | .. |
-; DW | 0xffff | .. |
-; DW | 0xffff | .. |
-; DW | 0xffff | .. |
-; DW | 0xfffe | .. |
-; DW | 0xfffe | .. |
-; DW | 0xfffe | .. |
-; DW | 0xfffe | .. |
-; DW | 0xfffe | .. |
-; DW | 0xfffe | .. |
-; DW | 0xfffd | .. |
-; DW | 0xfffd | .. |
-; DW | 0xfffd | .. |
-; DW | 0xfffd | .. |
-; DW | 0xfffd | .. |
-; DW | 0xfffd | .. |
-; DW | 0xfffd | .. |
-; DW | 0xfffc | .. |
-; DW | 0xfffc | .. |
-; DW | 0xfffc | .. |
-; DW | 0xfffc | .. |
-; DW | 0xfffc | .. |
-; DW | 0xfffc | .. |
-; DW | 0xfffc | .. |
-; DW | 0xfffb | .. |
-; DW | 0xfffb | .. |
-; DW | 0xfffb | .. |
-; DW | 0xfffb | .. |
-; DW | 0xfffb | .. |
-; DW | 0xfffb | .. |
-; DW | 0xfffa | .. |
-; DW | 0xfffa | .. |
-; DW | 0xfffa | .. |
-; DW | 0xfffa | .. |
-; DW | 0xfffa | .. |
-; DW | 0xfffa | .. |
-; DW | 0x0000 | .. |
-; DW | 0x0000 | .. |
-; DW | 0x0001 | .. |
-; DW | 0x0001 | .. |
-; DW | 0x0001 | .. |
-; DW | 0x0001 | .. |
-; DW | 0x0002 | .. |
-; DW | 0x0002 | .. |
-; DW | 0x0002 | .. |
-; DW | 0x0002 | .. |
-; DW | 0x0003 | .. |
-; DW | 0x0003 | .. |
-; DW | 0x0003 | .. |
-; DW | 0x0003 | .. |
-; DW | 0x0004 | .. |
-; DW | 0x0004 | .. |
-; DW | 0x0004 | .. |
-; DW | 0x0004 | .. |
-; DW | 0x0005 | .. |
-; DW | 0x0005 | .. |
-; DW | 0x0005 | .. |
-; DW | 0x0005 | .. |
-; DW | 0x0006 | .. |
-; DW | 0x0006 | .. |
-; DW | 0x0006 | .. |
-; DW | 0x0006 | .. |
-; DW | 0x0007 | .. |
-; DW | 0x0007 | .. |
-; DW | 0x0007 | .. |
-; DW | 0x0007 | .. |
-; DW | 0x0008 | .. |
-; DW | 0x0008 | .. |
-; DW | 0x0008 | .. |
-; DW | 0x0008 | .. |
-; DW | 0x0009 | .. |
-; DW | 0x0009 | .. |
-; DW | 0x0009 | .. |
-; DW | 0x0009 | .. |
-; DW | 0x000a | .. |
-; DW | 0x000a | .. |
-; DW | 0x000a | .. |
-; DW | 0x000a | .. |
-; DW | 0x000b | .. |
-; DW | 0x0000 | .. |
-; DW | 0x0000 | .. |
-; DW | 0x0001 | .. |
-; DW | 0x0002 | .. |
-; DW | 0x0002 | .. |
-; DW | 0x0003 | .. |
-; DW | 0x0003 | .. |
-; DW | 0x0004 | .. |
-; DW | 0x0004 | .. |
-; DW | 0x0005 | .. |
-; DW | 0x0006 | .. |
-; DW | 0x0006 | .. |
-; DW | 0x0007 | .. |
-; DW | 0x0007 | .. |
-; DW | 0x0008 | .. |
-; DW | 0x0008 | .. |
-; DW | 0x0009 | .. |
-; DW | 0x0009 | .. |
-; DW | 0x000a | .. |
-; DW | 0x000a | .. |
-; DW | 0x000b | .. |
-; DW | 0x000c | .. |
-; DW | 0x000c | .. |
-; DW | 0x000d | .. |
-; DW | 0x000d | .. |
-; DW | 0x000e | .. |
-; DW | 0x000e | .. |
-; DW | 0x000f | .. |
-; DW | 0x000f | .. |
-; DW | 0x0010 | .. |
-; DW | 0x0011 | .. |
-; DW | 0x0011 | .. |
-; DW | 0x0012 | .. |
-; DW | 0x0012 | .. |
-; DW | 0x0013 | .. |
-; DW | 0x0013 | .. |
-; DW | 0x0014 | .. |
-; DW | 0x0014 | .. |
-; DW | 0x0015 | .. |
-; DW | 0x0015 | .. |
-; DW | 0x0016 | .. |
-; DW | 0x0017 | .. |
-; DW | 0x0017 | .. |
-; DW | 0x0000 | .. |
-; DW | 0x0000 | .. |
-; DW | 0x0000 | .. |
-; DW | 0x0002 | .. |
-; DW | 0x0003 | .. |
-; DW | 0x0003 | .. |
-; DW | 0x0004 | .. |
-; DW | 0x0005 | .. |
-; DW | 0x0006 | .. |
-; DW | 0x0007 | .. |
-; DW | 0x0008 | .. |
-; DW | 0x0009 | .. |
-; DW | 0x0009 | .. |
-; DW | 0x000a | .. |
-; DW | 0x000b | .. |
-; DW | 0x000c | .. |
-; DW | 0x000d | .. |
-; DW | 0x000e | .. |
-; DW | 0x000e | .. |
-; DW | 0x000f | .. |
-; DW | 0x0010 | .. |
-; DW | 0x0011 | .. |
-; DW | 0x0012 | .. |
-; DW | 0x0013 | .. |
-; DW | 0x0014 | .. |
-; DW | 0x0014 | .. |
-; DW | 0x0015 | .. |
-; DW | 0x0016 | .. |
-; DW | 0x0017 | .. |
-; DW | 0x0018 | .. |
-; DW | 0x0019 | .. |
-; DW | 0x001a | .. |
-; DW | 0x001a | .. |
-; DW | 0x001b | .. |
-; DW | 0x001c | .. |
-; DW | 0x001d | .. |
-; DW | 0x001e | .. |
-; DW | 0x001f | .. |
-; DW | 0x001f | .. |
-; DW | 0x0020 | .  |
-; DW | 0x0021 | .! |
-; DW | 0x0022 | ." |
-; DW | 0x0023 | .# |
-; DW | 0x0024 | .$ |
-; DW | 0x0000 | .. |
-; DW | 0x0000 | .. |
-; DW | 0x0002 | .. |
-; DW | 0x0003 | .. |
-; DW | 0x0004 | .. |
-; DW | 0x0005 | .. |
-; DW | 0x0006 | .. |
-; DW | 0x0007 | .. |
-; DW | 0x0008 | .. |
-; DW | 0x0009 | .. |
-; DW | 0x000b | .. |
-; DW | 0x000c | .. |
-; DW | 0x000d | .. |
-; DW | 0x000e | .. |
-; DW | 0x000f | .. |
-; DW | 0x0010 | .. |
-; DW | 0x0011 | .. |
-; DW | 0x0012 | .. |
-; DW | 0x0013 | .. |
-; DW | 0x0014 | .. |
-; DW | 0x0015 | .. |
-; DW | 0x0016 | .. |
-; DW | 0x0017 | .. |
-; DW | 0x0018 | .. |
-; DW | 0x0019 | .. |
-; DW | 0x001a | .. |
-; DW | 0x001b | .. |
-; DW | 0x001c | .. |
-; DW | 0x001d | .. |
-; DW | 0x001e | .. |
-; DW | 0x0020 | .  |
-; DW | 0x0021 | .! |
-; DW | 0x0022 | ." |
-; DW | 0x0023 | .# |
-; DW | 0x0024 | .$ |
-; DW | 0x0025 | .% |
-; DW | 0x0026 | .& |
-; DW | 0x0027 | .' |
-; DW | 0x0028 | .( |
-; DW | 0x0029 | .) |
-; DW | 0x002a | .* |
-; DW | 0x002b | .+ |
-; DW | 0x002c | ., |
+; 
+; | 0x0000 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0x0000 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0x0000 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xffff | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfffe | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfffe | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfffd | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfffd | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfffc | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfffc | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfffb | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfffa | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfffa | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfff9 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfff9 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfff8 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfff8 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfff7 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfff7 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfff6 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfff6 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfff5 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfff4 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfff4 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfff3 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfff3 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfff2 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfff2 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfff1 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfff1 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xfff0 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xffef | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xffef | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xffee | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xffee | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xffed | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xffed | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xffec | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xffec | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xffeb | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xffeb | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xffea | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xffe9 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0xffe9 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_000d | trackpoint XY ?
+; | 0x0000 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0x0000 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xffff | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xffff | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfffe | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfffe | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfffd | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfffd | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfffc | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfffc | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfffb | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfffb | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfffb | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfffa | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfffa | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfff9 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfff9 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfff8 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfff8 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfff7 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfff7 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfff7 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfff6 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfff6 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfff5 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfff5 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfff4 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfff4 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfff3 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfff3 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfff2 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfff2 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfff2 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfff1 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfff1 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfff0 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xfff0 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xffef | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xffef | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xffee | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xffee | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xffee | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0xffed | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0010 | trackpoint XY ?
+; | 0x0000 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0x0000 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0x0000 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xffff | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xffff | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xffff | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfffe | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfffe | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfffe | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfffe | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfffd | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfffd | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfffd | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfffd | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfffc | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfffc | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfffc | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfffc | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfffb | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfffb | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfffb | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfffb | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfffa | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfffa | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfffa | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfffa | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfff9 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfff9 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfff9 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfff9 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfff8 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfff8 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfff8 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfff8 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfff7 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfff7 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfff7 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfff7 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfff6 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfff6 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfff6 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfff6 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0xfff6 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0013 | trackpoint XY ?
+; | 0x0000 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0x0000 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0x0000 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0x0000 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xffff | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xffff | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xffff | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xffff | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xffff | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xffff | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xffff | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffe | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffe | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffe | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffe | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffe | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffe | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffd | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffd | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffd | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffd | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffd | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffd | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffd | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffc | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffc | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffc | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffc | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffc | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffc | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffc | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffb | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffb | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffb | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffb | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffb | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffb | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffa | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffa | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffa | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffa | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffa | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0xfffa | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0016 | trackpoint XY ?
+; | 0x0000 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0000 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0001 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0001 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0001 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0001 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0002 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0002 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0002 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0002 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0003 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0003 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0003 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0003 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0004 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0004 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0004 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0004 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0005 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0005 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0005 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0005 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0006 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0006 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0006 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0006 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0007 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0007 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0007 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0007 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0008 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0008 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0008 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0008 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0009 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0009 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0009 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0009 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x000a | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x000a | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x000a | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x000a | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x000b | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0019 | trackpoint XY ?
+; | 0x0000 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0000 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0001 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0002 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0002 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0003 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0003 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0004 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0004 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0005 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0006 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0006 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0007 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0007 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0008 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0008 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0009 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0009 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x000a | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x000a | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x000b | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x000c | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x000c | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x000d | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x000d | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x000e | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x000e | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x000f | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x000f | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0010 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0011 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0011 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0012 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0012 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0013 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0013 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0014 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0014 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0015 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0015 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0016 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0017 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0017 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001c | trackpoint XY ?
+; | 0x0000 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0000 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0000 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0002 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0003 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0003 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0004 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0005 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0006 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0007 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0008 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0009 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0009 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x000a | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x000b | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x000c | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x000d | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x000e | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x000e | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x000f | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0010 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0011 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0012 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0013 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0014 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0014 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0015 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0016 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0017 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0018 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0019 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x001a | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x001a | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x001b | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x001c | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x001d | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x001e | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x001f | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x001f | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0020 | .  | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0021 | .! | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0022 | ." | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0023 | .# | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0024 | .$ | ROM-Loaded POINT (9) <<< reffered from func_07e6_001f | trackpoint XY ?
+; | 0x0000 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0000 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0002 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0003 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0004 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0005 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0006 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0007 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0008 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0009 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x000b | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x000c | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x000d | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x000e | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x000f | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0010 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0011 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0012 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0013 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0014 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0015 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0016 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0017 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0018 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0019 | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x001a | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x001b | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x001c | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x001d | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x001e | .. | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0020 | .  | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0021 | .! | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0022 | ." | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0023 | .# | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0024 | .$ | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0025 | .% | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0026 | .& | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0027 | .' | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0028 | .( | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x0029 | .) | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x002a | .* | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x002b | .+ | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
+; | 0x002c | ., | ROM-Loaded POINT (9) <<< reffered from func_07e6_0022 | trackpoint XY ?
 
 ;
 ;
@@ -3531,7 +3531,7 @@
 ;
 ;
 ;
-; memoOVC, Y = ?, Z = v-c z + 01
+; memoOVC, Y = ?, Z = v-c z + 01  | ROM-Loading POINT (10) >>>
 ; write UDR0 ? at UDP0 ?
 ;
 ; UDP0 += 1
@@ -5950,7 +5950,7 @@
 ; DW | 0xa720 | .  |
 ; DW | 0xa720 | .  |
 ; DW | 0xaaaa | .. |
-; DW | 0xffff | .. |
+; DW | 0xffff | .. | ROM-Loaded POINT (1) <<<
 ; DW | 0xffff | .. |
 ; DW | 0xffff | .. |
 ; DW | 0xffff | .. |
