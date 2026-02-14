@@ -83,7 +83,15 @@ These are placeholders I defined. They consist of enclosing `${` `}`, separating
 - In the assembler source code, the program often refer ROM addresses in the program itself (by `MOVC` operation). It means that increase / decrease the number of operation lines easily breaks the program. 
 - I have added safety check in the firmware installer, which will check and prevent a keyboard from being flashed an incorrect firmware.
 - The most convenient way is to keep the number of operation lines constant between `DW` regions. You can see several pieces of many continuous `NOP` operations (No operation) in the source code. They have been created by improving code efficiency. You can use these `NOP`s as a buffer of the operations to keep the number of lines constant by increasing / decreasing them.
-- You can check the addresses of the lines in ROM by the following:
+- It is conviniet to work with address annotator when you modify .asm file:
   ```
-  python dev/add_sn8_addr.py firmware/fw_tmp.asm firmware/fw_tmp_addr.asm
+  python dev/sn8_addr.py add firmware/fw_tmp.asm firmware/fw_tmp.addr.asm
+  ```
+  If, you add any modifications, update the address annotations:
+  ```
+  python dev/sn8_addr.py update firmware/fw_tmp.addr.asm
+  ```
+  After working with `fw_tmp.addr.asm`, `fw_tmp.asm` can be regenerated:
+  ```
+  python dev/sn8_addr.py strip firmware/fw_tmp.addr.asm firmware/fw_tmp.asm
   ```
