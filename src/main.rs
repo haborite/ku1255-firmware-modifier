@@ -18,6 +18,7 @@ use components::{
     ErrorMessage,
     Keyboard,
     SelectFnID,
+    SelectSingleModKeyID,
     MacroKeySetting,
     MediaKeySetting,
     TrackPointSpeedChart,
@@ -31,7 +32,7 @@ use components::{
 use models::{
     Board, LogicalLayout, GeneralSeitting, MacroKey, 
     default_fn_id, default_macro_key_map, default_media_key_map, default_enable_middle_click,
-    default_tp_accel_coeffs
+    default_tp_accel_coeffs, default_single_mod_key_id
 };
 use utils::{load_url, load_or_download_firmware};
 
@@ -106,6 +107,7 @@ pub fn MainWindow(
 
     // Other variables
     let fn_id = use_signal(default_fn_id);
+    let single_mod_key_id = use_signal(default_single_mod_key_id);
     let macro_key_map: Signal<BTreeMap<u8, MacroKey>> = use_signal(default_macro_key_map);
     let media_key_map: Signal<BTreeMap<u8, u16>> = use_signal(default_media_key_map);
     let mut enable_middle_click: Signal<bool> = use_signal(default_enable_middle_click);
@@ -141,6 +143,7 @@ pub fn MainWindow(
                             id_layout_l0,
                             id_layout_l1,
                             fn_id,
+                            single_mod_key_id,
                             trackpoint_speed_settings,
                             macro_key_map,
                             media_key_map,
@@ -152,6 +155,7 @@ pub fn MainWindow(
                             id_layout_l0,
                             id_layout_l1,
                             fn_id,
+                            single_mod_key_id,
                             trackpoint_speed_settings,
                             macro_key_map,
                             media_key_map,
@@ -162,6 +166,7 @@ pub fn MainWindow(
                             id_layout_l1,
                             firmware_future,
                             fn_id,
+                            single_mod_key_id,
                             trackpoint_speed_settings,
                             macro_key_map,
                             media_key_map,
@@ -273,6 +278,13 @@ pub fn MainWindow(
                                                 SelectFnID {
                                                     general_setting: general_setting.clone(),
                                                     fn_id,
+                                                    map_key_label: selected_logical_layout().map_key_label.clone(),
+                                                }
+
+                                                label { class: "text-lg", "● Single 'Mod' key behavior:" }
+                                                SelectSingleModKeyID {
+                                                    general_setting: general_setting.clone(),
+                                                    single_mod_key_id,
                                                     map_key_label: selected_logical_layout().map_key_label.clone(),
                                                 }
 

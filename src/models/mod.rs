@@ -6,6 +6,7 @@ pub use general_setting::*;
 
 // Default values
 const DEFAULT_FN_ID: u8 = 0xaf;
+const DEFAULT_SINGLE_MOD_KEY_ID: u8 = 0x00;
 
 const MACRO_KEY_TRIGGER_IDS: [u8;24] = [
     0xE8, 0xE9, 0xEA, 0xEB, 0xEC, 0xED, 0xEE, 0xEF,
@@ -137,6 +138,7 @@ impl KeyLabel {
 }
 
 pub fn default_fn_id() -> u8 { DEFAULT_FN_ID }
+pub fn default_single_mod_key_id() -> u8 { DEFAULT_SINGLE_MOD_KEY_ID }
 
 
 pub fn default_macro_key_map() -> BTreeMap<u8, MacroKey> {
@@ -168,6 +170,8 @@ pub struct Config {
     pub layer1: BTreeMap<u8, Option<u8>>, 
     #[serde(default = "default_fn_id")]
     pub fn_id: u8,
+    #[serde(default = "default_single_mod_key_id")]
+    pub single_mod_key_id: u8,
     #[serde(default = "default_tp_accel_coeffs")]
     pub trackpoint_speed_settings: TrackPointSpeedSettings,
     #[serde(default = "default_macro_key_map")]

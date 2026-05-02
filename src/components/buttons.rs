@@ -30,6 +30,7 @@ pub fn ButtonInstall(
     id_layout_l1: Signal<BTreeMap<u8, Option<u8>>>,
     firmware_future: Resource<Vec<u8>>,
     fn_id: Signal<u8>,
+    single_mod_key_id: Signal<u8>,
     trackpoint_speed_settings: Signal<TrackPointSpeedSettings>,
     macro_key_map: Signal<BTreeMap<u8, MacroKey>>,
     media_key_map: Signal<BTreeMap<u8, u16>>,
@@ -46,6 +47,7 @@ pub fn ButtonInstall(
                     id_layout_l1,
                     firmware_future,
                     fn_id,
+                    single_mod_key_id,
                     trackpoint_speed_settings,
                     macro_key_map,
                     media_key_map,
@@ -67,6 +69,7 @@ pub fn ButtonLoad(
     id_layout_l0: Signal<BTreeMap<u8, Option<u8>>>,
     id_layout_l1: Signal<BTreeMap<u8, Option<u8>>>,
     fn_id: Signal<u8>,
+    single_mod_key_id: Signal<u8>,
     trackpoint_speed_settings: Signal<TrackPointSpeedSettings>,
     macro_key_map: Signal<BTreeMap<u8, MacroKey>>,
     media_key_map: Signal<BTreeMap<u8, u16>>,
@@ -93,6 +96,7 @@ pub fn ButtonLoad(
                                     loaded_id_layout_l0,
                                     loaded_id_layout_l1,
                                     loaded_fn_id,
+                                    loaded_single_mod_key_id,
                                     loaded_trackpoint_speed_settings,
                                     loaded_macro_key_map,
                                     loaded_media_key_map,
@@ -104,6 +108,7 @@ pub fn ButtonLoad(
                                 id_layout_l0.set(loaded_id_layout_l0);
                                 id_layout_l1.set(loaded_id_layout_l1);
                                 fn_id.set(loaded_fn_id);
+                                single_mod_key_id.set(loaded_single_mod_key_id);
                                 trackpoint_speed_settings.set(loaded_trackpoint_speed_settings);
                                 macro_key_map.set(loaded_macro_key_map);
                                 media_key_map.set(loaded_media_key_map);
@@ -127,6 +132,7 @@ pub fn ButtonSave(
     id_layout_l0: ReadSignal<BTreeMap<u8, Option<u8>>>,
     id_layout_l1: ReadSignal<BTreeMap<u8, Option<u8>>>,
     fn_id: ReadSignal<u8>,
+    single_mod_key_id: ReadSignal<u8>,
     trackpoint_speed_settings: ReadSignal<TrackPointSpeedSettings>,
     macro_key_map: ReadSignal<BTreeMap<u8, MacroKey>>,
     media_key_map: ReadSignal<BTreeMap<u8, u16>>,
@@ -154,6 +160,7 @@ pub fn ButtonSave(
                             &id_layout_l0(),
                             &id_layout_l1(),
                             fn_id(),
+                            single_mod_key_id(),
                             trackpoint_speed_settings(),
                             &macro_key_map(),
                             &media_key_map(),

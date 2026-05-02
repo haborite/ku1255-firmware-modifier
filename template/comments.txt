@@ -1189,8 +1189,6 @@
 ;; <NOP> <- CURRENTLY NOT USED
 ;; <NOP> <- CURRENTLY NOT USED
 ;; <NOP> <- CURRENTLY NOT USED
-;; <NOP> <- CURRENTLY NOT USED
-;; <NOP> <- CURRENTLY NOT USED
 
 
 ;; Load 8-bit mask | ROM-Loading POINT (2) >>>
@@ -1786,7 +1784,9 @@
 ;; SET 0x00.7 flag (2nd layer key pressed) = 1
 ;; Check 0x00.3 
 ;; If 0x00.3 == 1, 0x00.7 = 0 
-;; JMP to func_0186_02c3
+;;
+;; 
+;;
 
 
 ;; Address of bit musk ROM

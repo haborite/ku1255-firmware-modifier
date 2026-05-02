@@ -11,7 +11,7 @@ use crate::models::{Config, MacroKey, TrackPointSpeedSettings};
 
 
 pub fn load_config(filepath: &Path)
-    -> io::Result<(String, String, BTreeMap<u8, Option<u8>>, BTreeMap<u8, Option<u8>>, u8, TrackPointSpeedSettings, BTreeMap<u8, MacroKey>, BTreeMap<u8, u16>, bool)> 
+    -> io::Result<(String, String, BTreeMap<u8, Option<u8>>, BTreeMap<u8, Option<u8>>, u8, u8, TrackPointSpeedSettings, BTreeMap<u8, MacroKey>, BTreeMap<u8, u16>, bool)> 
 {
     let file = File::open(filepath)?;
     let config: Config = from_reader(file)?;
@@ -21,6 +21,7 @@ pub fn load_config(filepath: &Path)
         config.layer0,
         config.layer1,
         config.fn_id,
+        config.single_mod_key_id,
         config.trackpoint_speed_settings,
         config.macro_key_map,
         config.media_key_map,
@@ -35,6 +36,7 @@ pub fn save_config(
     layer0: &BTreeMap<u8, Option<u8>>,
     layer1: &BTreeMap<u8, Option<u8>>,
     fn_id: u8,
+    single_mod_key_id: u8,
     trackpoint_speed_settings: TrackPointSpeedSettings,
     macro_key_map: &BTreeMap<u8, MacroKey>,
     media_key_map: &BTreeMap<u8, u16>,
@@ -47,6 +49,7 @@ pub fn save_config(
         layer0: layer0.clone(),
         layer1: layer1.clone(),
         fn_id,
+        single_mod_key_id,
         trackpoint_speed_settings,
         macro_key_map: macro_key_map.clone(),
         media_key_map: media_key_map.clone(),

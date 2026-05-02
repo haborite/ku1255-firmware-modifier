@@ -4770,14 +4770,6 @@
     },
     {
       "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
-      "code": "    NOP                               "
-    },
-    {
-      "op": "insert",
       "code": ""
     },
     {
@@ -7157,12 +7149,20 @@
       "code": "    BCLR         0x00.7               "
     },
     {
-      "op": "copy",
-      "from": 1235
+      "op": "insert",
+      "code": "    MOV          A, #0x${s/single_mod_key_id/00}                         "
     },
     {
-      "op": "copy",
-      "from": 1236
+      "op": "insert",
+      "code": "    ${e/single_mod_key_id_enabled/NOP/MOV 0x0f, A}                       "
+    },
+    {
+      "op": "insert",
+      "code": "    ${e/single_mod_key_id_enabled/JMP func_0186_02c3/JMP func_0186_02be} "
+    },
+    {
+      "op": "insert",
+      "code": ""
     },
     {
       "op": "insert",
@@ -7185,8 +7185,8 @@
       "code": "    MOVC                              "
     },
     {
-      "op": "copy",
-      "from": 1239
+      "op": "insert",
+      "code": "    BTS0         0x00.3               "
     },
     {
       "op": "insert",
@@ -7214,11 +7214,11 @@
     },
     {
       "op": "copy",
-      "from": 1241
+      "from": 1235
     },
     {
       "op": "copy",
-      "from": 1242
+      "from": 1236
     },
     {
       "op": "insert",

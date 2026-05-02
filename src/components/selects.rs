@@ -110,3 +110,61 @@ pub fn SelectFnID(
         }
     }
 }
+
+
+#[component]
+pub fn SelectSingleModKeyID(
+    general_setting: Arc<GeneralSeitting>,
+    single_mod_key_id: Signal<u8>,
+    map_key_label: BTreeMap::<u8, KeyLabel>,
+) -> Element {
+    rsx!{
+        div { class: "min-w-[6rem]",
+            select {
+                class: "px-2 py-1 border border-gray-300 rounded text-gray-700 text-sm",
+                id: "options",
+                value: single_mod_key_id(),
+                onchange: move |evt| {
+                    let new_id: u8 = evt.value().clone().parse().unwrap();
+                    single_mod_key_id.set(new_id);
+                },
+                {
+                    general_setting.avail_hid_usage_names.iter().map(|(key_id, usage_name)|{
+                        let (label, style) = match map_key_label.get(&key_id) {
+                            None => ("".to_string(), "text-gray-700".to_string()),
+                            Some(ks) => {
+                                if ks.default == "" {
+                                    (
+                                        format!("{{ {:02X}: {} }}", key_id, usage_name),
+                                        "text-gray-400".to_string()
+                                    )                                                
+                                } else { 
+                                    if ks.shifted == "" {
+                                        (
+                                            format!("{}", ks.default),
+                                            "text-gray-700".to_string()
+                                        )
+                                    } else {
+                                        (
+                                            format!("{} and {}", ks.default, ks.shifted),
+                                            "text-gray-700".to_string()
+                                        )
+                                    }
+                                }
+                            },
+                        };
+                        let selected_flag = if *key_id == single_mod_key_id() {true} else {false};
+                        rsx!(
+                            option {
+                                class: style,
+                                value: *key_id,
+                                label: label,
+                                selected: selected_flag,
+                            }
+                        )                                   
+                    })
+                }
+            }
+        }
+    }
+}

@@ -48,6 +48,7 @@ fn build_mod_fw(
     layout0: Signal<BTreeMap<u8, Option<u8>>>,
     layout1: Signal<BTreeMap<u8, Option<u8>>>,
     fn_id: Signal<u8>,
+    single_mod_key_id: Signal<u8>,
     trackpoint_speed_settings: Signal<TrackPointSpeedSettings>,
     macro_key_map: Signal<BTreeMap<u8, MacroKey>>,
     media_key_map: Signal<BTreeMap<u8, u16>>,
@@ -71,7 +72,8 @@ fn build_mod_fw(
         MOD_ASM_PATH, 
         &layout0(), 
         &layout1(), 
-        fn_id(), 
+        fn_id(),
+        single_mod_key_id(),
         &trackpoint_speed_settings(), 
         &macro_key_map(), 
         &media_key_map(), 
@@ -90,6 +92,7 @@ pub fn install_firmware_by_flashsn8(
     id_layout_l1: Signal<BTreeMap<u8, Option<u8>>>,
     firmware_future: Resource<Vec<u8>>,
     fn_id: Signal<u8>,
+    single_mod_key_id: Signal<u8>,
     trackpoint_speed_settings: Signal<TrackPointSpeedSettings>,
     macro_key_map: Signal<BTreeMap<u8, MacroKey>>,
     media_key_map: Signal<BTreeMap<u8, u16>>,
@@ -106,7 +109,8 @@ pub fn install_firmware_by_flashsn8(
         firmware_future, 
         id_layout_l0, 
         id_layout_l1, 
-        fn_id, 
+        fn_id,
+        single_mod_key_id,
         trackpoint_speed_settings, 
         macro_key_map, 
         media_key_map, 
@@ -165,6 +169,7 @@ fn modify_asm_file(
     layout0: &BTreeMap<u8, Option<u8>>,
     layout1: &BTreeMap<u8, Option<u8>>,
     fn_id: u8,
+    single_mod_key_id: u8,
     trackpoint_speed_settings: &TrackPointSpeedSettings,
     macro_key_map: &BTreeMap<u8, MacroKey>,
     media_key_map: &BTreeMap<u8, u16>,
@@ -178,6 +183,13 @@ fn modify_asm_file(
 
     // Replace Function key ID
     s_values.insert("fn_id".to_string(), format!("{:02x}", fn_id));
+
+    // Replace Key ID when the 'Mod' key is singly pressed
+    s_values.insert("single_mod_key_id".to_string(), format!("{:02x}", single_mod_key_id));
+    e_choices.insert(
+        "single_mod_key_id_enabled".to_string(), 
+        if single_mod_key_id == 0 {0} else {1}
+    );
 
     // Key layout mapping
     let mut map1: BTreeMap<u8, Option<u8>> = BTreeMap::new();
