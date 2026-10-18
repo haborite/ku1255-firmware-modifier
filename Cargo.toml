@@ -35,7 +35,11 @@ desktop = ["dioxus/desktop"]
 # The feature that are only required for the mobile = ["dioxus/mobile"] build target should be optional and only enabled in the mobile = ["dioxus/mobile"] feature
 # mobile = ["dioxus/mobile"]
 
-[profile]
+[profile.release]
+# dx bundles with a profile inheriting this one and strips only when it is set here.
+strip = true
+lto = true
+codegen-units = 1
 
 [profile.wasm-dev]
 inherits = "dev"
