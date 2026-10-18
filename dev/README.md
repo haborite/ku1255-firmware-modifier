@@ -1,45 +1,56 @@
 # Development guideline
 
 ## Environment setup
-0. Install [git](https://git-scm.com/install/)
-1. Install [Rust](https://rust-lang.org/tools/install/)
-2. Install [Dioxus CLI](https://crates.io/crates/dioxus-cli)
-3. Install [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-4. Install [Tailwind CSS CLI](https://tailwindcss.com/docs/installation/tailwind-cli)
-5. Install [Python](https://www.python.org/) (add path to `python`)
-6. Install [NuShell](https://www.nushell.sh/) (add path to `nu`)
+1. Install [git](https://git-scm.com/install/)
+2. Install [Rust](https://rust-lang.org/tools/install/)
+3. Install the [Dioxus CLI](https://crates.io/crates/dioxus-cli) matching the `dioxus` version in `Cargo.lock`
+   ```
+   cargo install dioxus-cli --version 0.7.10 --locked
+   ```
+4. Linux only: install the system libraries
+   ```
+   sudo apt install libwebkit2gtk-4.1-dev libgtk-3-dev libxdo-dev libayatana-appindicator3-dev librsvg2-dev libwayland-dev libudev-dev
+   ```
+   and the udev rule `packaging/linux/70-ku1255.rules` to flash without root.
 
-## DevStart
+Node.js and the Tailwind CLI are not needed: `dx` downloads the Tailwind v3 standalone CLI and generates `public/tailwind.css` (see `Dioxus.toml`).
+Python is only needed for the optional firmware development scripts in `dev/`.
 
-1. Clone the repository
-   ```clone.sh
-   git clone https://github.com/haborite/ku1255-firmware-modifier
-   ```
+## Repository layout
+- `src/`: the Dioxus desktop app (UI, settings, HID transport for flashing).
+- `crates/ku1255-core/`: GUI-independent logic: SN8 assembler / disassembler, firmware template pipeline, flashing protocol. Unit and parity tests live here.
+- `boards/`, `logical_layouts/`, `settings/`, `template/`, `examples/`: data files, embedded into the executable at build time.
+- `packaging/`: platform files (udev rule).
 
-2. Deploy test (in the case of MS Windows)
-   ```
-   cd ku1255-firmware-modifier
-   nu distutils\build-windows.nu
-   ```
-   The file `ku1255-firmware-modifier-windows.zip` will be created.
+## Run, test and package
+```
+dx serve                                      # run the app in dev mode
+cargo test -p ku1255-core                     # core tests
+KU1255_INSTALLER=path/to/tp_compact_usb_kb_with_trackpoint_fw.exe cargo test -p ku1255-core
+                                              # + parity tests against the official firmware
+dx bundle --release --platform desktop --out-dir dist
+                                              # installer for the current OS (NSIS / .app+.dmg / AppImage)
+```
+CI (`.github/workflows/ci.yml`) runs the tests and bundles for Windows, macOS and Linux on every push; the bundles are available as workflow artifacts.
 
-3. Dev mode run test (Do it after deploy test)
-   ```
-   dx config set always-on-top false  # Only first time
-   dx serve
-   ```
-   The GUI app will launch. Click button `Install` and check that firmware installer launches in another window. You can see that several `.bin` and `.asm` files are created under the `firmware` directory after clicking that button.
+## Data directory
+The app writes into a per-user data directory:
+- Windows: `%LOCALAPPDATA%\ku1255-firmware-modifier`
+- macOS: `~/Library/Application Support/ku1255-firmware-modifier`
+- Linux: `~/.local/share/ku1255-firmware-modifier`
+
+Set `KU1255_DATA_DIR` to use another directory (e.g. `KU1255_DATA_DIR=. dx serve` to keep `firmware/` in the repository).
 
 ## Firmware modification flow
-In the `firmware` directory, following files will be created after pressing `Install` button:
+In the `firmware` directory of the data directory, following files will be created after pressing `Install` button:
 
 - `tp_compact_usb_kb_with_trackpoint_fw.exe`: The original Lenovo firmware installer exe downloaded from [Lenovo official page](https://support.lenovo.com/jp/ja/solutions/pd026745). This consists of firmware binary and its installer.
 - `fw_org.bin`: Binary of the original firmware. This is extracted from `tp_compact_usb_kb_with_trackpoint_fw.exe`.
-- `fw_org.asm`: Original firmware source code. This is disassembled from `fw_org.bin` by `sn8tool/sn8tool.exe (dissn.py)`.
-- `fw_fmt.asm`: Formatted firmware source code. This is formatted from `fw_org.bin` by `src/utils/format.rs`.
+- `fw_org.asm`: Original firmware source code. This is disassembled from `fw_org.bin` by the built-in disassembler (`crates/ku1255-core/src/sn8/disasm.rs`, a Rust port of `dissn8.py`).
+- `fw_fmt.asm`: Formatted firmware source code. This is formatted from `fw_org.bin` by `crates/ku1255-core/src/format.rs`.
 - `fw_tmp.asm`: Template firmware source code. This is created from `fw_fmt.asm`, `template/diff.json`, and `template/comments.txt`. **This is the file a develeper will modify**. This file includes the modifications by this project, recorded in `template/diff.json`. This file cannot be assembled because it contains home-made placeholders. 
-- `fw_mod.asm`: Modified firmware source code. This is created from `fw_tmp.asm` by `src/utils/template.rs` (All the placeholders are replaced by actual values).
-- `fw_mod.bin`: Modified firmware binary: This is the final product, which is assembeld from `fw_mod.asm` by `sn8tool/sn8tool.exe (assn.py)`. 
+- `fw_mod.asm`: Modified firmware source code. This is created from `fw_tmp.asm` by `crates/ku1255-core/src/template.rs` (All the placeholders are replaced by actual values).
+- `fw_mod.bin`: Modified firmware binary: This is the final product, which is assembeld from `fw_mod.asm` by the built-in assembler (`crates/ku1255-core/src/sn8/asm.rs`, a Rust port of `assn8.py`). 
 
 These .bin and .asm files are not directly saved in the project repository. Instead, we use `template/diff.json` and `template/comments.txt` to save modifications.
 
@@ -70,7 +81,7 @@ These are placeholders I defined. They consist of enclosing `${` `}`, separating
     - 2nd section is name of the placeholder. It can be used to specify the place holders from the Rust code.
     - 3rd section is the `index 0` value for the place holder. If the main code does not anything on the place holder, the place holder will be replaced by this value.
     - The nth sections (n > 3) are `index n-3` values.
- - `src/utils/template.rs` is the placeholder replacement engine. `fn modify_asm_file` in `src/utils/firmware/.rs` defines how the placeholders are customized dinamically according to user-input information.
+ - `crates/ku1255-core/src/template.rs` is the placeholder replacement engine. `fn modify_asm` in `src/utils/firmware.rs` defines how the placeholders are customized dinamically according to user-input information.
 
 ## Assembler references
 

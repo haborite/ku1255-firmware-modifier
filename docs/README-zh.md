@@ -20,17 +20,43 @@
 
 ## ✅ 系统要求
 
-* 目前应用仅支持 **Windows**。若有需求，可开发 **macOS** 与 **Linux** 版本。
-* 要在 Microsoft Windows 上运行，需要安装 Microsoft Visual C++ 可再发行软件包。
+* **Windows** 10 / 11 (x64)
+* **Linux** (x64)：Debian / Ubuntu 及其衍生发行版使用 `.deb` 软件包，其他发行版使用 AppImage
+* **macOS**：暂不支持（已有 Apple Silicon 版本的构建，但尚未验证固件写入）
 * 一旦完成固件写入，键盘在**多数操作系统**上都可直接使用，与安装时所用系统无关。
 * 首次运行本应用需要联网，以从联想官网页面下载官方固件安装程序。
 
 ## 🚀 下载与运行
 
-1. 前往 [Releases](https://github.com/haborite/ku1255-firmware-modifier/releases/latest) 页面下载 `ku1255-firmware-modifier.zip` 的[最新版本](https://github.com/haborite/ku1255-firmware-modifier/releases/latest)。
-2. 解压下载得到的 `.zip` 文件。
-3. 运行 `ku1255-firmware-modifier.exe`。
-   * 如果看到 “Windows protected your PC / Microsoft Defender SmartScreen prevented an unrecognized app from starting” 的提示，点击 **More info**（更多信息），然后选择 **Run anyway**（仍要运行） 继续。
+从[最新版本](https://github.com/haborite/ku1255-firmware-modifier/releases/latest)下载适用于你的操作系统的文件。
+
+**Windows**
+1. 下载并运行安装程序（`*-setup.exe`）。
+   * 如果看到 “Windows protected your PC”（Microsoft Defender SmartScreen）的提示，点击 **More info**（更多信息），然后选择 **Run anyway**（仍要运行）。
+   * 如果缺少 WebView2 运行时（在 Windows 10/11 上很少见），安装程序会自动下载。
+2. 从开始菜单启动 **Ku1255FirmwareModifier**。
+
+**Linux（Debian / Ubuntu）**
+1. 下载 `.deb` 文件并安装：
+   ```
+   sudo apt install ./ku1255-firmware-modifier_*_amd64.deb
+   ```
+   同时会安装一条 udev 规则，使你无需 root 权限即可写入键盘固件。
+2. 拔下并重新连接键盘，然后从应用程序菜单启动。
+
+**Linux（其他发行版）**
+1. 下载 `.AppImage` 文件并添加执行权限：`chmod +x ku1255-firmware-modifier*.AppImage`
+2. 安装 [udev 规则](../packaging/linux/70-ku1255.rules)，以便无需 root 权限写入：
+   ```
+   sudo cp 70-ku1255.rules /etc/udev/rules.d/
+   sudo udevadm control --reload && sudo udevadm trigger
+   ```
+3. 运行 AppImage。
+
+**文件保存位置**  
+下载的官方安装程序、示例配置以及固件中间文件保存在：
+* Windows：`%LOCALAPPDATA%\ku1255-firmware-modifier`
+* Linux：`~/.local/share/ku1255-firmware-modifier`
 
 ## 🖥️ 界面总览
 
@@ -79,12 +105,12 @@
 
 ## 🔧 示例：交换 Fn 与 Ctrl
 
-1. 点击 **Load config**，打开 `example/Swap-Fn-Ctrl.json`。
+1. 点击 **Load config**，打开 `examples/Swap-Fn-Ctrl.json`。
 2. 在 **Main Layer（主层）** 中确认 `Fn` 与 `Left Ctrl` 已互换。
    （被互换的按键会以**蓝色高亮**。）
 3. 点击 **Install firmware**。
-4. 固件安装器启动后，点击 **Start**。
-5. 安装完成后关闭安装器。
+4. 在安装对话框中点击 **Start**。
+5. 显示 “Flashing finished” 后点击 **Finish**。
 6. 拔下并重新连接键盘，新键位映射即刻生效。
 
 ---

@@ -1,7 +1,6 @@
 use serde::Deserialize;
 use std::fs;
-use std::io::{self, BufRead, BufReader, Write, Read};
-use std::path::Path;
+use std::io;
 
 /// JSON diff file format:
 /// {
@@ -39,17 +38,8 @@ fn split_code_comment(line: &str) -> (String, String) {
 
 /// Read only the "code part" (before ';') from Origin.asm.
 /// Each element corresponds to a line (including empty code lines).
-fn read_codes<P: AsRef<Path>>(path: P) -> io::Result<Vec<String>> {
-    let file = fs::File::open(path)?;
-    let reader = io::BufReader::new(file);
-
-    let mut codes = Vec::new();
-    for line in reader.lines() {
-        let line = line?; // no trailing newline
-        let (code, _comment) = split_code_comment(&line);
-        codes.push(code);
-    }
-    Ok(codes)
+fn read_codes(origin: &str) -> Vec<String> {
+    origin.lines().map(|line| split_code_comment(line).0).collect()
 }
 
 /// Apply the JSON operation list to the A-code list and build B-code list.
@@ -113,33 +103,34 @@ pub fn apply_diff_files(
     comments_path: &str,
     out_path: &str,
 ) -> io::Result<()> {
+    let output = apply_diff(
+        &fs::read_to_string(origin_path)?,
+        &fs::read_to_string(diff_path)?,
+        &fs::read_to_string(comments_path)?,
+    )?;
+    fs::write(out_path, output)?;
+    println!("apply_diff: wrote {}", out_path);
+    Ok(())
+}
+
+/// Same as [`apply_diff_files`], on strings.
+pub fn apply_diff(origin: &str, diff_json: &str, comments: &str) -> io::Result<String> {
     // 1. Read A code part
-    let a_codes = read_codes(origin_path)?;
+    let a_codes = read_codes(origin);
 
     // 2. Load JSON operation list
-    let mut diff_json_str = String::new();
-    fs::File::open(diff_path)?.read_to_string(&mut diff_json_str)?;
-    let diff_ops: DiffOps = serde_json::from_str(&diff_json_str).map_err(|e| {
+    let diff_ops: DiffOps = serde_json::from_str(diff_json).map_err(|e| {
         io::Error::new(
             io::ErrorKind::InvalidData,
             format!("Failed to parse diff JSON: {}", e),
         )
     })?;
-    let ops = diff_ops.ops;
 
     // 3. Build B codes from A + ops
-    let b_codes = build_b_codes(&a_codes, &ops)?;
+    let b_codes = build_b_codes(&a_codes, &diff_ops.ops)?;
 
-    // 4. Read comments.txt (one line per output line)
-    let comments_file = fs::File::open(comments_path)?;
-    let comments_reader = BufReader::new(comments_file);
-    let mut comments = Vec::new();
-
-    for line in comments_reader.lines() {
-        // Python: ln.rstrip("\n") → `lines()` already strips newline
-        let line = line?;
-        comments.push(line);
-    }
+    // 4. comments.txt (one line per output line)
+    let comments: Vec<&str> = comments.lines().collect();
 
     // 5. Check line count consistency
     if b_codes.len() != comments.len() {
@@ -153,18 +144,12 @@ pub fn apply_diff_files(
         ));
     }
 
-    // 6. Combine code + comment and write to output
-    let out_file = fs::File::create(out_path)?;
-    let mut writer = io::BufWriter::new(out_file);
-
-    for (code, comment) in b_codes.iter().zip(comments.iter()) {
-        writer.write_all(code.as_bytes())?;
-        writer.write_all(comment.as_bytes())?;
-        writer.write_all(b"\n")?;
+    // 6. Combine code + comment
+    let mut out = String::new();
+    for (code, comment) in b_codes.iter().zip(comments) {
+        out.push_str(code);
+        out.push_str(comment);
+        out.push('\n');
     }
-
-    writer.flush()?;
-    println!("apply_diff: wrote {}", out_path);
-    Ok(())
+    Ok(out)
 }
-

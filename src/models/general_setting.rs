@@ -1,16 +1,10 @@
 use std::{collections::BTreeMap};
-use std::path::Path;
-use std::fs::File;
-use std::io::{self, BufRead, BufReader};
+use std::io;
+
+use include_dir::Dir;
 
 use crate::models::{Board, KeyLabel, LogicalLayout};
-
-// Constants
-const GENERAL_SETTING_PATH: &str = "settings/general_setting.csv";
-const MEDIA_KEY_USAGE_NAMES_PATH: &str = "settings/media_key_usage_names.csv";
-const BOARDS_DIR:  &str = "boards";
-const LOGICAL_LAYOUT_DIR:  &str = "logical_layouts";
-const EXE_URL_SETTING_PATH: &str = "settings/url.txt";
+use crate::resources;
 
 #[derive(PartialEq, Clone)]
 pub struct GeneralSeitting {
@@ -29,19 +23,13 @@ impl GeneralSeitting {
         self.avail_media_key_usage_names.get(&media_key_id).unwrap().to_string()
     }
 
-    pub fn load_from_files() -> io::Result<GeneralSeitting> {
-        
-        let general_setting_path = Path::new(GENERAL_SETTING_PATH);
-        let media_key_setting_path = Path::new(MEDIA_KEY_USAGE_NAMES_PATH);
-        let boards_dir_path = Path::new(BOARDS_DIR);
-        let logical_layouts_dir_path = Path::new(LOGICAL_LAYOUT_DIR);
-        let official_firmware_url_path = Path::new(EXE_URL_SETTING_PATH);
-
-        let (id_map, usage_names) = GeneralSeitting::load_general_settings(general_setting_path)?;
-        let media_key_usage_names = GeneralSeitting::load_media_key_settings(media_key_setting_path)?;
-        let avail_boards = GeneralSeitting::load_boards(boards_dir_path)?;
-        let avail_logical_layouts = GeneralSeitting::load_logical_layouts(logical_layouts_dir_path, general_setting_path)?;
-        let official_firmware_url = GeneralSeitting::load_url(official_firmware_url_path)?;
+    /// Load the settings bundled into the executable.
+    pub fn load_embedded() -> io::Result<GeneralSeitting> {
+        let (id_map, usage_names) = GeneralSeitting::load_general_settings(resources::GENERAL_SETTING)?;
+        let media_key_usage_names = GeneralSeitting::load_media_key_settings(resources::MEDIA_KEY_USAGE_NAMES)?;
+        let avail_boards = GeneralSeitting::load_boards(&resources::BOARDS)?;
+        let avail_logical_layouts = GeneralSeitting::load_logical_layouts(&resources::LOGICAL_LAYOUTS, &usage_names)?;
+        let official_firmware_url = resources::firmware_url().to_string();
 
         Ok(GeneralSeitting {
             initial_id_map: id_map,
@@ -54,10 +42,9 @@ impl GeneralSeitting {
 
     }
 
-    pub fn load_general_settings(general_setting_path: &Path) -> io::Result<(BTreeMap<u8, Option<u8>>, BTreeMap<u8, String>)> {
+    pub fn load_general_settings(general_setting: &str) -> io::Result<(BTreeMap<u8, Option<u8>>, BTreeMap<u8, String>)> {
 
-        let file = File::open(general_setting_path)?;
-        let mut rdr = csv::Reader::from_reader(BufReader::new(file));
+        let mut rdr = csv::Reader::from_reader(general_setting.as_bytes());
         let mut id_map = BTreeMap::new();
         let mut usage_names = BTreeMap::new();
         for record in rdr.records() {
@@ -74,10 +61,9 @@ impl GeneralSeitting {
         Ok((id_map, usage_names))
     }
 
-    pub fn load_media_key_settings(media_key_setting_path: &Path) -> io::Result<BTreeMap<u16, String>> {
+    pub fn load_media_key_settings(media_key_setting: &str) -> io::Result<BTreeMap<u16, String>> {
         
-        let file = File::open(media_key_setting_path)?;
-        let mut rdr = csv::Reader::from_reader(BufReader::new(file));
+        let mut rdr = csv::Reader::from_reader(media_key_setting.as_bytes());
         let mut media_key_usage_names = BTreeMap::new();
         for record in rdr.records() {
             let record = record?;
@@ -89,29 +75,7 @@ impl GeneralSeitting {
         Ok(media_key_usage_names)
     }
 
-    pub fn load_address2id(general_config_path: &Path) -> io::Result<BTreeMap<u8, Option<u8>>> {
-        let file = File::open(general_config_path)?;
-        let mut rdr = csv::Reader::from_reader(BufReader::new(file));
-        let mut id_map = BTreeMap::new();
-
-        for record in rdr.records() {
-            let record = record?;
-            let id_str = record.get(0).unwrap_or("").trim();
-            let Ok(id) = u8::from_str_radix(id_str, 16) else {
-                println!("Cannot convert '{}' to hex number", id_str);
-                break
-            };
-            let address_str = record.get(2).unwrap_or("").trim();
-            if let Some(address) = u8::from_str_radix(address_str, 16).ok() {
-                id_map.insert(address, Some(id));
-            };
-        }
-        Ok(id_map)
-    }
-
-    pub fn load_board(board_config_path: &Path) -> io::Result<Board> {
-        let file = File::open(board_config_path)?;
-        let reader = BufReader::new(file);
+    pub fn load_board(board_config: &str) -> io::Result<Board> {
 
         enum Section {
             None,
@@ -131,8 +95,7 @@ impl GeneralSeitting {
         let mut map_address: Vec<Vec<Option<u8>>> = Vec::new();
         let mut map_widths: Vec<Vec<u16>> = Vec::new();
 
-        for line in reader.lines() {
-            let line = line?;
+        for line in board_config.lines() {
             let trimmed = line.split('#').next().unwrap_or("").trim();
 
             if trimmed.is_empty() {
@@ -232,8 +195,6 @@ impl GeneralSeitting {
             ));
         }
 
-        // let address2id = GeneralSeitting::load_address2id(general_config_path)?;
-
         let initial_id_map: BTreeMap<u8, Option<u8>> = map_address
             .iter().flatten()
             .zip(map_ids.iter().flatten())
@@ -252,52 +213,21 @@ impl GeneralSeitting {
         })
     }
 
-    pub fn load_boards(dir: &Path) -> io::Result<Vec<Board>> {
-        let mut cfg_files = Vec::new();
+    /// `*.cfg` files of `dir`, sorted by file name (the first one is the default board).
+    pub fn load_boards(dir: &Dir) -> io::Result<Vec<Board>> {
         let mut cfgs = Vec::new();
-        for entry in std::fs::read_dir(dir)? {
-            let entry = entry?;
-            let path = entry.path();
-            if path.is_file() {
-                if let Some(ext_found) = path.extension() {
-                    if ext_found == "cfg" {
-                        cfg_files.push(path);
-                    }
-                }
+        for (name, text) in resources::text_files(dir, "cfg")? {
+            match GeneralSeitting::load_board(text) {
+                Ok(cfg) => cfgs.push(cfg),
+                Err(e) => eprintln!("Skipping board {name}: {e}"),
             }
-        }
-        for cfg_filepath in cfg_files {
-            if let Ok(cfg) = GeneralSeitting::load_board(&cfg_filepath) {
-                cfgs.push(cfg);
-            };
         }
         Ok(cfgs)
     }
 
-    pub fn load_usage_names(general_config_path: &Path) -> io::Result<BTreeMap<u8, String>> {
-        let file = File::open(general_config_path)?;
-        let mut rdr = csv::Reader::from_reader(BufReader::new(file));
-        let mut usage_name_map = BTreeMap::new();
-
-        for record in rdr.records() {
-            let record = record?;
-            let id_str = record.get(0).unwrap_or("").trim();
-            let Ok(id) = u8::from_str_radix(id_str, 16) else {
-                println!("Cannot convert '{}' to hex number", id_str);
-                break
-            };
-            let usage_name = record.get(1).unwrap_or("").trim();
-            usage_name_map.insert(id, usage_name.to_string());
-        }
-        Ok(usage_name_map)
-    }
-
-    pub fn load_logical_layout(logical_layout_path: &Path, general_config_path: &Path) -> io::Result<LogicalLayout> {
-        let file = File::open(logical_layout_path)?;
-        let mut rdr = csv::Reader::from_reader(BufReader::new(file));
+    pub fn load_logical_layout(basename: &str, logical_layout: &str, usage_names: &BTreeMap<u8, String>) -> io::Result<LogicalLayout> {
+        let mut rdr = csv::Reader::from_reader(logical_layout.as_bytes());
         let mut map_key_label = BTreeMap::new();
-
-        let usage_names = GeneralSeitting::load_usage_names(general_config_path)?;
 
         for record in rdr.records() {
             let record = record?;
@@ -314,8 +244,6 @@ impl GeneralSeitting {
             map_key_label.insert(id, KeyLabel{ usage_name, default, shifted } );
         }
 
-        let basename = logical_layout_path.file_stem().unwrap().to_str().unwrap();
-
         Ok(LogicalLayout{
             layout_name: basename.to_string(),
             layout_label: basename.to_string().replace("_", " / "),
@@ -323,36 +251,37 @@ impl GeneralSeitting {
         })
     }
 
-    pub fn load_logical_layouts(dir: &Path, general_config_path: &Path) -> io::Result<Vec<LogicalLayout>> {
-        let mut cfg_files = Vec::new();
+    /// `*.csv` files of `dir`, sorted by file name.
+    pub fn load_logical_layouts(dir: &Dir, usage_names: &BTreeMap<u8, String>) -> io::Result<Vec<LogicalLayout>> {
         let mut cfgs = Vec::new();
-        for entry in std::fs::read_dir(dir)? {
-            let entry = entry?;
-            let path = entry.path();
-            if path.is_file() {
-                if let Some(ext_found) = path.extension() {
-                    if ext_found == "csv" {
-                        cfg_files.push(path);
-                    }
-                }
+        for (name, text) in resources::text_files(dir, "csv")? {
+            let basename = name.strip_suffix(".csv").unwrap_or(&name);
+            match GeneralSeitting::load_logical_layout(basename, text, usage_names) {
+                Ok(cfg) => cfgs.push(cfg),
+                Err(e) => eprintln!("Skipping logical layout {name}: {e}"),
             }
-        }
-        for cfg_filepath in cfg_files {
-            if let Ok(cfg) = GeneralSeitting::load_logical_layout(&cfg_filepath, general_config_path) {
-                cfgs.push(cfg);
-            };
         }
         Ok(cfgs)
     }
 
-    pub fn load_url(filepath: &Path) -> io::Result<String> {
-        let file = File::open(filepath)?;
-        let mut reader = BufReader::new(file);
-        let mut line = String::new();
-        reader.read_line(&mut line)?;
-        Ok(line.trim().to_string())
-    }
-
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
 
+    #[test]
+    fn loads_embedded_settings() {
+        let settings = GeneralSeitting::load_embedded().unwrap();
+        let boards: Vec<_> = settings.avail_boards.iter().map(|b| b.board_name.as_str()).collect();
+        // The first board is the default selection.
+        assert_eq!(boards, ["0B47190", "0B47208", "0B47221"]);
+        let layouts: Vec<_> = settings.avail_logical_layouts.iter().map(|l| l.layout_name.as_str()).collect();
+        assert_eq!(layouts, ["JP_Japanese", "UK_English", "US_English"]);
+        for board in &settings.avail_boards {
+            assert!(layouts.contains(&board.default_logical_layout_name.as_str()), "{}", board.board_name);
+        }
+        assert_eq!(settings.avail_hid_usage_names.len(), 256);
+        assert!(settings.official_firmware_url.starts_with("https://"));
+    }
+}

@@ -2,11 +2,21 @@ use dioxus::prelude::*;
 use std::collections::BTreeMap;
 use rfd::FileDialog;
 use crate::models::{MacroKey, Board, LogicalLayout, Tab, TrackPointSpeedSettings};
+use ku1255_core::flash::CheckedImage;
+use crate::paths;
 use crate::utils::{
-    install_firmware_by_flashsn8,
+    prepare_firmware,
     load_config,
     save_config,
 };
+
+/// Initial folder of the config file dialogs.
+fn examples_dir() -> std::path::PathBuf {
+    paths::examples_dir().unwrap_or_else(|e| {
+        eprintln!("Failed to prepare examples directory: {}", e);
+        paths::data_dir()
+    })
+}
 
 #[component]
 pub fn ButtonCopyLayer(
@@ -37,12 +47,13 @@ pub fn ButtonInstall(
     enable_middle_click: Signal<bool>,
     selected_board: ReadSignal<Board>,
     error_msg: Signal<Option<String>>,
+    flash_job: Signal<Option<CheckedImage>>,
 ) -> Element {
     rsx! {
         button {
             class: "px-4 py-2 bg-indigo-900 text-white rounded shadow hover:bg-indigo-600 border border-white",
             onclick: move |_| {
-                install_firmware_by_flashsn8(
+                match prepare_firmware(
                     id_layout_l0,
                     id_layout_l1,
                     firmware_future,
@@ -53,8 +64,10 @@ pub fn ButtonInstall(
                     media_key_map,
                     enable_middle_click,
                     selected_board,
-                    &mut error_msg,
-                );
+                ) {
+                    Ok(image) => flash_job.set(Some(image)),
+                    Err(msg) => error_msg.set(Some(msg)),
+                }
             },
             "Install firmware"
         }
@@ -81,9 +94,7 @@ pub fn ButtonLoad(
             onclick: move |_| {
                 let file = FileDialog::new()
                     .add_filter("Config files", &["json"])
-                    .set_directory(
-                        std::env::current_exe().unwrap().parent().unwrap().join("examples"),
-                    )
+                    .set_directory(examples_dir())
                     .set_title("Select key-remapping file")
                     .pick_file();
                 match file {
@@ -144,9 +155,7 @@ pub fn ButtonSave(
             onclick: move |_| {
                 let save_path = FileDialog::new()
                     .add_filter("JSON files", &["json"])
-                    .set_directory(
-                        std::env::current_exe().unwrap().parent().unwrap().join("examples"),
-                    )
+                    .set_directory(examples_dir())
                     .set_file_name("config.json")
                     .set_title("Set config filepath")
                     .save_file();

@@ -2,7 +2,7 @@
 // use std::error::Error;
 use std::fs::File;
 use std::collections::BTreeMap;
-use std::io::{self, BufRead, BufReader, BufWriter};
+use std::io::{self, BufWriter};
 use std::path::Path;
 // use serde::{Serialize, Deserialize};
 use serde_json::{to_writer_pretty, from_reader};
@@ -59,13 +59,4 @@ pub fn save_config(
     let writer = BufWriter::new(file);
     to_writer_pretty(writer, &config)?;
     Ok(())
-}
-
-
-pub fn load_url(filepath: &Path) -> io::Result<String> {
-    let file = File::open(filepath)?;
-    let mut reader = BufReader::new(file);
-    let mut line = String::new();
-    reader.read_line(&mut line)?;
-    Ok(line.trim().to_string())
 }

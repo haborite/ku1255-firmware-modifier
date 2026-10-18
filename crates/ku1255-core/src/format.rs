@@ -1,5 +1,5 @@
 use std::fs;
-use std::io::{self, Read, Write};
+use std::io::{self, Read};
 use std::path::Path;
 
 /// Replace leading tabs with N spaces and other tabs with a single space.
@@ -52,13 +52,15 @@ pub fn format_asm_file(in_path: &str, out_path: &str) -> io::Result<()> {
             format!("Input file not found: {}", in_path.display()),
         ));
     }
-
-    // --------------------------------------------------------------
-    // 1. Read the entire input file
-    // --------------------------------------------------------------
     let mut input = String::new();
     fs::File::open(in_path)?.read_to_string(&mut input)?;
+    fs::write(out_path, format_asm(&input))?;
+    println!("Saved to: {}", out_path);
+    Ok(())
+}
 
+/// Same as [`format_asm_file`], on strings.
+pub fn format_asm(input: &str) -> String {
     // --------------------------------------------------------------
     // 2. Preprocess lines: remove comments, normalize tabs/spaces
     // --------------------------------------------------------------
@@ -88,11 +90,8 @@ pub fn format_asm_file(in_path: &str, out_path: &str) -> io::Result<()> {
     }
 
     if cleaned_lines.is_empty() {
-        // If nothing remains, write an empty output file.
-        fs::File::create(out_path)?; // truncate/create
         println!("Warning: no lines left after processing.");
-        println!("Empty output written to: {}", out_path);
-        return Ok(());
+        return String::new();
     }
 
     // --------------------------------------------------------------
@@ -270,24 +269,18 @@ pub fn format_asm_file(in_path: &str, out_path: &str) -> io::Result<()> {
     }
 
     // --------------------------------------------------------------
-    // 7. Write the final result directly via BufWriter
+    // 7. Build the final result
     // --------------------------------------------------------------
-    let out_file = fs::File::create(out_path)?;
-    let mut writer = io::BufWriter::new(out_file);
-
+    let mut out = String::with_capacity(with_blank_lines.len() * (max_len + 3));
     for line in with_blank_lines {
         if line.is_empty() {
-            writer.write_all(b"\n")?;
+            out.push('\n');
         } else {
             let spaces = max_len.saturating_sub(line.len()) + 1;
-            writer.write_all(line.as_bytes())?;
-            writer.write_all(&vec![b' '; spaces])?;
-            writer.write_all(b";\n")?;
+            out.push_str(&line);
+            out.push_str(&" ".repeat(spaces));
+            out.push_str(";\n");
         }
     }
-
-    writer.flush()?;
-    println!("Saved to: {}", out_path);
-
-    Ok(())
+    out
 }

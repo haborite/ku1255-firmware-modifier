@@ -1,9 +1,10 @@
-use std::path::Path;
 use std::sync::Arc;
 use std::collections::BTreeMap;
 
 mod components;
 mod models;
+mod paths;
+mod resources;
 mod utils;
 
 use dioxus::prelude::*;
@@ -16,6 +17,7 @@ use components::{
     ButtonSave,
     ButtonTab,
     ErrorMessage,
+    FlashDialog,
     Keyboard,
     SelectFnID,
     SelectSingleModKeyID,
@@ -34,15 +36,12 @@ use models::{
     default_fn_id, default_macro_key_map, default_media_key_map, default_enable_middle_click,
     default_tp_accel_coeffs, default_single_mod_key_id
 };
-use utils::{load_url, load_or_download_firmware};
+use utils::load_or_download_firmware;
 
 // Assets
 const FAVICON: Asset = asset!("/public/favicon.ico");
 const MAIN_CSS: Asset = asset!("/public/styling/main.css");
 const TAILWIND_CSS: Asset = asset!("/public/tailwind.css");
-
-// Constants
-const EXE_URL_SETTING_PATH: &str = "settings/url.txt";
 
 
 fn main() {
@@ -52,10 +51,10 @@ fn main() {
 #[component]
 fn App() -> Element {
 
-    let general_setting = GeneralSeitting::load_from_files().unwrap();
+    let general_setting = GeneralSeitting::load_embedded().expect("bundled settings must be valid");
 
     // Firmware to be patched
-    let exe_url = load_url(Path::new(EXE_URL_SETTING_PATH)).unwrap();
+    let exe_url = general_setting.official_firmware_url.clone();
     let firmware_future = use_resource({move || {
         let exe_url_cloned = exe_url.clone();
         async move {
@@ -82,6 +81,9 @@ pub fn MainWindow(
 
     // Error message
     let error_msg: Signal<Option<String>> = use_signal(|| None);
+
+    // Firmware ready to be flashed (shows the install dialog)
+    let flash_job: Signal<Option<ku1255_core::flash::CheckedImage>> = use_signal(|| None);
 
     // Board variables
     let avail_board_cloned = general_setting.avail_boards.clone();
@@ -119,6 +121,10 @@ pub fn MainWindow(
     rsx! {
         if let Some(msg) = error_msg() {
             ErrorMessage { msg, error_msg }
+        }
+
+        if flash_job.read().is_some() {
+            FlashDialog { flash_job }
         }
 
         div { class: "min-h-screen bg-gray-600 text-slate-100",
@@ -173,6 +179,7 @@ pub fn MainWindow(
                             enable_middle_click,
                             selected_board,
                             error_msg,
+                            flash_job,
                         }
                     }
 
