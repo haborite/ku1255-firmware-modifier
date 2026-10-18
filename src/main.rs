@@ -43,8 +43,8 @@ const FAVICON: Asset = asset!("/icons/icon.ico");
 const MAIN_CSS: Asset = asset!("/public/styling/main.css");
 const TAILWIND_CSS: Asset = asset!("/public/tailwind.css");
 
-// Window/taskbar icon. Windows reads it from the exe resource embedded by
-// `dx bundle` and macOS from the .app bundle; only Linux needs it at runtime.
+// Window icon on Linux. Windows reads it from the exe resource embedded by
+// `dx bundle` and macOS from the .app bundle.
 #[cfg(target_os = "linux")]
 const WINDOW_ICON: &[u8] = include_bytes!("../icons/256x256.png");
 
@@ -55,6 +55,14 @@ fn main() {
     let cfg = cfg.with_icon(
         dioxus::desktop::icon_from_memory(WINDOW_ICON).expect("bundled icon must be valid"),
     );
+    // tao only sets the small (title bar) icon; the taskbar shows the big one.
+    // 32512 (IDI_APPLICATION) is the id `dx bundle` gives the exe icon.
+    #[cfg(target_os = "windows")]
+    let cfg = cfg.with_on_window(|window, _| {
+        use dioxus::desktop::tao::platform::windows::{IconExtWindows, WindowExtWindows};
+        use dioxus::desktop::tao::window::Icon;
+        window.set_taskbar_icon(Icon::from_resource(32512, None).ok());
+    });
     dioxus::LaunchBuilder::desktop().with_cfg(cfg).launch(App);
 }
 
