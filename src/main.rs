@@ -39,13 +39,23 @@ use models::{
 use utils::load_or_download_firmware;
 
 // Assets
-const FAVICON: Asset = asset!("/public/favicon.ico");
+const FAVICON: Asset = asset!("/icons/icon.ico");
 const MAIN_CSS: Asset = asset!("/public/styling/main.css");
 const TAILWIND_CSS: Asset = asset!("/public/tailwind.css");
 
+// Window/taskbar icon. Windows reads it from the exe resource embedded by
+// `dx bundle` and macOS from the .app bundle; only Linux needs it at runtime.
+#[cfg(target_os = "linux")]
+const WINDOW_ICON: &[u8] = include_bytes!("../icons/256x256.png");
+
 
 fn main() {
-    dioxus::launch(App);
+    let cfg = dioxus::desktop::Config::new();
+    #[cfg(target_os = "linux")]
+    let cfg = cfg.with_icon(
+        dioxus::desktop::icon_from_memory(WINDOW_ICON).expect("bundled icon must be valid"),
+    );
+    dioxus::LaunchBuilder::desktop().with_cfg(cfg).launch(App);
 }
 
 #[component]
