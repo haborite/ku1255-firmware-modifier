@@ -81,7 +81,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          dx bundle --release --platform desktop ${{ matrix.package-types }} --out-dir dist 2>&1 | tee bundle.log
+          dx bundle --release --platform desktop ${{ matrix.package-types }} --out-dir dist --verbose 2>&1 | tee bundle.log
         env:
           APPIMAGE_EXTRACT_AND_RUN: 1
 
@@ -90,12 +90,12 @@ jobs:
         if: failure()
         shell: bash
         run: |
-          # dx's progress output hides the compiler error; rebuild with cargo to show it.
-          cargo build --release --locked 2>&1 | tr '\r' '\n' | sed 's/\x1b\[[0-9;]*m//g' |
-            grep -v -E '^\s*(Compiling|Downloaded|Downloading|Fresh|Checking)\b' > cargo.log || true
-          tail -n 80 cargo.log | split -l 20 - part.
+          # dx redraws progress lines with '\r'; split them and drop the progress noise.
+          tr '\r' '\n' < bundle.log | sed 's/\x1b\[[0-9;]*[A-Za-z]//g' |
+            grep -v -E 'Compiled \[|^\s*$' > errors.log || true
+          tail -n 80 errors.log | split -l 20 - part.
           for f in part.*; do
-            echo "::error title=cargo build ($f)::$(sed -e ':a;N;$!ba;s/%/%25/g;s/\n/%0A/g' "$f")"
+            echo "::error title=dx bundle ($f)::$(sed -e ':a;N;$!ba;s/%/%25/g;s/\n/%0A/g' "$f")"
           done
 
       - name: Check the Windows app needs no VC++ runtime
