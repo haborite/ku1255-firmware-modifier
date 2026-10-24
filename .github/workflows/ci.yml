@@ -78,9 +78,20 @@ jobs:
         shell: bash
 
       - name: Bundle
-        run: dx bundle --release --platform desktop ${{ matrix.package-types }} --out-dir dist
+        shell: bash
+        run: |
+          set -o pipefail
+          dx bundle --release --platform desktop ${{ matrix.package-types }} --out-dir dist 2>&1 | tee bundle.log
         env:
           APPIMAGE_EXTRACT_AND_RUN: 1
+
+      # Job logs need a login to read; annotations are public.
+      - name: Report bundle error
+        if: failure()
+        shell: bash
+        run: |
+          msg=$(tail -n 60 bundle.log | sed -e 's/\x1b\[[0-9;]*m//g' -e ':a;N;$!ba;s/%/%25/g;s/\r/%0D/g;s/\n/%0A/g')
+          echo "::error title=dx bundle::$msg"
 
       - name: Check the Windows app needs no VC++ runtime
         if: runner.os == 'Windows'
