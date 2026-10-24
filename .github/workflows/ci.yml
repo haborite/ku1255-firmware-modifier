@@ -90,8 +90,13 @@ jobs:
         if: failure()
         shell: bash
         run: |
-          msg=$(tail -n 60 bundle.log | sed -e 's/\x1b\[[0-9;]*m//g' -e ':a;N;$!ba;s/%/%25/g;s/\r/%0D/g;s/\n/%0A/g')
-          echo "::error title=dx bundle::$msg"
+          # dx's progress output hides the compiler error; rebuild with cargo to show it.
+          cargo build --release --locked 2>&1 | tr '\r' '\n' | sed 's/\x1b\[[0-9;]*m//g' |
+            grep -v -E '^\s*(Compiling|Downloaded|Downloading|Fresh|Checking)\b' > cargo.log || true
+          tail -n 80 cargo.log | split -l 20 - part.
+          for f in part.*; do
+            echo "::error title=cargo build ($f)::$(sed -e ':a;N;$!ba;s/%/%25/g;s/\n/%0A/g' "$f")"
+          done
 
       - name: Check the Windows app needs no VC++ runtime
         if: runner.os == 'Windows'
