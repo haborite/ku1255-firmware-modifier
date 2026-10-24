@@ -49,6 +49,8 @@ jobs:
             package-types: --package-types macos --package-types dmg
             # Artifacts drop file permissions, so ship the .app inside the .dmg only.
             artifacts: dist/*.dmg
+            # dx strips the binary with rust-objcopy, which needs libLLVM.dylib from llvm-tools.
+            components: llvm-tools
           - os: ubuntu-latest
             name: linux-x64
             package-types: --package-types appimage --package-types deb
@@ -59,6 +61,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: ${{ matrix.components }}
       - uses: Swatinem/rust-cache@v2
 
       - name: Install Linux system dependencies
