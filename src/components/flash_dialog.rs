@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use futures_util::StreamExt;
 use ku1255_core::flash::{self, CheckedImage, Event};
-use crate::utils::HidTransport;
+use crate::utils::{custom_diff_path, HidTransport};
 
 #[derive(Clone, PartialEq)]
 enum FlashState {
@@ -20,10 +20,13 @@ enum Update {
 pub fn FlashDialog(flash_job: Signal<Option<CheckedImage>>) -> Element {
     let mut state = use_signal(|| FlashState::Ready);
     let mut log: Signal<Vec<String>> = use_signal(|| {
-        vec![
-            "✓ Firmware safety check PASSED.".to_string(),
-            "Make sure that the keyboard is plugged in, then press Start.".to_string(),
-        ]
+        let mut lines = vec!["✓ Firmware safety check PASSED.".to_string()];
+        if let Some(path) = custom_diff_path() {
+            lines.push(format!("⚠ Built with the CUSTOM template {}.", path.display()));
+            lines.push("  Remove it to use the bundled template again.".to_string());
+        }
+        lines.push("Make sure that the keyboard is plugged in, then press Start.".to_string());
+        lines
     });
     let mut progress = use_signal(|| (0usize, 1usize));
 

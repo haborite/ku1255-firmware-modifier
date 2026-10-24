@@ -41,7 +41,9 @@ jobs:
           - os: windows-latest
             name: windows-x64
             package-types: --package-types nsis
-            artifacts: dist/*.exe
+            artifacts: |
+              dist/*.exe
+              dist/*.zip
           - os: macos-latest
             name: macos-arm64
             package-types: --package-types macos --package-types dmg
@@ -92,6 +94,24 @@ jobs:
             $text = [System.Text.Encoding]::ASCII.GetString([IO.File]::ReadAllBytes($exe.FullName))
             if ($text -match 'vcruntime140') { throw "$($exe.FullName) imports VCRUNTIME140" }
           }
+
+      # The exe embeds its data and stylesheets, so it is shipped on its own.
+      - name: Package portable zip
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $version = (Select-String -Path Cargo.toml -Pattern '^version\s*=\s*"(.+)"' |
+            Select-Object -First 1).Matches.Groups[1].Value
+          $exe = Get-ChildItem target/dx -Recurse -Filter *.exe |
+            Where-Object { $_.FullName -match '\\release\\windows\\app\\' } |
+            Select-Object -First 1
+          Write-Host "Contents of $($exe.DirectoryName):"
+          Get-ChildItem $exe.DirectoryName -Recurse | ForEach-Object { Write-Host "  $($_.FullName)" }
+          if (Get-ChildItem $exe.DirectoryName -Filter *.dll) { throw "the app needs DLLs next to the exe" }
+          $stage = Join-Path $env:RUNNER_TEMP portable
+          New-Item -ItemType Directory -Force $stage | Out-Null
+          Copy-Item $exe.FullName (Join-Path $stage ku1255-firmware-modifier.exe)
+          Compress-Archive -Path "$stage/*" -DestinationPath "dist/ku1255-firmware-modifier_${version}_x64-portable.zip"
 
       # dx packs files with the runner's uid and a stray /.dx-default-icon.png.
       - name: Fix .deb ownership

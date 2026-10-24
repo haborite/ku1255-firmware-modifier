@@ -38,10 +38,10 @@ use models::{
 };
 use utils::load_or_download_firmware;
 
-// Assets
-const FAVICON: Asset = asset!("/icons/icon.ico");
-const MAIN_CSS: Asset = asset!("/public/styling/main.css");
-const TAILWIND_CSS: Asset = asset!("/public/tailwind.css");
+// Stylesheets are embedded (not `asset!()`) so the Windows exe runs on its own,
+// without an `assets` folder next to it.
+const MAIN_CSS: &str = include_str!("../public/styling/main.css");
+const TAILWIND_CSS: &str = include_str!("../public/tailwind.css");
 
 // Window icon on Linux. Windows reads it from the exe resource embedded by
 // `dx bundle` and macOS from the .app bundle.
@@ -63,6 +63,10 @@ fn main() {
         use dioxus::desktop::tao::window::Icon;
         window.set_taskbar_icon(Icon::from_resource(32512, None).ok());
     });
+    // Keep the WebView2 profile in the data directory rather than next to the
+    // exe, so the portable exe also runs from read-only folders.
+    #[cfg(target_os = "windows")]
+    let cfg = cfg.with_data_directory(paths::data_dir().join("webview"));
     dioxus::LaunchBuilder::desktop().with_cfg(cfg).launch(App);
 }
 
@@ -81,9 +85,8 @@ fn App() -> Element {
     }});
 
     rsx! {
-        document::Link { rel: "icon", href: FAVICON }
-        document::Link { rel: "stylesheet", href: MAIN_CSS }
-        document::Link { rel: "stylesheet", href: TAILWIND_CSS }
+        style { {MAIN_CSS} }
+        style { {TAILWIND_CSS} }
         MainWindow { general_setting, firmware_future }
     }
 }

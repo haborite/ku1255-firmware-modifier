@@ -61,6 +61,8 @@ cd dev
 python make_diff.py ..\firmware\fw_fmt.asm ..\firmware\fw_tmp.asm ..\template\diff.json ..\template\comments.txt
 ```
 
+To try a template without rebuilding the app, copy the generated `diff.json` (and `comments.txt`) into `template/` of the data directory; the app then uses it instead of the bundled one.
+
 ## Placeholder format
 
 e.g.)

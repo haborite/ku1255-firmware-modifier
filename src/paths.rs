@@ -30,6 +30,12 @@ pub fn firmware_dir() -> io::Result<PathBuf> {
     Ok(dir)
 }
 
+/// Custom firmware template, used instead of the bundled `template/diff.json`
+/// when `diff.json` exists here (`comments.txt` falls back to the bundled one).
+pub fn custom_template_dir() -> PathBuf {
+    data_dir().join("template")
+}
+
 /// Example configs, copied from the bundled ones on first use.
 /// Existing files are left untouched so users can edit them.
 pub fn examples_dir() -> io::Result<PathBuf> {

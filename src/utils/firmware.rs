@@ -1,6 +1,8 @@
 use std::collections::{HashMap, BTreeMap};
 use dioxus::prelude::{Signal, ReadSignal, Resource, ReadableExt};
+use std::borrow::Cow;
 use std::fs;
+use std::path::PathBuf;
 use crate::models::{Board, MacroKey, TrackPointSpeedSettings};
 use crate::{paths, resources};
 
@@ -12,6 +14,31 @@ use ku1255_core::flash::{check_image, CheckedImage};
 use ku1255_core::sn8;
 
 const INSTALLER_NAME: &str = "tp_compact_usb_kb_with_trackpoint_fw.exe";
+
+/// Path of the custom `diff.json`, if the user has placed one.
+pub fn custom_diff_path() -> Option<PathBuf> {
+    let path = paths::custom_template_dir().join("diff.json");
+    path.is_file().then_some(path)
+}
+
+/// `(diff.json, comments.txt)`: the custom ones in the data directory if present,
+/// otherwise the bundled ones.
+fn template_files() -> Result<(Cow<'static, str>, Cow<'static, str>), String> {
+    let Some(diff_path) = custom_diff_path() else {
+        return Ok((Cow::Borrowed(resources::DIFF_JSON), Cow::Borrowed(resources::COMMENTS)));
+    };
+    let read = |path: PathBuf| {
+        fs::read_to_string(&path).map_err(|e| format!("Failed to read {}: {}", path.display(), e))
+    };
+    let diff = read(diff_path)?;
+    let comments_path = paths::custom_template_dir().join("comments.txt");
+    let comments = if comments_path.is_file() {
+        Cow::Owned(read(comments_path)?)
+    } else {
+        Cow::Borrowed(resources::COMMENTS)
+    };
+    Ok((Cow::Owned(diff), comments))
+}
 
 
 fn validate_mod_key_position(
@@ -60,7 +87,8 @@ fn build_mod_fw(
     save("fw_org.asm", original_asm.as_bytes())?;
     let formatted_asm = format_asm(&original_asm);
     save("fw_fmt.asm", formatted_asm.as_bytes())?;
-    let template_asm = apply_diff(&formatted_asm, resources::DIFF_JSON, resources::COMMENTS)
+    let (diff_json, comments) = template_files()?;
+    let template_asm = apply_diff(&formatted_asm, &diff_json, &comments)
         .map_err(|e| format!("Failed to apply diff: {}", e))?;
     save("fw_tmp.asm", template_asm.as_bytes())?;
     let modified_asm = modify_asm(

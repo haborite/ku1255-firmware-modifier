@@ -34,10 +34,15 @@ Since all modifications are written directly to the keyboard's firmware, **no sy
 
 Download the file for your OS from the [latest release](https://github.com/haborite/ku1255-firmware-modifier/releases/latest).
 
-**Windows**
-1. Download and run the installer (`*-setup.exe`).
+**Windows (portable)**
+1. Download `*_x64-portable.zip` and extract it.
+2. Run `ku1255-firmware-modifier.exe`. No installation is needed.
     - If you see "Windows protected your PC" (Microsoft Defender SmartScreen), click "More info" and then "Run anyway".
-    - If the WebView2 runtime is missing (rare on Windows 10/11), the installer downloads it.
+    - The app needs the WebView2 runtime, which ships with Windows 10/11. If the app does not start, install the runtime from [Microsoft](https://developer.microsoft.com/microsoft-edge/webview2/), or use the installer below.
+
+**Windows (installer)**
+1. Download and run the installer (`*-setup.exe`).
+    - If the WebView2 runtime is missing, the installer downloads it.
 2. Launch **Ku1255FirmwareModifier** from the Start menu.
 
 **Linux (Debian / Ubuntu)**
@@ -120,6 +125,16 @@ The downloaded official installer, example configs and intermediate firmware fil
 - Firmware can be installed into the keyboard repeatedly.
 - If flashing fails midway, the keyboard starts in its firmware update mode; run the installation again (**Retry**).
 - To restore your device to its factory firmware settings, use the [Lenovo Official Firmware Installer](https://support.lenovo.com/us/en/solutions/pd026745-thinkpad-compact-usb-keyboard-with-trackpoint-overview-and-service-parts).
+
+## 🧪 Custom firmware template (advanced)
+The firmware is built from a template bundled in the app (`template/diff.json` and `template/comments.txt`).
+To use your own template, put it in the `template` folder of the data directory (see **Where files are stored**):
+- `template/diff.json` (required)
+- `template/comments.txt` (optional; the bundled one is used if absent)
+
+While a custom `diff.json` is present, the install dialog shows a warning. Delete it to go back to the bundled template.
+A custom template is not updated with the app, and a broken one can produce firmware that does not work; restore with the official Lenovo installer if needed.
+See the [development guide](dev/README.md) for how to make one.
 
 ---
 
