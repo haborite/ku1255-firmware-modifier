@@ -87,7 +87,7 @@ jobs:
 
       # Job logs need a login to read; annotations are public.
       - name: Report bundle error
-        if: failure()
+        if: failure() && hashFiles('bundle.log') != ''
         shell: bash
         run: |
           # dx redraws progress lines with '\r'; split them and drop the progress noise.
