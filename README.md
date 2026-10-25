@@ -37,6 +37,7 @@ Download the file for your OS from the [latest release](https://github.com/habor
 **Windows (portable)**
 1. Download `*_x64-portable.zip` and extract it.
 2. Run `ku1255-firmware-modifier.exe`. No installation is needed.
+    - The app keeps its files in the `data` folder next to the exe, so you can move the whole folder (e.g. to a USB drive) and nothing is left on the PC. The app needs write access to the `data` folder.
     - If you see "Windows protected your PC" (Microsoft Defender SmartScreen), click "More info" and then "Run anyway".
     - The app needs the WebView2 runtime, which ships with Windows 10/11. If the app does not start, install the runtime from [Microsoft](https://developer.microsoft.com/microsoft-edge/webview2/), or use the installer below.
 
@@ -64,7 +65,7 @@ Download the file for your OS from the [latest release](https://github.com/habor
 
 **Where files are stored**  
 The downloaded official installer, example configs and intermediate firmware files are kept in:
-- Windows: `%LOCALAPPDATA%\ku1255-firmware-modifier`
+- Windows: `%LOCALAPPDATA%\ku1255-firmware-modifier` (portable version: the `data` folder next to the exe)
 - Linux: `~/.local/share/ku1255-firmware-modifier`
 
 ## 🖥️ Interface Overview

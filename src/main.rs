@@ -64,7 +64,7 @@ fn main() {
         window.set_taskbar_icon(Icon::from_resource(32512, None).ok());
     });
     // Keep the WebView2 profile in the data directory rather than next to the
-    // exe, so the portable exe also runs from read-only folders.
+    // exe, so the exe also runs from read-only folders when `data` is absent.
     #[cfg(target_os = "windows")]
     let cfg = cfg.with_data_directory(paths::data_dir().join("webview"));
     dioxus::LaunchBuilder::desktop().with_cfg(cfg).launch(App);

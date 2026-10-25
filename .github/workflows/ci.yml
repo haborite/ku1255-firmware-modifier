@@ -116,6 +116,7 @@ jobs:
           }
 
       # The exe embeds its data and stylesheets, so it is shipped on its own.
+      # The `data` folder next to it makes the app keep its files there.
       - name: Package portable zip
         if: runner.os == 'Windows'
         shell: pwsh
@@ -131,6 +132,14 @@ jobs:
           $stage = Join-Path $env:RUNNER_TEMP portable
           New-Item -ItemType Directory -Force $stage | Out-Null
           Copy-Item $exe.FullName (Join-Path $stage ku1255-firmware-modifier.exe)
+          Copy-Item LICENSE (Join-Path $stage LICENSE.txt)
+          # Compress-Archive drops empty folders, so `data` holds a note.
+          $data = New-Item -ItemType Directory -Force (Join-Path $stage data)
+          Set-Content -Encoding utf8 (Join-Path $data README.txt) @(
+            "The app keeps its files (downloaded official installer, example configs,"
+            "intermediate firmware and the WebView2 profile) in this folder."
+            "Delete this folder to store them in %LOCALAPPDATA%\ku1255-firmware-modifier instead."
+          )
           Compress-Archive -Path "$stage/*" -DestinationPath "dist/ku1255-firmware-modifier_${version}_x64-portable.zip"
 
       # dx packs files with the runner's uid and a stray /.dx-default-icon.png.
