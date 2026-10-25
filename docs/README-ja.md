@@ -22,17 +22,43 @@
 
 ## ✅ 動作環境
 
-- 現時点では、本アプリはMS Windows上でのみ動作します。要望があれば、Linux版およびmacOS版も開発予定です。
-- MS Windows上での動作にはMicrosoft Visual C++ 再頒布可能パッケージがインストールされていることが必要です。 
+- **Windows** 10 / 11 (x64)
+- **Linux** (x64): Debian / Ubuntu 系は `.deb` パッケージ、その他のディストリビューションは AppImage
+- **macOS**: 未対応（Apple Silicon 向けのビルドはありますが、書き込みの動作確認が済んでいません）
 - 一度ファームウェアを書き込めば、そのキーボード自体は**いずれの主要なOSでも問題なく動作**します。
 - 公式ファームウェアインストーラーをダウンロードするために、初回起動時にインターネット接続が必要です。
 
 ## 🚀 ダウンロードと実行方法
 
-1. [最新バージョン](https://github.com/haborite/ku1255-firmware-modifier/releases/latest)の `ku1255-firmware-modifier.zip` をダウンロード
-2. ダウンロードした `.zip` ファイルを解凍
-3. `ku1255-firmware-modifier.exe` を実行
-(「Windows によって PC が保護されました」「Microsoft Defender SmartScreen は認識されないアプリの起動を停止しました。このアプリを実行すると、PC が危険にさらされる可能性があります」という警告が出る場合は、「詳細情報」をクリック --> 「実行」を選択)
+[最新リリース](https://github.com/haborite/ku1255-firmware-modifier/releases/latest)からお使いのOS用のファイルをダウンロードします。
+
+**Windows**
+1. インストーラー（`*-setup.exe`）をダウンロードして実行
+    - 「Windows によって PC が保護されました」（Microsoft Defender SmartScreen）という警告が出る場合は、「詳細情報」をクリック --> 「実行」を選択
+    - WebView2 ランタイムがない場合（Windows 10/11 ではまれ）は、インストーラーが自動でダウンロードします
+2. スタートメニューから **Ku1255FirmwareModifier** を起動
+
+**Linux（Debian / Ubuntu 系）**
+1. `.deb` ファイルをダウンロードしてインストール
+    ```
+    sudo apt install ./ku1255-firmware-modifier_*_amd64.deb
+    ```
+    root 権限なしでキーボードに書き込むための udev ルールも一緒にインストールされます。
+2. キーボードを一度取り外して再接続し、アプリケーションメニューから起動
+
+**Linux（その他のディストリビューション）**
+1. `.AppImage` ファイルをダウンロードし、実行権限を付与： `chmod +x ku1255-firmware-modifier*.AppImage`
+2. root 権限なしで書き込むために [udev ルール](../packaging/linux/70-ku1255.rules) をインストール
+    ```
+    sudo cp 70-ku1255.rules /etc/udev/rules.d/
+    sudo udevadm control --reload && sudo udevadm trigger
+    ```
+3. AppImage を実行
+
+**ファイルの保存場所**  
+ダウンロードした公式インストーラー、設定ファイルのサンプル、ファームウェアの中間ファイルは次の場所に保存されます。
+- Windows: `%LOCALAPPDATA%\ku1255-firmware-modifier`
+- Linux: `~/.local/share/ku1255-firmware-modifier`
 
 ## 🖥️ 画面の説明
 
@@ -88,12 +114,13 @@
 3. **Main Layer** 上で `Fn` と `Left Ctrl` の位置が入れ替わっていることを確認します。  
    （入れ替わったキーは青くハイライトされます。）
 4. `Install firmware` をクリック
-5. ファームウェアインストーラーが起動したら **Start** をクリック
-6. インストールが完了したらインストーラーを閉じます
+5. インストール画面で **Start** をクリック
+6. 「Flashing finished」と表示されたら **Finish** をクリック
 7. キーボードをUSBから一度取り外し、再接続すると新しい設定が有効になります
 
 ## ♻️ ファームウェアのリセット
 - ファームウェアは繰り返し書き込み可能です
+- 書き込みが途中で失敗した場合、キーボードはファームウェア更新モードで起動します。もう一度インストールを実行してください（**Retry**）。
 - [Lenovo公式ファームウェアインストーラー](https://support.lenovo.com/jp/ja/solutions/pd026745-thinkpad-compact-usb-keyboard-with-trackpoint-overview-and-service-parts)を実行すると、ファームウェアが出荷時の状態に戻ります。
 
 

@@ -1,9 +1,10 @@
-use std::path::Path;
 use std::sync::Arc;
 use std::collections::BTreeMap;
 
 mod components;
 mod models;
+mod paths;
+mod resources;
 mod utils;
 
 use dioxus::prelude::*;
@@ -16,6 +17,7 @@ use components::{
     ButtonSave,
     ButtonTab,
     ErrorMessage,
+    FlashDialog,
     Keyboard,
     SelectFnID,
     SelectSingleModKeyID,
@@ -34,28 +36,47 @@ use models::{
     default_fn_id, default_macro_key_map, default_media_key_map, default_enable_middle_click,
     default_tp_accel_coeffs, default_single_mod_key_id
 };
-use utils::{load_url, load_or_download_firmware};
+use utils::load_or_download_firmware;
 
-// Assets
-const FAVICON: Asset = asset!("/public/favicon.ico");
-const MAIN_CSS: Asset = asset!("/public/styling/main.css");
-const TAILWIND_CSS: Asset = asset!("/public/tailwind.css");
+// Stylesheets are embedded (not `asset!()`) so the Windows exe runs on its own,
+// without an `assets` folder next to it.
+const MAIN_CSS: &str = include_str!("../public/styling/main.css");
+const TAILWIND_CSS: &str = include_str!("../public/tailwind.css");
 
-// Constants
-const EXE_URL_SETTING_PATH: &str = "settings/url.txt";
+// Window icon on Linux. Windows reads it from the exe resource embedded by
+// `dx bundle` and macOS from the .app bundle.
+#[cfg(target_os = "linux")]
+const WINDOW_ICON: &[u8] = include_bytes!("../icons/256x256.png");
 
 
 fn main() {
-    dioxus::launch(App);
+    let cfg = dioxus::desktop::Config::new();
+    #[cfg(target_os = "linux")]
+    let cfg = cfg.with_icon(
+        dioxus::desktop::icon_from_memory(WINDOW_ICON).expect("bundled icon must be valid"),
+    );
+    // tao only sets the small (title bar) icon; the taskbar shows the big one.
+    // 32512 (IDI_APPLICATION) is the id `dx bundle` gives the exe icon.
+    #[cfg(target_os = "windows")]
+    let cfg = cfg.with_on_window(|window, _| {
+        use dioxus::desktop::tao::platform::windows::{IconExtWindows, WindowExtWindows};
+        use dioxus::desktop::tao::window::Icon;
+        window.set_taskbar_icon(Icon::from_resource(32512, None).ok());
+    });
+    // Keep the WebView2 profile in the data directory rather than next to the
+    // exe, so the exe also runs from read-only folders when `data` is absent.
+    #[cfg(target_os = "windows")]
+    let cfg = cfg.with_data_directory(paths::data_dir().join("webview"));
+    dioxus::LaunchBuilder::desktop().with_cfg(cfg).launch(App);
 }
 
 #[component]
 fn App() -> Element {
 
-    let general_setting = GeneralSeitting::load_from_files().unwrap();
+    let general_setting = GeneralSeitting::load_embedded().expect("bundled settings must be valid");
 
     // Firmware to be patched
-    let exe_url = load_url(Path::new(EXE_URL_SETTING_PATH)).unwrap();
+    let exe_url = general_setting.official_firmware_url.clone();
     let firmware_future = use_resource({move || {
         let exe_url_cloned = exe_url.clone();
         async move {
@@ -64,9 +85,8 @@ fn App() -> Element {
     }});
 
     rsx! {
-        document::Link { rel: "icon", href: FAVICON }
-        document::Link { rel: "stylesheet", href: MAIN_CSS }
-        document::Link { rel: "stylesheet", href: TAILWIND_CSS }
+        style { {MAIN_CSS} }
+        style { {TAILWIND_CSS} }
         MainWindow { general_setting, firmware_future }
     }
 }
@@ -82,6 +102,9 @@ pub fn MainWindow(
 
     // Error message
     let error_msg: Signal<Option<String>> = use_signal(|| None);
+
+    // Firmware ready to be flashed (shows the install dialog)
+    let flash_job: Signal<Option<ku1255_core::flash::CheckedImage>> = use_signal(|| None);
 
     // Board variables
     let avail_board_cloned = general_setting.avail_boards.clone();
@@ -119,6 +142,10 @@ pub fn MainWindow(
     rsx! {
         if let Some(msg) = error_msg() {
             ErrorMessage { msg, error_msg }
+        }
+
+        if flash_job.read().is_some() {
+            FlashDialog { flash_job }
         }
 
         div { class: "min-h-screen bg-gray-600 text-slate-100",
@@ -173,6 +200,7 @@ pub fn MainWindow(
                             enable_middle_click,
                             selected_board,
                             error_msg,
+                            flash_job,
                         }
                     }
 

@@ -1,0 +1,4 @@
+# Link the C runtime statically so the Windows app does not need the
+# Microsoft Visual C++ Redistributable. dx picks up target rustflags from here.
+[target.x86_64-pc-windows-msvc]
+rustflags = ["-C", "target-feature=+crt-static"]

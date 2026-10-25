@@ -1,0 +1,209 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+env:
+  DX_VERSION: 0.7.10
+
+jobs:
+  core-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+
+      # The official installer is not redistributable; fetch it for the parity tests.
+      - uses: actions/cache@v4
+        with:
+          path: .ci/installer.exe
+          key: lenovo-installer-${{ hashFiles('settings/url.txt') }}
+      - name: Download official firmware installer
+        run: |
+          mkdir -p .ci
+          [ -f .ci/installer.exe ] || curl -fsSL -o .ci/installer.exe "$(head -n1 settings/url.txt)"
+
+      - name: Test ku1255-core
+        run: cargo test -p ku1255-core --locked
+        env:
+          KU1255_INSTALLER: ${{ github.workspace }}/.ci/installer.exe
+
+  bundle:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            name: windows-x64
+            package-types: --package-types nsis
+            artifacts: |
+              dist/*.exe
+              dist/*.zip
+          - os: macos-latest
+            name: macos-arm64
+            package-types: --package-types macos --package-types dmg
+            # Artifacts drop file permissions, so ship the .app inside the .dmg only.
+            artifacts: dist/*.dmg
+            # dx strips the binary with rust-objcopy, which needs libLLVM.dylib from llvm-tools.
+            components: llvm-tools
+          - os: ubuntu-latest
+            name: linux-x64
+            package-types: --package-types appimage --package-types deb
+            artifacts: |
+              dist/*.AppImage
+              dist/*.deb
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: ${{ matrix.components }}
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Install Linux system dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libgtk-3-dev libxdo-dev \
+            libayatana-appindicator3-dev librsvg2-dev libwayland-dev libudev-dev
+
+      - name: Install Dioxus CLI
+        uses: taiki-e/install-action@v2
+        with:
+          tool: dioxus-cli@${{ env.DX_VERSION }}
+
+      - name: Check Cargo.lock is up to date
+        run: cargo metadata --locked --format-version 1 > /dev/null
+        shell: bash
+
+      - name: Bundle
+        shell: bash
+        run: |
+          set -o pipefail
+          dx bundle --release --platform desktop ${{ matrix.package-types }} --out-dir dist --verbose 2>&1 | tee bundle.log
+        env:
+          APPIMAGE_EXTRACT_AND_RUN: 1
+
+      # Job logs need a login to read; annotations are public.
+      - name: Report bundle error
+        if: failure() && hashFiles('bundle.log') != ''
+        shell: bash
+        run: |
+          # dx redraws progress lines with '\r'; split them and drop the progress noise.
+          tr '\r' '\n' < bundle.log | sed 's/\x1b\[[0-9;]*[A-Za-z]//g' |
+            grep -v -E 'Compiled \[|^\s*$' > errors.log || true
+          tail -n 80 errors.log | split -l 20 - part.
+          for f in part.*; do
+            echo "::error title=dx bundle ($f)::$(sed -e ':a;N;$!ba;s/%/%25/g;s/\n/%0A/g' "$f")"
+          done
+
+      - name: Check the Windows app needs no VC++ runtime
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $exes = Get-ChildItem target/dx -Recurse -Filter *.exe |
+            Where-Object { $_.FullName -match '\\release\\windows\\app\\' }
+          if (-not $exes) { throw "built exe not found" }
+          foreach ($exe in $exes) {
+            Write-Host "Checking $($exe.FullName)"
+            $text = [System.Text.Encoding]::ASCII.GetString([IO.File]::ReadAllBytes($exe.FullName))
+            if ($text -match 'vcruntime140') { throw "$($exe.FullName) imports VCRUNTIME140" }
+          }
+
+      # The exe embeds its data and stylesheets, so it is shipped on its own.
+      # The `data` folder next to it makes the app keep its files there.
+      - name: Package portable zip
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $version = (Select-String -Path Cargo.toml -Pattern '^version\s*=\s*"(.+)"' |
+            Select-Object -First 1).Matches.Groups[1].Value
+          $exe = Get-ChildItem target/dx -Recurse -Filter *.exe |
+            Where-Object { $_.FullName -match '\\release\\windows\\app\\' } |
+            Select-Object -First 1
+          Write-Host "Contents of $($exe.DirectoryName):"
+          Get-ChildItem $exe.DirectoryName -Recurse | ForEach-Object { Write-Host "  $($_.FullName)" }
+          if (Get-ChildItem $exe.DirectoryName -Filter *.dll) { throw "the app needs DLLs next to the exe" }
+          $stage = Join-Path $env:RUNNER_TEMP portable
+          New-Item -ItemType Directory -Force $stage | Out-Null
+          Copy-Item $exe.FullName (Join-Path $stage ku1255-firmware-modifier.exe)
+          Copy-Item LICENSE (Join-Path $stage LICENSE.txt)
+          # Compress-Archive drops empty folders, so `data` holds a note.
+          $data = New-Item -ItemType Directory -Force (Join-Path $stage data)
+          Set-Content -Encoding utf8 (Join-Path $data README.txt) @(
+            "The app keeps its files (downloaded official installer, example configs,"
+            "intermediate firmware and the WebView2 profile) in this folder."
+            "Delete this folder to store them in %LOCALAPPDATA%\ku1255-firmware-modifier instead."
+          )
+          Compress-Archive -Path "$stage/*" -DestinationPath "dist/ku1255-firmware-modifier_${version}_x64-portable.zip"
+
+      # dx packs files with the runner's uid and a stray /.dx-default-icon.png.
+      - name: Fix .deb ownership
+        if: runner.os == 'Linux'
+        run: for deb in dist/*.deb; do packaging/linux/fix-deb.sh "$deb"; done
+
+      - name: Check .deb contents
+        if: runner.os == 'Linux'
+        run: |
+          for deb in dist/*.deb; do
+            dpkg-deb -I "$deb"
+            dpkg-deb -c "$deb"
+            # `! cmd` would not fail the step under `set -e`, so test explicitly.
+            if dpkg-deb -c "$deb" | awk '{print $2}' | grep -v '^root/root$'; then
+              echo "::error::non-root owned files in $deb"; exit 1
+            fi
+            if dpkg-deb -c "$deb" | grep -F .dx-default-icon.png; then
+              echo "::error::stray icon in $deb"; exit 1
+            fi
+            dpkg-deb -f "$deb" Depends | grep -q libwebkit2gtk-4.1-0
+          done
+
+      # Runs after dx, which generates public/tailwind.css needed by asset!().
+      - name: Test app
+        if: runner.os == 'Linux'
+        run: cargo test --locked -p ku1255-firmware-modifier
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ku1255-firmware-modifier-${{ matrix.name }}
+          path: ${{ matrix.artifacts }}
+          if-no-files-found: error
+
+  # Draft a GitHub release when a v* tag is pushed. macOS is built above but not
+  # released until flashing has been verified on a Mac.
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [core-test, bundle]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check tag matches Cargo.toml version
+        run: |
+          version=$(grep -m1 '^version' Cargo.toml | cut -d'"' -f2)
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::tag $GITHUB_REF_NAME does not match Cargo.toml version $version"
+            exit 1
+          fi
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: ku1255-firmware-modifier-windows-x64
+          path: dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: ku1255-firmware-modifier-linux-x64
+          path: dist
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          generate_release_notes: true
+          files: dist/*

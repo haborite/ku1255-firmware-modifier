@@ -1,4 +1,7 @@
 [application]
+# dx downloads the Tailwind v3 standalone CLI (tailwind.config.js) and runs it before compiling.
+tailwind_input = "input.css"
+tailwind_output = "public/tailwind.css"
 
 [web.app]
 
@@ -19,3 +22,36 @@ script = []
 # Javascript code file
 # serve: [dev-server] only
 script = []
+
+[bundle]
+identifier = "io.github.haborite.ku1255-firmware-modifier"
+publisher = "haborite"
+category = "Utility"
+short_description = "Firmware customizer for the Lenovo ThinkPad Compact USB Keyboard with TrackPoint (KU-1255)"
+copyright = "MIT"
+# Regenerate with `python3 dev/make_icon.py icons`.
+# Largest PNG first: the macOS .icns is resampled from the first PNG listed.
+# The first .ico becomes the Windows exe icon (also used for the window).
+icon = [
+    "icons/1024x1024.png",
+    "icons/512x512.png",
+    "icons/256x256.png",
+    "icons/128x128.png",
+    "icons/48x48.png",
+    "icons/32x32.png",
+    "icons/icon.ico",
+]
+
+[bundle.deb]
+# Runtime libraries of the WebView (JavaScriptCore comes with WebKitGTK) and libxdo.
+depends = ["libwebkit2gtk-4.1-0", "libxdo3"]
+# Lets the logged-in user flash the keyboard without root.
+files = { "/usr/lib/udev/rules.d/70-ku1255.rules" = "packaging/linux/70-ku1255.rules" }
+
+[bundle.windows]
+# WebView2 ships with Windows 10/11; only download it when missing
+# (the default embeds a ~180 MB offline installer).
+webview_install_mode = { DownloadBootstrapper = { silent = true } }
+
+[bundle.windows.nsis]
+installer_icon = "icons/icon.ico"

@@ -1,0 +1,129 @@
+{
+ "generator": "flashsn8_gui.py FlashWorker.run() against a simulated device",
+ "image": {
+  "length": 24576,
+  "lcg_seed": 1255,
+  "canary_at": 20478,
+  "code_options_at": 24568
+ },
+ "scenarios": [
+  {
+   "name": "switch_and_unlock",
+   "device": {
+    "timeouts": []
+   },
+   "corrupt_canary": false,
+   "result": "ok",
+   "responses": [
+    "0000000000000000",
+    "03aa550000000000",
+    "01aa550000030000",
+    "02aa5500fafafafa",
+    "03aa5500fafafafa",
+    "09aa5500f4ff2479",
+    "09aa55015afa5845",
+    "06aa5500fafa38a1",
+    "05aa5500fafafafa",
+    "06aa5500fafa02c9"
+   ],
+   "trace_len": 5141,
+   "trace_sha256": "459a02172ceaa2a2cdb3ec50ac3ece54b64ee67cf7fba407820699e13426a419"
+  },
+  {
+   "name": "already_unlocked",
+   "device": {
+    "in_flasher": true,
+    "unlocked": true,
+    "timeouts": []
+   },
+   "corrupt_canary": false,
+   "result": "ok",
+   "responses": [
+    "03aa5500fafafafa",
+    "09aa5500f4ff2479",
+    "09aa55015afa5845",
+    "06aa5500fafa38a1",
+    "05aa5500fafafafa",
+    "06aa5500fafa02c9"
+   ],
+   "trace_len": 5132,
+   "trace_sha256": "b908d4780cc95764ef429e1e29484b45546436ec4d58c29dae808819592eb470"
+  },
+  {
+   "name": "send_timeout_retry",
+   "device": {
+    "in_flasher": true,
+    "unlocked": true,
+    "timeouts": [
+     40,
+     41,
+     1000
+    ]
+   },
+   "corrupt_canary": false,
+   "result": "ok",
+   "responses": [
+    "03aa5500fafafafa",
+    "09aa5500f4ff2479",
+    "09aa55015afa5845",
+    "06aa5500fafa38a1",
+    "05aa5500fafafafa",
+    "06aa5500fafa02c9"
+   ],
+   "trace_len": 5135,
+   "trace_sha256": "bee0a108c353c2638b0ae44fbf4851947951db686268f37f87a605523210c6a8"
+  },
+  {
+   "name": "code_option_mismatch",
+   "device": {
+    "in_flasher": true,
+    "unlocked": true,
+    "code_options": "0000000000000000",
+    "timeouts": []
+   },
+   "corrupt_canary": false,
+   "result": "error",
+   "responses": [
+    "03aa5500fafafafa",
+    "09aa550000000000",
+    "09aa550100000000"
+   ],
+   "trace_len": 6,
+   "trace_sha256": "76948a9d2896af0e916dd9bfed6c07c3484cd428880963c700ff83e5239fd6a7"
+  },
+  {
+   "name": "program_checksum_mismatch",
+   "device": {
+    "in_flasher": true,
+    "unlocked": true,
+    "corrupt_program": true,
+    "timeouts": []
+   },
+   "corrupt_canary": false,
+   "result": "error",
+   "responses": [
+    "03aa5500fafafafa",
+    "09aa5500f4ff2479",
+    "09aa55015afa5845",
+    "06aa5500fafa38a1",
+    "05aa5500fafafafa",
+    "06aa5500fafa03c9"
+   ],
+   "trace_len": 5131,
+   "trace_sha256": "e6d38297d90195f559e8a69d1115a439857ae50827149a71147de299880bdc91"
+  },
+  {
+   "name": "bad_canary",
+   "device": {
+    "in_flasher": true,
+    "unlocked": true,
+    "timeouts": []
+   },
+   "corrupt_canary": true,
+   "result": "error",
+   "responses": [],
+   "trace_len": 0,
+   "trace_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+ ]
+}

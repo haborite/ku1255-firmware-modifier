@@ -1,31 +1,44 @@
 use std::collections::{HashMap, BTreeMap};
-use dioxus::prelude::{Signal, ReadSignal, Resource, ReadableExt, WritableExt};
+use dioxus::prelude::{Signal, ReadSignal, Resource, ReadableExt};
+use std::borrow::Cow;
 use std::fs;
-use std::path::{Path};
-use std::io;
-use std::io::{Write};
+use std::path::PathBuf;
 use crate::models::{Board, MacroKey, TrackPointSpeedSettings};
+use crate::{paths, resources};
 
-use crate::utils::template::render_template_file;
-use crate::utils::diff::apply_diff_files;
-use crate::utils::format::format_asm_file;
-use crate::utils::commands::{run_dissn8, run_assn8, run_flashsn8_gui};
-use crate::utils::installer::{
-    extract_fw_from_installer_to_file,
-};
+use ku1255_core::template::render_template;
+use ku1255_core::diff::apply_diff;
+use ku1255_core::format::format_asm;
+use ku1255_core::installer::extract_fw_from_installer_to_vec;
+use ku1255_core::flash::{check_image, CheckedImage};
+use ku1255_core::sn8;
 
-const ORG_INSTALLER_PATH: &str = "firmware/tp_compact_usb_kb_with_trackpoint_fw.exe";
+const INSTALLER_NAME: &str = "tp_compact_usb_kb_with_trackpoint_fw.exe";
 
-const ORG_BIN_PATH: &str = "firmware/fw_org.bin";
-const MOD_BIN_PATH: &str = "firmware/fw_mod.bin";
+/// Path of the custom `diff.json`, if the user has placed one.
+pub fn custom_diff_path() -> Option<PathBuf> {
+    let path = paths::custom_template_dir().join("diff.json");
+    path.is_file().then_some(path)
+}
 
-const ORG_ASM_PATH: &str = "firmware/fw_org.asm";
-const FMT_ASM_PATH: &str = "firmware/fw_fmt.asm";
-const TMP_ASM_PATH: &str = "firmware/fw_tmp.asm";
-const MOD_ASM_PATH: &str = "firmware/fw_mod.asm";
-
-const DIFF_PATH: &str = "template/diff.json";
-const COMMENTS_PATH: &str = "template/comments.txt";
+/// `(diff.json, comments.txt)`: the custom ones in the data directory if present,
+/// otherwise the bundled ones.
+fn template_files() -> Result<(Cow<'static, str>, Cow<'static, str>), String> {
+    let Some(diff_path) = custom_diff_path() else {
+        return Ok((Cow::Borrowed(resources::DIFF_JSON), Cow::Borrowed(resources::COMMENTS)));
+    };
+    let read = |path: PathBuf| {
+        fs::read_to_string(&path).map_err(|e| format!("Failed to read {}: {}", path.display(), e))
+    };
+    let diff = read(diff_path)?;
+    let comments_path = paths::custom_template_dir().join("comments.txt");
+    let comments = if comments_path.is_file() {
+        Cow::Owned(read(comments_path)?)
+    } else {
+        Cow::Borrowed(resources::COMMENTS)
+    };
+    Ok((Cow::Owned(diff), comments))
+}
 
 
 fn validate_mod_key_position(
@@ -54,22 +67,32 @@ fn build_mod_fw(
     media_key_map: Signal<BTreeMap<u8, u16>>,
     enable_middle_click: Signal<bool>,
     selected_board: ReadSignal<Board>,
-) -> Result<(), String> {
+) -> Result<CheckedImage, String> {
 
     let Some(original_binary) = &*firmware_future.read_unchecked() else {
         return Err("Firmware binary not loaded.".into());
     };
 
-    let _r = extract_fw_from_installer_to_file(original_binary, ORG_BIN_PATH)?;
-    let _r = run_dissn8(ORG_BIN_PATH, ORG_ASM_PATH)
-        .map_err(|e| format!("dissn8 failed: {}", e))?;
-    let _r = format_asm_file(ORG_ASM_PATH, FMT_ASM_PATH)
-        .map_err(|e| format!("Failed to format ASM: {}", e))?;
-    let _r = apply_diff_files(FMT_ASM_PATH, DIFF_PATH, COMMENTS_PATH, TMP_ASM_PATH)
+    // Intermediate files are kept in the data directory for firmware development.
+    let dir = paths::firmware_dir().map_err(|e| format!("Failed to create firmware directory: {}", e))?;
+    let save = |name: &str, data: &[u8]| {
+        let path = dir.join(name);
+        fs::write(&path, data).map_err(|e| format!("Failed to write {}: {}", path.display(), e))
+    };
+
+    let original_fw = extract_fw_from_installer_to_vec(original_binary)?;
+    save("fw_org.bin", &original_fw)?;
+    let original_asm = sn8::disassemble(&original_fw, &sn8::Chip::sn8f2288())
+        .map_err(|e| format!("Disassembly failed: {}", e))?;
+    save("fw_org.asm", original_asm.as_bytes())?;
+    let formatted_asm = format_asm(&original_asm);
+    save("fw_fmt.asm", formatted_asm.as_bytes())?;
+    let (diff_json, comments) = template_files()?;
+    let template_asm = apply_diff(&formatted_asm, &diff_json, &comments)
         .map_err(|e| format!("Failed to apply diff: {}", e))?;
-    let _r = modify_asm_file(
-        TMP_ASM_PATH, 
-        MOD_ASM_PATH, 
+    save("fw_tmp.asm", template_asm.as_bytes())?;
+    let modified_asm = modify_asm(
+        &template_asm,
         &layout0(), 
         &layout1(), 
         fn_id(),
@@ -81,13 +104,17 @@ fn build_mod_fw(
         &selected_board(),
     )
         .map_err(|e| format!("Failed to modify ASM: {}", e))?;
-    let _r = run_assn8(MOD_ASM_PATH, MOD_BIN_PATH)
-        .map_err(|e| format!("assn8 failed: {}", e))?;
+    save("fw_mod.asm", modified_asm.as_bytes())?;
+    let modified_fw = sn8::assemble(&modified_asm)
+        .map_err(|e| format!("Assembly failed: {}", e))?;
+    save("fw_mod.bin", &modified_fw)?;
 
-    Ok(())
+    check_image(&modified_fw, &original_fw)
 }
 
-pub fn install_firmware_by_flashsn8(
+/// Build the modified firmware and run the offline safety checks.
+/// On success the image is ready to be flashed.
+pub fn prepare_firmware(
     id_layout_l0: Signal<BTreeMap<u8, Option<u8>>>,
     id_layout_l1: Signal<BTreeMap<u8, Option<u8>>>,
     firmware_future: Resource<Vec<u8>>,
@@ -98,74 +125,69 @@ pub fn install_firmware_by_flashsn8(
     media_key_map: Signal<BTreeMap<u8, u16>>,
     enable_middle_click: Signal<bool>,
     selected_board: ReadSignal<Board>,
-    error_msg: &mut Signal<Option<String>>,    
-) {
+) -> Result<CheckedImage, String> {
     if let Some(msg) = validate_mod_key_position(id_layout_l0, id_layout_l1) {
-        error_msg.set(Some(msg));
-        return;
+        return Err(msg);
     }
-
-    let _r = build_mod_fw(
-        firmware_future, 
-        id_layout_l0, 
-        id_layout_l1, 
+    build_mod_fw(
+        firmware_future,
+        id_layout_l0,
+        id_layout_l1,
         fn_id,
         single_mod_key_id,
-        trackpoint_speed_settings, 
-        macro_key_map, 
-        media_key_map, 
+        trackpoint_speed_settings,
+        macro_key_map,
+        media_key_map,
         enable_middle_click,
         selected_board,
-    ).unwrap_or_else(|err| {
-        error_msg.set(Some(format!("Failed to build modified firmware: {}", err)));
-        return;
-    });
-
-    run_flashsn8_gui(MOD_BIN_PATH, ORG_BIN_PATH).unwrap_or_else(|err| {
-        error_msg.set(Some(format!("Failed to launch flashsn8: {}", err)));
-        return;
-    });
-
+    )
+    .map_err(|err| format!("Failed to build modified firmware: {}", err))
 }
 
 pub async fn load_or_download_firmware(exe_url_cloned: &str) -> Vec<u8>  {
-    let firmware_path = Path::new(ORG_INSTALLER_PATH);
+    let firmware_path = match paths::firmware_dir() {
+        Ok(dir) => dir.join(INSTALLER_NAME),
+        Err(err) => {
+            eprintln!("Failed to create firmware directory: {}", err);
+            return vec![];
+        }
+    };
     if firmware_path.exists() {
-        println!("Firmware found at {}. Loading from disk...", ORG_INSTALLER_PATH);
-        return fs::read(firmware_path).unwrap_or_else(|err| {
+        println!("Firmware found at {}. Loading from disk...", firmware_path.display());
+        return fs::read(&firmware_path).unwrap_or_else(|err| {
             eprintln!("Error reading firmware: {}", err);
             vec![]
         });
     }
     println!("Firmware not found. Downloading from {}...", exe_url_cloned);
-    match reqwest::get(exe_url_cloned).await {
-        Ok(resp) => match resp.bytes().await {
-            Ok(bytes) => {
-                if let Err(err) = fs::File::create(firmware_path)
-                    .and_then(|mut file| file.write_all(&bytes))
-                {
-                    eprintln!("Failed to save firmware to {}: {}", ORG_INSTALLER_PATH, err);
-                } else {
-                    println!("Firmware downloaded and saved to {}", ORG_INSTALLER_PATH);
-                }
-                bytes.to_vec()
-            }
-            Err(err) => {
-                eprintln!("Failed to read response body: {}", err);
-                vec![]
-            }
-        },
+    let response = match reqwest::get(exe_url_cloned).await.and_then(|r| r.error_for_status()) {
+        Ok(resp) => resp,
         Err(err) => {
             eprintln!("Failed to download firmware: {}", err);
+            return vec![];
+        }
+    };
+    match response.bytes().await {
+        Ok(bytes) => {
+            // Only cache what looks like the installer, so a bad download is retried next time.
+            if extract_fw_from_installer_to_vec(&bytes).is_ok() {
+                match fs::write(&firmware_path, &bytes) {
+                    Ok(()) => println!("Firmware downloaded and saved to {}", firmware_path.display()),
+                    Err(err) => eprintln!("Failed to save firmware to {}: {}", firmware_path.display(), err),
+                }
+            }
+            bytes.to_vec()
+        }
+        Err(err) => {
+            eprintln!("Failed to read response body: {}", err);
             vec![]
         }
     }
 }
 
 
-fn modify_asm_file(
-    in_path: &str,
-    out_path: &str,
+fn modify_asm(
+    template: &str,
     layout0: &BTreeMap<u8, Option<u8>>,
     layout1: &BTreeMap<u8, Option<u8>>,
     fn_id: u8,
@@ -175,7 +197,7 @@ fn modify_asm_file(
     media_key_map: &BTreeMap<u8, u16>,
     enable_middle_click: bool,
     selected_board: &Board,
-) -> io::Result<()> {
+) -> Result<String, String> {
 
     // Prepare s_values and e_choices
     let mut s_values = HashMap::new();
@@ -256,6 +278,5 @@ fn modify_asm_file(
         s_values.insert(format!("km_{:01x}", i), format!("00{:02x}", km));
     }
 
-    let _r = render_template_file(in_path, out_path, &s_values, &e_choices)?;
-    Ok(())
+    render_template(template, &s_values, &e_choices).map_err(|e| e.to_string())
 }

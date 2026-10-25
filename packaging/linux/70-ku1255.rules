@@ -1,0 +1,7 @@
+# Allow the logged-in user to flash the Lenovo ThinkPad Compact USB Keyboard
+# with TrackPoint (KU-1255) without root.
+# Install: sudo cp 70-ku1255.rules /etc/udev/rules.d/ && sudo udevadm control --reload && sudo udevadm trigger
+# Normal mode
+KERNEL=="hidraw*", ATTRS{idVendor}=="17ef", ATTRS{idProduct}=="6047", TAG+="uaccess"
+# SN8 flasher mode
+KERNEL=="hidraw*", ATTRS{idVendor}=="0c45", ATTRS{idProduct}=="7500", TAG+="uaccess"

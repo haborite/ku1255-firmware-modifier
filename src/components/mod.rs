@@ -6,6 +6,7 @@ mod messages;
 mod macro_key;
 mod media_key;
 mod tp_speed_setting;
+mod flash_dialog;
 
 pub use keyboard::Keyboard;
 pub use selects::{SelectBoard, SelectLogicalLayout, SelectFnID, SelectSingleModKeyID};
@@ -15,3 +16,4 @@ pub use messages::ErrorMessage;
 pub use macro_key::MacroKeySetting;
 pub use media_key::MediaKeySetting;
 pub use tp_speed_setting::*;
+pub use flash_dialog::FlashDialog;

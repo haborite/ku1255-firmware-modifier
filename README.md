@@ -24,17 +24,49 @@ Since all modifications are written directly to the keyboard's firmware, **no sy
 
 ## ✅ System Requirements
 
-- Currently the app only works on MS Windows, but macOS and Linux versions can be developed upon request.
-- Microsoft Visual C++ Redistributable is required in MS Windows.
+- **Windows** 10 / 11 (x64)
+- **Linux** (x64): Debian / Ubuntu and derivatives via the `.deb` package, other distributions via the AppImage
+- **macOS**: not supported yet (an Apple Silicon build exists but flashing has not been verified)
 - Once the firmware is installed, the keyboard works on **most operating systems**, regardless of the one used during installation.
 - Internet connection is required at the first run of the app to download the official firmware installer from Lenovo web page.
 
 ## 🚀 How to Download and Run
 
-1. Download the [latest version](https://github.com/haborite/ku1255-firmware-modifier/releases/latest) of `ku1255-firmware-modifier.zip` from the [Releases](https://github.com/haborite/ku1255-firmware-modifier/releases/latest) page.
-2. Extract the downloaded `.zip` file.
-3. Launch `ku1255-firmware-modifier.exe`.
-    - If you see a warning saying "Windows protected your PC" and "Microsoft Defender SmartScreen prevented an unrecognized app from starting", click "More info" and then select "Run anyway" to proceed.
+Download the file for your OS from the [latest release](https://github.com/haborite/ku1255-firmware-modifier/releases/latest).
+
+**Windows (portable)**
+1. Download `*_x64-portable.zip` and extract it.
+2. Run `ku1255-firmware-modifier.exe`. No installation is needed.
+    - The app keeps its files in the `data` folder next to the exe, so you can move the whole folder (e.g. to a USB drive) and nothing is left on the PC. The app needs write access to the `data` folder.
+    - If you see "Windows protected your PC" (Microsoft Defender SmartScreen), click "More info" and then "Run anyway".
+    - The app needs the WebView2 runtime, which ships with Windows 10/11. If the app does not start, install the runtime from [Microsoft](https://developer.microsoft.com/microsoft-edge/webview2/), or use the installer below.
+
+**Windows (installer)**
+1. Download and run the installer (`*-setup.exe`).
+    - If the WebView2 runtime is missing, the installer downloads it.
+2. Launch **Ku1255FirmwareModifier** from the Start menu.
+
+**Linux (Debian / Ubuntu)**
+1. Download the `.deb` file and install it:
+    ```
+    sudo apt install ./ku1255-firmware-modifier_*_amd64.deb
+    ```
+    This also installs a udev rule so that you can flash the keyboard without root.
+2. Unplug and reconnect the keyboard, then launch the app from the application menu.
+
+**Linux (other distributions)**
+1. Download the `.AppImage` file and make it executable: `chmod +x ku1255-firmware-modifier*.AppImage`
+2. Install the [udev rule](packaging/linux/70-ku1255.rules) to flash without root:
+    ```
+    sudo cp 70-ku1255.rules /etc/udev/rules.d/
+    sudo udevadm control --reload && sudo udevadm trigger
+    ```
+3. Run the AppImage.
+
+**Where files are stored**  
+The downloaded official installer, example configs and intermediate firmware files are kept in:
+- Windows: `%LOCALAPPDATA%\ku1255-firmware-modifier` (portable version: the `data` folder next to the exe)
+- Linux: `~/.local/share/ku1255-firmware-modifier`
 
 ## 🖥️ Interface Overview
 
@@ -69,35 +101,49 @@ Since all modifications are written directly to the keyboard's firmware, **no sy
    Other useful settings (e.g. Assign Fn-key functionality in addition to the original behavior of any selected key.)
 
 9. **Load config**  
-   Load a previously saved keymap from a `.json` file.
+   Load a previously saved keymap from a `.json` file. The dialog opens in the `examples` folder of the data directory.
 
 10. **Save config**  
    Save the current keymap to a `.json` file.
 
 11. **Install firmware**  
-   Flash the current configuration to the keyboard.  
-   Make sure the keyboard is plugged in before proceeding.  
+   Build the firmware and open the install dialog. Press **Start** to flash the keyboard.  
+   Make sure the keyboard is plugged in, and do not unplug it while flashing.  
    After installation, unplug and reconnect the keyboard to apply the changes.
 
 ## 🔧 Example: Swapping Fn and Ctrl Keys
 
-1. Click `Load config` and open the file: `example/Swap-Fn-Ctrl.json`
+1. Click `Load config` and open the file: `examples/Swap-Fn-Ctrl.json`
 2. Select keyboard you use in the `Keyboard` selection.
 3. In the **Main Layer**, verify that the `Fn` and `Left Ctrl` keys are swapped.  
    (Swapped keys will be highlighted in blue.)
 4. Click `Install firmware`.
-5. When the firmware installer launches, click **Start**.
-6. After installation finishes, close the installer.
+5. In the install dialog, click **Start**.
+6. After "Flashing finished" is shown, click **Finish**.
 7. Unplug and reconnect the keyboard. The new keymap will take effect.
 
 ## ♻️ Firmware recovery
-- Firmware can be installed into the keyboard repeatedly
+- Firmware can be installed into the keyboard repeatedly.
+- If flashing fails midway, the keyboard starts in its firmware update mode; run the installation again (**Retry**).
 - To restore your device to its factory firmware settings, use the [Lenovo Official Firmware Installer](https://support.lenovo.com/us/en/solutions/pd026745-thinkpad-compact-usb-keyboard-with-trackpoint-overview-and-service-parts).
+
+## 🧪 Custom firmware template (advanced)
+The firmware is built from a template bundled in the app (`template/diff.json` and `template/comments.txt`).
+To use your own template, put it in the `template` folder of the data directory (see **Where files are stored**):
+- `template/diff.json` (required)
+- `template/comments.txt` (optional; the bundled one is used if absent)
+
+While a custom `diff.json` is present, the install dialog shows a warning. Delete it to go back to the bundled template.
+A custom template is not updated with the app, and a broken one can produce firmware that does not work; restore with the official Lenovo installer if needed.
+See the [development guide](dev/README.md) for how to make one.
 
 ---
 
 # Development
 See https://github.com/haborite/ku1255-firmware-modifier/tree/main/dev#readme
+
+# License
+This project is licensed under the [MIT](LICENSE).
 
 # Acknowledgements
 The firmware binary analysis methodology employed in this project is based on the discussion in the following thread
